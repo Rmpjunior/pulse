@@ -94,14 +94,14 @@ export function DashboardSidebar() {
               <li className="mt-auto">
                 <div className="rounded-xl bg-gradient-to-r from-orange-500/10 to-purple-500/10 p-4 border border-primary/20">
                   <h3 className="text-sm font-semibold gradient-primary-text">
-                    Upgrade para Plus
+                    {t("dashboard.upgrade.title")}
                   </h3>
                   <p className="mt-1 text-xs text-muted-foreground">
-                    Desbloqueie recursos premium
+                    {t("dashboard.upgrade.description")}
                   </p>
                   <Link href="/dashboard/subscription">
-                    <button className="mt-3 w-full rounded-lg bg-primary px-3 py-2 text-xs font-semibold text-primary-foreground hover:bg-primary/90 transition-colors">
-                      Ver planos
+                    <button className="mt-3 w-full rounded-lg bg-primary px-3 py-2 text-xs font-semibold text-primary-foreground hover:bg-primary/90 transition-colors cursor-pointer">
+                      {t("dashboard.upgrade.button")}
                     </button>
                   </Link>
                 </div>

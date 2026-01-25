@@ -1,8 +1,7 @@
 import { useTranslations } from "next-intl";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
-import { LanguageToggle } from "@/components/ui/language-toggle";
 import {
   Link as LinkIcon,
   Play,
@@ -57,7 +56,6 @@ export default function HomePage() {
           </nav>
 
           <div className="flex items-center gap-2">
-            <LanguageToggle />
             <ThemeToggle />
             <Link href="/login">
               <Button variant="ghost" size="sm">

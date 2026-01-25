@@ -128,18 +128,23 @@
   "dashboard": {
     "title": "Minha página",
     "welcome": "Olá, {name}!",
+    "subtitle": "Gerencie sua página e acompanhe seu desempenho.",
     "createPage": "Criar página",
     "viewPage": "Ver página",
     "editPage": "Editar página",
     "unpublished": "Não publicada",
     "published": "Publicada",
+    "yourPage": "Sua página",
     "views": "{count} visualizações",
     "clicks": "{count} cliques",
     "stats": {
       "title": "Estatísticas",
       "views": "Visualizações",
+      "viewsDescription": "Total de visualizações",
       "clicks": "Cliques",
-      "ctr": "Taxa de cliques"
+      "clicksDescription": "Cliques em links",
+      "ctr": "Taxa de cliques",
+      "ctrDescription": "Taxa de conversão"
     },
     "quickActions": {
       "title": "Ações rápidas",
@@ -147,6 +152,15 @@
       "editTheme": "Editar tema",
       "viewAnalytics": "Ver análises",
       "share": "Compartilhar"
+    },
+    "upgrade": {
+      "title": "Upgrade para Plus",
+      "description": "Desbloqueie recursos premium",
+      "button": "Ver planos"
+    },
+    "firstPage": {
+      "title": "Crie sua primeira página",
+      "description": "Configure seu perfil e adicione links, destaques e muito mais para criar sua página personalizada."
     }
   },
   "editor": {

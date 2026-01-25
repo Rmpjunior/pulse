@@ -1,7 +1,8 @@
 import { getRequestConfig } from 'next-intl/server';
-import { notFound } from 'next/navigation';
 
-export const locales = ['pt-BR', 'en'] as const;
+// Currently supporting only Portuguese
+// See MULTI_LANGUAGE_SUPPORT.md for future multi-language implementation
+export const locales = ['pt-BR'] as const;
 export const defaultLocale = 'pt-BR' as const;
 
 export type Locale = (typeof locales)[number];

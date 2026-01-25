@@ -6,19 +6,10 @@ import { locales, defaultLocale } from './i18n/config';
 const intlMiddleware = createMiddleware({
   locales,
   defaultLocale,
-  localePrefix: 'as-needed',
+  localePrefix: 'never', // No locale prefix since we only support Portuguese
 });
 
-// Public routes that don't require authentication
-const publicRoutes = [
-  '/',
-  '/login',
-  '/register',
-  '/forgot-password',
-  '/pricing',
-];
-
-// Routes that should skip i18n prefix (API routes, public pages)
+// Routes that should skip i18n (API routes, static files)
 const skipIntlRoutes = [
   '/api',
   '/_next',
@@ -28,19 +19,11 @@ const skipIntlRoutes = [
   '/icons',
 ];
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Skip middleware for API routes and static files
+  // Skip for API routes and static files
   if (skipIntlRoutes.some((route) => pathname.startsWith(route))) {
-    return NextResponse.next();
-  }
-
-  // Check if it's a public bio page (username route)
-  // Username routes are at root level: /username (not /pt-BR/username)
-  const isUsernamePath = /^\/[a-z0-9_-]{3,20}$/i.test(pathname);
-  if (isUsernamePath) {
-    // Let it pass through to the [username] route
     return NextResponse.next();
   }
 

@@ -55,11 +55,9 @@ export default async function DashboardPage() {
       {/* Welcome section */}
       <div>
         <h1 className="text-2xl font-bold tracking-tight">
-          {t("welcome", { name: session?.user?.name || "Usuário" })}
+          {t("welcome", { name: session?.user?.name || "User" })}
         </h1>
-        <p className="text-muted-foreground">
-          Gerencie sua página e acompanhe seu desempenho.
-        </p>
+        <p className="text-muted-foreground">{t("subtitle")}</p>
       </div>
 
       {page ? (
@@ -78,7 +76,7 @@ export default async function DashboardPage() {
                   {page._count.pageViews}
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  Total de visualizações
+                  {t("stats.viewsDescription")}
                 </p>
               </CardContent>
             </Card>
@@ -93,7 +91,7 @@ export default async function DashboardPage() {
               <CardContent>
                 <div className="text-2xl font-bold">{clickCount}</div>
                 <p className="text-xs text-muted-foreground">
-                  Cliques em links
+                  {t("stats.clicksDescription")}
                 </p>
               </CardContent>
             </Card>
@@ -113,7 +111,7 @@ export default async function DashboardPage() {
                   %
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  Taxa de conversão
+                  {t("stats.ctrDescription")}
                 </p>
               </CardContent>
             </Card>
@@ -124,7 +122,7 @@ export default async function DashboardPage() {
             <CardHeader>
               <div className="flex items-center justify-between">
                 <div>
-                  <CardTitle>Sua página</CardTitle>
+                  <CardTitle>{t("yourPage")}</CardTitle>
                   <CardDescription>
                     pulse.vercel.app/{page.username}
                     {page.published ? (
@@ -139,7 +137,7 @@ export default async function DashboardPage() {
                   </CardDescription>
                 </div>
                 <div className="flex gap-2">
-                  <Link href={`/${page.username}`} target="_blank">
+                  <Link href={`/p/${page.username}`} target="_blank">
                     <Button variant="outline" size="sm">
                       <ExternalLink className="h-4 w-4 mr-2" />
                       {t("viewPage")}
@@ -221,11 +219,10 @@ export default async function DashboardPage() {
               <Plus className="h-8 w-8 text-white" />
             </div>
             <h2 className="text-xl font-semibold mb-2">
-              Crie sua primeira página
+              {t("firstPage.title")}
             </h2>
             <p className="text-muted-foreground text-center max-w-md mb-6">
-              Configure seu perfil e adicione links, destaques e muito mais para
-              criar sua página personalizada.
+              {t("firstPage.description")}
             </p>
             <Link href="/dashboard/editor">
               <Button variant="gradient" size="lg">

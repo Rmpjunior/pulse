@@ -4,7 +4,6 @@ import { useTranslations } from "next-intl";
 import { signOut } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
-import { LanguageToggle } from "@/components/ui/language-toggle";
 import { LogOut, Menu, User } from "lucide-react";
 import { getInitials } from "@/lib/utils";
 
@@ -37,7 +36,6 @@ export function DashboardHeader({ user }: DashboardHeaderProps) {
         <div className="flex flex-1" />
 
         <div className="flex items-center gap-x-4 lg:gap-x-6">
-          <LanguageToggle />
           <ThemeToggle />
 
           {/* Separator */}
