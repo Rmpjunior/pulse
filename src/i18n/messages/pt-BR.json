@@ -1,0 +1,277 @@
+{
+  "common": {
+    "appName": "Pulse",
+    "tagline": "Transforme seu bio em um minisite que converte",
+    "loading": "Carregando...",
+    "error": "Algo deu errado",
+    "save": "Salvar",
+    "cancel": "Cancelar",
+    "delete": "Excluir",
+    "edit": "Editar",
+    "add": "Adicionar",
+    "back": "Voltar",
+    "next": "Próximo",
+    "previous": "Anterior",
+    "confirm": "Confirmar",
+    "close": "Fechar",
+    "search": "Buscar",
+    "settings": "Configurações",
+    "profile": "Perfil",
+    "logout": "Sair",
+    "or": "ou"
+  },
+  "landing": {
+    "hero": {
+      "title": "Transforme seu bio em um minisite profissional",
+      "subtitle": "Centralize seus links, produtos e conteúdo em uma única página. Fácil de criar, fácil de compartilhar.",
+      "cta": "Criar minha página grátis",
+      "ctaSecondary": "Ver exemplos"
+    },
+    "features": {
+      "title": "Tudo que você precisa",
+      "links": {
+        "title": "Links personalizados",
+        "description": "Adicione botões de link para qualquer URL"
+      },
+      "media": {
+        "title": "Mídia incorporada",
+        "description": "YouTube, Spotify, e mais"
+      },
+      "catalog": {
+        "title": "Catálogo de produtos",
+        "description": "Mostre seus produtos e serviços"
+      },
+      "analytics": {
+        "title": "Análises detalhadas",
+        "description": "Acompanhe visitas e cliques"
+      },
+      "form": {
+        "title": "Formulários de contato",
+        "description": "Capture leads facilmente"
+      },
+      "themes": {
+        "title": "Temas personalizáveis",
+        "description": "Paletas de cores e fontes"
+      }
+    },
+    "pricing": {
+      "title": "Escolha seu plano",
+      "free": {
+        "name": "Grátis",
+        "price": "R$0",
+        "period": "para sempre",
+        "features": [
+          "Até 5 seções",
+          "10 paletas de cores",
+          "Link pulse.vercel.app/usuario"
+        ]
+      },
+      "plus": {
+        "name": "Plus",
+        "priceMonthly": "R$15,90",
+        "priceYearly": "R$9,90",
+        "period": "/mês",
+        "periodYearly": "/mês (cobrado anualmente)",
+        "features": [
+          "Seções ilimitadas",
+          "Cores personalizadas",
+          "Análises detalhadas",
+          "Domínio personalizado",
+          "Sem marca d'água"
+        ],
+        "cta": "Assinar Plus"
+      }
+    },
+    "footer": {
+      "madeWith": "Feito com",
+      "by": "por Pulse"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Entrar",
+      "subtitle": "Bem-vindo de volta!",
+      "email": "E-mail",
+      "password": "Senha",
+      "submit": "Entrar",
+      "forgotPassword": "Esqueci minha senha",
+      "noAccount": "Não tem uma conta?",
+      "register": "Criar conta",
+      "withGoogle": "Continuar com Google"
+    },
+    "register": {
+      "title": "Criar conta",
+      "subtitle": "Comece a criar sua página hoje",
+      "name": "Nome",
+      "email": "E-mail",
+      "password": "Senha",
+      "confirmPassword": "Confirmar senha",
+      "submit": "Criar conta",
+      "hasAccount": "Já tem uma conta?",
+      "login": "Entrar",
+      "withGoogle": "Continuar com Google"
+    },
+    "forgotPassword": {
+      "title": "Esqueci minha senha",
+      "subtitle": "Enviaremos um link para redefinir sua senha",
+      "email": "E-mail",
+      "submit": "Enviar link",
+      "backToLogin": "Voltar para o login"
+    },
+    "errors": {
+      "invalidCredentials": "E-mail ou senha inválidos",
+      "emailInUse": "Este e-mail já está em uso",
+      "weakPassword": "A senha deve ter pelo menos 8 caracteres",
+      "passwordMismatch": "As senhas não coincidem"
+    }
+  },
+  "dashboard": {
+    "title": "Minha página",
+    "welcome": "Olá, {name}!",
+    "createPage": "Criar página",
+    "viewPage": "Ver página",
+    "editPage": "Editar página",
+    "unpublished": "Não publicada",
+    "published": "Publicada",
+    "views": "{count} visualizações",
+    "clicks": "{count} cliques",
+    "stats": {
+      "title": "Estatísticas",
+      "views": "Visualizações",
+      "clicks": "Cliques",
+      "ctr": "Taxa de cliques"
+    },
+    "quickActions": {
+      "title": "Ações rápidas",
+      "addBlock": "Adicionar bloco",
+      "editTheme": "Editar tema",
+      "viewAnalytics": "Ver análises",
+      "share": "Compartilhar"
+    }
+  },
+  "editor": {
+    "title": "Editor",
+    "preview": "Pré-visualização",
+    "desktop": "Desktop",
+    "mobile": "Mobile",
+    "profile": {
+      "title": "Perfil",
+      "avatar": "Foto de perfil",
+      "displayName": "Nome de exibição",
+      "bio": "Biografia",
+      "uploadPhoto": "Enviar foto"
+    },
+    "blocks": {
+      "title": "Blocos",
+      "add": "Adicionar bloco",
+      "empty": "Nenhum bloco ainda. Clique em + para adicionar.",
+      "types": {
+        "link": "Link",
+        "highlight": "Destaque",
+        "media": "Mídia",
+        "catalog": "Catálogo",
+        "form": "Formulário",
+        "socialIcons": "Ícones sociais",
+        "text": "Texto",
+        "divider": "Divisor"
+      }
+    },
+    "theme": {
+      "title": "Tema",
+      "palette": "Paleta de cores",
+      "customColors": "Cores personalizadas",
+      "font": "Fonte",
+      "buttonStyle": "Estilo de botão",
+      "darkMode": "Modo escuro"
+    },
+    "publish": {
+      "button": "Publicar",
+      "unpublish": "Despublicar",
+      "confirmUnpublish": "Tem certeza que deseja despublicar?"
+    }
+  },
+  "blocks": {
+    "link": {
+      "label": "Texto do botão",
+      "url": "URL",
+      "style": "Estilo"
+    },
+    "highlight": {
+      "title": "Título",
+      "description": "Descrição",
+      "image": "Imagem",
+      "url": "URL (opcional)"
+    },
+    "media": {
+      "type": "Tipo",
+      "embedUrl": "URL do embed",
+      "youtube": "YouTube",
+      "vimeo": "Vimeo",
+      "spotify": "Spotify",
+      "soundcloud": "SoundCloud"
+    },
+    "socialIcons": {
+      "addIcon": "Adicionar ícone",
+      "platform": "Plataforma",
+      "url": "URL do perfil"
+    },
+    "catalog": {
+      "addItem": "Adicionar item",
+      "name": "Nome",
+      "description": "Descrição",
+      "price": "Preço",
+      "image": "Imagem",
+      "url": "URL"
+    },
+    "form": {
+      "title": "Título do formulário",
+      "addField": "Adicionar campo",
+      "fieldLabel": "Rótulo",
+      "fieldType": "Tipo",
+      "required": "Obrigatório",
+      "submitLabel": "Texto do botão"
+    }
+  },
+  "settings": {
+    "title": "Configurações",
+    "account": {
+      "title": "Conta",
+      "name": "Nome",
+      "email": "E-mail",
+      "changePassword": "Alterar senha",
+      "deleteAccount": "Excluir conta"
+    },
+    "subscription": {
+      "title": "Assinatura",
+      "currentPlan": "Plano atual",
+      "free": "Grátis",
+      "plus": "Plus",
+      "upgrade": "Fazer upgrade",
+      "manage": "Gerenciar assinatura",
+      "expiresAt": "Expira em {date}"
+    },
+    "language": {
+      "title": "Idioma",
+      "portuguese": "Português",
+      "english": "English"
+    },
+    "theme": {
+      "title": "Aparência",
+      "light": "Claro",
+      "dark": "Escuro",
+      "system": "Sistema"
+    }
+  },
+  "publicPage": {
+    "loading": "Carregando...",
+    "notFound": "Página não encontrada",
+    "watermark": "Feito com Pulse"
+  },
+  "errors": {
+    "notFound": "Página não encontrada",
+    "unauthorized": "Você precisa estar logado para acessar esta página",
+    "forbidden": "Você não tem permissão para acessar este recurso",
+    "serverError": "Erro interno do servidor",
+    "networkError": "Erro de conexão"
+  }
+}
