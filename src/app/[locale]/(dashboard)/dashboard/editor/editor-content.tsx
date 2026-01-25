@@ -2,13 +2,15 @@
 
 import { useState, useCallback } from "react";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BlockEditor } from "@/components/editor/block-editor";
-import { BlockRenderer } from "@/components/blocks/block-renderer";
+import { ThemedPreview } from "@/components/editor/themed-preview";
+import { ThemeEditor } from "@/components/editor/theme-editor";
 import { defaultBlockContent, type BlockType } from "@/types/blocks";
+import { defaultThemeSettings, type ThemeSettings } from "@/types/theme";
 import {
   Plus,
   Eye,
@@ -23,6 +25,8 @@ import {
   Minus,
   Globe,
   Loader2,
+  Palette,
+  LayoutGrid,
 } from "lucide-react";
 
 interface Block {
@@ -47,6 +51,7 @@ interface Page {
 interface EditorContentProps {
   page: Page | null;
   userId: string;
+  isPlusUser?: boolean;
 }
 
 const blockTypes = [
@@ -58,14 +63,24 @@ const blockTypes = [
   { type: "DIVIDER", icon: Minus, label: "Divisor" },
 ];
 
-export function EditorContent({ page, userId }: EditorContentProps) {
+export function EditorContent({
+  page,
+  userId,
+  isPlusUser = false,
+}: EditorContentProps) {
   const t = useTranslations("editor");
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const initialTab = searchParams.get("tab") === "theme" ? "theme" : "content";
 
+  const [activeTab, setActiveTab] = useState<"content" | "theme">(initialTab);
   const [username, setUsername] = useState(page?.username || "");
   const [displayName, setDisplayName] = useState(page?.displayName || "");
   const [bio, setBio] = useState(page?.bio || "");
   const [blocks, setBlocks] = useState<Block[]>(page?.blocks || []);
+  const [themeSettings, setThemeSettings] = useState<ThemeSettings>(
+    (page?.theme as ThemeSettings) || defaultThemeSettings,
+  );
   const [isSaving, setIsSaving] = useState(false);
   const [isCreating, setIsCreating] = useState(false);
   const [isPublishing, setIsPublishing] = useState(false);
@@ -104,7 +119,7 @@ export function EditorContent({ page, userId }: EditorContentProps) {
       await fetch(`/api/pages/${page.id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ displayName, bio }),
+        body: JSON.stringify({ displayName, bio, theme: themeSettings }),
       });
       router.refresh();
     } catch (error) {
@@ -238,7 +253,6 @@ export function EditorContent({ page, userId }: EditorContentProps) {
         newBlocks[index],
       ];
 
-      // Update orders
       const updatedBlocks = newBlocks.map((b, i) => ({ ...b, order: i }));
       setBlocks(updatedBlocks);
 
@@ -329,104 +343,140 @@ export function EditorContent({ page, userId }: EditorContentProps) {
   return (
     <div className="flex gap-6 h-[calc(100vh-8rem)]">
       {/* Editor Panel */}
-      <div className="flex-1 overflow-y-auto space-y-6 pr-2">
-        {/* Profile Section */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg">{t("profile.title")}</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="flex items-center gap-4">
-              <div className="h-20 w-20 rounded-full bg-gradient-to-br from-orange-500 to-purple-500 flex items-center justify-center text-white text-2xl font-bold">
-                {displayName?.[0]?.toUpperCase() || "?"}
-              </div>
-              <Button variant="outline" size="sm">
-                {t("profile.uploadPhoto")}
-              </Button>
-            </div>
+      <div className="flex-1 overflow-y-auto pr-2">
+        {/* Tabs */}
+        <div className="flex gap-1 p-1 bg-muted rounded-lg mb-6 w-fit">
+          <button
+            onClick={() => setActiveTab("content")}
+            className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+              activeTab === "content"
+                ? "bg-background shadow-sm text-foreground"
+                : "text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            <LayoutGrid className="h-4 w-4" />
+            Conteúdo
+          </button>
+          <button
+            onClick={() => setActiveTab("theme")}
+            className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+              activeTab === "theme"
+                ? "bg-background shadow-sm text-foreground"
+                : "text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            <Palette className="h-4 w-4" />
+            Tema
+          </button>
+        </div>
 
-            <div>
-              <label className="text-sm font-medium mb-2 block">
-                {t("profile.displayName")}
-              </label>
-              <Input
-                value={displayName}
-                onChange={(e) => setDisplayName(e.target.value)}
-                placeholder="Seu nome"
-              />
-            </div>
+        {activeTab === "content" ? (
+          <div className="space-y-6">
+            {/* Profile Section */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">{t("profile.title")}</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex items-center gap-4">
+                  <div className="h-20 w-20 rounded-full bg-gradient-to-br from-orange-500 to-purple-500 flex items-center justify-center text-white text-2xl font-bold">
+                    {displayName?.[0]?.toUpperCase() || "?"}
+                  </div>
+                  <Button variant="outline" size="sm">
+                    {t("profile.uploadPhoto")}
+                  </Button>
+                </div>
 
-            <div>
-              <label className="text-sm font-medium mb-2 block">
-                {t("profile.bio")}
-              </label>
-              <textarea
-                value={bio}
-                onChange={(e) => setBio(e.target.value)}
-                placeholder="Uma breve descrição..."
-                className="w-full min-h-[80px] rounded-lg border border-input bg-background px-4 py-2 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-ring"
-              />
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Blocks Section */}
-        <Card>
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <CardTitle className="text-lg">{t("blocks.title")}</CardTitle>
-              <Button
-                variant="gradient"
-                size="sm"
-                onClick={() => setShowBlockPicker(!showBlockPicker)}
-              >
-                <Plus className="h-4 w-4 mr-1" />
-                {t("blocks.add")}
-              </Button>
-            </div>
-          </CardHeader>
-          <CardContent>
-            {showBlockPicker && (
-              <div className="grid grid-cols-3 gap-2 mb-4 p-4 bg-muted/50 rounded-lg">
-                {blockTypes.map(({ type, icon: Icon, label }) => (
-                  <button
-                    key={type}
-                    onClick={() => handleAddBlock(type)}
-                    className="flex flex-col items-center gap-2 p-3 rounded-lg bg-card border border-border hover:border-primary transition-colors"
-                  >
-                    <Icon className="h-5 w-5 text-primary" />
-                    <span className="text-xs">{label}</span>
-                  </button>
-                ))}
-              </div>
-            )}
-
-            {blocks.length === 0 ? (
-              <p className="text-center text-muted-foreground py-8">
-                {t("blocks.empty")}
-              </p>
-            ) : (
-              <div className="space-y-3">
-                {blocks.map((block, index) => (
-                  <BlockEditor
-                    key={block.id}
-                    block={block as any}
-                    onUpdate={handleUpdateBlock}
-                    onDelete={handleDeleteBlock}
-                    onToggleVisibility={handleToggleVisibility}
-                    onMoveUp={(id) => handleMoveBlock(id, "up")}
-                    onMoveDown={(id) => handleMoveBlock(id, "down")}
-                    isFirst={index === 0}
-                    isLast={index === blocks.length - 1}
+                <div>
+                  <label className="text-sm font-medium mb-2 block">
+                    {t("profile.displayName")}
+                  </label>
+                  <Input
+                    value={displayName}
+                    onChange={(e) => setDisplayName(e.target.value)}
+                    placeholder="Seu nome"
                   />
-                ))}
-              </div>
-            )}
-          </CardContent>
-        </Card>
+                </div>
+
+                <div>
+                  <label className="text-sm font-medium mb-2 block">
+                    {t("profile.bio")}
+                  </label>
+                  <textarea
+                    value={bio}
+                    onChange={(e) => setBio(e.target.value)}
+                    placeholder="Uma breve descrição..."
+                    className="w-full min-h-[80px] rounded-lg border border-input bg-background px-4 py-2 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-ring"
+                  />
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Blocks Section */}
+            <Card>
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-lg">{t("blocks.title")}</CardTitle>
+                  <Button
+                    variant="gradient"
+                    size="sm"
+                    onClick={() => setShowBlockPicker(!showBlockPicker)}
+                  >
+                    <Plus className="h-4 w-4 mr-1" />
+                    {t("blocks.add")}
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent>
+                {showBlockPicker && (
+                  <div className="grid grid-cols-3 gap-2 mb-4 p-4 bg-muted/50 rounded-lg">
+                    {blockTypes.map(({ type, icon: Icon, label }) => (
+                      <button
+                        key={type}
+                        onClick={() => handleAddBlock(type)}
+                        className="flex flex-col items-center gap-2 p-3 rounded-lg bg-card border border-border hover:border-primary transition-colors"
+                      >
+                        <Icon className="h-5 w-5 text-primary" />
+                        <span className="text-xs">{label}</span>
+                      </button>
+                    ))}
+                  </div>
+                )}
+
+                {blocks.length === 0 ? (
+                  <p className="text-center text-muted-foreground py-8">
+                    {t("blocks.empty")}
+                  </p>
+                ) : (
+                  <div className="space-y-3">
+                    {blocks.map((block, index) => (
+                      <BlockEditor
+                        key={block.id}
+                        block={block as any}
+                        onUpdate={handleUpdateBlock}
+                        onDelete={handleDeleteBlock}
+                        onToggleVisibility={handleToggleVisibility}
+                        onMoveUp={(id) => handleMoveBlock(id, "up")}
+                        onMoveDown={(id) => handleMoveBlock(id, "down")}
+                        isFirst={index === 0}
+                        isLast={index === blocks.length - 1}
+                      />
+                    ))}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </div>
+        ) : (
+          <ThemeEditor
+            settings={themeSettings}
+            onChange={setThemeSettings}
+            isPlusUser={isPlusUser}
+          />
+        )}
 
         {/* Action buttons */}
-        <div className="flex gap-3">
+        <div className="flex gap-3 mt-6 sticky bottom-0 bg-background py-4">
           <Button
             variant="gradient"
             className="flex-1"
@@ -476,27 +526,13 @@ export function EditorContent({ page, userId }: EditorContentProps) {
         </div>
 
         <div className="flex-1 bg-muted rounded-2xl p-2 overflow-hidden">
-          <div className="h-full bg-background rounded-xl overflow-y-auto">
-            {/* Preview content */}
-            <div className="p-6">
-              <div className="text-center mb-6">
-                <div className="h-20 w-20 rounded-full bg-gradient-to-br from-orange-500 to-purple-500 flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">
-                  {displayName?.[0]?.toUpperCase() || "?"}
-                </div>
-                <h2 className="font-semibold text-lg">
-                  {displayName || "@" + username}
-                </h2>
-                <p className="text-sm text-muted-foreground mt-1">{bio}</p>
-              </div>
-
-              <div className="space-y-3">
-                {blocks
-                  .filter((b) => b.visible)
-                  .map((block) => (
-                    <BlockRenderer key={block.id} block={block as any} />
-                  ))}
-              </div>
-            </div>
+          <div className="h-full rounded-xl overflow-y-auto">
+            <ThemedPreview
+              settings={themeSettings}
+              displayName={displayName}
+              bio={bio}
+              blocks={blocks}
+            />
           </div>
         </div>
 
