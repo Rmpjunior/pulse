@@ -13,7 +13,21 @@ Route: /[locale]/p/[username]/page.tsx
 
 ---
 
-## Prerequisites for Migration
+## Migration Options
+
+| Option                 | Cost   | Pros                      | Cons               |
+| ---------------------- | ------ | ------------------------- | ------------------ |
+| **Vercel Pro**         | $20/mo | Zero config, built-in SSL | Higher cost        |
+| **VPS + Nginx**        | ~$5/mo | Low cost, full control    | Server maintenance |
+| **Cloudflare Workers** | ~$5/mo | Edge speed, no server     | Learning curve     |
+
+Choose the option that best fits your budget and technical comfort.
+
+---
+
+## Option A: Vercel Pro (Recommended for simplicity)
+
+### Prerequisites
 
 1. **Vercel Pro Plan** ($20/month) - Required for wildcard subdomains
 2. **Custom Domain** - e.g., `pulse.app` or `mypulse.com`
@@ -220,3 +234,134 @@ If issues occur, revert to path-based URLs:
 - [Vercel Wildcard Domains](https://vercel.com/docs/projects/domains#wildcard-domains)
 - [Vercel Domains API](https://vercel.com/docs/rest-api/endpoints#domains)
 - [next-intl Middleware](https://next-intl-docs.vercel.app/docs/routing/middleware)
+
+---
+
+## Option B: VPS + Nginx Reverse Proxy (Budget-friendly)
+
+This approach uses a cheap VPS (~$5/mo) running nginx to handle wildcard subdomains and proxy requests to Vercel.
+
+### Architecture
+
+```
+User visits: maria.pulse.app
+       ↓
+   DNS (*.pulse.app → VPS IP)
+       ↓
+   VPS (Nginx reverse proxy)
+       ↓
+   Vercel (pulse.app/p/maria)
+```
+
+### Step 1: Set Up VPS
+
+1. Get a VPS from DigitalOcean, Vultr, or Hetzner (~$5/mo)
+2. Install nginx: `sudo apt install nginx`
+3. Install Certbot: `sudo apt install certbot python3-certbot-nginx`
+
+### Step 2: Configure DNS
+
+At your domain registrar:
+
+| Type  | Name | Value       |
+| ----- | ---- | ----------- |
+| A     | @    | YOUR_VPS_IP |
+| A     | \*   | YOUR_VPS_IP |
+| CNAME | www  | @           |
+
+### Step 3: Get Wildcard SSL Certificate
+
+```bash
+sudo certbot certonly --manual --preferred-challenges=dns \
+  -d "pulse.app" -d "*.pulse.app"
+```
+
+Follow the prompts to add a TXT record for verification.
+
+### Step 4: Nginx Configuration
+
+Create `/etc/nginx/sites-available/pulse`:
+
+```nginx
+# Wildcard subdomain → proxy to Vercel /p/username
+server {
+    listen 80;
+    listen 443 ssl;
+
+    server_name ~^(?<subdomain>.+)\.pulse\.app$;
+
+    ssl_certificate /etc/letsencrypt/live/pulse.app/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/pulse.app/privkey.pem;
+
+    # Redirect HTTP to HTTPS
+    if ($scheme != "https") {
+        return 301 https://$host$request_uri;
+    }
+
+    location / {
+        # Proxy to Vercel with path rewrite
+        proxy_pass https://pulse.vercel.app/p/$subdomain$request_uri;
+        proxy_set_header Host pulse.vercel.app;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_ssl_server_name on;
+    }
+}
+
+# Main domain → proxy to Vercel
+server {
+    listen 80;
+    listen 443 ssl;
+    server_name pulse.app www.pulse.app;
+
+    ssl_certificate /etc/letsencrypt/live/pulse.app/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/pulse.app/privkey.pem;
+
+    if ($scheme != "https") {
+        return 301 https://$host$request_uri;
+    }
+
+    location / {
+        proxy_pass https://pulse.vercel.app;
+        proxy_set_header Host pulse.vercel.app;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_ssl_server_name on;
+    }
+}
+```
+
+### Step 5: Enable and Test
+
+```bash
+# Enable the site
+sudo ln -s /etc/nginx/sites-available/pulse /etc/nginx/sites-enabled/
+
+# Test configuration
+sudo nginx -t
+
+# Reload nginx
+sudo systemctl reload nginx
+
+# Set up auto-renewal for SSL
+sudo crontab -e
+# Add: 0 0 1 * * certbot renew --quiet
+```
+
+### Considerations
+
+- **Latency**: Adds ~50-100ms from proxy hop
+- **Availability**: VPS becomes a single point of failure (add monitoring)
+- **SSL Renewal**: Wildcard certs need DNS challenge (can automate with Cloudflare API)
+- **Maintenance**: You're responsible for server updates and security
+
+### Alternative: Use Cloudflare as DNS Proxy
+
+If you use Cloudflare for DNS (free tier):
+
+1. Point \*.pulse.app to your VPS
+2. Enable Cloudflare proxy (orange cloud)
+3. Cloudflare handles SSL automatically
+4. Your VPS only needs port 80 open

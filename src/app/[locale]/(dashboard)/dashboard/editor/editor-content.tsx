@@ -3,6 +3,7 @@
 import { useState, useCallback } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
+import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -88,6 +89,7 @@ export function EditorContent({
   const [previewMode, setPreviewMode] = useState<"mobile" | "desktop">(
     "mobile",
   );
+  const [mobileView, setMobileView] = useState<"editor" | "preview">("editor");
   const [showBlockPicker, setShowBlockPicker] = useState(false);
 
   const handleCreatePage = async () => {
@@ -341,9 +343,40 @@ export function EditorContent({
   }
 
   return (
-    <div className="flex gap-6 h-[calc(100vh-8rem)]">
+    <div className="flex flex-col lg:flex-row gap-6 h-[calc(100vh-8rem)]">
+      {/* Mobile View Toggle */}
+      <div className="lg:hidden flex border rounded-lg overflow-hidden shrink-0">
+        <button
+          onClick={() => setMobileView("editor")}
+          className={cn(
+            "flex-1 py-2 text-sm font-medium transition-colors",
+            mobileView === "editor"
+              ? "bg-primary text-primary-foreground"
+              : "bg-muted text-muted-foreground hover:bg-muted/80",
+          )}
+        >
+          Editor
+        </button>
+        <button
+          onClick={() => setMobileView("preview")}
+          className={cn(
+            "flex-1 py-2 text-sm font-medium transition-colors",
+            mobileView === "preview"
+              ? "bg-primary text-primary-foreground"
+              : "bg-muted text-muted-foreground hover:bg-muted/80",
+          )}
+        >
+          Preview
+        </button>
+      </div>
+
       {/* Editor Panel */}
-      <div className="flex-1 overflow-y-auto pr-2">
+      <div
+        className={cn(
+          "flex-1 overflow-y-auto pr-2",
+          mobileView === "preview" ? "hidden lg:block" : "",
+        )}
+      >
         {/* Tabs */}
         <div className="flex gap-1 p-1 bg-muted rounded-lg mb-6 w-fit">
           <button
@@ -506,7 +539,12 @@ export function EditorContent({
       </div>
 
       {/* Preview Panel */}
-      <div className="w-80 flex flex-col">
+      <div
+        className={cn(
+          "w-full lg:w-80 flex flex-col",
+          mobileView === "editor" ? "hidden lg:flex" : "",
+        )}
+      >
         <div className="flex items-center justify-between mb-4">
           <span className="text-sm font-medium">{t("preview")}</span>
           <div className="flex gap-1 p-1 bg-muted rounded-lg">

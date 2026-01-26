@@ -13,9 +13,10 @@ interface DashboardHeaderProps {
     email?: string | null;
     image?: string | null;
   };
+  onMenuClick?: () => void;
 }
 
-export function DashboardHeader({ user }: DashboardHeaderProps) {
+export function DashboardHeader({ user, onMenuClick }: DashboardHeaderProps) {
   const tCommon = useTranslations("common");
 
   return (
@@ -23,8 +24,9 @@ export function DashboardHeader({ user }: DashboardHeaderProps) {
       {/* Mobile menu button */}
       <button
         type="button"
-        className="p-2.5 text-muted-foreground lg:hidden"
-        aria-label="Open sidebar"
+        className="p-2.5 text-muted-foreground hover:text-foreground lg:hidden cursor-pointer"
+        aria-label="Abrir menu"
+        onClick={onMenuClick}
       >
         <Menu className="h-6 w-6" />
       </button>
