@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
@@ -44,9 +43,8 @@ export function DashboardSidebar({ isOpen, onClose }: DashboardSidebarProps) {
   // Clean pathname for comparison
   const cleanPath = pathname.replace(/^\/(pt-BR|en)/, "");
 
-  const SidebarContent = () => (
+  const sidebarContent = (
     <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-border bg-card px-6 pb-4">
-      {/* Logo */}
       <div className="flex h-16 shrink-0 items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
           <div className="h-8 w-8 rounded-lg gradient-primary flex items-center justify-center">
@@ -56,7 +54,6 @@ export function DashboardSidebar({ isOpen, onClose }: DashboardSidebarProps) {
             {tCommon("appName")}
           </span>
         </Link>
-        {/* Close button for mobile */}
         {onClose && (
           <button
             type="button"
@@ -68,7 +65,6 @@ export function DashboardSidebar({ isOpen, onClose }: DashboardSidebarProps) {
         )}
       </div>
 
-      {/* Navigation */}
       <nav className="flex flex-1 flex-col">
         <ul role="list" className="flex flex-1 flex-col gap-y-7">
           <li>
@@ -105,7 +101,6 @@ export function DashboardSidebar({ isOpen, onClose }: DashboardSidebarProps) {
             </ul>
           </li>
 
-          {/* Upgrade banner */}
           <li className="mt-auto">
             <div className="rounded-xl bg-gradient-to-r from-orange-500/10 to-purple-500/10 p-4 border border-primary/20">
               <h3 className="text-sm font-semibold gradient-primary-text">
@@ -128,24 +123,20 @@ export function DashboardSidebar({ isOpen, onClose }: DashboardSidebarProps) {
 
   return (
     <>
-      {/* Mobile Sidebar Overlay */}
       {isOpen && (
         <div className="lg:hidden fixed inset-0 z-50">
-          {/* Backdrop */}
           <div
             className="fixed inset-0 bg-black/50 backdrop-blur-sm"
             onClick={onClose}
           />
-          {/* Sidebar */}
           <div className="fixed inset-y-0 left-0 w-72 animate-slide-in-left">
-            <SidebarContent />
+            {sidebarContent}
           </div>
         </div>
       )}
 
-      {/* Desktop Sidebar */}
       <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
-        <SidebarContent />
+        {sidebarContent}
       </div>
     </>
   );

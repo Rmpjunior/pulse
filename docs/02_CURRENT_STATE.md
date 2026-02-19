@@ -1,6 +1,6 @@
 # Current State
 
-Last updated: 2026-02-18
+Last updated: 2026-02-19
 
 ## Runtime Stack
 
@@ -28,6 +28,10 @@ Last updated: 2026-02-18
   - click tracking
 - Input validation:
   - shared `zod` request validation for auth/user/pages/blocks/analytics APIs
+- Build reliability hardening:
+  - fixed TypeScript/Prisma JSON typing in page/block update and block create APIs
+  - lint now runs without errors (warnings remain)
+  - production build passes locally (`next build`)
 
 ## Partially Implemented / Gaps
 

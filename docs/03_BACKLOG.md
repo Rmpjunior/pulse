@@ -7,6 +7,7 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | ID | Status | Task | Why |
 |---|---|---|---|
 | P0-1 | DONE | Add request validation (zod) to page/block/auth APIs | Prevent malformed data and runtime errors |
+| P0-1.1 | DONE | Restore green build/lint gates after validation rollout | Prevent failed Vercel deploys |
 | P0-2 | TODO | Add centralized API error shape and error helper | Make client handling consistent |
 | P0-3 | TODO | Add minimal test baseline for critical flows | Reduce regressions |
 | P0-4 | TODO | Ensure ownership checks are consistent in all mutating APIs | Security/data isolation |

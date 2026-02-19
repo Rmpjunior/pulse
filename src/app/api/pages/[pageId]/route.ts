@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { Prisma } from '@prisma/client';
 import { z } from 'zod';
 import { auth } from '@/lib/auth';
 import { db } from '@/lib/db';
@@ -92,7 +93,7 @@ export async function PATCH(request: Request, { params }: RouteParams) {
       data: {
         ...(displayName !== undefined && { displayName }),
         ...(bio !== undefined && { bio }),
-        ...(theme !== undefined && { theme }),
+        ...(theme !== undefined && { theme: theme as Prisma.InputJsonValue }),
         ...(published !== undefined && { published }),
       },
     });

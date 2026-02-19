@@ -190,7 +190,7 @@ export function SettingsContent({ user, subscription }: SettingsContentProps) {
                 <li>• Seções ilimitadas</li>
                 <li>• Cores personalizadas</li>
                 <li>• Análises detalhadas</li>
-                <li>• Sem marca d'água</li>
+                <li>• Sem marca d&apos;água</li>
                 <li>• Domínio personalizado</li>
               </ul>
             </div>

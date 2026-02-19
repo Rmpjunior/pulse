@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { Prisma } from '@prisma/client';
 import { z } from 'zod';
 import { auth } from '@/lib/auth';
 import { db } from '@/lib/db';
@@ -110,7 +111,7 @@ export async function POST(request: Request, { params }: RouteParams) {
         pageId,
         type,
         order,
-        content,
+        content: content as Prisma.InputJsonValue,
         visible: true,
       },
     });

@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { Prisma } from '@prisma/client';
 import { z } from 'zod';
 import { auth } from '@/lib/auth';
 import { db } from '@/lib/db';
@@ -32,7 +33,7 @@ export async function GET(request: Request, { params }: RouteParams) {
     }
     const { blockId } = parsedParams.data;
     const session = await auth();
-    
+
     if (!session?.user?.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -66,7 +67,7 @@ export async function PATCH(request: Request, { params }: RouteParams) {
     }
     const { blockId } = parsedParams.data;
     const session = await auth();
-    
+
     if (!session?.user?.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -95,7 +96,9 @@ export async function PATCH(request: Request, { params }: RouteParams) {
     const block = await db.block.update({
       where: { id: blockId },
       data: {
-        ...(content !== undefined && { content }),
+        ...(content !== undefined && {
+          content: content as Prisma.InputJsonValue,
+        }),
         ...(visible !== undefined && { visible }),
         ...(order !== undefined && { order }),
       },
@@ -117,7 +120,7 @@ export async function DELETE(request: Request, { params }: RouteParams) {
     }
     const { blockId } = parsedParams.data;
     const session = await auth();
-    
+
     if (!session?.user?.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -152,8 +155,8 @@ export async function DELETE(request: Request, { params }: RouteParams) {
         db.block.update({
           where: { id: block.id },
           data: { order: index },
-        })
-      )
+        }),
+      ),
     );
 
     return NextResponse.json({ message: 'Block deleted' });

@@ -72,3 +72,28 @@ Append one entry per coding session.
   - Full repository lint/build remains red due pre-existing issues not part of `P0-1`
 - Next:
   - Execute `P0-2` (centralized API error response helper)
+
+### Session 2026-02-19 00:00 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Restore lint/build reliability so deploys to Vercel don't fail on main
+- Backlog Item: P0-1.1
+- Changes:
+  - `src/app/[locale]/(dashboard)/dashboard/editor/editor-content.tsx`: removed `any` usage, aligned local `Block` type with `BlockType`, removed unused `userId` prop
+  - `src/app/[locale]/(dashboard)/dashboard/editor/page.tsx`: fixed lint issues (unused import, `const` usage), updated prop passing
+  - `src/components/dashboard/sidebar.tsx`: refactored inline component creation into stable JSX node to satisfy react-hooks static component lint rule
+  - `src/components/providers/theme-provider.tsx`: removed setState-in-effect anti-pattern by lazy-loading theme from localStorage
+  - `src/app/[locale]/(dashboard)/dashboard/settings/settings-content.tsx`: fixed unescaped apostrophe lint error
+  - `src/app/api/pages/[pageId]/blocks/[blockId]/route.ts`: fixed Prisma JSON typing for `content` updates
+  - `src/app/api/pages/[pageId]/blocks/route.ts`: fixed Prisma JSON typing for `content` on create
+  - `src/app/api/pages/[pageId]/route.ts`: fixed Prisma JSON typing for `theme` updates
+  - `docs/02_CURRENT_STATE.md`: updated implementation snapshot and build reliability status
+  - `docs/03_BACKLOG.md`: marked `P0-1.1` as `DONE`
+- Validation:
+  - Command: `npm run lint` -> passed with warnings only (0 errors)
+  - Command: `npm run build` -> passed successfully
+  - Manual: reviewed changed API update/create paths and dashboard editor/sidebar/theme-provider render paths
+- Risks:
+  - Lint warnings remain (unused vars + `<img>` warnings), but they are non-blocking for build/deploy
+- Next:
+  - Execute `P0-2` (centralized API error shape/helper)

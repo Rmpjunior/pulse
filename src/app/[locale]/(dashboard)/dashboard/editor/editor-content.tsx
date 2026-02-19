@@ -32,7 +32,7 @@ import {
 
 interface Block {
   id: string;
-  type: string;
+  type: BlockType;
   order: number;
   visible: boolean;
   content: unknown;
@@ -51,7 +51,6 @@ interface Page {
 
 interface EditorContentProps {
   page: Page | null;
-  userId: string;
   isPlusUser?: boolean;
 }
 
@@ -64,11 +63,7 @@ const blockTypes = [
   { type: "DIVIDER", icon: Minus, label: "Divisor" },
 ];
 
-export function EditorContent({
-  page,
-  userId,
-  isPlusUser = false,
-}: EditorContentProps) {
+export function EditorContent({ page, isPlusUser = false }: EditorContentProps) {
   const t = useTranslations("editor");
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -485,7 +480,7 @@ export function EditorContent({
                     {blocks.map((block, index) => (
                       <BlockEditor
                         key={block.id}
-                        block={block as any}
+                        block={block}
                         onUpdate={handleUpdateBlock}
                         onDelete={handleDeleteBlock}
                         onToggleVisibility={handleToggleVisibility}

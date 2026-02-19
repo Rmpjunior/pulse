@@ -1,5 +1,4 @@
 import { redirect } from "next/navigation";
-import { useTranslations } from "next-intl";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { EditorContent } from "./editor-content";
@@ -12,7 +11,7 @@ export default async function EditorPage() {
   }
 
   // Get or create user's page
-  let page = await db.page.findFirst({
+  const page = await db.page.findFirst({
     where: { userId: session.user.id },
     include: {
       blocks: {
@@ -22,5 +21,5 @@ export default async function EditorPage() {
   });
 
   // If no page exists, we'll handle creation in the client
-  return <EditorContent page={page} userId={session.user.id} />;
+  return <EditorContent page={page} />;
 }
