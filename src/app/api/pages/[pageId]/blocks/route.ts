@@ -1,15 +1,53 @@
 import { NextResponse } from 'next/server';
+import { z } from 'zod';
 import { auth } from '@/lib/auth';
 import { db } from '@/lib/db';
+import { parseBody, parseParams } from '@/lib/api/validation';
 
 interface RouteParams {
   params: Promise<{ pageId: string }>;
 }
 
+const routeParamsSchema = z.object({
+  pageId: z.string().trim().min(1),
+});
+
+const blockTypeSchema = z.enum([
+  'LINK',
+  'HIGHLIGHT',
+  'MEDIA',
+  'CATALOG',
+  'FORM',
+  'SOCIAL_ICONS',
+  'TEXT',
+  'DIVIDER',
+]);
+
+const createBlockSchema = z.object({
+  type: blockTypeSchema,
+  order: z.number().int().min(0),
+  content: z.record(z.string(), z.unknown()).optional(),
+});
+
+const reorderBlocksSchema = z.object({
+  blocks: z
+    .array(
+      z.object({
+        id: z.string().trim().min(1),
+        order: z.number().int().min(0),
+      }),
+    )
+    .min(1),
+});
+
 // GET - Get all blocks for a page
 export async function GET(request: Request, { params }: RouteParams) {
   try {
-    const { pageId } = await params;
+    const parsedParams = parseParams(await params, routeParamsSchema);
+    if (!parsedParams.success) {
+      return parsedParams.response;
+    }
+    const { pageId } = parsedParams.data;
     const session = await auth();
     
     if (!session?.user?.id) {
@@ -40,14 +78,22 @@ export async function GET(request: Request, { params }: RouteParams) {
 // POST - Create a new block
 export async function POST(request: Request, { params }: RouteParams) {
   try {
-    const { pageId } = await params;
+    const parsedParams = parseParams(await params, routeParamsSchema);
+    if (!parsedParams.success) {
+      return parsedParams.response;
+    }
+    const { pageId } = parsedParams.data;
     const session = await auth();
     
     if (!session?.user?.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { type, order, content = {} } = await request.json();
+    const parsedBody = await parseBody(request, createBlockSchema);
+    if (!parsedBody.success) {
+      return parsedBody.response;
+    }
+    const { type, order, content = {} } = parsedBody.data;
 
     // Verify page ownership
     const page = await db.page.findUnique({
@@ -79,14 +125,22 @@ export async function POST(request: Request, { params }: RouteParams) {
 // PATCH - Reorder blocks
 export async function PATCH(request: Request, { params }: RouteParams) {
   try {
-    const { pageId } = await params;
+    const parsedParams = parseParams(await params, routeParamsSchema);
+    if (!parsedParams.success) {
+      return parsedParams.response;
+    }
+    const { pageId } = parsedParams.data;
     const session = await auth();
     
     if (!session?.user?.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { blocks } = await request.json();
+    const parsedBody = await parseBody(request, reorderBlocksSchema);
+    if (!parsedBody.success) {
+      return parsedBody.response;
+    }
+    const { blocks } = parsedBody.data;
 
     // Verify page ownership
     const page = await db.page.findUnique({

@@ -1,25 +1,22 @@
 import { NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
+import { z } from 'zod';
 import { db } from '@/lib/db';
+import { parseBody } from '@/lib/api/validation';
+
+const registerSchema = z.object({
+  name: z.string().trim().min(1).max(80).optional(),
+  email: z.email(),
+  password: z.string().min(8).max(128),
+});
 
 export async function POST(request: Request) {
   try {
-    const { name, email, password } = await request.json();
-
-    // Validate input
-    if (!email || !password) {
-      return NextResponse.json(
-        { error: 'Email and password are required' },
-        { status: 400 }
-      );
+    const parsedBody = await parseBody(request, registerSchema);
+    if (!parsedBody.success) {
+      return parsedBody.response;
     }
-
-    if (password.length < 8) {
-      return NextResponse.json(
-        { error: 'Password must be at least 8 characters' },
-        { status: 400 }
-      );
-    }
+    const { name, email, password } = parsedBody.data;
 
     // Check if user already exists
     const existingUser = await db.user.findUnique({

@@ -2,6 +2,17 @@
 
 This file tracks the implementation progress for **Pulse** - a bio page builder inspired by keepo.bio. Each session should add notes below to maintain context for future development sessions.
 
+## Important (2026-02-18)
+
+This file is now considered a legacy progress narrative.
+
+For ongoing AI-assisted development, use:
+
+- `docs/00_AGENT_START_HERE.md` (workflow)
+- `docs/02_CURRENT_STATE.md` (source of truth)
+- `docs/03_BACKLOG.md` (prioritized queue)
+- `docs/04_SESSION_LOG.md` (append-only session history)
+
 ---
 
 ## Project Overview

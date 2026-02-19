@@ -1,15 +1,36 @@
 import { NextResponse } from 'next/server';
+import { z } from 'zod';
 import { auth } from '@/lib/auth';
 import { db } from '@/lib/db';
+import { parseBody, parseParams } from '@/lib/api/validation';
 
 interface RouteParams {
   params: Promise<{ pageId: string }>;
 }
 
+const routeParamsSchema = z.object({
+  pageId: z.string().trim().min(1),
+});
+
+const updatePageSchema = z
+  .object({
+    displayName: z.string().trim().max(80).optional(),
+    bio: z.string().max(500).optional(),
+    theme: z.record(z.string(), z.unknown()).optional(),
+    published: z.boolean().optional(),
+  })
+  .refine((data) => Object.keys(data).length > 0, {
+    message: 'At least one field must be provided',
+  });
+
 // GET - Get a specific page
 export async function GET(request: Request, { params }: RouteParams) {
   try {
-    const { pageId } = await params;
+    const parsedParams = parseParams(await params, routeParamsSchema);
+    if (!parsedParams.success) {
+      return parsedParams.response;
+    }
+    const { pageId } = parsedParams.data;
     const session = await auth();
     
     if (!session?.user?.id) {
@@ -39,15 +60,22 @@ export async function GET(request: Request, { params }: RouteParams) {
 // PATCH - Update a page
 export async function PATCH(request: Request, { params }: RouteParams) {
   try {
-    const { pageId } = await params;
+    const parsedParams = parseParams(await params, routeParamsSchema);
+    if (!parsedParams.success) {
+      return parsedParams.response;
+    }
+    const { pageId } = parsedParams.data;
     const session = await auth();
     
     if (!session?.user?.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const body = await request.json();
-    const { displayName, bio, theme, published } = body;
+    const parsedBody = await parseBody(request, updatePageSchema);
+    if (!parsedBody.success) {
+      return parsedBody.response;
+    }
+    const { displayName, bio, theme, published } = parsedBody.data;
 
     // Verify ownership
     const existingPage = await db.page.findUnique({
@@ -79,7 +107,11 @@ export async function PATCH(request: Request, { params }: RouteParams) {
 // DELETE - Delete a page
 export async function DELETE(request: Request, { params }: RouteParams) {
   try {
-    const { pageId } = await params;
+    const parsedParams = parseParams(await params, routeParamsSchema);
+    if (!parsedParams.success) {
+      return parsedParams.response;
+    }
+    const { pageId } = parsedParams.data;
     const session = await auth();
     
     if (!session?.user?.id) {

@@ -1,14 +1,20 @@
 import { NextResponse } from 'next/server';
+import { z } from 'zod';
 import { db } from '@/lib/db';
+import { parseBody } from '@/lib/api/validation';
+
+const clickSchema = z.object({
+  blockId: z.string().trim().min(1),
+});
 
 // POST - Track a block click
 export async function POST(request: Request) {
   try {
-    const { blockId } = await request.json();
-
-    if (!blockId) {
-      return NextResponse.json({ error: 'Block ID required' }, { status: 400 });
+    const parsedBody = await parseBody(request, clickSchema);
+    if (!parsedBody.success) {
+      return parsedBody.response;
     }
+    const { blockId } = parsedBody.data;
 
     // Verify the block exists
     const block = await db.block.findUnique({

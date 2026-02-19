@@ -1,6 +1,17 @@
 import { NextResponse } from 'next/server';
+import { z } from 'zod';
 import { auth } from '@/lib/auth';
 import { db } from '@/lib/db';
+import { parseBody } from '@/lib/api/validation';
+
+const createPageSchema = z.object({
+  username: z
+    .string()
+    .trim()
+    .regex(/^[a-z0-9_-]{3,20}$/, 'Invalid username format'),
+  displayName: z.string().trim().max(80).optional(),
+  bio: z.string().max(500).optional(),
+});
 
 // GET - Get user's page
 export async function GET() {
@@ -36,15 +47,11 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { username, displayName, bio } = await request.json();
-
-    // Validate username
-    if (!username || !/^[a-z0-9_-]{3,20}$/.test(username)) {
-      return NextResponse.json(
-        { error: 'Invalid username format' },
-        { status: 400 }
-      );
+    const parsedBody = await parseBody(request, createPageSchema);
+    if (!parsedBody.success) {
+      return parsedBody.response;
     }
+    const { username, displayName, bio } = parsedBody.data;
 
     // Check if username is taken
     const existingPage = await db.page.findUnique({

@@ -1,15 +1,36 @@
 import { NextResponse } from 'next/server';
+import { z } from 'zod';
 import { auth } from '@/lib/auth';
 import { db } from '@/lib/db';
+import { parseBody, parseParams } from '@/lib/api/validation';
 
 interface RouteParams {
   params: Promise<{ pageId: string; blockId: string }>;
 }
 
+const routeParamsSchema = z.object({
+  pageId: z.string().trim().min(1),
+  blockId: z.string().trim().min(1),
+});
+
+const updateBlockSchema = z
+  .object({
+    content: z.record(z.string(), z.unknown()).optional(),
+    visible: z.boolean().optional(),
+    order: z.number().int().min(0).optional(),
+  })
+  .refine((data) => Object.keys(data).length > 0, {
+    message: 'At least one field must be provided',
+  });
+
 // GET - Get a specific block
 export async function GET(request: Request, { params }: RouteParams) {
   try {
-    const { blockId } = await params;
+    const parsedParams = parseParams(await params, routeParamsSchema);
+    if (!parsedParams.success) {
+      return parsedParams.response;
+    }
+    const { blockId } = parsedParams.data;
     const session = await auth();
     
     if (!session?.user?.id) {
@@ -39,15 +60,22 @@ export async function GET(request: Request, { params }: RouteParams) {
 // PATCH - Update a block
 export async function PATCH(request: Request, { params }: RouteParams) {
   try {
-    const { blockId } = await params;
+    const parsedParams = parseParams(await params, routeParamsSchema);
+    if (!parsedParams.success) {
+      return parsedParams.response;
+    }
+    const { blockId } = parsedParams.data;
     const session = await auth();
     
     if (!session?.user?.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const body = await request.json();
-    const { content, visible, order } = body;
+    const parsedBody = await parseBody(request, updateBlockSchema);
+    if (!parsedBody.success) {
+      return parsedBody.response;
+    }
+    const { content, visible, order } = parsedBody.data;
 
     // Verify ownership
     const existingBlock = await db.block.findUnique({
@@ -83,7 +111,11 @@ export async function PATCH(request: Request, { params }: RouteParams) {
 // DELETE - Delete a block
 export async function DELETE(request: Request, { params }: RouteParams) {
   try {
-    const { blockId } = await params;
+    const parsedParams = parseParams(await params, routeParamsSchema);
+    if (!parsedParams.success) {
+      return parsedParams.response;
+    }
+    const { blockId } = parsedParams.data;
     const session = await auth();
     
     if (!session?.user?.id) {

@@ -1,6 +1,12 @@
 import { NextResponse } from 'next/server';
+import { z } from 'zod';
 import { auth } from '@/lib/auth';
 import { db } from '@/lib/db';
+import { parseQuery } from '@/lib/api/validation';
+
+const analyticsQuerySchema = z.object({
+  days: z.coerce.number().int().min(1).max(365).default(30),
+});
 
 // GET - Get analytics for user's page
 export async function GET(request: Request) {
@@ -12,7 +18,11 @@ export async function GET(request: Request) {
     }
 
     const { searchParams } = new URL(request.url);
-    const days = parseInt(searchParams.get('days') || '30');
+    const parsedQuery = parseQuery(searchParams, analyticsQuerySchema);
+    if (!parsedQuery.success) {
+      return parsedQuery.response;
+    }
+    const { days } = parsedQuery.data;
 
     // Get user's page
     const page = await db.page.findFirst({

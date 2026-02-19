@@ -1,6 +1,13 @@
 import { NextResponse } from 'next/server';
+import { z } from 'zod';
 import { auth } from '@/lib/auth';
 import { db } from '@/lib/db';
+import { parseBody } from '@/lib/api/validation';
+
+const updateUserSchema = z.object({
+  name: z.string().trim().min(1).max(80).optional(),
+  image: z.url().optional(),
+});
 
 // PATCH - Update user profile
 export async function PATCH(request: Request) {
@@ -11,8 +18,11 @@ export async function PATCH(request: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const body = await request.json();
-    const { name, image } = body;
+    const parsedBody = await parseBody(request, updateUserSchema);
+    if (!parsedBody.success) {
+      return parsedBody.response;
+    }
+    const { name, image } = parsedBody.data;
 
     const user = await db.user.update({
       where: { id: session.user.id },
@@ -35,7 +45,7 @@ export async function PATCH(request: Request) {
 }
 
 // DELETE - Delete user account
-export async function DELETE(request: Request) {
+export async function DELETE() {
   try {
     const session = await auth();
     
