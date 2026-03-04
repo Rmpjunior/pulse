@@ -97,6 +97,10 @@ export function EditorContent({ page, isPlusUser = false }: EditorContentProps) 
   const [mobileView, setMobileView] = useState<"editor" | "preview">("editor");
   const [showBlockPicker, setShowBlockPicker] = useState(false);
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
+  const [onboardingStep, setOnboardingStep] = useState<1 | 2>(1);
+  const [onboardingCategory, setOnboardingCategory] = useState("creator");
+  const [onboardingFirstSection, setOnboardingFirstSection] =
+    useState<BlockType>("LINK");
 
   const pushToast = useCallback((type: ToastMessage["type"], text: string) => {
     const id = crypto.randomUUID();
@@ -117,12 +121,41 @@ export function EditorContent({ page, isPlusUser = false }: EditorContentProps) 
         body: JSON.stringify({ username, displayName, bio }),
       });
 
-      if (res.ok) {
-        pushToast("success", "Página criada com sucesso.");
-        router.refresh();
-      } else {
+      if (!res.ok) {
         pushToast("error", "Não foi possível criar a página.");
+        return;
       }
+
+      const createdPage = (await res.json()) as { id: string };
+      const firstSectionContent = defaultBlockContent[onboardingFirstSection];
+
+      await Promise.all([
+        fetch(`/api/pages/${createdPage.id}/blocks`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            type: onboardingFirstSection,
+            order: 0,
+            content: firstSectionContent,
+          }),
+        }),
+        fetch(`/api/pages/${createdPage.id}`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            theme: {
+              onboarding: {
+                category: onboardingCategory,
+                firstSection: onboardingFirstSection,
+                completedAt: new Date().toISOString(),
+              },
+            },
+          }),
+        }),
+      ]);
+
+      pushToast("success", "Página criada com onboarding inicial.");
+      router.refresh();
     } catch (error) {
       console.error("Error creating page:", error);
       pushToast("error", "Erro ao criar página.");
@@ -376,63 +409,135 @@ export function EditorContent({ page, isPlusUser = false }: EditorContentProps) 
       <div className="max-w-2xl mx-auto py-12">
         <Card>
           <CardHeader>
-            <CardTitle>Crie sua página</CardTitle>
+            <CardTitle>Onboarding rápido</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div>
-              <label className="text-sm font-medium mb-2 block">
-                Escolha seu username
-              </label>
-              <div className="flex items-center gap-2">
-                <span className="text-muted-foreground">
-                  pulse.vercel.app/p/
-                </span>
-                <Input
-                  value={username}
-                  onChange={(e) =>
-                    setUsername(
-                      e.target.value.toLowerCase().replace(/[^a-z0-9_-]/g, ""),
-                    )
-                  }
-                  placeholder="seu-username"
-                  className="flex-1"
-                />
-              </div>
-              <p className="text-xs text-muted-foreground mt-1">
-                Apenas letras minúsculas, números, hífens e underscores
-              </p>
+            <div className="text-xs text-muted-foreground">
+              Passo {onboardingStep} de 2
             </div>
 
-            <div>
-              <label className="text-sm font-medium mb-2 block">
-                Nome de exibição
-              </label>
-              <Input
-                value={displayName}
-                onChange={(e) => setDisplayName(e.target.value)}
-                placeholder="Seu nome"
-              />
-            </div>
+            {onboardingStep === 1 ? (
+              <>
+                <div>
+                  <label className="text-sm font-medium mb-2 block">
+                    Título/Nome da página
+                  </label>
+                  <Input
+                    value={displayName}
+                    onChange={(e) => setDisplayName(e.target.value)}
+                    placeholder="Ex: Roberto Studio"
+                  />
+                </div>
 
-            <div>
-              <label className="text-sm font-medium mb-2 block">Bio</label>
-              <textarea
-                value={bio}
-                onChange={(e) => setBio(e.target.value)}
-                placeholder="Uma breve descrição sobre você..."
-                className="w-full min-h-[80px] rounded-lg border border-input bg-background px-4 py-2 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-ring"
-              />
-            </div>
+                <div>
+                  <label className="text-sm font-medium mb-2 block">
+                    Escolha seu username
+                  </label>
+                  <div className="flex items-center gap-2">
+                    <span className="text-muted-foreground">pulse.vercel.app/p/</span>
+                    <Input
+                      value={username}
+                      onChange={(e) =>
+                        setUsername(
+                          e.target.value
+                            .toLowerCase()
+                            .replace(/[^a-z0-9_-]/g, ""),
+                        )
+                      }
+                      placeholder="seu-username"
+                      className="flex-1"
+                    />
+                  </div>
+                </div>
 
-            <Button
-              variant="gradient"
-              className="w-full"
-              onClick={handleCreatePage}
-              disabled={!username.trim() || isCreating}
-              isLoading={isCreating}
-            >
-              Criar página
-            </Button>
+                <Button
+                  variant="gradient"
+                  className="w-full"
+                  disabled={!username.trim() || !displayName.trim()}
+                  onClick={() => setOnboardingStep(2)}
+                >
+                  Continuar
+                </Button>
+              </>
+            ) : (
+              <>
+                <div>
+                  <label className="text-sm font-medium mb-2 block">Categoria</label>
+                  <div className="grid grid-cols-3 gap-2">
+                    {[
+                      { id: "creator", label: "Creator" },
+                      { id: "business", label: "Business" },
+                      { id: "personal", label: "Pessoal" },
+                    ].map((option) => (
+                      <button
+                        key={option.id}
+                        onClick={() => setOnboardingCategory(option.id)}
+                        className={cn(
+                          "rounded-lg border px-3 py-2 text-sm",
+                          onboardingCategory === option.id
+                            ? "border-primary bg-primary/10 text-primary"
+                            : "border-border",
+                        )}
+                      >
+                        {option.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <label className="text-sm font-medium mb-2 block">
+                    Primeira seção
+                  </label>
+                  <div className="grid grid-cols-2 gap-2">
+                    {[
+                      { type: "LINK" as BlockType, label: "Links" },
+                      { type: "TEXT" as BlockType, label: "Welcome" },
+                      { type: "CATALOG" as BlockType, label: "Catálogo" },
+                      { type: "FORM" as BlockType, label: "Formulário" },
+                    ].map((option) => (
+                      <button
+                        key={option.type}
+                        onClick={() => setOnboardingFirstSection(option.type)}
+                        className={cn(
+                          "rounded-lg border px-3 py-2 text-sm",
+                          onboardingFirstSection === option.type
+                            ? "border-primary bg-primary/10 text-primary"
+                            : "border-border",
+                        )}
+                      >
+                        {option.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <label className="text-sm font-medium mb-2 block">Bio (opcional)</label>
+                  <textarea
+                    value={bio}
+                    onChange={(e) => setBio(e.target.value)}
+                    placeholder="Uma breve descrição sobre você..."
+                    className="w-full min-h-[80px] rounded-lg border border-input bg-background px-4 py-2 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-ring"
+                  />
+                </div>
+
+                <div className="flex gap-2">
+                  <Button variant="outline" className="flex-1" onClick={() => setOnboardingStep(1)}>
+                    Voltar
+                  </Button>
+                  <Button
+                    variant="gradient"
+                    className="flex-1"
+                    onClick={handleCreatePage}
+                    disabled={!username.trim() || isCreating}
+                    isLoading={isCreating}
+                  >
+                    Criar página
+                  </Button>
+                </div>
+              </>
+            )}
           </CardContent>
         </Card>
       </div>

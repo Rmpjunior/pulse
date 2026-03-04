@@ -326,3 +326,23 @@ Append one entry per coding session.
   - Toasts ainda locais ao editor (sem provider global), então não aparecem em outras páginas
 - Next:
   - Iniciar `P1-5`: onboarding wizard (title + category + first section)
+
+### Session 2026-03-04 16:56 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P1-5` implementando onboarding wizard de primeiro uso
+- Backlog Item: P1-5
+- Changes:
+  - `src/app/[locale]/(dashboard)/dashboard/editor/editor-content.tsx`: adicionado wizard em 2 passos para criação inicial (título/username → categoria/primeira seção)
+  - `src/app/[locale]/(dashboard)/dashboard/editor/editor-content.tsx`: criação passou a provisionar a primeira seção automaticamente e persistir metadado de onboarding no `theme`
+  - `docs/03_BACKLOG.md`: `P1-5` marcado como `DONE`
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com onboarding ativo
+- Validation:
+  - Command: `npm run test` -> passou (4 arquivos, 11 testes)
+  - Command: `npm run lint` -> passou (0 erros, warnings existentes)
+  - Command: `npm run build` -> passou
+  - Manual (relevante): revisão do fluxo de onboarding e criação guiada com primeira seção automática
+- Risks:
+  - Categoria/metadata de onboarding está sendo salva dentro de `theme`; pode exigir modelagem própria no futuro
+- Next:
+  - Iniciar `P1-6`: biblioteca de seções no editor (`Welcome`, `About`, `Catalog`, `Links`, `Social`)

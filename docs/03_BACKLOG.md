@@ -22,7 +22,7 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | P1-2 | DONE | Complete `FORM` block edit/render path | Close feature gap |
 | P1-3 | DONE | Improve analytics visitor identification strategy | Better data quality |
 | P1-4 | DONE | Add optimistic UI + toasts in editor | Better UX feedback |
-| P1-5 | TODO | Implement onboarding wizard (title + category + first section) | Match Keepo's fast first-run flow |
+| P1-5 | DONE | Implement onboarding wizard (title + category + first section) | Match Keepo's fast first-run flow |
 | P1-6 | TODO | Implement section library in editor (`Welcome`, `About`, `Catalog`, `Links`, `Social`) | Reach section-level parity |
 | P1-7 | TODO | Add section management UX (add/edit/remove/reorder with clear mobile controls) | Editor usability and parity |
 | P1-8 | TODO | Implement publish flow with slug availability check and explicit success state | Match Keepo publish behavior |
