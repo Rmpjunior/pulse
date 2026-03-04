@@ -4,7 +4,7 @@ import { z } from 'zod';
 import { auth } from '@/lib/auth';
 import { db } from '@/lib/db';
 import { parseBody, parseParams } from '@/lib/api/validation';
-import { internalServerError, notFound, unauthorized } from '@/lib/api/errors';
+import { badRequest, internalServerError, notFound, unauthorized } from '@/lib/api/errors';
 
 interface RouteParams {
   params: Promise<{ pageId: string }>;
@@ -153,14 +153,32 @@ export async function PATCH(request: Request, { params }: RouteParams) {
       return notFound('Page not found');
     }
 
+    const blockIds = blocks.map((block) => block.id);
+    const uniqueBlockIds = new Set(blockIds);
+
+    if (uniqueBlockIds.size !== blockIds.length) {
+      return badRequest('Duplicate block ids are not allowed');
+    }
+
+    const ownedBlocksCount = await db.block.count({
+      where: {
+        id: { in: blockIds },
+        pageId,
+      },
+    });
+
+    if (ownedBlocksCount !== blockIds.length) {
+      return notFound('One or more blocks were not found for this page');
+    }
+
     // Update block orders
     await Promise.all(
-      blocks.map((block: { id: string; order: number }) =>
+      blocks.map((block) =>
         db.block.update({
           where: { id: block.id },
           data: { order: block.order },
-        })
-      )
+        }),
+      ),
     );
 
     return NextResponse.json({ message: 'Blocks reordered' });

@@ -35,6 +35,7 @@ Last updated: 2026-03-04
 - API reliability hardening:
   - centralized API error helper (`src/lib/api/errors.ts`) with consistent error format
   - auth/user/pages/blocks/analytics/register routes now return standardized API errors
+  - ownership checks reforçados nos endpoints mutáveis de blocos (escopo por `pageId` + `userId`, incluindo reorder seguro)
 
 ## Partially Implemented / Gaps
 

@@ -181,3 +181,24 @@ Append one entry per coding session.
   - Baseline cobre helpers críticos, mas ainda não cobre fluxo E2E de criação/edição/publicação
 - Next:
   - Executar `P0-6`: montar smoke E2E da jornada core (create → edit → publish → view)
+
+### Session 2026-03-04 13:24 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P0-4` garantindo consistência de ownership checks em APIs mutáveis
+- Backlog Item: P0-4
+- Changes:
+  - `src/app/api/pages/[pageId]/blocks/route.ts`: endurecido reorder para aceitar apenas IDs únicos de blocos pertencentes à página alvo (`pageId`), com erro explícito para duplicados e IDs fora de escopo
+  - `src/app/api/pages/[pageId]/blocks/[blockId]/route.ts`: criado helper `findOwnedBlock` e aplicado em GET/PATCH/DELETE para forçar escopo conjunto (`blockId` + `pageId` + `session.user.id`)
+  - `src/app/api/pages/route.ts`: removido import não utilizado (`notFound`) para reduzir ruído de lint
+  - `docs/03_BACKLOG.md`: `P0-4` marcado como `DONE`
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com hardening de ownership em blocos
+- Validation:
+  - Command: `npm run test` -> passou (2 arquivos, 7 testes)
+  - Command: `npm run lint` -> passou (0 erros, warnings existentes)
+  - Command: `npm run build` -> passou
+  - Manual (relevante): revisão de fluxo de segurança em código para impedir reorder/update/delete cross-page por ID isolado
+- Risks:
+  - Ainda faltam testes automatizados específicos para cenários de autorização/ownership por rota
+- Next:
+  - Executar `P0-6`: estabelecer smoke E2E da jornada core (create → edit → publish → view)

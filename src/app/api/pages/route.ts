@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { auth } from '@/lib/auth';
 import { db } from '@/lib/db';
 import { parseBody } from '@/lib/api/validation';
-import { conflict, internalServerError, notFound, unauthorized } from '@/lib/api/errors';
+import { conflict, internalServerError, unauthorized } from '@/lib/api/errors';
 
 const createPageSchema = z.object({
   username: z

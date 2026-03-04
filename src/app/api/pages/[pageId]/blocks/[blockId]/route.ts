@@ -25,6 +25,29 @@ const updateBlockSchema = z
     message: 'At least one field must be provided',
   });
 
+async function findOwnedBlock(params: {
+  blockId: string;
+  pageId: string;
+  userId: string;
+}) {
+  const { blockId, pageId, userId } = params;
+
+  return db.block.findFirst({
+    where: {
+      id: blockId,
+      pageId,
+      page: {
+        userId,
+      },
+    },
+    include: {
+      page: {
+        select: { userId: true, id: true },
+      },
+    },
+  });
+}
+
 // GET - Get a specific block
 export async function GET(request: Request, { params }: RouteParams) {
   try {
@@ -32,23 +55,20 @@ export async function GET(request: Request, { params }: RouteParams) {
     if (!parsedParams.success) {
       return parsedParams.response;
     }
-    const { blockId } = parsedParams.data;
+    const { pageId, blockId } = parsedParams.data;
     const session = await auth();
 
     if (!session?.user?.id) {
       return unauthorized();
     }
 
-    const block = await db.block.findUnique({
-      where: { id: blockId },
-      include: {
-        page: {
-          select: { userId: true },
-        },
-      },
+    const block = await findOwnedBlock({
+      blockId,
+      pageId,
+      userId: session.user.id,
     });
 
-    if (!block || block.page.userId !== session.user.id) {
+    if (!block) {
       return notFound('Block not found');
     }
 
@@ -66,7 +86,7 @@ export async function PATCH(request: Request, { params }: RouteParams) {
     if (!parsedParams.success) {
       return parsedParams.response;
     }
-    const { blockId } = parsedParams.data;
+    const { pageId, blockId } = parsedParams.data;
     const session = await auth();
 
     if (!session?.user?.id) {
@@ -80,16 +100,13 @@ export async function PATCH(request: Request, { params }: RouteParams) {
     const { content, visible, order } = parsedBody.data;
 
     // Verify ownership
-    const existingBlock = await db.block.findUnique({
-      where: { id: blockId },
-      include: {
-        page: {
-          select: { userId: true },
-        },
-      },
+    const existingBlock = await findOwnedBlock({
+      blockId,
+      pageId,
+      userId: session.user.id,
     });
 
-    if (!existingBlock || existingBlock.page.userId !== session.user.id) {
+    if (!existingBlock) {
       return notFound('Block not found');
     }
 
@@ -119,7 +136,7 @@ export async function DELETE(request: Request, { params }: RouteParams) {
     if (!parsedParams.success) {
       return parsedParams.response;
     }
-    const { blockId } = parsedParams.data;
+    const { pageId, blockId } = parsedParams.data;
     const session = await auth();
 
     if (!session?.user?.id) {
@@ -127,16 +144,13 @@ export async function DELETE(request: Request, { params }: RouteParams) {
     }
 
     // Verify ownership
-    const existingBlock = await db.block.findUnique({
-      where: { id: blockId },
-      include: {
-        page: {
-          select: { userId: true, id: true },
-        },
-      },
+    const existingBlock = await findOwnedBlock({
+      blockId,
+      pageId,
+      userId: session.user.id,
     });
 
-    if (!existingBlock || existingBlock.page.userId !== session.user.id) {
+    if (!existingBlock) {
       return notFound('Block not found');
     }
 
