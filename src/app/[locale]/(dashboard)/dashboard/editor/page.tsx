@@ -4,7 +4,11 @@ import { db } from "@/lib/db";
 import { EditorContent } from "./editor-content";
 import { getPlanCapabilities } from "@/lib/subscription/gating";
 
-export default async function EditorPage() {
+export default async function EditorPage({
+  searchParams,
+}: {
+  searchParams?: Promise<{ pageId?: string }>;
+}) {
   const session = await auth();
 
   if (!session?.user?.id) {
@@ -22,14 +26,21 @@ export default async function EditorPage() {
 
   const capabilities = getPlanCapabilities(user?.subscription?.plan);
 
-  // Get or create user's page
+  const resolvedSearchParams = (await searchParams) || {};
+  const selectedPageId = resolvedSearchParams.pageId;
+
+  // Get selected page (or first page) for this user
   const page = await db.page.findFirst({
-    where: { userId: session.user.id },
+    where: {
+      userId: session.user.id,
+      ...(selectedPageId ? { id: selectedPageId } : {}),
+    },
     include: {
       blocks: {
         orderBy: { order: "asc" },
       },
     },
+    orderBy: { createdAt: "asc" },
   });
 
   // If no page exists, we'll handle creation in the client

@@ -26,8 +26,8 @@ export default async function DashboardPage() {
   const t = await getTranslations("dashboard");
   const session = await auth();
 
-  // Get user's page if it exists
-  const page = await db.page.findFirst({
+  // Get user's pages if they exist
+  const pages = await db.page.findMany({
     where: { userId: session?.user?.id },
     include: {
       _count: {
@@ -37,18 +37,24 @@ export default async function DashboardPage() {
         },
       },
     },
+    orderBy: { createdAt: "asc" },
   });
 
-  // Get click count
-  const clickCount = page
+  const pageIds = pages.map((p) => p.id);
+
+  // Get click count across all pages
+  const clickCount = pageIds.length
     ? await db.blockClick.count({
         where: {
           block: {
-            pageId: page.id,
+            pageId: { in: pageIds },
           },
         },
       })
     : 0;
+
+  const totalViews = pages.reduce((sum, p) => sum + p._count.pageViews, 0);
+  const primaryPage = pages[0] || null;
 
   return (
     <div className="space-y-8">
@@ -60,7 +66,7 @@ export default async function DashboardPage() {
         <p className="text-muted-foreground">{t("subtitle")}</p>
       </div>
 
-      {page ? (
+      {pages.length > 0 ? (
         <>
           {/* Stats cards */}
           <div className="grid gap-4 md:grid-cols-3">
@@ -73,7 +79,7 @@ export default async function DashboardPage() {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
-                  {page._count.pageViews}
+                  {totalViews}
                 </div>
                 <p className="text-xs text-muted-foreground">
                   {t("stats.viewsDescription")}
@@ -105,9 +111,7 @@ export default async function DashboardPage() {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
-                  {page._count.pageViews > 0
-                    ? ((clickCount / page._count.pageViews) * 100).toFixed(1)
-                    : 0}
+                  {totalViews > 0 ? ((clickCount / totalViews) * 100).toFixed(1) : 0}
                   %
                 </div>
                 <p className="text-xs text-muted-foreground">
@@ -124,8 +128,8 @@ export default async function DashboardPage() {
                 <div>
                   <CardTitle>{t("yourPage")}</CardTitle>
                   <CardDescription>
-                    pulse.vercel.app/{page.username}
-                    {page.published ? (
+                    pulse.vercel.app/{primaryPage?.username}
+                    {primaryPage?.published ? (
                       <span className="ml-2 inline-flex items-center rounded-full bg-success/10 px-2 py-0.5 text-xs font-medium text-success">
                         {t("published")}
                       </span>
@@ -137,13 +141,13 @@ export default async function DashboardPage() {
                   </CardDescription>
                 </div>
                 <div className="flex gap-2">
-                  <Link href={`/p/${page.username}`} target="_blank">
+                  <Link href={`/p/${primaryPage?.username}`} target="_blank">
                     <Button variant="outline" size="sm">
                       <ExternalLink className="h-4 w-4 mr-2" />
                       {t("viewPage")}
                     </Button>
                   </Link>
-                  <Link href="/dashboard/editor">
+                  <Link href={`/dashboard/editor?pageId=${primaryPage?.id}`}>
                     <Button variant="gradient" size="sm">
                       {t("editPage")}
                     </Button>
@@ -153,13 +157,55 @@ export default async function DashboardPage() {
             </CardHeader>
           </Card>
 
+          {/* Multi-site management */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Your Keepos</CardTitle>
+              <CardDescription>
+                Gerencie múltiplos sites: editar, abrir e ajustar configurações.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                {pages.map((site) => (
+                  <div
+                    key={site.id}
+                    className="flex items-center justify-between gap-3 rounded-lg border p-3"
+                  >
+                    <div>
+                      <p className="font-medium">{site.displayName || site.username}</p>
+                      <p className="text-xs text-muted-foreground">@{site.username}</p>
+                    </div>
+                    <div className="flex gap-2">
+                      <Link href={`/dashboard/editor?pageId=${site.id}`}>
+                        <Button size="sm" variant="outline">
+                          Editar
+                        </Button>
+                      </Link>
+                      <Link href={`/p/${site.username}`} target="_blank">
+                        <Button size="sm" variant="outline">
+                          Abrir
+                        </Button>
+                      </Link>
+                      <Link href="/dashboard/settings">
+                        <Button size="sm" variant="ghost">
+                          Config
+                        </Button>
+                      </Link>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
           {/* Quick actions */}
           <div>
             <h2 className="text-lg font-semibold mb-4">
               {t("quickActions.title")}
             </h2>
             <div className="grid gap-4 md:grid-cols-4">
-              <Link href="/dashboard/editor">
+              <Link href={`/dashboard/editor${primaryPage ? `?pageId=${primaryPage.id}` : ""}`}>
                 <Card className="hover:border-primary/50 transition-colors cursor-pointer h-full">
                   <CardContent className="flex flex-col items-center justify-center p-6 text-center">
                     <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
@@ -172,7 +218,9 @@ export default async function DashboardPage() {
                 </Card>
               </Link>
 
-              <Link href="/dashboard/editor?tab=theme">
+              <Link
+                href={`/dashboard/editor?tab=theme${primaryPage ? `&pageId=${primaryPage.id}` : ""}`}
+              >
                 <Card className="hover:border-primary/50 transition-colors cursor-pointer h-full">
                   <CardContent className="flex flex-col items-center justify-center p-6 text-center">
                     <div className="h-12 w-12 rounded-lg bg-secondary/10 flex items-center justify-center mb-3">

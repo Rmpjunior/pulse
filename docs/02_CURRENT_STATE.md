@@ -61,6 +61,7 @@ Last updated: 2026-03-04
 - Analytics UX alinhada ao plano: filtro por período com lock contextual quando excede limite de histórico (`analyticsDays`) e prompt de upgrade orientado
 - Self-service de conta fortalecido: forgot-password agora usa endpoint real (`/api/auth/forgot-password`) com token de reset e settings com exclusão de conta confirmada (`DELETE_MY_ACCOUNT` + senha quando aplicável)
 - Estratégia de auth robustecida: provider Google agora é opcional por configuração (sem quebrar auth quando env faltar) + fallback explícito de UI para login/cadastro por credenciais
+- Dashboard com paridade multi-site (`Your Keepos`): lista de sites com ações rápidas `Editar`, `Abrir` e `Config`, além de editor suportando seleção por `pageId`
 - Plano técnico de custom domain/subdomain publicado em `docs/08_CUSTOM_DOMAIN_PLAN.md` com arquitetura, modelo de dados, APIs, critérios e rollout quebrado em etapas
 - Visitor identity para analytics agora usa fingerprint estável por request headers (user-agent + idioma + IP encaminhado hash), substituindo ID aleatório por evento
 - Test baseline ativo com Vitest (`npm run test`) cobrindo helpers críticos de API (error shape + validation)

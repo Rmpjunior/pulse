@@ -746,4 +746,26 @@ Append one entry per coding session.
 - Risks:
   - Exibição client-side depende de `NEXT_PUBLIC_AUTH_GOOGLE_ENABLED`; manter alinhado com env de servidor para evitar inconsistência visual
 - Next:
-  - Iniciar `P2-9`: preparar camada de observabilidade operacional (erros críticos de auth/billing/domains)
+  - Iniciar `P2-9`: paridade de gestão multi-site no dashboard (`Your Keepos`)
+
+### Session 2026-03-04 22:57 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P2-9` com paridade de gestão multi-site no dashboard
+- Backlog Item: P2-9
+- Changes:
+  - `src/app/[locale]/(dashboard)/dashboard/page.tsx`: dashboard agora trabalha com múltiplas páginas (agregação de views/clicks) e adiciona card `Your Keepos` com ações `Editar`, `Abrir`, `Config`
+  - `src/app/[locale]/(dashboard)/dashboard/editor/page.tsx`: editor passou a suportar seleção de site por query `pageId`
+  - `src/app/[locale]/(auth)/login/login-form.tsx` e `src/app/[locale]/(auth)/register/register-form.tsx`: fallback visual de Google OAuth mantido alinhado com configuração opcional
+  - `src/lib/auth.ts`: providers montados dinamicamente para tolerar ausência de env Google
+  - `docs/03_BACKLOG.md`: `P2-9` marcado como `DONE`
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com paridade multi-site
+- Validation:
+  - Command: `npm run test` -> passou (5 arquivos, 14 testes)
+  - Command: `npm run lint` -> passou (0 erros, warnings existentes)
+  - Command: `npm run build` -> passou
+  - Manual (relevante): revisão de fluxo de múltiplos sites no dashboard e navegação de edição por `pageId`
+- Risks:
+  - Ação `Config` ainda aponta para settings global (não settings por site específico)
+- Next:
+  - Iniciar `P3-1`: ampliar cobertura/validação de embeds sociais e mídia (polish avançado)
