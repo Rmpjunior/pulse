@@ -1,6 +1,6 @@
 # Current State
 
-Last updated: 2026-02-19
+Last updated: 2026-03-04
 
 ## Runtime Stack
 
@@ -32,6 +32,9 @@ Last updated: 2026-02-19
   - fixed TypeScript/Prisma JSON typing in page/block update and block create APIs
   - lint now runs without errors (warnings remain)
   - production build passes locally (`next build`)
+- API reliability hardening:
+  - centralized API error helper (`src/lib/api/errors.ts`) with consistent error format
+  - auth/user/pages/blocks/analytics/register routes now return standardized API errors
 
 ## Partially Implemented / Gaps
 

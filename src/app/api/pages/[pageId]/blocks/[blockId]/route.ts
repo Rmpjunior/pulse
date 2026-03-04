@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { auth } from '@/lib/auth';
 import { db } from '@/lib/db';
 import { parseBody, parseParams } from '@/lib/api/validation';
+import { internalServerError, notFound, unauthorized } from '@/lib/api/errors';
 
 interface RouteParams {
   params: Promise<{ pageId: string; blockId: string }>;
@@ -35,7 +36,7 @@ export async function GET(request: Request, { params }: RouteParams) {
     const session = await auth();
 
     if (!session?.user?.id) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      return unauthorized();
     }
 
     const block = await db.block.findUnique({
@@ -48,13 +49,13 @@ export async function GET(request: Request, { params }: RouteParams) {
     });
 
     if (!block || block.page.userId !== session.user.id) {
-      return NextResponse.json({ error: 'Block not found' }, { status: 404 });
+      return notFound('Block not found');
     }
 
     return NextResponse.json(block);
   } catch (error) {
     console.error('Error fetching block:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    return internalServerError();
   }
 }
 
@@ -69,7 +70,7 @@ export async function PATCH(request: Request, { params }: RouteParams) {
     const session = await auth();
 
     if (!session?.user?.id) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      return unauthorized();
     }
 
     const parsedBody = await parseBody(request, updateBlockSchema);
@@ -89,7 +90,7 @@ export async function PATCH(request: Request, { params }: RouteParams) {
     });
 
     if (!existingBlock || existingBlock.page.userId !== session.user.id) {
-      return NextResponse.json({ error: 'Block not found' }, { status: 404 });
+      return notFound('Block not found');
     }
 
     // Update the block
@@ -107,7 +108,7 @@ export async function PATCH(request: Request, { params }: RouteParams) {
     return NextResponse.json(block);
   } catch (error) {
     console.error('Error updating block:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    return internalServerError();
   }
 }
 
@@ -122,7 +123,7 @@ export async function DELETE(request: Request, { params }: RouteParams) {
     const session = await auth();
 
     if (!session?.user?.id) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      return unauthorized();
     }
 
     // Verify ownership
@@ -136,7 +137,7 @@ export async function DELETE(request: Request, { params }: RouteParams) {
     });
 
     if (!existingBlock || existingBlock.page.userId !== session.user.id) {
-      return NextResponse.json({ error: 'Block not found' }, { status: 404 });
+      return notFound('Block not found');
     }
 
     // Delete the block
@@ -162,6 +163,6 @@ export async function DELETE(request: Request, { params }: RouteParams) {
     return NextResponse.json({ message: 'Block deleted' });
   } catch (error) {
     console.error('Error deleting block:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    return internalServerError();
   }
 }

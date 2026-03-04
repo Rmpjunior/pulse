@@ -1,5 +1,6 @@
-import { NextResponse } from "next/server";
-import { z } from "zod";
+import { NextResponse } from 'next/server';
+import { z } from 'zod';
+import { badRequest } from '@/lib/api/errors';
 
 interface ValidationSuccess<T> {
   success: true;
@@ -12,16 +13,6 @@ interface ValidationFailure {
 }
 
 type ValidationResult<T> = ValidationSuccess<T> | ValidationFailure;
-
-export function badRequest(message: string, issues?: z.ZodIssue[]) {
-  return NextResponse.json(
-    {
-      error: message,
-      ...(issues ? { details: issues } : {}),
-    },
-    { status: 400 },
-  );
-}
 
 export async function parseBody<T>(
   request: Request,

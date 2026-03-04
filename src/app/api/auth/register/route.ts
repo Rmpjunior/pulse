@@ -3,6 +3,7 @@ import bcrypt from 'bcryptjs';
 import { z } from 'zod';
 import { db } from '@/lib/db';
 import { parseBody } from '@/lib/api/validation';
+import { conflict, internalServerError } from '@/lib/api/errors';
 
 const registerSchema = z.object({
   name: z.string().trim().min(1).max(80).optional(),
@@ -24,10 +25,7 @@ export async function POST(request: Request) {
     });
 
     if (existingUser) {
-      return NextResponse.json(
-        { error: 'Email already in use' },
-        { status: 400 }
-      );
+      return conflict('Email already in use');
     }
 
     // Hash password
@@ -57,9 +55,6 @@ export async function POST(request: Request) {
     );
   } catch (error) {
     console.error('Registration error:', error);
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    );
+    return internalServerError();
   }
 }

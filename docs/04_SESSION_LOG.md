@@ -97,3 +97,65 @@ Append one entry per coding session.
   - Lint warnings remain (unused vars + `<img>` warnings), but they are non-blocking for build/deploy
 - Next:
   - Execute `P0-2` (centralized API error shape/helper)
+
+### Session 2026-03-03 23:51 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Auditar Keepo real (criar/editar/publicar/visualizar) e reorganizar backlog do Pulse para paridade de features
+- Backlog Item: P0-5 (definição de matriz/paridade e organização de execução)
+- Changes:
+  - `docs/03_BACKLOG.md`: reestruturado em P0/P1/P2/P3 com foco explícito em paridade Keepo → Pulse
+  - `docs/03_BACKLOG.md`: adicionados itens de onboarding, biblioteca de seções, publish flow, pós-publicação, recovery de rascunho, limites Free/Plus e account self-service
+  - `docs/03_BACKLOG.md`: adicionada seção de evidências da exploração live do Keepo
+- Validation:
+  - Manual: fluxo Keepo autenticado validado em VPS (create FREE minisite → title/category → add `Links` section → preview → publish → abrir URL pública)
+  - Manual: URL pública validada (`https://pulseqa330586.keepo.bio/`) com renderização do minisite criado
+- Risks:
+  - Alguns controles no editor do Keepo exigem cliques específicos/repetidos (ex.: publish) em automação headless
+  - Pode haver variação de UX entre web mobile e desktop impactando scripts de validação
+- Next:
+  - Iniciar implementação por `P0-2` (padronização de erros) e `P0-6` (smoke E2E da jornada core)
+
+### Session 2026-03-04 00:01 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Aprofundar auditoria de paridade no Keepo com foco em campos/opções por seção
+- Backlog Item: P0-5
+- Changes:
+  - `docs/03_BACKLOG.md`: adicionados itens granulares de paridade por seção (`P1-13` a `P1-16`) e dashboard multi-site (`P2-9`)
+  - `docs/03_BACKLOG.md`: enriquecidas discovery notes com mapeamento de campos reais do Keepo
+  - `workspace` artifacts: gerados scans estruturados (`keepo-feature-deep3.json`, `keepo-links-catalog-deep.json`) + screenshots de telas/fluxos
+- Validation:
+  - Manual: navegação autenticada em `editor.keepo.bio`, edição de minisite existente, abertura de modal de seções e inspeção de telas `Welcome`, `About`, `Catalog`, `Links`, `Social media`
+  - Manual: criação/edição de item em `Links` (title + URL) com retorno para listagem de links
+- Risks:
+  - Parte do editor possui interações com overlays/interceptação de clique, exigindo `force` em automação headless
+  - Fluxos de `Catalog` podem depender de estado/contexto da seção ativa, variando conforme draft/site em edição
+- Next:
+  - Transformar discoveries em checklist executável por feature (com DoD por bloco) e iniciar implementação incremental
+
+### Session 2026-03-04 10:51 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P0-2` com padronização de respostas de erro da API
+- Backlog Item: P0-2
+- Changes:
+  - `src/lib/api/errors.ts`: criado helper central de erro (`apiError`, `unauthorized`, `notFound`, `conflict`, `badRequest`, `internalServerError`)
+  - `src/lib/api/validation.ts`: integrado com `badRequest` central para validar body/params/query em formato único
+  - `src/app/api/auth/register/route.ts`: migração para erro padronizado (`conflict`/`internalServerError`)
+  - `src/app/api/user/route.ts`: migração para erro padronizado (`unauthorized`/`internalServerError`)
+  - `src/app/api/pages/route.ts`: migração para erro padronizado (`unauthorized`/`conflict`/`internalServerError`)
+  - `src/app/api/pages/[pageId]/route.ts`: migração para erro padronizado (`unauthorized`/`notFound`/`internalServerError`)
+  - `src/app/api/pages/[pageId]/blocks/route.ts`: migração para erro padronizado (`unauthorized`/`notFound`/`internalServerError`)
+  - `src/app/api/pages/[pageId]/blocks/[blockId]/route.ts`: migração para erro padronizado (`unauthorized`/`notFound`/`internalServerError`)
+  - `src/app/api/analytics/route.ts`: migração para erro padronizado (`unauthorized`/`internalServerError`)
+  - `src/app/api/analytics/click/route.ts`: migração para erro padronizado (`notFound`/`internalServerError`)
+  - `docs/03_BACKLOG.md`: `P0-2` marcado como `DONE`
+  - `docs/02_CURRENT_STATE.md`: atualizado snapshot com padronização de erros API
+- Validation:
+  - Command: `npm run lint` -> passou (sem erros, apenas warnings existentes)
+  - Command: `npm run build` -> passou
+- Risks:
+  - Clientes que parseavam apenas `error: string` agora precisam ler `error.message` no novo formato
+- Next:
+  - Executar `P0-6`: smoke E2E da jornada core (create → edit → publish → view)

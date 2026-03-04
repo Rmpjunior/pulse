@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { auth } from '@/lib/auth';
 import { db } from '@/lib/db';
 import { parseBody } from '@/lib/api/validation';
+import { internalServerError, unauthorized } from '@/lib/api/errors';
 
 const updateUserSchema = z.object({
   name: z.string().trim().min(1).max(80).optional(),
@@ -15,7 +16,7 @@ export async function PATCH(request: Request) {
     const session = await auth();
     
     if (!session?.user?.id) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      return unauthorized();
     }
 
     const parsedBody = await parseBody(request, updateUserSchema);
@@ -40,7 +41,7 @@ export async function PATCH(request: Request) {
     });
   } catch (error) {
     console.error('Error updating user:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    return internalServerError();
   }
 }
 
@@ -50,7 +51,7 @@ export async function DELETE() {
     const session = await auth();
     
     if (!session?.user?.id) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      return unauthorized();
     }
 
     // Delete all user data
@@ -84,6 +85,6 @@ export async function DELETE() {
     return NextResponse.json({ message: 'Account deleted' });
   } catch (error) {
     console.error('Error deleting user:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    return internalServerError();
   }
 }

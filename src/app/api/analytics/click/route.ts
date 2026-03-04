@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { db } from '@/lib/db';
 import { parseBody } from '@/lib/api/validation';
+import { internalServerError, notFound } from '@/lib/api/errors';
 
 const clickSchema = z.object({
   blockId: z.string().trim().min(1),
@@ -22,7 +23,7 @@ export async function POST(request: Request) {
     });
 
     if (!block) {
-      return NextResponse.json({ error: 'Block not found' }, { status: 404 });
+      return notFound('Block not found');
     }
 
     // Generate a simple visitor ID
@@ -39,6 +40,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Error tracking click:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    return internalServerError();
   }
 }

@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { auth } from '@/lib/auth';
 import { db } from '@/lib/db';
 import { parseBody, parseParams } from '@/lib/api/validation';
+import { internalServerError, notFound, unauthorized } from '@/lib/api/errors';
 
 interface RouteParams {
   params: Promise<{ pageId: string }>;
@@ -35,7 +36,7 @@ export async function GET(request: Request, { params }: RouteParams) {
     const session = await auth();
     
     if (!session?.user?.id) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      return unauthorized();
     }
 
     const page = await db.page.findUnique({
@@ -48,13 +49,13 @@ export async function GET(request: Request, { params }: RouteParams) {
     });
 
     if (!page) {
-      return NextResponse.json({ error: 'Page not found' }, { status: 404 });
+      return notFound('Page not found');
     }
 
     return NextResponse.json(page);
   } catch (error) {
     console.error('Error fetching page:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    return internalServerError();
   }
 }
 
@@ -69,7 +70,7 @@ export async function PATCH(request: Request, { params }: RouteParams) {
     const session = await auth();
     
     if (!session?.user?.id) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      return unauthorized();
     }
 
     const parsedBody = await parseBody(request, updatePageSchema);
@@ -84,7 +85,7 @@ export async function PATCH(request: Request, { params }: RouteParams) {
     });
 
     if (!existingPage || existingPage.userId !== session.user.id) {
-      return NextResponse.json({ error: 'Page not found' }, { status: 404 });
+      return notFound('Page not found');
     }
 
     // Update the page
@@ -101,7 +102,7 @@ export async function PATCH(request: Request, { params }: RouteParams) {
     return NextResponse.json(page);
   } catch (error) {
     console.error('Error updating page:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    return internalServerError();
   }
 }
 
@@ -116,7 +117,7 @@ export async function DELETE(request: Request, { params }: RouteParams) {
     const session = await auth();
     
     if (!session?.user?.id) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      return unauthorized();
     }
 
     // Verify ownership
@@ -125,7 +126,7 @@ export async function DELETE(request: Request, { params }: RouteParams) {
     });
 
     if (!existingPage || existingPage.userId !== session.user.id) {
-      return NextResponse.json({ error: 'Page not found' }, { status: 404 });
+      return notFound('Page not found');
     }
 
     await db.page.delete({
@@ -135,6 +136,6 @@ export async function DELETE(request: Request, { params }: RouteParams) {
     return NextResponse.json({ message: 'Page deleted' });
   } catch (error) {
     console.error('Error deleting page:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    return internalServerError();
   }
 }

@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { auth } from '@/lib/auth';
 import { db } from '@/lib/db';
 import { parseQuery } from '@/lib/api/validation';
+import { internalServerError, unauthorized } from '@/lib/api/errors';
 
 const analyticsQuerySchema = z.object({
   days: z.coerce.number().int().min(1).max(365).default(30),
@@ -14,7 +15,7 @@ export async function GET(request: Request) {
     const session = await auth();
     
     if (!session?.user?.id) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      return unauthorized();
     }
 
     const { searchParams } = new URL(request.url);
@@ -104,7 +105,7 @@ export async function GET(request: Request) {
     });
   } catch (error) {
     console.error('Error fetching analytics:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    return internalServerError();
   }
 }
 

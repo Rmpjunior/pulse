@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { auth } from '@/lib/auth';
 import { db } from '@/lib/db';
 import { parseBody } from '@/lib/api/validation';
+import { conflict, internalServerError, notFound, unauthorized } from '@/lib/api/errors';
 
 const createPageSchema = z.object({
   username: z
@@ -19,7 +20,7 @@ export async function GET() {
     const session = await auth();
     
     if (!session?.user?.id) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      return unauthorized();
     }
 
     const page = await db.page.findFirst({
@@ -34,7 +35,7 @@ export async function GET() {
     return NextResponse.json(page);
   } catch (error) {
     console.error('Error fetching page:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    return internalServerError();
   }
 }
 
@@ -44,7 +45,7 @@ export async function POST(request: Request) {
     const session = await auth();
     
     if (!session?.user?.id) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      return unauthorized();
     }
 
     const parsedBody = await parseBody(request, createPageSchema);
@@ -59,10 +60,7 @@ export async function POST(request: Request) {
     });
 
     if (existingPage) {
-      return NextResponse.json(
-        { error: 'Username already taken' },
-        { status: 400 }
-      );
+      return conflict('Username already taken');
     }
 
     // Check if user already has a page
@@ -71,10 +69,7 @@ export async function POST(request: Request) {
     });
 
     if (userPage) {
-      return NextResponse.json(
-        { error: 'User already has a page' },
-        { status: 400 }
-      );
+      return conflict('User already has a page');
     }
 
     // Create the page
@@ -92,6 +87,6 @@ export async function POST(request: Request) {
     return NextResponse.json(page, { status: 201 });
   } catch (error) {
     console.error('Error creating page:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    return internalServerError();
   }
 }

@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { auth } from '@/lib/auth';
 import { db } from '@/lib/db';
 import { parseBody, parseParams } from '@/lib/api/validation';
+import { internalServerError, notFound, unauthorized } from '@/lib/api/errors';
 
 interface RouteParams {
   params: Promise<{ pageId: string }>;
@@ -52,7 +53,7 @@ export async function GET(request: Request, { params }: RouteParams) {
     const session = await auth();
     
     if (!session?.user?.id) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      return unauthorized();
     }
 
     // Verify page ownership
@@ -61,7 +62,7 @@ export async function GET(request: Request, { params }: RouteParams) {
     });
 
     if (!page || page.userId !== session.user.id) {
-      return NextResponse.json({ error: 'Page not found' }, { status: 404 });
+      return notFound('Page not found');
     }
 
     const blocks = await db.block.findMany({
@@ -72,7 +73,7 @@ export async function GET(request: Request, { params }: RouteParams) {
     return NextResponse.json(blocks);
   } catch (error) {
     console.error('Error fetching blocks:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    return internalServerError();
   }
 }
 
@@ -87,7 +88,7 @@ export async function POST(request: Request, { params }: RouteParams) {
     const session = await auth();
     
     if (!session?.user?.id) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      return unauthorized();
     }
 
     const parsedBody = await parseBody(request, createBlockSchema);
@@ -102,7 +103,7 @@ export async function POST(request: Request, { params }: RouteParams) {
     });
 
     if (!page || page.userId !== session.user.id) {
-      return NextResponse.json({ error: 'Page not found' }, { status: 404 });
+      return notFound('Page not found');
     }
 
     // Create the block
@@ -119,7 +120,7 @@ export async function POST(request: Request, { params }: RouteParams) {
     return NextResponse.json(block, { status: 201 });
   } catch (error) {
     console.error('Error creating block:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    return internalServerError();
   }
 }
 
@@ -134,7 +135,7 @@ export async function PATCH(request: Request, { params }: RouteParams) {
     const session = await auth();
     
     if (!session?.user?.id) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      return unauthorized();
     }
 
     const parsedBody = await parseBody(request, reorderBlocksSchema);
@@ -149,7 +150,7 @@ export async function PATCH(request: Request, { params }: RouteParams) {
     });
 
     if (!page || page.userId !== session.user.id) {
-      return NextResponse.json({ error: 'Page not found' }, { status: 404 });
+      return notFound('Page not found');
     }
 
     // Update block orders
@@ -165,6 +166,6 @@ export async function PATCH(request: Request, { params }: RouteParams) {
     return NextResponse.json({ message: 'Blocks reordered' });
   } catch (error) {
     console.error('Error reordering blocks:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    return internalServerError();
   }
 }
