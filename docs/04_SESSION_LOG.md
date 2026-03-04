@@ -489,3 +489,25 @@ Append one entry per coding session.
   - Ajustes feitos por CSS/layout; ainda falta validação visual automatizada com screenshot diff por breakpoint
 - Next:
   - Iniciar `P1-13`: paridade de campos `Welcome` (foto, display name, featured title, second title, CTA)
+
+### Session 2026-03-04 19:55 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P1-13` com paridade de campos da seção `Welcome`
+- Backlog Item: P1-13
+- Changes:
+  - `src/app/[locale]/(dashboard)/dashboard/editor/editor-content.tsx`: template da section library `Welcome` evoluído para payload dedicado (photo/displayName/featuredTitle/secondTitle/cta)
+  - `src/components/editor/block-editor.tsx`: `TEXT` com variante `WELCOME` agora tem formulário dedicado para campos de paridade
+  - `src/components/editor/themed-preview.tsx`: preview renderiza cartão `Welcome` com campos dedicados
+  - `src/app/[locale]/p/[username]/page-content.tsx`: página pública renderiza variante `Welcome` com CTA clicável
+  - `docs/03_BACKLOG.md`: `P1-13` marcado como `DONE`
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com paridade `Welcome`
+- Validation:
+  - Command: `npm run test` -> passou (4 arquivos, 11 testes)
+  - Command: `npm run lint` -> passou (0 erros, warnings existentes)
+  - Command: `npm run build` -> passou
+  - Manual (relevante): revisão de fluxo section-library -> edição dos campos -> render no preview e público
+- Risks:
+  - `Welcome` ainda mapeado como variante de `TEXT` (não type dedicado no schema), exigindo disciplina para manter compatibilidade
+- Next:
+  - Iniciar `P1-14`: paridade `About` (page title, featured title opcional, descrição, imagem)

@@ -193,6 +193,29 @@ function ThemedBlockWrapper({
       );
 
     case "TEXT":
+      if (content.variant === "WELCOME") {
+        return (
+          <div className="text-center p-4 rounded-xl" style={{ backgroundColor: `${colors.primary}10` }}>
+            {(content.profilePhoto as string) ? (
+              <img
+                src={content.profilePhoto as string}
+                alt={(content.displayName as string) || 'Welcome'}
+                className="w-16 h-16 rounded-full mx-auto mb-3 object-cover"
+              />
+            ) : null}
+            <p className="text-sm opacity-70">{(content.displayName as string) || 'Seu nome'}</p>
+            <p className="font-semibold text-lg mt-1">{(content.featuredTitle as string) || 'Seu destaque'}</p>
+            {(content.secondTitle as string) && (
+              <p className="text-sm opacity-70 mt-1">{content.secondTitle as string}</p>
+            )}
+            {(content.ctaText as string) && (
+              <span className="inline-block mt-3 rounded-md px-3 py-1 text-sm" style={{ backgroundColor: `${colors.primary}20`, color: colors.primary }}>
+                {content.ctaText as string}
+              </span>
+            )}
+          </div>
+        );
+      }
       const textAlign =
         (content.align as "left" | "center" | "right") || "center";
       return (

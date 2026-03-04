@@ -80,7 +80,17 @@ const sectionLibrary = [
     description: "Introdução com título curto",
     icon: Sparkles,
     type: "TEXT" as BlockType,
-    template: { text: "Bem-vindo(a)!", align: "center" },
+    template: {
+      variant: "WELCOME",
+      profilePhoto: "",
+      displayName: "",
+      featuredTitle: "Seu destaque",
+      secondTitle: "Subtítulo",
+      ctaText: "Saiba mais",
+      ctaLink: "",
+      text: "",
+      align: "center",
+    },
   },
   {
     key: "ABOUT",

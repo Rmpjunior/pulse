@@ -217,6 +217,18 @@ function BlockPreview({ type, content, onEdit }: BlockPreviewProps) {
           </div>
         );
       case "TEXT":
+        if (c.variant === "WELCOME") {
+          return (
+            <div>
+              <p className="font-medium">
+                {(c.featuredTitle as string) || "Welcome"}
+              </p>
+              <p className="text-sm text-muted-foreground">
+                {(c.secondTitle as string) || "Sem subtítulo"}
+              </p>
+            </div>
+          );
+        }
         return (
           <p className="text-muted-foreground">
             {(c.text as string) || "Texto vazio"}
@@ -383,6 +395,57 @@ function BlockEditForm({
         );
 
       case "TEXT":
+        if (c.variant === "WELCOME") {
+          return (
+            <div className="space-y-3">
+              <div>
+                <label className="text-sm font-medium mb-1 block">Foto de perfil (URL)</label>
+                <Input
+                  value={(c.profilePhoto as string) || ""}
+                  onChange={(e) => updateField("profilePhoto", e.target.value)}
+                  placeholder="https://..."
+                />
+              </div>
+              <div>
+                <label className="text-sm font-medium mb-1 block">Display name</label>
+                <Input
+                  value={(c.displayName as string) || ""}
+                  onChange={(e) => updateField("displayName", e.target.value)}
+                  placeholder="Seu nome"
+                />
+              </div>
+              <div>
+                <label className="text-sm font-medium mb-1 block">Featured title</label>
+                <Input
+                  value={(c.featuredTitle as string) || ""}
+                  onChange={(e) => updateField("featuredTitle", e.target.value)}
+                  placeholder="Título principal"
+                />
+              </div>
+              <div>
+                <label className="text-sm font-medium mb-1 block">Second title</label>
+                <Input
+                  value={(c.secondTitle as string) || ""}
+                  onChange={(e) => updateField("secondTitle", e.target.value)}
+                  placeholder="Subtítulo"
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <Input
+                  value={(c.ctaText as string) || ""}
+                  onChange={(e) => updateField("ctaText", e.target.value)}
+                  placeholder="Texto CTA"
+                />
+                <Input
+                  value={(c.ctaLink as string) || ""}
+                  onChange={(e) => updateField("ctaLink", e.target.value)}
+                  placeholder="Link CTA"
+                />
+              </div>
+            </div>
+          );
+        }
+
         return (
           <div className="space-y-3">
             <div>

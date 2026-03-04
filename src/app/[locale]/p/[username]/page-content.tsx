@@ -271,6 +271,52 @@ function ThemedBlock({
       );
 
     case "TEXT":
+      if (content.variant === "WELCOME") {
+        return (
+          <div
+            className="p-5 text-center"
+            style={{
+              background: `linear-gradient(135deg, ${colors.primary}15, ${colors.secondary}15)`,
+              borderColor: `${colors.primary}30`,
+              borderWidth: "1px",
+              borderStyle: "solid",
+              borderRadius: buttonRadius,
+            }}
+          >
+            {(content.profilePhoto as string) && (
+              <img
+                src={content.profilePhoto as string}
+                alt={(content.displayName as string) || "Welcome"}
+                className="w-16 h-16 rounded-full mx-auto mb-3 object-cover"
+              />
+            )}
+            <p className="text-sm opacity-70" style={{ color: colors.text }}>
+              {(content.displayName as string) || "Seu nome"}
+            </p>
+            <p className="text-lg font-semibold mt-1" style={{ color: colors.text }}>
+              {(content.featuredTitle as string) || "Seu destaque"}
+            </p>
+            {(content.secondTitle as string) && (
+              <p className="text-sm opacity-70 mt-1" style={{ color: colors.text }}>
+                {content.secondTitle as string}
+              </p>
+            )}
+            {(content.ctaText as string) && (content.ctaLink as string) && (
+              <a
+                href={content.ctaLink as string}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={handleClick}
+                className="inline-flex items-center gap-1 text-sm mt-3 hover:underline"
+                style={{ color: colors.primary }}
+              >
+                {content.ctaText as string}
+                <ExternalLink className="h-3 w-3" />
+              </a>
+            )}
+          </div>
+        );
+      }
       const textAlign =
         (content.align as "left" | "center" | "right") || "center";
       return (
