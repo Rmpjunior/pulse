@@ -812,3 +812,24 @@ Append one entry per coding session.
   - Ainda há warnings de `no-img-element` no projeto; migração completa para `next/image` pode ser etapa futura de otimização
 - Next:
   - Iniciar `P3-3`: templates reutilizáveis/quick-start presets para acelerar ativação de novos criadores
+
+### Session 2026-03-04 23:40 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P3-3` adicionando templates reutilizáveis no onboarding
+- Backlog Item: P3-3
+- Changes:
+  - `src/app/[locale]/(dashboard)/dashboard/editor/editor-content.tsx`: criado motor de presets rápidos (`Creator`, `Business`, `Personal`) com blocos iniciais pré-configurados
+  - `src/app/[locale]/(dashboard)/dashboard/editor/editor-content.tsx`: onboarding (passo 2) agora inclui escolha de template rápido com descrição
+  - `src/app/[locale]/(dashboard)/dashboard/editor/editor-content.tsx`: criação da página passou a provisionar múltiplos blocos iniciais combinando primeira seção + preset escolhido (respeitando `maxSections`)
+  - `docs/03_BACKLOG.md`: `P3-3` marcado como `DONE`
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com quick-start presets ativos
+- Validation:
+  - Command: `npm run test` -> passou (5 arquivos, 14 testes)
+  - Command: `npm run lint` -> passou (0 erros, warnings existentes)
+  - Command: `npm run build` -> passou
+  - Manual (relevante): revisão do fluxo de onboarding com seleção de pack e criação automática de blocos iniciais
+- Risks:
+  - Presets usam conteúdos default genéricos; ainda recomendável localizar/parametrizar por nicho e idioma do usuário
+- Next:
+  - Iniciar revisão geral pós-roadmap (estabilização + backlog de hardening técnico)

@@ -131,6 +131,114 @@ const sectionLibrary = [
   },
 ];
 
+function getQuickStartPresetBlocks(preset: "creator" | "business" | "personal") {
+  if (preset === "business") {
+    return [
+      {
+        type: "TEXT" as BlockType,
+        content: {
+          variant: "WELCOME",
+          displayName: "",
+          featuredTitle: "Soluções para seu negócio",
+          secondTitle: "Atendimento rápido e profissional",
+          ctaText: "Solicitar orçamento",
+          ctaLink: "",
+        },
+      },
+      {
+        type: "CATALOG" as BlockType,
+        content: {
+          items: [
+            {
+              id: crypto.randomUUID(),
+              name: "Serviço principal",
+              description: "Descrição curta do serviço",
+              price: "R$ 199,00",
+              image: "",
+              url: "",
+            },
+          ],
+        },
+      },
+      {
+        type: "LINK" as BlockType,
+        content: {
+          label: "Falar no WhatsApp",
+          url: "https://wa.me/",
+          style: "gradient",
+          thumbnailType: "emoji",
+          thumbnailValue: "💬",
+        },
+      },
+    ];
+  }
+
+  if (preset === "personal") {
+    return [
+      {
+        type: "TEXT" as BlockType,
+        content: {
+          variant: "WELCOME",
+          displayName: "",
+          featuredTitle: "Bem-vindo ao meu espaço",
+          secondTitle: "Compartilho meus projetos e contatos",
+          ctaText: "Meu trabalho",
+          ctaLink: "",
+        },
+      },
+      {
+        type: "LINK" as BlockType,
+        content: {
+          label: "Portfólio",
+          url: "https://",
+          style: "default",
+          thumbnailType: "emoji",
+          thumbnailValue: "🧩",
+        },
+      },
+      {
+        type: "SOCIAL_ICONS" as BlockType,
+        content: {
+          icons: [
+            { platform: "instagram", url: "https://instagram.com/" },
+            { platform: "linkedin", url: "https://linkedin.com/in/" },
+          ],
+        },
+      },
+    ];
+  }
+
+  return [
+    {
+      type: "TEXT" as BlockType,
+      content: {
+        variant: "WELCOME",
+        displayName: "",
+        featuredTitle: "Crie, publique e cresça",
+        secondTitle: "Seu hub de links em minutos",
+        ctaText: "Ver links",
+        ctaLink: "",
+      },
+    },
+    {
+      type: "LINK" as BlockType,
+      content: {
+        label: "Meu link principal",
+        url: "https://",
+        style: "gradient",
+        thumbnailType: "emoji",
+        thumbnailValue: "🚀",
+      },
+    },
+    {
+      type: "SOCIAL_ICONS" as BlockType,
+      content: {
+        icons: [{ platform: "instagram", url: "https://instagram.com/" }],
+      },
+    },
+  ];
+}
+
 export function EditorContent({
   page,
   isPlusUser = false,
@@ -162,6 +270,9 @@ export function EditorContent({
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
   const [onboardingStep, setOnboardingStep] = useState<1 | 2>(1);
   const [onboardingCategory, setOnboardingCategory] = useState("creator");
+  const [onboardingPreset, setOnboardingPreset] = useState<
+    "creator" | "business" | "personal"
+  >("creator");
   const [onboardingFirstSection, setOnboardingFirstSection] =
     useState<BlockType>("LINK");
   const [publishSuccessUrl, setPublishSuccessUrl] = useState<string | null>(null);
@@ -204,17 +315,28 @@ export function EditorContent({
 
       const createdPage = (await res.json()) as { id: string };
       const firstSectionContent = defaultBlockContent[onboardingFirstSection];
+      const presetBlocks = getQuickStartPresetBlocks(onboardingPreset);
+
+      const blocksToCreate = [
+        {
+          type: onboardingFirstSection,
+          content: firstSectionContent,
+        },
+        ...presetBlocks,
+      ].slice(0, maxSections);
 
       await Promise.all([
-        fetch(`/api/pages/${createdPage.id}/blocks`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            type: onboardingFirstSection,
-            order: 0,
-            content: firstSectionContent,
+        ...blocksToCreate.map((block, index) =>
+          fetch(`/api/pages/${createdPage.id}/blocks`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              type: block.type,
+              order: index,
+              content: block.content,
+            }),
           }),
-        }),
+        ),
         fetch(`/api/pages/${createdPage.id}`, {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
@@ -222,6 +344,7 @@ export function EditorContent({
             theme: {
               onboarding: {
                 category: onboardingCategory,
+                preset: onboardingPreset,
                 firstSection: onboardingFirstSection,
                 completedAt: new Date().toISOString(),
               },
@@ -694,6 +817,35 @@ export function EditorContent({
                         )}
                       >
                         {option.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <label className="text-sm font-medium mb-2 block">Template rápido</label>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                    {[
+                      { id: "creator", label: "Creator Pack", desc: "Welcome + Link + Social" },
+                      { id: "business", label: "Business Pack", desc: "Welcome + Catálogo + CTA" },
+                      { id: "personal", label: "Personal Pack", desc: "Welcome + Portfólio + Social" },
+                    ].map((preset) => (
+                      <button
+                        key={preset.id}
+                        onClick={() =>
+                          setOnboardingPreset(
+                            preset.id as "creator" | "business" | "personal",
+                          )
+                        }
+                        className={cn(
+                          "rounded-lg border px-3 py-2 text-left",
+                          onboardingPreset === preset.id
+                            ? "border-primary bg-primary/10"
+                            : "border-border",
+                        )}
+                      >
+                        <span className="block text-sm font-medium">{preset.label}</span>
+                        <span className="block text-xs text-muted-foreground">{preset.desc}</span>
                       </button>
                     ))}
                   </div>

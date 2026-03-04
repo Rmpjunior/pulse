@@ -56,7 +56,7 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 |---|---|---|---|
 | P3-1 | DONE | Add richer social/media embed coverage and validation UX | Better creator flexibility |
 | P3-2 | DONE | Add public page performance + accessibility hardening pass | Quality and trust |
-| P3-3 | TODO | Add reusable templates / quick-start presets for first-time creators | Faster activation |
+| P3-3 | DONE | Add reusable templates / quick-start presets for first-time creators | Faster activation |
 
 ## Discovery Notes (Keepo live exploration)
 
