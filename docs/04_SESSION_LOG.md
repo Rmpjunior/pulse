@@ -284,3 +284,25 @@ Append one entry per coding session.
   - Bloco FORM ainda não envia submissão para endpoint dedicado (render funcional/estático por enquanto)
 - Next:
   - Iniciar `P1-3`: melhorar estratégia de identificação de visitantes para analytics
+
+### Session 2026-03-04 15:55 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P1-3` melhorando estratégia de identificação de visitante em analytics
+- Backlog Item: P1-3
+- Changes:
+  - `src/lib/analytics/visitor.ts`: criado resolvedor de visitorId estável com hash de fingerprint (`user-agent` + `accept-language` + `x-forwarded-for/x-real-ip`)
+  - `src/lib/analytics/visitor.test.ts`: adicionados testes de estabilidade/diferenciação/fallback do visitorId
+  - `src/app/api/analytics/click/route.ts`: click tracking migrado de visitor aleatório para fingerprint estável
+  - `src/app/[locale]/p/[username]/page.tsx`: page view tracking migrado para fingerprint estável e passou a persistir `referrer` + `userAgent`
+  - `docs/03_BACKLOG.md`: `P1-3` marcado como `DONE`
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com nova estratégia de identificação
+- Validation:
+  - Command: `npm run test` -> passou (4 arquivos, 11 testes)
+  - Command: `npm run lint` -> passou (0 erros, warnings existentes)
+  - Command: `npm run build` -> passou
+  - Manual (relevante): revisão do fluxo de tracking para garantir consistência entre page view e click
+- Risks:
+  - Fingerprint por header melhora consistência, mas ainda não é equivalente a identidade persistente por cookie/dispositivo em cenários com IP rotativo/proxies
+- Next:
+  - Iniciar `P1-4`: adicionar feedback de UX no editor (optimistic UI + toasts)

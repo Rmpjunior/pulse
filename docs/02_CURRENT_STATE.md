@@ -41,7 +41,7 @@ Last updated: 2026-03-04
 
 - `CATALOG` possui caminho completo de edição/render (adicionar item, editar campos e render público com CTA opcional)
 - `FORM` possui caminho completo de edição/render (configurar campos/título/botão no editor e render de formulário no público)
-- Analytics visitor identity is naive/random (not durable across sessions)
+- Visitor identity para analytics agora usa fingerprint estável por request headers (user-agent + idioma + IP encaminhado hash), substituindo ID aleatório por evento
 - Test baseline ativo com Vitest (`npm run test`) cobrindo helpers críticos de API (error shape + validation)
 - Smoke E2E mínimo ativo (`npm run test:smoke`) validando jornada core persistida (create → edit → publish → view) em fluxo integrado com banco
 - Matriz oficial de paridade Keepo → Pulse publicada em `docs/07_FEATURE_PARITY_MATRIX.md` com critérios de aceite por feature

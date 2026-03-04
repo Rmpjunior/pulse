@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { db } from '@/lib/db';
 import { parseBody } from '@/lib/api/validation';
 import { internalServerError, notFound } from '@/lib/api/errors';
+import { resolveVisitorIdFromHeaders } from '@/lib/analytics/visitor';
 
 const clickSchema = z.object({
   blockId: z.string().trim().min(1),
@@ -26,8 +27,7 @@ export async function POST(request: Request) {
       return notFound('Block not found');
     }
 
-    // Generate a simple visitor ID
-    const visitorId = Math.random().toString(36).substring(2, 15);
+    const visitorId = resolveVisitorIdFromHeaders(request.headers);
 
     // Create the click record
     await db.blockClick.create({

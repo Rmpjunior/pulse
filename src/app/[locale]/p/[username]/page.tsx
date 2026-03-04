@@ -1,5 +1,7 @@
+import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
+import { resolveVisitorIdFromHeaders } from "@/lib/analytics/visitor";
 import { PublicPageContent } from "./page-content";
 
 interface PublicPageProps {
@@ -56,21 +58,24 @@ export default async function PublicPage({ params }: PublicPageProps) {
   }
 
   // Track page view (fire and forget)
-  trackPageView(page.id);
+  const requestHeaders = await headers();
+  trackPageView(page.id, requestHeaders);
 
   const isPlusPlan = page.user.subscription?.plan !== "FREE";
 
   return <PublicPageContent page={page} showWatermark={!isPlusPlan} />;
 }
 
-async function trackPageView(pageId: string) {
+async function trackPageView(pageId: string, requestHeaders: Headers) {
   try {
-    const visitorId = Math.random().toString(36).substring(2, 15);
+    const visitorId = resolveVisitorIdFromHeaders(requestHeaders);
 
     await db.pageView.create({
       data: {
         pageId,
         visitorId,
+        referrer: requestHeaders.get("referer") || undefined,
+        userAgent: requestHeaders.get("user-agent") || undefined,
       },
     });
   } catch (error) {
