@@ -46,7 +46,7 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | P2-5 | DONE | Add upgrade triggers inside editor journey (contextual paywall prompts) | Increase conversion |
 | P2-6 | DONE | Build analytics UX baseline (views/clicks by period) and tie to gated plan strategy | Product value and upsell |
 | P2-7 | DONE | Add account self-service flows (password reset, account deletion) | Expected SaaS baseline |
-| P2-8 | TODO | Expand auth strategy decision: Google OAuth reliability and fallback path | Reduce auth friction |
+| P2-8 | DONE | Expand auth strategy decision: Google OAuth reliability and fallback path | Reduce auth friction |
 | P2-9 | TODO | Add multi-site dashboard management parity (`Your Keepos`, edit/open/settings actions) | Operational parity for creators with >1 site |
 
 ## P3 (Polish / Advanced Differentiators)

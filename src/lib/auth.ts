@@ -5,21 +5,19 @@ import { PrismaAdapter } from '@auth/prisma-adapter';
 import bcrypt from 'bcryptjs';
 import { db } from './db';
 
-export const { handlers, signIn, signOut, auth } = NextAuth({
-  adapter: PrismaAdapter(db),
-  session: {
-    strategy: 'jwt',
-  },
-  pages: {
-    signIn: '/login',
-    error: '/login',
-  },
-  providers: [
+const providers = [];
+
+if (process.env.AUTH_GOOGLE_ID && process.env.AUTH_GOOGLE_SECRET) {
+  providers.push(
     Google({
       clientId: process.env.AUTH_GOOGLE_ID,
       clientSecret: process.env.AUTH_GOOGLE_SECRET,
     }),
-    Credentials({
+  );
+}
+
+providers.push(
+  Credentials({
       name: 'credentials',
       credentials: {
         email: { label: 'Email', type: 'email' },
@@ -55,7 +53,18 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         };
       },
     }),
-  ],
+);
+
+export const { handlers, signIn, signOut, auth } = NextAuth({
+  adapter: PrismaAdapter(db),
+  session: {
+    strategy: 'jwt',
+  },
+  pages: {
+    signIn: '/login',
+    error: '/login',
+  },
+  providers,
   callbacks: {
     async session({ session, token }) {
       if (token.sub && session.user) {

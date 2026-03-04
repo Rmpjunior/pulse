@@ -726,3 +726,24 @@ Append one entry per coding session.
   - Envio de e-mail ainda está em modo placeholder (link em log); falta integração com provider transacional para produção
 - Next:
   - Iniciar `P2-8`: decisão/expansão da estratégia de auth (Google OAuth confiável + fallback)
+
+### Session 2026-03-04 22:42 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P2-8` finalizando estratégia de auth com fallback confiável
+- Backlog Item: P2-8
+- Changes:
+  - `src/lib/auth.ts`: provider Google passou a ser carregado condicionalmente (somente com envs válidas), evitando quebra de auth quando OAuth não está configurado
+  - `src/app/[locale]/(auth)/login/login-form.tsx`: login mostra fallback explícito para credenciais quando Google estiver indisponível
+  - `src/app/[locale]/(auth)/register/register-form.tsx`: cadastro idem, com fallback claro para e-mail/senha
+  - `docs/03_BACKLOG.md`: `P2-8` marcado como `DONE`
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com estratégia auth robustecida
+- Validation:
+  - Command: `npm run test` -> passou (5 arquivos, 14 testes)
+  - Command: `npm run lint` -> passou (0 erros, warnings existentes)
+  - Command: `npm run build` -> passou
+  - Manual (relevante): revisão de comportamento com/sem Google env configurada e fallback de interface
+- Risks:
+  - Exibição client-side depende de `NEXT_PUBLIC_AUTH_GOOGLE_ENABLED`; manter alinhado com env de servidor para evitar inconsistência visual
+- Next:
+  - Iniciar `P2-9`: preparar camada de observabilidade operacional (erros críticos de auth/billing/domains)
