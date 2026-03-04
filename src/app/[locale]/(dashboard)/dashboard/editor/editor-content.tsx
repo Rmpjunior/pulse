@@ -56,6 +56,12 @@ interface EditorContentProps {
   isPlusUser?: boolean;
 }
 
+interface ToastMessage {
+  id: string;
+  type: "success" | "error";
+  text: string;
+}
+
 const blockTypes = [
   { type: "LINK", icon: LinkIcon, label: "Link" },
   { type: "HIGHLIGHT", icon: Sparkles, label: "Destaque" },
@@ -90,6 +96,15 @@ export function EditorContent({ page, isPlusUser = false }: EditorContentProps) 
   );
   const [mobileView, setMobileView] = useState<"editor" | "preview">("editor");
   const [showBlockPicker, setShowBlockPicker] = useState(false);
+  const [toasts, setToasts] = useState<ToastMessage[]>([]);
+
+  const pushToast = useCallback((type: ToastMessage["type"], text: string) => {
+    const id = crypto.randomUUID();
+    setToasts((current) => [...current, { id, type, text }]);
+    setTimeout(() => {
+      setToasts((current) => current.filter((toast) => toast.id !== id));
+    }, 2800);
+  }, []);
 
   const handleCreatePage = async () => {
     if (!username.trim()) return;
@@ -103,10 +118,14 @@ export function EditorContent({ page, isPlusUser = false }: EditorContentProps) 
       });
 
       if (res.ok) {
+        pushToast("success", "Página criada com sucesso.");
         router.refresh();
+      } else {
+        pushToast("error", "Não foi possível criar a página.");
       }
     } catch (error) {
       console.error("Error creating page:", error);
+      pushToast("error", "Erro ao criar página.");
     } finally {
       setIsCreating(false);
     }
@@ -117,14 +136,22 @@ export function EditorContent({ page, isPlusUser = false }: EditorContentProps) 
 
     setIsSaving(true);
     try {
-      await fetch(`/api/pages/${page.id}`, {
+      const res = await fetch(`/api/pages/${page.id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ displayName, bio, theme: themeSettings }),
       });
+
+      if (!res.ok) {
+        pushToast("error", "Falha ao salvar alterações.");
+        return;
+      }
+
+      pushToast("success", "Alterações salvas.");
       router.refresh();
     } catch (error) {
       console.error("Error saving:", error);
+      pushToast("error", "Erro ao salvar.");
     } finally {
       setIsSaving(false);
     }
@@ -135,14 +162,26 @@ export function EditorContent({ page, isPlusUser = false }: EditorContentProps) 
 
     setIsPublishing(true);
     try {
-      await fetch(`/api/pages/${page.id}`, {
+      const nextPublished = !published;
+      const res = await fetch(`/api/pages/${page.id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ published: !published }),
+        body: JSON.stringify({ published: nextPublished }),
       });
-      setPublished(!published);
+
+      if (!res.ok) {
+        pushToast("error", "Falha ao alterar publicação.");
+        return;
+      }
+
+      setPublished(nextPublished);
+      pushToast(
+        "success",
+        nextPublished ? "Página publicada." : "Página despublicada.",
+      );
     } catch (error) {
       console.error("Error publishing:", error);
+      pushToast("error", "Erro ao publicar/despublicar.");
     } finally {
       setIsPublishing(false);
     }
@@ -151,21 +190,41 @@ export function EditorContent({ page, isPlusUser = false }: EditorContentProps) 
   const handleAddBlock = async (type: string) => {
     if (!page) return;
 
+    const content = defaultBlockContent[type as BlockType];
+    const tempId = `tmp-${crypto.randomUUID()}`;
+    const optimisticBlock: Block = {
+      id: tempId,
+      type: type as BlockType,
+      order: blocks.length,
+      visible: true,
+      content,
+    };
+
+    setBlocks((current) => [...current, optimisticBlock]);
+    setShowBlockPicker(false);
+
     try {
-      const content = defaultBlockContent[type as BlockType];
       const res = await fetch(`/api/pages/${page.id}/blocks`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ type, order: blocks.length, content }),
       });
 
-      if (res.ok) {
-        const newBlock = await res.json();
-        setBlocks([...blocks, newBlock]);
-        setShowBlockPicker(false);
+      if (!res.ok) {
+        setBlocks((current) => current.filter((b) => b.id !== tempId));
+        pushToast("error", "Falha ao adicionar bloco.");
+        return;
       }
+
+      const newBlock = await res.json();
+      setBlocks((current) =>
+        current.map((b) => (b.id === tempId ? newBlock : b)),
+      );
+      pushToast("success", "Bloco adicionado.");
     } catch (error) {
       console.error("Error adding block:", error);
+      setBlocks((current) => current.filter((b) => b.id !== tempId));
+      pushToast("error", "Erro ao adicionar bloco.");
     }
   };
 
@@ -173,38 +232,60 @@ export function EditorContent({ page, isPlusUser = false }: EditorContentProps) 
     async (blockId: string, content: unknown) => {
       if (!page) return;
 
+      const previousBlocks = blocks;
+      setBlocks((current) =>
+        current.map((b) => (b.id === blockId ? { ...b, content } : b)),
+      );
+
       try {
-        await fetch(`/api/pages/${page.id}/blocks/${blockId}`, {
+        const res = await fetch(`/api/pages/${page.id}/blocks/${blockId}`, {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ content }),
         });
 
-        setBlocks(
-          blocks.map((b) => (b.id === blockId ? { ...b, content } : b)),
-        );
+        if (!res.ok) {
+          setBlocks(previousBlocks);
+          pushToast("error", "Falha ao atualizar bloco.");
+          return;
+        }
+
+        pushToast("success", "Bloco atualizado.");
       } catch (error) {
         console.error("Error updating block:", error);
+        setBlocks(previousBlocks);
+        pushToast("error", "Erro ao atualizar bloco.");
       }
     },
-    [page, blocks],
+    [page, blocks, pushToast],
   );
 
   const handleDeleteBlock = useCallback(
     async (blockId: string) => {
       if (!page) return;
 
+      const previousBlocks = blocks;
+      setBlocks((current) => current.filter((b) => b.id !== blockId));
+
       try {
-        await fetch(`/api/pages/${page.id}/blocks/${blockId}`, {
+        const res = await fetch(`/api/pages/${page.id}/blocks/${blockId}`, {
           method: "DELETE",
         });
 
-        setBlocks(blocks.filter((b) => b.id !== blockId));
+        if (!res.ok) {
+          setBlocks(previousBlocks);
+          pushToast("error", "Falha ao remover bloco.");
+          return;
+        }
+
+        pushToast("success", "Bloco removido.");
       } catch (error) {
         console.error("Error deleting block:", error);
+        setBlocks(previousBlocks);
+        pushToast("error", "Erro ao remover bloco.");
       }
     },
-    [page, blocks],
+    [page, blocks, pushToast],
   );
 
   const handleToggleVisibility = useCallback(
@@ -214,25 +295,34 @@ export function EditorContent({ page, isPlusUser = false }: EditorContentProps) 
       const block = blocks.find((b) => b.id === blockId);
       if (!block) return;
 
+      const previousBlocks = blocks;
       const newVisible = !block.visible;
 
+      setBlocks((current) =>
+        current.map((b) =>
+          b.id === blockId ? { ...b, visible: newVisible } : b,
+        ),
+      );
+
       try {
-        await fetch(`/api/pages/${page.id}/blocks/${blockId}`, {
+        const res = await fetch(`/api/pages/${page.id}/blocks/${blockId}`, {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ visible: newVisible }),
         });
 
-        setBlocks(
-          blocks.map((b) =>
-            b.id === blockId ? { ...b, visible: newVisible } : b,
-          ),
-        );
+        if (!res.ok) {
+          setBlocks(previousBlocks);
+          pushToast("error", "Falha ao alterar visibilidade.");
+          return;
+        }
       } catch (error) {
         console.error("Error toggling visibility:", error);
+        setBlocks(previousBlocks);
+        pushToast("error", "Erro ao alterar visibilidade.");
       }
     },
-    [page, blocks],
+    [page, blocks, pushToast],
   );
 
   const handleMoveBlock = useCallback(
@@ -247,6 +337,7 @@ export function EditorContent({ page, isPlusUser = false }: EditorContentProps) 
         return;
       }
 
+      const previousBlocks = blocks;
       const newBlocks = [...blocks];
       const targetIndex = direction === "up" ? index - 1 : index + 1;
       [newBlocks[index], newBlocks[targetIndex]] = [
@@ -258,18 +349,25 @@ export function EditorContent({ page, isPlusUser = false }: EditorContentProps) 
       setBlocks(updatedBlocks);
 
       try {
-        await fetch(`/api/pages/${page.id}/blocks`, {
+        const res = await fetch(`/api/pages/${page.id}/blocks`, {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             blocks: updatedBlocks.map((b) => ({ id: b.id, order: b.order })),
           }),
         });
+
+        if (!res.ok) {
+          setBlocks(previousBlocks);
+          pushToast("error", "Falha ao reordenar blocos.");
+        }
       } catch (error) {
         console.error("Error reordering blocks:", error);
+        setBlocks(previousBlocks);
+        pushToast("error", "Erro ao reordenar blocos.");
       }
     },
-    [page, blocks],
+    [page, blocks, pushToast],
   );
 
   // If no page exists, show creation form
@@ -342,7 +440,24 @@ export function EditorContent({ page, isPlusUser = false }: EditorContentProps) 
   }
 
   return (
-    <div className="flex flex-col lg:flex-row gap-6 h-[calc(100vh-8rem)]">
+    <>
+      <div className="fixed right-4 top-4 z-50 space-y-2">
+        {toasts.map((toast) => (
+          <div
+            key={toast.id}
+            className={cn(
+              "rounded-lg border px-3 py-2 text-sm shadow-sm bg-background",
+              toast.type === "success"
+                ? "border-emerald-300 text-emerald-700"
+                : "border-red-300 text-red-700",
+            )}
+          >
+            {toast.text}
+          </div>
+        ))}
+      </div>
+
+      <div className="flex flex-col lg:flex-row gap-6 h-[calc(100vh-8rem)]">
       {/* Mobile View Toggle */}
       <div className="lg:hidden flex border rounded-lg overflow-hidden shrink-0">
         <button
@@ -586,5 +701,6 @@ export function EditorContent({ page, isPlusUser = false }: EditorContentProps) 
         </div>
       </div>
     </div>
+  </>
   );
 }

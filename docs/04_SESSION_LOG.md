@@ -306,3 +306,23 @@ Append one entry per coding session.
   - Fingerprint por header melhora consistência, mas ainda não é equivalente a identidade persistente por cookie/dispositivo em cenários com IP rotativo/proxies
 - Next:
   - Iniciar `P1-4`: adicionar feedback de UX no editor (optimistic UI + toasts)
+
+### Session 2026-03-04 16:26 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P1-4` com feedback de UX no editor (optimistic UI + toasts)
+- Backlog Item: P1-4
+- Changes:
+  - `src/app/[locale]/(dashboard)/dashboard/editor/editor-content.tsx`: implementado sistema local de toasts (sucesso/erro) e updates otimistas com rollback para add/update/delete/reorder/toggle de blocos
+  - `src/app/[locale]/(dashboard)/dashboard/editor/editor-content.tsx`: ações de create/save/publish agora exibem feedback explícito de sucesso/erro
+  - `docs/03_BACKLOG.md`: `P1-4` marcado como `DONE`
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com status de optimistic UI + toasts
+- Validation:
+  - Command: `npm run test` -> passou (4 arquivos, 11 testes)
+  - Command: `npm run lint` -> passou (0 erros, warnings existentes)
+  - Command: `npm run build` -> passou
+  - Manual (relevante): revisão do fluxo no código confirmando rollback em falha de API para operações críticas de bloco
+- Risks:
+  - Toasts ainda locais ao editor (sem provider global), então não aparecem em outras páginas
+- Next:
+  - Iniciar `P1-5`: onboarding wizard (title + category + first section)
