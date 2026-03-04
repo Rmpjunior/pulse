@@ -575,4 +575,26 @@ Append one entry per coding session.
 - Risks:
   - Render de ícones sociais ainda usa abreviação textual por plataforma (não ícones oficiais de marca)
 - Next:
-  - Iniciar `P2-1`: alinhamento de identificação visual dos ícones sociais (opcional de polish)
+  - Iniciar `P2-1`: definir matriz de gating Free vs Plus em código
+
+### Session 2026-03-04 20:56 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P2-1` definindo matriz de gating Free vs Plus em código
+- Backlog Item: P2-1
+- Changes:
+  - `src/lib/subscription/gating.ts`: criada matriz oficial de capabilities por plano (`FREE`/`PLUS`) com helpers (`normalizePlan`, `getPlanCapabilities`, `isPlusPlan`)
+  - `src/lib/subscription/gating.test.ts`: adicionados testes unitários da matriz/normalização
+  - `src/app/[locale]/(dashboard)/dashboard/editor/page.tsx`: editor passou a derivar capacidades de plano via matriz
+  - `src/app/[locale]/p/[username]/page.tsx`: watermark do público agora respeita capability `watermarkRemoval` via matriz
+  - `docs/03_BACKLOG.md`: `P2-1` marcado como `DONE`
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com gating matrix em produção
+- Validation:
+  - Command: `npm run test` -> passou (5 arquivos, 14 testes)
+  - Command: `npm run lint` -> passou (0 erros, warnings existentes)
+  - Command: `npm run build` -> passou
+  - Manual (relevante): revisão de integração de capabilities em editor/public rendering
+- Risks:
+  - Matriz está definida com limites iniciais e pode exigir ajuste fino após validação de negócio/comercial
+- Next:
+  - Iniciar `P2-2`: implementar skeleton de Stripe checkout + webhook

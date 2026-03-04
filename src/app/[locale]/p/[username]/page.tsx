@@ -2,6 +2,7 @@ import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
 import { resolveVisitorIdFromHeaders } from "@/lib/analytics/visitor";
+import { getPlanCapabilities } from "@/lib/subscription/gating";
 import { PublicPageContent } from "./page-content";
 
 interface PublicPageProps {
@@ -61,9 +62,14 @@ export default async function PublicPage({ params }: PublicPageProps) {
   const requestHeaders = await headers();
   trackPageView(page.id, requestHeaders);
 
-  const isPlusPlan = page.user.subscription?.plan !== "FREE";
+  const capabilities = getPlanCapabilities(page.user.subscription?.plan);
 
-  return <PublicPageContent page={page} showWatermark={!isPlusPlan} />;
+  return (
+    <PublicPageContent
+      page={page}
+      showWatermark={!capabilities.watermarkRemoval}
+    />
+  );
 }
 
 async function trackPageView(pageId: string, requestHeaders: Headers) {
