@@ -15,6 +15,7 @@ interface ThemedPreviewProps {
   settings: ThemeSettings;
   displayName: string;
   bio: string;
+  avatarUrl?: string;
   blocks: Array<{
     id: string;
     type: string;
@@ -27,6 +28,7 @@ export function ThemedPreview({
   settings,
   displayName,
   bio,
+  avatarUrl,
   blocks,
 }: ThemedPreviewProps) {
   const preset =
@@ -54,17 +56,28 @@ export function ThemedPreview({
     >
       {/* Profile Header */}
       <div className="text-center mb-6">
-        <div
-          className="w-20 h-20 rounded-full mx-auto mb-4 flex items-center justify-center"
-          style={{
-            background: `linear-gradient(135deg, ${colors.primary}, ${colors.accent})`,
-            boxShadow: `0 0 0 4px ${colors.background}, 0 0 0 6px ${colors.secondary}40`,
-          }}
-        >
-          <span className="text-2xl font-bold text-white">
-            {displayName?.[0]?.toUpperCase() || "?"}
-          </span>
-        </div>
+        {avatarUrl ? (
+          <img
+            src={avatarUrl}
+            alt={displayName || 'Avatar'}
+            className="w-20 h-20 rounded-full mx-auto mb-4 object-cover"
+            style={{
+              boxShadow: `0 0 0 4px ${colors.background}, 0 0 0 6px ${colors.secondary}40`,
+            }}
+          />
+        ) : (
+          <div
+            className="w-20 h-20 rounded-full mx-auto mb-4 flex items-center justify-center"
+            style={{
+              background: `linear-gradient(135deg, ${colors.primary}, ${colors.accent})`,
+              boxShadow: `0 0 0 4px ${colors.background}, 0 0 0 6px ${colors.secondary}40`,
+            }}
+          >
+            <span className="text-2xl font-bold text-white">
+              {displayName?.[0]?.toUpperCase() || "?"}
+            </span>
+          </div>
+        )}
 
         <h2 className="font-semibold text-lg" style={{ color: colors.text }}>
           {displayName || "Seu Nome"}

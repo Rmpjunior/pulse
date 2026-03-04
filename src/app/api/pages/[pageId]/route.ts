@@ -18,6 +18,7 @@ const updatePageSchema = z
   .object({
     displayName: z.string().trim().max(80).optional(),
     bio: z.string().max(500).optional(),
+    avatar: z.url().optional(),
     theme: z.record(z.string(), z.unknown()).optional(),
     published: z.boolean().optional(),
   })
@@ -77,7 +78,7 @@ export async function PATCH(request: Request, { params }: RouteParams) {
     if (!parsedBody.success) {
       return parsedBody.response;
     }
-    const { displayName, bio, theme, published } = parsedBody.data;
+    const { displayName, bio, avatar, theme, published } = parsedBody.data;
 
     // Verify ownership
     const existingPage = await db.page.findUnique({
@@ -94,6 +95,7 @@ export async function PATCH(request: Request, { params }: RouteParams) {
       data: {
         ...(displayName !== undefined && { displayName }),
         ...(bio !== undefined && { bio }),
+        ...(avatar !== undefined && { avatar }),
         ...(theme !== undefined && { theme: theme as Prisma.InputJsonValue }),
         ...(published !== undefined && { published }),
       },

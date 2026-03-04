@@ -448,3 +448,24 @@ Append one entry per coding session.
   - Estado de draft é local (browser/localStorage), não sincroniza entre dispositivos/sessões diferentes
 - Next:
   - Iniciar `P1-11`: perfil essencial no editor + página pública (avatar, display name, bio)
+
+### Session 2026-03-04 19:27 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P1-11` com perfil essencial no editor + página pública
+- Backlog Item: P1-11
+- Changes:
+  - `src/app/api/pages/[pageId]/route.ts`: PATCH agora aceita atualização de `avatar` (URL)
+  - `src/app/[locale]/(dashboard)/dashboard/editor/editor-content.tsx`: perfil no editor ganhou campo de avatar por URL com preview imediato; save inclui avatar; draft recovery/autosave passou a incluir avatar
+  - `src/components/editor/themed-preview.tsx`: preview passou a renderizar avatar quando definido (fallback para iniciais)
+  - `docs/03_BACKLOG.md`: `P1-11` marcado como `DONE`
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com perfil essencial ponta a ponta
+- Validation:
+  - Command: `npm run test` -> passou (4 arquivos, 11 testes)
+  - Command: `npm run lint` -> passou (0 erros, warnings existentes)
+  - Command: `npm run build` -> passou
+  - Manual (relevante): revisão do fluxo editar avatar/displayName/bio → preview → render público
+- Risks:
+  - Avatar por URL externa depende de disponibilidade/latência do host da imagem
+- Next:
+  - Iniciar `P1-12`: polish mobile-first do editor (referência 390x844)

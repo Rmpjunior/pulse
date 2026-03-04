@@ -123,6 +123,7 @@ export function EditorContent({ page, isPlusUser = false }: EditorContentProps) 
   const [username, setUsername] = useState(page?.username || "");
   const [displayName, setDisplayName] = useState(page?.displayName || "");
   const [bio, setBio] = useState(page?.bio || "");
+  const [avatar, setAvatar] = useState(page?.avatar || "");
   const [blocks, setBlocks] = useState<Block[]>(page?.blocks || []);
   const [themeSettings, setThemeSettings] = useState<ThemeSettings>(
     (page?.theme as ThemeSettings) || defaultThemeSettings,
@@ -147,6 +148,7 @@ export function EditorContent({ page, isPlusUser = false }: EditorContentProps) 
   const [pendingRecoveredDraft, setPendingRecoveredDraft] = useState<{
     displayName: string;
     bio: string;
+    avatar: string;
     blocks: Block[];
     themeSettings: ThemeSettings;
   } | null>(null);
@@ -221,7 +223,12 @@ export function EditorContent({ page, isPlusUser = false }: EditorContentProps) 
       const res = await fetch(`/api/pages/${page.id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ displayName, bio, theme: themeSettings }),
+        body: JSON.stringify({
+          displayName,
+          bio,
+          avatar: avatar || undefined,
+          theme: themeSettings,
+        }),
       });
 
       if (!res.ok) {
@@ -527,6 +534,7 @@ export function EditorContent({ page, isPlusUser = false }: EditorContentProps) 
       const parsed = JSON.parse(rawDraft) as {
         displayName: string;
         bio: string;
+        avatar: string;
         blocks: Block[];
         themeSettings: ThemeSettings;
       };
@@ -534,6 +542,7 @@ export function EditorContent({ page, isPlusUser = false }: EditorContentProps) 
       const currentSerialized = JSON.stringify({
         displayName,
         bio,
+        avatar,
         blocks,
         themeSettings,
       });
@@ -554,6 +563,7 @@ export function EditorContent({ page, isPlusUser = false }: EditorContentProps) 
     hasDraftRecoveryChoice,
     displayName,
     bio,
+    avatar,
     blocks,
     themeSettings,
   ]);
@@ -565,6 +575,7 @@ export function EditorContent({ page, isPlusUser = false }: EditorContentProps) 
       const payload = {
         displayName,
         bio,
+        avatar,
         blocks,
         themeSettings,
       };
@@ -572,7 +583,7 @@ export function EditorContent({ page, isPlusUser = false }: EditorContentProps) 
     }, 500);
 
     return () => clearTimeout(timeout);
-  }, [page, draftStorageKey, displayName, bio, blocks, themeSettings]);
+  }, [page, draftStorageKey, displayName, bio, avatar, blocks, themeSettings]);
 
   // If no page exists, show creation form
   if (!page) {
@@ -779,6 +790,7 @@ export function EditorContent({ page, isPlusUser = false }: EditorContentProps) 
                 onClick={() => {
                   setDisplayName(pendingRecoveredDraft.displayName);
                   setBio(pendingRecoveredDraft.bio);
+                  setAvatar(pendingRecoveredDraft.avatar || "");
                   setBlocks(pendingRecoveredDraft.blocks);
                   setThemeSettings(pendingRecoveredDraft.themeSettings);
                   setPendingRecoveredDraft(null);
@@ -839,12 +851,27 @@ export function EditorContent({ page, isPlusUser = false }: EditorContentProps) 
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-center gap-4">
-                  <div className="h-20 w-20 rounded-full bg-gradient-to-br from-orange-500 to-purple-500 flex items-center justify-center text-white text-2xl font-bold">
-                    {displayName?.[0]?.toUpperCase() || "?"}
+                  {avatar ? (
+                    <img
+                      src={avatar}
+                      alt={displayName || "Avatar"}
+                      className="h-20 w-20 rounded-full object-cover"
+                    />
+                  ) : (
+                    <div className="h-20 w-20 rounded-full bg-gradient-to-br from-orange-500 to-purple-500 flex items-center justify-center text-white text-2xl font-bold">
+                      {displayName?.[0]?.toUpperCase() || "?"}
+                    </div>
+                  )}
+                  <div className="flex-1">
+                    <label className="text-sm font-medium mb-2 block">
+                      URL da foto
+                    </label>
+                    <Input
+                      value={avatar}
+                      onChange={(e) => setAvatar(e.target.value)}
+                      placeholder="https://..."
+                    />
                   </div>
-                  <Button variant="outline" size="sm">
-                    {t("profile.uploadPhoto")}
-                  </Button>
                 </div>
 
                 <div>
@@ -1060,6 +1087,7 @@ export function EditorContent({ page, isPlusUser = false }: EditorContentProps) 
               settings={themeSettings}
               displayName={displayName}
               bio={bio}
+              avatarUrl={avatar}
               blocks={blocks}
             />
           </div>
