@@ -1,17 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useTranslations } from "next-intl";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import {
-  Eye,
-  MousePointerClick,
-  TrendingUp,
-  Calendar,
-  BarChart3,
-  Loader2,
-} from "lucide-react";
+import { Eye, MousePointerClick, TrendingUp, BarChart3, Loader2 } from "lucide-react";
 
 interface AnalyticsData {
   views: number;
@@ -23,13 +14,23 @@ interface AnalyticsData {
 
 interface AnalyticsContentProps {
   hasPage: boolean;
+  analyticsDaysLimit?: number;
 }
 
-export function AnalyticsContent({ hasPage }: AnalyticsContentProps) {
-  const t = useTranslations("dashboard");
+export function AnalyticsContent({
+  hasPage,
+  analyticsDaysLimit = 30,
+}: AnalyticsContentProps) {
   const [data, setData] = useState<AnalyticsData | null>(null);
   const [loading, setLoading] = useState(true);
-  const [days, setDays] = useState(30);
+  const [days, setDays] = useState(Math.min(30, analyticsDaysLimit));
+  const [upgradePrompt, setUpgradePrompt] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (days > analyticsDaysLimit) {
+      setDays(analyticsDaysLimit);
+    }
+  }, [days, analyticsDaysLimit]);
 
   useEffect(() => {
     if (!hasPage) {
@@ -95,21 +96,44 @@ export function AnalyticsContent({ hasPage }: AnalyticsContentProps) {
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold">Análises</h1>
         <div className="flex gap-2 p-1 bg-muted rounded-lg">
-          {[7, 30, 90].map((d) => (
-            <button
-              key={d}
-              onClick={() => setDays(d)}
-              className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
-                days === d
-                  ? "bg-background shadow-sm text-foreground"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              {d} dias
-            </button>
-          ))}
+          {[7, 30, 90].map((d) => {
+            const locked = d > analyticsDaysLimit;
+            return (
+              <button
+                key={d}
+                onClick={() => {
+                  if (locked) {
+                    setUpgradePrompt(
+                      `Seu plano atual mostra até ${analyticsDaysLimit} dias. Faça upgrade para ampliar o histórico.`,
+                    );
+                    return;
+                  }
+                  setDays(d);
+                }}
+                className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+                  days === d
+                    ? "bg-background shadow-sm text-foreground"
+                    : "text-muted-foreground hover:text-foreground"
+                } ${locked ? "opacity-50" : ""}`}
+              >
+                {d} dias {locked ? "🔒" : ""}
+              </button>
+            );
+          })}
         </div>
       </div>
+
+      {upgradePrompt && (
+        <div className="rounded-lg border border-indigo-300 bg-indigo-50 px-4 py-3">
+          <p className="text-sm text-indigo-900">{upgradePrompt}</p>
+          <button
+            className="mt-2 text-sm font-medium text-indigo-700 hover:underline"
+            onClick={() => setUpgradePrompt(null)}
+          >
+            Entendi
+          </button>
+        </div>
+      )}
 
       {/* Stats Cards */}
       <div className="grid gap-4 md:grid-cols-3">
@@ -162,7 +186,7 @@ export function AnalyticsContent({ hasPage }: AnalyticsContentProps) {
           </CardHeader>
           <CardContent>
             <div className="h-48 flex items-end gap-1">
-              {data.viewsData.slice(-Math.min(days, 30)).map((d, i) => (
+              {data.viewsData.slice(-Math.min(days, 30)).map((d) => (
                 <div
                   key={d.date}
                   className="flex-1 flex flex-col items-center gap-1"
@@ -194,7 +218,7 @@ export function AnalyticsContent({ hasPage }: AnalyticsContentProps) {
           </CardHeader>
           <CardContent>
             <div className="h-48 flex items-end gap-1">
-              {data.clicksData.slice(-Math.min(days, 30)).map((d, i) => (
+              {data.clicksData.slice(-Math.min(days, 30)).map((d) => (
                 <div
                   key={d.date}
                   className="flex-1 flex flex-col items-center gap-1"

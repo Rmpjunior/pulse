@@ -682,3 +682,24 @@ Append one entry per coding session.
   - CTA direciona para settings geral; pode evoluir para rota/anchor específica de billing para aumentar conversão
 - Next:
   - Iniciar `P2-6`: baseline de analytics UX (views/clicks por período) com ganchos para estratégia de gating
+
+### Session 2026-03-04 22:12 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P2-6` evoluindo analytics UX com estratégia de gating por plano
+- Backlog Item: P2-6
+- Changes:
+  - `src/app/[locale]/(dashboard)/dashboard/analytics/page.tsx`: analytics agora recebe capabilities de plano via gating matrix (`analyticsDays`)
+  - `src/app/[locale]/(dashboard)/dashboard/analytics/analytics-content.tsx`: seletor de período passou a respeitar limite por plano (opções bloqueadas com lock e prompt contextual de upgrade)
+  - `src/app/[locale]/(dashboard)/dashboard/analytics/analytics-content.tsx`: refinado estado inicial/ajuste automático de período conforme limite do plano
+  - `docs/03_BACKLOG.md`: `P2-6` marcado como `DONE`
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com analytics UX + gating
+- Validation:
+  - Command: `npm run test` -> passou (5 arquivos, 14 testes)
+  - Command: `npm run lint` -> passou (0 erros, warnings existentes)
+  - Command: `npm run build` -> passou
+  - Manual (relevante): revisão de fluxo dos filtros 7/30/90 e comportamento de lock por plano
+- Risks:
+  - Prompt de upgrade na analytics ainda fecha localmente (`Entendi`), sem deep-link automático para checkout
+- Next:
+  - Iniciar `P2-7`: fluxos de conta self-service (reset de senha e exclusão de conta)
