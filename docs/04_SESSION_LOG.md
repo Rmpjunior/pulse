@@ -511,3 +511,25 @@ Append one entry per coding session.
   - `Welcome` ainda mapeado como variante de `TEXT` (não type dedicado no schema), exigindo disciplina para manter compatibilidade
 - Next:
   - Iniciar `P1-14`: paridade `About` (page title, featured title opcional, descrição, imagem)
+
+### Session 2026-03-04 20:10 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P1-14` com paridade de campos da seção `About`
+- Backlog Item: P1-14
+- Changes:
+  - `src/app/[locale]/(dashboard)/dashboard/editor/editor-content.tsx`: template da section library `About` evoluído para payload dedicado (`pageTitle`, `featuredTitle`, `description`, `image`)
+  - `src/components/editor/block-editor.tsx`: `HIGHLIGHT` com variante `ABOUT` ganhou formulário dedicado de paridade
+  - `src/components/editor/themed-preview.tsx`: preview passou a renderizar cartão `About` com imagem + campos dedicados
+  - `src/app/[locale]/p/[username]/page-content.tsx`: página pública renderiza variante `About` com os campos dedicados
+  - `docs/03_BACKLOG.md`: `P1-14` marcado como `DONE`
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com paridade `About`
+- Validation:
+  - Command: `npm run test` -> passou (4 arquivos, 11 testes)
+  - Command: `npm run lint` -> passou (0 erros, warnings existentes)
+  - Command: `npm run build` -> passou
+  - Manual (relevante): revisão de fluxo section-library -> edição de campos `About` -> render preview/público
+- Risks:
+  - `About` segue como variante de `HIGHLIGHT` (não bloco dedicado), exigindo cuidado de compatibilidade em evoluções futuras
+- Next:
+  - Iniciar `P1-15`: paridade de `Links` (validação obrigatória title+URL e thumbnail image/emoji)

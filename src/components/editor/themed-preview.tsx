@@ -166,6 +166,41 @@ function ThemedBlockWrapper({
       );
 
     case "HIGHLIGHT":
+      if (content.variant === "ABOUT") {
+        return (
+          <div
+            className="p-5 rounded-xl"
+            style={{
+              background: `linear-gradient(135deg, ${colors.primary}15, ${colors.secondary}15)`,
+              borderColor: `${colors.primary}30`,
+              borderWidth: "1px",
+              borderStyle: "solid",
+              borderRadius: buttonRadius,
+            }}
+          >
+            {(content.image as string) && (
+              <img
+                src={content.image as string}
+                alt={(content.pageTitle as string) || 'About'}
+                className="w-full h-32 object-cover rounded-lg mb-3"
+              />
+            )}
+            <h3 className="font-semibold text-lg" style={{ color: colors.text }}>
+              {(content.pageTitle as string) || "Sobre"}
+            </h3>
+            {(content.featuredTitle as string) && (
+              <p className="text-sm mt-1" style={{ color: colors.text }}>
+                {content.featuredTitle as string}
+              </p>
+            )}
+            {(content.description as string) && (
+              <p className="text-sm mt-2 opacity-70" style={{ color: colors.text }}>
+                {content.description as string}
+              </p>
+            )}
+          </div>
+        );
+      }
       const highlightDesc = content.description as string | undefined;
       return (
         <div

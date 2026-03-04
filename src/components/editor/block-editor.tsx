@@ -206,6 +206,16 @@ function BlockPreview({ type, content, onEdit }: BlockPreviewProps) {
           </div>
         );
       case "HIGHLIGHT":
+        if (c.variant === "ABOUT") {
+          return (
+            <div>
+              <p className="font-medium">{(c.pageTitle as string) || "Sobre"}</p>
+              {(c.featuredTitle as string) && (
+                <p className="text-sm">{c.featuredTitle as string}</p>
+              )}
+            </div>
+          );
+        }
         const highlightTitle = (c.title as string) || "Destaque";
         const highlightDesc = c.description as string | undefined;
         return (
@@ -360,6 +370,46 @@ function BlockEditForm({
         );
 
       case "HIGHLIGHT":
+        if (c.variant === "ABOUT") {
+          return (
+            <div className="space-y-3">
+              <div>
+                <label className="text-sm font-medium mb-1 block">Page title</label>
+                <Input
+                  value={(c.pageTitle as string) || ""}
+                  onChange={(e) => updateField("pageTitle", e.target.value)}
+                  placeholder="Sobre"
+                />
+              </div>
+              <div>
+                <label className="text-sm font-medium mb-1 block">Featured title (opcional)</label>
+                <Input
+                  value={(c.featuredTitle as string) || ""}
+                  onChange={(e) => updateField("featuredTitle", e.target.value)}
+                  placeholder="Título em destaque"
+                />
+              </div>
+              <div>
+                <label className="text-sm font-medium mb-1 block">Descrição completa</label>
+                <textarea
+                  value={(c.description as string) || ""}
+                  onChange={(e) => updateField("description", e.target.value)}
+                  placeholder="Conte sua história..."
+                  className="w-full min-h-[90px] rounded-lg border border-input bg-background px-3 py-2 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-ring"
+                />
+              </div>
+              <div>
+                <label className="text-sm font-medium mb-1 block">Imagem (URL)</label>
+                <Input
+                  value={(c.image as string) || ""}
+                  onChange={(e) => updateField("image", e.target.value)}
+                  placeholder="https://..."
+                />
+              </div>
+            </div>
+          );
+        }
+
         return (
           <div className="space-y-3">
             <div>

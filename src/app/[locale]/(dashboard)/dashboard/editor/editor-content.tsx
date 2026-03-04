@@ -98,7 +98,14 @@ const sectionLibrary = [
     description: "Contexto sobre você ou seu projeto",
     icon: Type,
     type: "HIGHLIGHT" as BlockType,
-    template: { title: "Sobre", description: "Conte um pouco sobre você." },
+    template: {
+      variant: "ABOUT",
+      pageTitle: "Sobre",
+      featuredTitle: "",
+      description: "Conte um pouco sobre você.",
+      image: "",
+      title: "Sobre",
+    },
   },
   {
     key: "CATALOG",

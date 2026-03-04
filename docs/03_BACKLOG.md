@@ -31,7 +31,7 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | P1-11 | DONE | Implement profile header essentials (avatar, display name, bio) in editor + public page | Keepo baseline profile UX |
 | P1-12 | DONE | Deliver mobile-first editor polish pass (390x844 as reference) | Keep parity with mobile editing expectation |
 | P1-13 | DONE | Implement `Welcome` section fields parity: profile photo upload, display name, featured title, second title, CTA text/link | Exact first-fold parity |
-| P1-14 | TODO | Implement `About` section fields parity: page title, optional featured title, full description, image | Content storytelling parity |
+| P1-14 | DONE | Implement `About` section fields parity: page title, optional featured title, full description, image | Content storytelling parity |
 | P1-15 | TODO | Implement `Links` item editor parity: title (required), URL (required), thumbnail type (`image`/`emoji`) | Better link conversion UX |
 | P1-16 | TODO | Implement `Social media` section parity with platform-specific inputs | Match Keepo social block utility |
 

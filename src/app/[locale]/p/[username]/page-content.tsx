@@ -220,6 +220,42 @@ function ThemedBlock({
       );
 
     case "HIGHLIGHT":
+      if (content.variant === "ABOUT") {
+        return (
+          <div
+            className="p-5"
+            style={{
+              background: `linear-gradient(135deg, ${colors.primary}15, ${colors.secondary}15)`,
+              borderColor: `${colors.primary}30`,
+              borderWidth: "1px",
+              borderStyle: "solid",
+              borderRadius: buttonRadius,
+            }}
+          >
+            {(content.image as string) && (
+              <img
+                src={content.image as string}
+                alt={(content.pageTitle as string) || "About"}
+                className="w-full h-40 object-cover mb-4"
+                style={{ borderRadius: buttonRadius }}
+              />
+            )}
+            <h3 className="font-semibold text-lg" style={{ color: colors.text }}>
+              {(content.pageTitle as string) || "Sobre"}
+            </h3>
+            {(content.featuredTitle as string) && (
+              <p className="text-sm mt-1" style={{ color: colors.text }}>
+                {content.featuredTitle as string}
+              </p>
+            )}
+            {(content.description as string) && (
+              <p className="text-sm mt-2 opacity-70" style={{ color: colors.text }}>
+                {content.description as string}
+              </p>
+            )}
+          </div>
+        );
+      }
       const highlightImage = content.image as string | undefined;
       const highlightUrl = content.url as string | undefined;
       const highlightDescription = content.description as string | undefined;
