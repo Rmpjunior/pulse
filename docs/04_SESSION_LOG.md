@@ -202,3 +202,24 @@ Append one entry per coding session.
   - Ainda faltam testes automatizados específicos para cenários de autorização/ownership por rota
 - Next:
   - Executar `P0-6`: estabelecer smoke E2E da jornada core (create → edit → publish → view)
+
+### Session 2026-03-04 13:54 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P0-6` com suite smoke da jornada core do criador
+- Backlog Item: P0-6
+- Changes:
+  - `package.json`: adicionado script `test:smoke` para execução dedicada do fluxo crítico
+  - `src/e2e/creator-journey.smoke.test.ts`: criado teste integrado que cobre create page → add/edit block → publish → read published view, com cleanup automático
+  - `docs/03_BACKLOG.md`: `P0-6` marcado como `DONE`
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com smoke E2E mínimo ativo
+- Validation:
+  - Command: `npm run test:smoke` -> passou (1 teste)
+  - Command: `npm run test` -> passou (3 arquivos, 8 testes)
+  - Command: `npm run lint` -> passou (0 erros, warnings existentes)
+  - Command: `npm run build` -> passou
+  - Manual (relevante): revisão do cenário coberto para garantir encadeamento create/edit/publish/view no mesmo fluxo
+- Risks:
+  - Smoke atual valida fluxo integrado por persistência (DB), mas ainda não automatiza interação de UI/browser
+- Next:
+  - Executar `P0-5`: formalizar matriz oficial de paridade Keepo → Pulse com critérios de aceite testáveis
