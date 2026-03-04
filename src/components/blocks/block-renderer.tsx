@@ -215,6 +215,79 @@ export function BlockRenderer({ block, onBlockClick }: BlockRendererProps) {
         </div>
       );
 
+    case "CATALOG":
+      const items =
+        (content.items as Array<{
+          id?: string;
+          name?: string;
+          description?: string;
+          price?: string;
+          image?: string;
+          url?: string;
+        }>) || [];
+
+      if (items.length === 0) {
+        return (
+          <div className="p-4 rounded-xl bg-muted/50 border border-dashed border-border text-center">
+            <p className="text-sm text-muted-foreground">Catálogo vazio</p>
+          </div>
+        );
+      }
+
+      return (
+        <div className="space-y-3">
+          {items.map((item, i) => {
+            const card = (
+              <div className="p-4 rounded-xl bg-card border border-border hover:border-primary/40 transition-colors">
+                <div className="flex gap-3">
+                  {item.image ? (
+                    <img
+                      src={item.image}
+                      alt={item.name || `Item ${i + 1}`}
+                      className="w-16 h-16 rounded-lg object-cover shrink-0"
+                    />
+                  ) : (
+                    <div className="w-16 h-16 rounded-lg bg-muted shrink-0" />
+                  )}
+                  <div className="min-w-0 flex-1">
+                    <p className="font-medium truncate">
+                      {item.name || `Item ${i + 1}`}
+                    </p>
+                    {item.description && (
+                      <p className="text-sm text-muted-foreground line-clamp-2 mt-1">
+                        {item.description}
+                      </p>
+                    )}
+                    {item.price && (
+                      <p className="text-sm font-semibold text-primary mt-2">
+                        {item.price}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              </div>
+            );
+
+            if (!item.url) {
+              return <div key={item.id || i}>{card}</div>;
+            }
+
+            return (
+              <a
+                key={item.id || i}
+                href={item.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={handleClick}
+                className="block"
+              >
+                {card}
+              </a>
+            );
+          })}
+        </div>
+      );
+
     default:
       return (
         <div className="p-4 rounded-xl bg-muted/50 border border-dashed border-border text-center">

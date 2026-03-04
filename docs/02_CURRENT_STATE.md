@@ -39,7 +39,8 @@ Last updated: 2026-03-04
 
 ## Partially Implemented / Gaps
 
-- Some block types exist in types but not fully implemented in UI rendering/editing (`CATALOG`, `FORM`)
+- `CATALOG` agora possui caminho completo de edição/render (adicionar item, editar campos e render público com CTA opcional)
+- `FORM` ainda existe em tipos, mas segue sem caminho completo de edição/render no UI
 - Analytics visitor identity is naive/random (not durable across sessions)
 - Test baseline ativo com Vitest (`npm run test`) cobrindo helpers críticos de API (error shape + validation)
 - Smoke E2E mínimo ativo (`npm run test:smoke`) validando jornada core persistida (create → edit → publish → view) em fluxo integrado com banco

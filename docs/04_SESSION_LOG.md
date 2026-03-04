@@ -242,3 +242,24 @@ Append one entry per coding session.
   - Critérios definidos em nível funcional; alguns itens ainda exigirão detalhamento de QA visual por breakpoint
 - Next:
   - Iniciar P1-1: completar edit/render do bloco `CATALOG` com critérios da matriz
+
+### Session 2026-03-04 14:55 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P1-1` completando caminho de edição/render do bloco `CATALOG`
+- Backlog Item: P1-1
+- Changes:
+  - `src/components/editor/block-editor.tsx`: adicionada prévia de catálogo e editor completo de itens (add/remove + campos nome/preço/descrição/imagem/url)
+  - `src/components/blocks/block-renderer.tsx`: adicionada renderização pública de catálogo com cards de item e link opcional por item
+  - `src/app/[locale]/(dashboard)/dashboard/editor/editor-content.tsx`: adicionado `CATALOG` no block picker do editor
+  - `docs/03_BACKLOG.md`: `P1-1` marcado como `DONE`
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado (CATALOG completo; FORM ainda pendente)
+- Validation:
+  - Command: `npm run test` -> passou (3 arquivos, 8 testes)
+  - Command: `npm run lint` -> passou (0 erros, warnings existentes)
+  - Command: `npm run build` -> passou
+  - Manual (relevante): revisão de fluxo no código cobrindo create/edit/remove item no editor e render no preview/página pública
+- Risks:
+  - Sem upload nativo de imagem ainda (usa URL), o que pode limitar UX comparado ao Keepo
+- Next:
+  - Iniciar `P1-2`: completar caminho de edição/render do bloco `FORM`

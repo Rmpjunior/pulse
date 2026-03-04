@@ -18,7 +18,7 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 
 | ID | Status | Task | Why |
 |---|---|---|---|
-| P1-1 | TODO | Complete `CATALOG` block edit/render path | Close feature gap |
+| P1-1 | DONE | Complete `CATALOG` block edit/render path | Close feature gap |
 | P1-2 | TODO | Complete `FORM` block edit/render path | Close feature gap |
 | P1-3 | TODO | Improve analytics visitor identification strategy | Better data quality |
 | P1-4 | TODO | Add optimistic UI + toasts in editor | Better UX feedback |

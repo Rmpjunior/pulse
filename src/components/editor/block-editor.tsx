@@ -14,7 +14,7 @@ import {
   X,
   Check,
 } from "lucide-react";
-import type { BlockType, LinkBlockContent } from "@/types/blocks";
+import type { BlockType } from "@/types/blocks";
 
 interface BlockEditorProps {
   block: {
@@ -193,6 +193,20 @@ function BlockPreview({ type, content, onEdit }: BlockPreviewProps) {
           <p className="text-muted-foreground">
             {icons.length} ícones configurados
           </p>
+        );
+      case "CATALOG":
+        const items =
+          (c.items as Array<{ name?: string; price?: string }>) || [];
+        return (
+          <div>
+            <p className="font-medium">{items.length} item(ns) no catálogo</p>
+            {items[0] && (
+              <p className="text-sm text-muted-foreground">
+                Primeiro item: {items[0].name || "Sem nome"}
+                {items[0].price ? ` • ${items[0].price}` : ""}
+              </p>
+            )}
+          </div>
         );
       case "MEDIA":
         return (
@@ -392,6 +406,122 @@ function BlockEditForm({
                 placeholder="Cole o link do vídeo ou música..."
               />
             </div>
+          </div>
+        );
+
+      case "CATALOG":
+        const catalogItems =
+          (c.items as Array<{
+            id: string;
+            name: string;
+            description?: string;
+            price?: string;
+            image?: string;
+            url?: string;
+          }>) || [];
+
+        const updateCatalogItem = (
+          id: string,
+          field: "name" | "description" | "price" | "image" | "url",
+          value: string,
+        ) => {
+          const nextItems = catalogItems.map((item) =>
+            item.id === id ? { ...item, [field]: value } : item,
+          );
+          updateField("items", nextItems);
+        };
+
+        const addCatalogItem = () => {
+          const nextItems = [
+            ...catalogItems,
+            {
+              id: crypto.randomUUID(),
+              name: "",
+              description: "",
+              price: "",
+              image: "",
+              url: "",
+            },
+          ];
+          updateField("items", nextItems);
+        };
+
+        const removeCatalogItem = (id: string) => {
+          updateField(
+            "items",
+            catalogItems.filter((item) => item.id !== id),
+          );
+        };
+
+        return (
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <label className="text-sm font-medium">Itens do catálogo</label>
+              <Button type="button" variant="outline" size="sm" onClick={addCatalogItem}>
+                Adicionar item
+              </Button>
+            </div>
+
+            {catalogItems.length === 0 ? (
+              <p className="text-sm text-muted-foreground">
+                Nenhum item ainda. Adicione seu primeiro produto/serviço.
+              </p>
+            ) : (
+              <div className="space-y-3">
+                {catalogItems.map((item, index) => (
+                  <div key={item.id} className="rounded-lg border p-3 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <p className="text-sm font-medium">Item {index + 1}</p>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        className="text-destructive hover:text-destructive"
+                        onClick={() => removeCatalogItem(item.id)}
+                      >
+                        Remover
+                      </Button>
+                    </div>
+                    <Input
+                      value={item.name || ""}
+                      onChange={(e) =>
+                        updateCatalogItem(item.id, "name", e.target.value)
+                      }
+                      placeholder="Nome do item"
+                    />
+                    <Input
+                      value={item.price || ""}
+                      onChange={(e) =>
+                        updateCatalogItem(item.id, "price", e.target.value)
+                      }
+                      placeholder="Preço (ex: R$ 49,90)"
+                    />
+                    <textarea
+                      value={item.description || ""}
+                      onChange={(e) =>
+                        updateCatalogItem(item.id, "description", e.target.value)
+                      }
+                      placeholder="Descrição curta"
+                      className="w-full min-h-[60px] rounded-lg border border-input bg-background px-3 py-2 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-ring"
+                    />
+                    <Input
+                      value={item.image || ""}
+                      onChange={(e) =>
+                        updateCatalogItem(item.id, "image", e.target.value)
+                      }
+                      placeholder="URL da imagem (opcional)"
+                    />
+                    <Input
+                      value={item.url || ""}
+                      onChange={(e) =>
+                        updateCatalogItem(item.id, "url", e.target.value)
+                      }
+                      placeholder="URL de destino (opcional)"
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         );
 
