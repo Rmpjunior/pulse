@@ -160,7 +160,7 @@ export default async function DashboardPage() {
           {/* Multi-site management */}
           <Card>
             <CardHeader>
-              <CardTitle>Your Keepos</CardTitle>
+              <CardTitle>Seus sites</CardTitle>
               <CardDescription>
                 Gerencie múltiplos sites: editar, abrir e ajustar configurações.
               </CardDescription>
@@ -189,7 +189,7 @@ export default async function DashboardPage() {
                       </Link>
                       <Link href="/dashboard/settings">
                         <Button size="sm" variant="ghost">
-                          Config
+                          Configurações
                         </Button>
                       </Link>
                     </div>

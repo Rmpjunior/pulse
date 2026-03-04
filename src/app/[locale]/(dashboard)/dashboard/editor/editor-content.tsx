@@ -95,7 +95,7 @@ const sectionLibrary = [
   },
   {
     key: "ABOUT",
-    label: "About",
+    label: "Sobre",
     description: "Contexto sobre você ou seu projeto",
     icon: Type,
     type: "HIGHLIGHT" as BlockType,
@@ -110,7 +110,7 @@ const sectionLibrary = [
   },
   {
     key: "CATALOG",
-    label: "Catalog",
+    label: "Catálogo",
     description: "Produtos e serviços",
     icon: ShoppingBag,
     type: "CATALOG" as BlockType,
@@ -124,7 +124,7 @@ const sectionLibrary = [
   },
   {
     key: "SOCIAL",
-    label: "Social",
+    label: "Redes sociais",
     description: "Redes sociais",
     icon: Share2,
     type: "SOCIAL_ICONS" as BlockType,
@@ -802,8 +802,8 @@ export function EditorContent({
                   <label className="text-sm font-medium mb-2 block">Categoria</label>
                   <div className="grid grid-cols-3 gap-2">
                     {[
-                      { id: "creator", label: "Creator" },
-                      { id: "business", label: "Business" },
+                      { id: "creator", label: "Criador" },
+                      { id: "business", label: "Negócios" },
                       { id: "personal", label: "Pessoal" },
                     ].map((option) => (
                       <button
@@ -826,9 +826,9 @@ export function EditorContent({
                   <label className="text-sm font-medium mb-2 block">Template rápido</label>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                     {[
-                      { id: "creator", label: "Creator Pack", desc: "Welcome + Link + Social" },
-                      { id: "business", label: "Business Pack", desc: "Welcome + Catálogo + CTA" },
-                      { id: "personal", label: "Personal Pack", desc: "Welcome + Portfólio + Social" },
+                      { id: "creator", label: "Pacote Criador", desc: "Boas-vindas + Link + Redes" },
+                      { id: "business", label: "Pacote Negócios", desc: "Boas-vindas + Catálogo + CTA" },
+                      { id: "personal", label: "Pacote Pessoal", desc: "Boas-vindas + Portfólio + Redes" },
                     ].map((preset) => (
                       <button
                         key={preset.id}
@@ -858,7 +858,7 @@ export function EditorContent({
                   <div className="grid grid-cols-2 gap-2">
                     {[
                       { type: "LINK" as BlockType, label: "Links" },
-                      { type: "TEXT" as BlockType, label: "Welcome" },
+                      { type: "TEXT" as BlockType, label: "Boas-vindas" },
                       { type: "CATALOG" as BlockType, label: "Catálogo" },
                       { type: "FORM" as BlockType, label: "Formulário" },
                     ].map((option) => (

@@ -832,4 +832,24 @@ Append one entry per coding session.
 - Risks:
   - Presets usam conteúdos default genéricos; ainda recomendável localizar/parametrizar por nicho e idioma do usuário
 - Next:
-  - Iniciar revisão geral pós-roadmap (estabilização + backlog de hardening técnico)
+  - Iniciar `P2-10`: PT-BR hardening pass (UI/toasts/validações/placeholders)
+
+### Session 2026-03-04 23:56 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P2-10` com hardening de linguagem PT-BR em superfícies de maior tráfego
+- Backlog Item: P2-10
+- Changes:
+  - `src/app/[locale]/(dashboard)/dashboard/editor/editor-content.tsx`: onboarding e presets ajustados para PT-BR (categorias, packs e nomenclaturas de seções)
+  - `src/app/[locale]/(dashboard)/dashboard/page.tsx`: card multi-site atualizado para nomenclatura PT-BR (`Seus sites`, `Configurações`)
+  - `docs/03_BACKLOG.md`: `P2-10` marcado como `DONE`
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com PT-BR hardening aplicado
+- Validation:
+  - Command: `npm run test` -> passou (5 arquivos, 14 testes)
+  - Command: `npm run lint` -> passou (0 erros, warnings existentes)
+  - Command: `npm run build` -> passou
+  - Manual (relevante): revisão dos principais fluxos de onboarding e dashboard para consistência de linguagem em português
+- Risks:
+  - Ainda há textos técnicos em inglês dentro do código/logs internos; próximos passes podem cobrir traduções completas de superfícies secundárias
+- Next:
+  - Iniciar revisão geral pós-roadmap (estabilização + backlog de hardening técnico, priorizando limpeza de warnings)

@@ -48,7 +48,7 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | P2-7 | DONE | Add account self-service flows (password reset, account deletion) | Expected SaaS baseline |
 | P2-8 | DONE | Expand auth strategy decision: Google OAuth reliability and fallback path | Reduce auth friction |
 | P2-9 | DONE | Add multi-site dashboard management parity (`Your Keepos`, edit/open/settings actions) | Operational parity for creators with >1 site |
-| P2-10 | TODO | PT-BR hardening pass (UI, toasts, validações, mensagens de erro, e-mails e placeholders) + regra de bloqueio para novos textos em inglês | Garantir experiência 100% em português brasileiro |
+| P2-10 | DONE | PT-BR hardening pass (UI, toasts, validações, mensagens de erro, e-mails e placeholders) + regra de bloqueio para novos textos em inglês | Garantir experiência 100% em português brasileiro |
 
 ## P3 (Polish / Advanced Differentiators)
 
