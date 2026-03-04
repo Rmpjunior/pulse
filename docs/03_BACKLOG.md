@@ -40,7 +40,7 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | ID | Status | Task | Why |
 |---|---|---|---|
 | P2-1 | DONE | Define subscription gating matrix in code (Free vs Plus) | Prepare premium flows |
-| P2-2 | TODO | Implement Stripe checkout + webhook skeleton | Monetization foundation |
+| P2-2 | DONE | Implement Stripe checkout + webhook skeleton | Monetization foundation |
 | P2-3 | TODO | Add custom domain/subdomain implementation plan to code backlog | Align with business plan |
 | P2-4 | TODO | Implement plan-gated limits (sections limit, custom colors, watermark removal) | Match Keepo free/plus behavior |
 | P2-5 | TODO | Add upgrade triggers inside editor journey (contextual paywall prompts) | Increase conversion |

@@ -598,3 +598,26 @@ Append one entry per coding session.
   - Matriz está definida com limites iniciais e pode exigir ajuste fino após validação de negócio/comercial
 - Next:
   - Iniciar `P2-2`: implementar skeleton de Stripe checkout + webhook
+
+### Session 2026-03-04 21:09 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P2-2` com skeleton de Stripe checkout + webhook
+- Backlog Item: P2-2
+- Changes:
+  - `package.json` / `package-lock.json`: adicionada dependência `stripe`
+  - `src/lib/billing/stripe.ts`: criado helper server-side de inicialização Stripe + leitura de env (`STRIPE_SECRET_KEY`, `STRIPE_PRICE_PLUS_MONTHLY`)
+  - `src/app/api/billing/checkout/route.ts`: criado endpoint para iniciar checkout de assinatura com metadata de `userId`
+  - `src/app/api/billing/webhook/route.ts`: criado endpoint webhook com verificação de assinatura e tratamento inicial de eventos (`checkout.session.completed`, `customer.subscription.deleted`)
+  - `src/lib/subscription/gating.ts`: ajuste de normalização para reconhecer `PLUS_MONTHLY`/`PLUS_ANNUAL`
+  - `docs/03_BACKLOG.md`: `P2-2` marcado como `DONE`
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com billing skeleton
+- Validation:
+  - Command: `npm run test` -> passou (5 arquivos, 14 testes)
+  - Command: `npm run lint` -> passou (0 erros, warnings existentes)
+  - Command: `npm run build` -> passou
+  - Manual (relevante): revisão dos fluxos de fallback para env ausente + mapeamento inicial de atualização de assinatura
+- Risks:
+  - Fluxo depende de variáveis Stripe em produção; sem envs configuradas, endpoints retornam erro controlado de configuração pendente
+- Next:
+  - Iniciar `P2-3`: detalhar plano de implementação de custom domain/subdomain no backlog técnico

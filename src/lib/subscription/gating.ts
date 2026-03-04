@@ -26,7 +26,9 @@ export const PLAN_GATING_MATRIX: Record<SubscriptionPlan, PlanCapabilities> = {
 };
 
 export function normalizePlan(plan?: string | null): SubscriptionPlan {
-  return plan === 'PLUS' ? 'PLUS' : 'FREE';
+  return plan === 'PLUS' || plan === 'PLUS_MONTHLY' || plan === 'PLUS_ANNUAL'
+    ? 'PLUS'
+    : 'FREE';
 }
 
 export function getPlanCapabilities(plan?: string | null): PlanCapabilities {
