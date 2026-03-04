@@ -54,7 +54,7 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 
 | ID | Status | Task | Why |
 |---|---|---|---|
-| P3-1 | TODO | Add richer social/media embed coverage and validation UX | Better creator flexibility |
+| P3-1 | DONE | Add richer social/media embed coverage and validation UX | Better creator flexibility |
 | P3-2 | TODO | Add public page performance + accessibility hardening pass | Quality and trust |
 | P3-3 | TODO | Add reusable templates / quick-start presets for first-time creators | Faster activation |
 

@@ -625,6 +625,9 @@ function BlockEditForm({
                     onChange={(e) => setPlatformUrl(platform, e.target.value)}
                     placeholder={`https://${platform}.com/...`}
                   />
+                  {iconsMap[platform] && !/^https?:\/\/.+/.test(iconsMap[platform]) ? (
+                    <p className="text-[11px] text-destructive mt-1">URL inválida</p>
+                  ) : null}
                 </div>
               ))}
             </div>
@@ -664,6 +667,9 @@ function BlockEditForm({
                 onChange={(e) => updateField("embedUrl", e.target.value)}
                 placeholder="Cole o link do vídeo ou música..."
               />
+              <p className="text-xs text-muted-foreground mt-1">
+                Suporte recomendado: YouTube, Spotify, Vimeo e SoundCloud com URL completa.
+              </p>
             </div>
           </div>
         );
@@ -963,11 +969,23 @@ function BlockEditForm({
   };
 
   const isLink = type === "LINK";
+  const isMedia = type === "MEDIA";
+  const isSocial = type === "SOCIAL_ICONS";
+
   const linkLabel = ((c.label as string) || "").trim();
   const linkUrl = ((c.url as string) || "").trim();
   const linkIsValid = !isLink || Boolean(linkLabel) || false;
   const linkUrlIsValid = !isLink || /^https?:\/\/.+/.test(linkUrl);
-  const canSave = linkIsValid && linkUrlIsValid;
+
+  const mediaUrl = ((c.embedUrl as string) || "").trim();
+  const mediaUrlIsValid = !isMedia || mediaUrl.length === 0 || /^https?:\/\/.+/.test(mediaUrl);
+
+  const socialLinks =
+    (c.icons as Array<{ platform: string; url: string }>) || [];
+  const socialUrlsAreValid =
+    !isSocial || socialLinks.every((icon) => /^https?:\/\/.+/.test((icon.url || "").trim()));
+
+  const canSave = linkIsValid && linkUrlIsValid && mediaUrlIsValid && socialUrlsAreValid;
 
   return (
     <div className="space-y-4">
@@ -975,6 +993,16 @@ function BlockEditForm({
       {isLink && !canSave && (
         <p className="text-xs text-destructive">
           Preencha título e URL válida (http/https) para salvar o link.
+        </p>
+      )}
+      {isMedia && !mediaUrlIsValid && (
+        <p className="text-xs text-destructive">
+          Use uma URL válida (http/https) para o embed de mídia.
+        </p>
+      )}
+      {isSocial && !socialUrlsAreValid && (
+        <p className="text-xs text-destructive">
+          Todos os links de redes sociais precisam começar com http:// ou https://.
         </p>
       )}
       <div className="flex justify-end gap-2 pt-2 border-t">

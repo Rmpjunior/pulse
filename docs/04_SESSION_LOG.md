@@ -769,3 +769,24 @@ Append one entry per coding session.
   - Ação `Config` ainda aponta para settings global (não settings por site específico)
 - Next:
   - Iniciar `P3-1`: ampliar cobertura/validação de embeds sociais e mídia (polish avançado)
+
+### Session 2026-03-04 23:09 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P3-1` ampliando UX de validação para social/media embeds
+- Backlog Item: P3-1
+- Changes:
+  - `src/components/editor/block-editor.tsx`: adicionados feedbacks de validação para URLs de redes sociais (erro inline por campo inválido)
+  - `src/components/editor/block-editor.tsx`: validação de save ampliada para blocos `MEDIA` e `SOCIAL_ICONS` (requer URLs `http/https` válidas quando preenchidas)
+  - `src/components/editor/block-editor.tsx`: instrução de suporte recomendado para embeds de mídia (YouTube/Spotify/Vimeo/SoundCloud)
+  - `docs/03_BACKLOG.md`: `P3-1` marcado como `DONE`
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com validação enriquecida
+- Validation:
+  - Command: `npm run test` -> passou (5 arquivos, 14 testes)
+  - Command: `npm run lint` -> passou (0 erros, warnings existentes)
+  - Command: `npm run build` -> passou
+  - Manual (relevante): revisão de bloqueio de salvar com URL inválida em social/media e mensagem inline de erro
+- Risks:
+  - Validação ainda baseada em regex simples de URL; não valida disponibilidade real do endpoint/embed
+- Next:
+  - Iniciar `P3-2`: hardening de performance e acessibilidade da página pública
