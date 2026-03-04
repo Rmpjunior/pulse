@@ -661,3 +661,24 @@ Append one entry per coding session.
   - Limite de seção está aplicado no cliente; ainda recomendável reforçar no backend para proteção total contra bypass
 - Next:
   - Iniciar `P2-5`: gatilhos contextuais de upgrade dentro da jornada do editor
+
+### Session 2026-03-04 21:54 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P2-5` adicionando gatilhos contextuais de upgrade no editor
+- Backlog Item: P2-5
+- Changes:
+  - `src/app/[locale]/(dashboard)/dashboard/editor/editor-content.tsx`: adicionada camada de prompt contextual de upgrade (`upgradePromptReason`) com CTA para settings/subscription
+  - `src/app/[locale]/(dashboard)/dashboard/editor/editor-content.tsx`: gatilho disparado ao tentar exceder limite de seções e ao abrir aba de tema sem plano Plus
+  - `src/app/[locale]/(dashboard)/dashboard/editor/editor-content.tsx`: prompt não intrusivo com opção de dismiss (`Agora não`)
+  - `docs/03_BACKLOG.md`: `P2-5` marcado como `DONE`
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com upgrade triggers ativos
+- Validation:
+  - Command: `npm run test` -> passou (5 arquivos, 14 testes)
+  - Command: `npm run lint` -> passou (0 erros, warnings existentes)
+  - Command: `npm run build` -> passou
+  - Manual (relevante): revisão dos gatilhos por contexto (limite de seção + tema premium) e navegação para upgrade
+- Risks:
+  - CTA direciona para settings geral; pode evoluir para rota/anchor específica de billing para aumentar conversão
+- Next:
+  - Iniciar `P2-6`: baseline de analytics UX (views/clicks por período) com ganchos para estratégia de gating

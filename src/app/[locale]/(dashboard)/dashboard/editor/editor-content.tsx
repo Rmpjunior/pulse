@@ -174,6 +174,9 @@ export function EditorContent({
     blocks: Block[];
     themeSettings: ThemeSettings;
   } | null>(null);
+  const [upgradePromptReason, setUpgradePromptReason] = useState<string | null>(
+    null,
+  );
 
   const pushToast = useCallback((type: ToastMessage["type"], text: string) => {
     const id = crypto.randomUUID();
@@ -362,10 +365,9 @@ export function EditorContent({
     if (!page) return;
 
     if (blocks.length >= maxSections) {
-      pushToast(
-        "error",
-        `Seu plano permite até ${maxSections} seções. Faça upgrade para expandir.`,
-      );
+      const reason = `Seu plano permite até ${maxSections} seções. Faça upgrade para expandir.`;
+      pushToast("error", reason);
+      setUpgradePromptReason(reason);
       return;
     }
 
@@ -846,6 +848,28 @@ export function EditorContent({
           </div>
         )}
 
+        {upgradePromptReason && !isPlusUser && (
+          <div className="mb-4 rounded-lg border border-indigo-300 bg-indigo-50 px-4 py-3">
+            <p className="text-sm text-indigo-900">{upgradePromptReason}</p>
+            <div className="mt-2 flex gap-2">
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => router.push('/dashboard/settings')}
+              >
+                Ver plano Plus
+              </Button>
+              <Button
+                size="sm"
+                variant="ghost"
+                onClick={() => setUpgradePromptReason(null)}
+              >
+                Agora não
+              </Button>
+            </div>
+          </div>
+        )}
+
         {/* Tabs */}
         <div className="flex gap-1 p-1 bg-muted rounded-lg mb-6 w-fit">
           <button
@@ -860,7 +884,14 @@ export function EditorContent({
             Conteúdo
           </button>
           <button
-            onClick={() => setActiveTab("theme")}
+            onClick={() => {
+              setActiveTab("theme");
+              if (!isPlusUser) {
+                setUpgradePromptReason(
+                  "Temas premium e customização avançada ficam liberados no plano Plus.",
+                );
+              }
+            }}
             className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-colors ${
               activeTab === "theme"
                 ? "bg-background shadow-sm text-foreground"
