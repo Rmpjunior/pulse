@@ -54,6 +54,7 @@ interface Page {
 interface EditorContentProps {
   page: Page | null;
   isPlusUser?: boolean;
+  maxSections?: number;
 }
 
 interface ToastMessage {
@@ -130,7 +131,11 @@ const sectionLibrary = [
   },
 ];
 
-export function EditorContent({ page, isPlusUser = false }: EditorContentProps) {
+export function EditorContent({
+  page,
+  isPlusUser = false,
+  maxSections = 8,
+}: EditorContentProps) {
   const t = useTranslations("editor");
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -355,6 +360,14 @@ export function EditorContent({ page, isPlusUser = false }: EditorContentProps) 
 
   const handleAddBlock = async (type: string, templateContent?: unknown) => {
     if (!page) return;
+
+    if (blocks.length >= maxSections) {
+      pushToast(
+        "error",
+        `Seu plano permite até ${maxSections} seções. Faça upgrade para expandir.`,
+      );
+      return;
+    }
 
     const content = templateContent || defaultBlockContent[type as BlockType];
     const tempId = `tmp-${crypto.randomUUID()}`;
@@ -925,9 +938,10 @@ export function EditorContent({ page, isPlusUser = false }: EditorContentProps) 
                     variant="gradient"
                     size="sm"
                     onClick={() => setShowBlockPicker(!showBlockPicker)}
+                    disabled={blocks.length >= maxSections}
                   >
                     <Plus className="h-4 w-4 mr-1" />
-                    {t("blocks.add")}
+                    {t("blocks.add")} ({blocks.length}/{maxSections})
                   </Button>
                 </div>
               </CardHeader>

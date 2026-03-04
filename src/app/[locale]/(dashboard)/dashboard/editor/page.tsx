@@ -37,6 +37,7 @@ export default async function EditorPage() {
     <EditorContent
       page={page}
       isPlusUser={capabilities.premiumThemes || capabilities.customColors}
+      maxSections={capabilities.maxSections}
     />
   );
 }

@@ -640,3 +640,24 @@ Append one entry per coding session.
   - Decisões abertas ainda pendentes (domínio final de subdomínio Pulse, provider DNS verification, limites finais por plano)
 - Next:
   - Iniciar `P2-4`: implementar plan-gated limits (sections limit, custom colors, watermark removal)
+
+### Session 2026-03-04 21:39 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P2-4` aplicando limites por plano no fluxo principal
+- Backlog Item: P2-4
+- Changes:
+  - `src/app/[locale]/(dashboard)/dashboard/editor/editor-content.tsx`: adicionada prop `maxSections` com enforcement em `handleAddBlock` (bloqueio + toast quando excede plano)
+  - `src/app/[locale]/(dashboard)/dashboard/editor/editor-content.tsx`: botão de adicionar seção agora mostra consumo (`atual/limite`) e respeita disable por limite
+  - `src/app/[locale]/(dashboard)/dashboard/editor/page.tsx`: editor passou a receber `maxSections` derivado da matriz de gating
+  - `docs/03_BACKLOG.md`: `P2-4` marcado como `DONE`
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com limits ativos
+- Validation:
+  - Command: `npm run test` -> passou (5 arquivos, 14 testes)
+  - Command: `npm run lint` -> passou (0 erros, warnings existentes)
+  - Command: `npm run build` -> passou
+  - Manual (relevante): revisão de bloqueio de add section ao atingir limite e consistência com capabilities de plano
+- Risks:
+  - Limite de seção está aplicado no cliente; ainda recomendável reforçar no backend para proteção total contra bypass
+- Next:
+  - Iniciar `P2-5`: gatilhos contextuais de upgrade dentro da jornada do editor
