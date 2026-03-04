@@ -29,7 +29,7 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | P1-9 | DONE | Implement post-publish actions (`copy link`, `view website`) | Close publish-to-distribution loop |
 | P1-10 | DONE | Add draft/in-progress recovery flow (recover/discard) | Prevent creator work loss |
 | P1-11 | DONE | Implement profile header essentials (avatar, display name, bio) in editor + public page | Keepo baseline profile UX |
-| P1-12 | TODO | Deliver mobile-first editor polish pass (390x844 as reference) | Keep parity with mobile editing expectation |
+| P1-12 | DONE | Deliver mobile-first editor polish pass (390x844 as reference) | Keep parity with mobile editing expectation |
 | P1-13 | TODO | Implement `Welcome` section fields parity: profile photo upload, display name, featured title, second title, CTA text/link | Exact first-fold parity |
 | P1-14 | TODO | Implement `About` section fields parity: page title, optional featured title, full description, image | Content storytelling parity |
 | P1-15 | TODO | Implement `Links` item editor parity: title (required), URL (required), thumbnail type (`image`/`emoji`) | Better link conversion UX |

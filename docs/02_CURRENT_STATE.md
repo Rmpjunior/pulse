@@ -49,6 +49,7 @@ Last updated: 2026-03-04
 - Ações pós-publicação disponíveis e polidas: `copy link` com fallback de clipboard e `view website` direto do estado de sucesso
 - Recovery de rascunho ativo no editor (detecção local de draft + decisão explícita `Recuperar` ou `Descartar`)
 - Perfil essencial implementado de ponta a ponta: avatar (URL), display name e bio no editor + preview + página pública
+- Mobile-first polish aplicado no editor (ações sticky, densidade/layout mobile, grade adaptada no picker e barra de ações otimizada para 390x844)
 - Visitor identity para analytics agora usa fingerprint estável por request headers (user-agent + idioma + IP encaminhado hash), substituindo ID aleatório por evento
 - Test baseline ativo com Vitest (`npm run test`) cobrindo helpers críticos de API (error shape + validation)
 - Smoke E2E mínimo ativo (`npm run test:smoke`) validando jornada core persistida (create → edit → publish → view) em fluxo integrado com banco

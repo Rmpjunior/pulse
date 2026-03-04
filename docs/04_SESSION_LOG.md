@@ -469,3 +469,23 @@ Append one entry per coding session.
   - Avatar por URL externa depende de disponibilidade/latência do host da imagem
 - Next:
   - Iniciar `P1-12`: polish mobile-first do editor (referência 390x844)
+
+### Session 2026-03-04 19:39 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P1-12` com polish mobile-first do editor
+- Backlog Item: P1-12
+- Changes:
+  - `src/app/[locale]/(dashboard)/dashboard/editor/editor-content.tsx`: refinado layout para mobile (spacing responsivo, toast container adaptado, toggle mobile sticky, grid de picker ajustada, barra de ações sticky otimizada)
+  - `src/app/[locale]/(dashboard)/dashboard/editor/editor-content.tsx`: melhorado comportamento de densidade/overflow no editor para viewport pequena (390x844)
+  - `docs/03_BACKLOG.md`: `P1-12` marcado como `DONE`
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com polish mobile-first aplicado
+- Validation:
+  - Command: `npm run test` -> passou (4 arquivos, 11 testes)
+  - Command: `npm run lint` -> passou (0 erros, warnings existentes)
+  - Command: `npm run build` -> passou
+  - Manual (relevante): revisão de usabilidade e hierarquia de ações para fluxo mobile no editor
+- Risks:
+  - Ajustes feitos por CSS/layout; ainda falta validação visual automatizada com screenshot diff por breakpoint
+- Next:
+  - Iniciar `P1-13`: paridade de campos `Welcome` (foto, display name, featured title, second title, CTA)

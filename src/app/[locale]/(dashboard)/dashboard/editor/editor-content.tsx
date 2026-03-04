@@ -728,7 +728,7 @@ export function EditorContent({ page, isPlusUser = false }: EditorContentProps) 
 
   return (
     <>
-      <div className="fixed right-4 top-4 z-50 space-y-2">
+      <div className="fixed right-3 top-3 z-50 space-y-2 max-w-[calc(100vw-1.5rem)] sm:right-4 sm:top-4">
         {toasts.map((toast) => (
           <div
             key={toast.id}
@@ -744,9 +744,9 @@ export function EditorContent({ page, isPlusUser = false }: EditorContentProps) 
         ))}
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-6 h-[calc(100vh-8rem)]">
+      <div className="flex flex-col lg:flex-row gap-4 lg:gap-6 h-[calc(100vh-7rem)] lg:h-[calc(100vh-8rem)]">
       {/* Mobile View Toggle */}
-      <div className="lg:hidden flex border rounded-lg overflow-hidden shrink-0">
+      <div className="lg:hidden flex border rounded-lg overflow-hidden shrink-0 sticky top-0 z-10 bg-background">
         <button
           onClick={() => setMobileView("editor")}
           className={cn(
@@ -774,7 +774,7 @@ export function EditorContent({ page, isPlusUser = false }: EditorContentProps) 
       {/* Editor Panel */}
       <div
         className={cn(
-          "flex-1 overflow-y-auto pr-2",
+          "flex-1 overflow-y-auto pr-0 lg:pr-2 pb-24 lg:pb-0", 
           mobileView === "preview" ? "hidden lg:block" : "",
         )}
       >
@@ -952,7 +952,7 @@ export function EditorContent({ page, isPlusUser = false }: EditorContentProps) 
                       <p className="text-xs text-muted-foreground mb-2">
                         Blocos avançados
                       </p>
-                      <div className="grid grid-cols-3 gap-2">
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                         {blockTypes.map(({ type, icon: Icon, label }) => (
                           <button
                             key={type}
@@ -1001,7 +1001,7 @@ export function EditorContent({ page, isPlusUser = false }: EditorContentProps) 
         )}
 
         {/* Action buttons */}
-        <div className="flex gap-3 mt-6 sticky bottom-0 bg-background py-4">
+        <div className="flex gap-2 sm:gap-3 mt-6 sticky bottom-0 bg-background/95 backdrop-blur py-3 border-t">
           <Button
             variant="gradient"
             className="flex-1"
