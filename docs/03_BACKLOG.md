@@ -11,7 +11,7 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | P0-2 | DONE | Add centralized API error shape and error helper | Make client handling consistent |
 | P0-3 | DONE | Add minimal test baseline for critical flows | Reduce regressions |
 | P0-4 | DONE | Ensure ownership checks are consistent in all mutating APIs | Security/data isolation |
-| P0-5 | TODO | Define official feature parity matrix (Keepo → Pulse) in code/docs and acceptance criteria | Remove ambiguity and guide execution order |
+| P0-5 | DONE | Define official feature parity matrix (Keepo → Pulse) in code/docs and acceptance criteria | Remove ambiguity and guide execution order |
 | P0-6 | DONE | Establish E2E smoke suite for core creator journey (create → edit → publish → view) | Protect core business flow |
 
 ## P1 (Core Keepo Parity - MVP Completo)

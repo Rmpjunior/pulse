@@ -223,3 +223,22 @@ Append one entry per coding session.
   - Smoke atual valida fluxo integrado por persistência (DB), mas ainda não automatiza interação de UI/browser
 - Next:
   - Executar `P0-5`: formalizar matriz oficial de paridade Keepo → Pulse com critérios de aceite testáveis
+
+### Session 2026-03-04 14:24 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P0-5` definindo matriz oficial de paridade Keepo → Pulse com critérios de aceite
+- Backlog Item: P0-5
+- Changes:
+  - `docs/07_FEATURE_PARITY_MATRIX.md`: criado documento oficial com mapeamento Keepo baseline → alvo Pulse (journey core, seções, critérios de aceite e status)
+  - `docs/README.md`: adicionada referência operacional para nova matriz
+  - `docs/03_BACKLOG.md`: `P0-5` marcado como `DONE`
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com referência da matriz oficial
+- Validation:
+  - Command: `npm run lint` -> passou (0 erros, warnings existentes)
+  - Command: `npm run build` -> passou
+  - Manual (relevante): revisão da matriz para garantir rastreabilidade 1:1 entre itens P1/P2 e critérios verificáveis
+- Risks:
+  - Critérios definidos em nível funcional; alguns itens ainda exigirão detalhamento de QA visual por breakpoint
+- Next:
+  - Iniciar P1-1: completar edit/render do bloco `CATALOG` com critérios da matriz
