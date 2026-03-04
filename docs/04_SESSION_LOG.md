@@ -407,3 +407,23 @@ Append one entry per coding session.
   - CTA de copiar link depende de `navigator.clipboard` (pode exigir fallback em ambientes com restrição de permissão)
 - Next:
   - Iniciar `P1-9`: consolidar e polir ações pós-publicação (copy link/view website) para fechar ciclo publish→distribution
+
+### Session 2026-03-04 18:55 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P1-9` consolidando ações pós-publicação
+- Backlog Item: P1-9
+- Changes:
+  - `src/app/[locale]/(dashboard)/dashboard/editor/editor-content.tsx`: extraída rotina dedicada para copy link pós-publish com fallback (`navigator.clipboard` + `execCommand`)
+  - `src/app/[locale]/(dashboard)/dashboard/editor/editor-content.tsx`: adicionado estado de loading para ação de cópia e feedback mais robusto de sucesso/erro
+  - `docs/03_BACKLOG.md`: `P1-9` marcado como `DONE`
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com ações pós-publicação polidas
+- Validation:
+  - Command: `npm run test` -> passou (4 arquivos, 11 testes)
+  - Command: `npm run lint` -> passou (0 erros, warnings existentes)
+  - Command: `npm run build` -> passou
+  - Manual (relevante): revisão do fluxo pós-publicação com copy link + view website e fallback de cópia
+- Risks:
+  - Fallback `execCommand` pode ter comportamento diferente em alguns browsers modernos com políticas restritas
+- Next:
+  - Iniciar `P1-10`: fluxo de recuperação de rascunho (recover/discard)

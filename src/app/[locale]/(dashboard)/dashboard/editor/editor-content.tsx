@@ -142,6 +142,7 @@ export function EditorContent({ page, isPlusUser = false }: EditorContentProps) 
   const [onboardingFirstSection, setOnboardingFirstSection] =
     useState<BlockType>("LINK");
   const [publishSuccessUrl, setPublishSuccessUrl] = useState<string | null>(null);
+  const [isCopyingPublishedLink, setIsCopyingPublishedLink] = useState(false);
 
   const pushToast = useCallback((type: ToastMessage["type"], text: string) => {
     const id = crypto.randomUUID();
@@ -230,6 +231,42 @@ export function EditorContent({ page, isPlusUser = false }: EditorContentProps) 
       setIsSaving(false);
     }
   };
+
+  const copyPublishedLink = useCallback(async () => {
+    if (!publishSuccessUrl) return;
+
+    const absoluteUrl = `${window.location.origin}${publishSuccessUrl}`;
+    setIsCopyingPublishedLink(true);
+
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(absoluteUrl);
+        pushToast("success", "Link copiado.");
+        return;
+      }
+
+      const textArea = document.createElement("textarea");
+      textArea.value = absoluteUrl;
+      textArea.style.position = "fixed";
+      textArea.style.opacity = "0";
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      const copied = document.execCommand("copy");
+      document.body.removeChild(textArea);
+
+      if (copied) {
+        pushToast("success", "Link copiado.");
+      } else {
+        pushToast("error", "Não foi possível copiar automaticamente.");
+      }
+    } catch (error) {
+      console.error("Error copying published link:", error);
+      pushToast("error", "Erro ao copiar link.");
+    } finally {
+      setIsCopyingPublishedLink(false);
+    }
+  }, [publishSuccessUrl, pushToast]);
 
   const handlePublish = async () => {
     if (!page) return;
@@ -868,14 +905,10 @@ export function EditorContent({ page, isPlusUser = false }: EditorContentProps) 
               <Button
                 size="sm"
                 variant="outline"
-                onClick={() => {
-                  navigator.clipboard.writeText(
-                    `${window.location.origin}${publishSuccessUrl}`,
-                  );
-                  pushToast("success", "Link copiado.");
-                }}
+                onClick={copyPublishedLink}
+                disabled={isCopyingPublishedLink}
               >
-                Copiar link
+                {isCopyingPublishedLink ? "Copiando..." : "Copiar link"}
               </Button>
               <a
                 href={publishSuccessUrl}

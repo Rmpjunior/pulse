@@ -46,6 +46,7 @@ Last updated: 2026-03-04
 - Biblioteca de seções no editor ativa com atalhos `Welcome`, `About`, `Catalog`, `Links`, `Social` (com templates iniciais)
 - Gestão de seções com controles mobile explícitos (subir/descer/mostrar-remover) para add/edit/remove/reorder com melhor clareza em telas pequenas
 - Publish flow com checagem de disponibilidade de slug antes de publicar + estado explícito de sucesso após publicação
+- Ações pós-publicação disponíveis e polidas: `copy link` com fallback de clipboard e `view website` direto do estado de sucesso
 - Visitor identity para analytics agora usa fingerprint estável por request headers (user-agent + idioma + IP encaminhado hash), substituindo ID aleatório por evento
 - Test baseline ativo com Vitest (`npm run test`) cobrindo helpers críticos de API (error shape + validation)
 - Smoke E2E mínimo ativo (`npm run test:smoke`) validando jornada core persistida (create → edit → publish → view) em fluxo integrado com banco

@@ -26,7 +26,7 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | P1-6 | DONE | Implement section library in editor (`Welcome`, `About`, `Catalog`, `Links`, `Social`) | Reach section-level parity |
 | P1-7 | DONE | Add section management UX (add/edit/remove/reorder with clear mobile controls) | Editor usability and parity |
 | P1-8 | DONE | Implement publish flow with slug availability check and explicit success state | Match Keepo publish behavior |
-| P1-9 | TODO | Implement post-publish actions (`copy link`, `view website`) | Close publish-to-distribution loop |
+| P1-9 | DONE | Implement post-publish actions (`copy link`, `view website`) | Close publish-to-distribution loop |
 | P1-10 | TODO | Add draft/in-progress recovery flow (recover/discard) | Prevent creator work loss |
 | P1-11 | TODO | Implement profile header essentials (avatar, display name, bio) in editor + public page | Keepo baseline profile UX |
 | P1-12 | TODO | Deliver mobile-first editor polish pass (390x844 as reference) | Keep parity with mobile editing expectation |
