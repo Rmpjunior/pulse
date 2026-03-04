@@ -73,6 +73,46 @@ const blockTypes = [
   { type: "DIVIDER", icon: Minus, label: "Divisor" },
 ];
 
+const sectionLibrary = [
+  {
+    key: "WELCOME",
+    label: "Welcome",
+    description: "Introdução com título curto",
+    icon: Sparkles,
+    type: "TEXT" as BlockType,
+    template: { text: "Bem-vindo(a)!", align: "center" },
+  },
+  {
+    key: "ABOUT",
+    label: "About",
+    description: "Contexto sobre você ou seu projeto",
+    icon: Type,
+    type: "HIGHLIGHT" as BlockType,
+    template: { title: "Sobre", description: "Conte um pouco sobre você." },
+  },
+  {
+    key: "CATALOG",
+    label: "Catalog",
+    description: "Produtos e serviços",
+    icon: ShoppingBag,
+    type: "CATALOG" as BlockType,
+  },
+  {
+    key: "LINKS",
+    label: "Links",
+    description: "CTA para canais externos",
+    icon: LinkIcon,
+    type: "LINK" as BlockType,
+  },
+  {
+    key: "SOCIAL",
+    label: "Social",
+    description: "Redes sociais",
+    icon: Share2,
+    type: "SOCIAL_ICONS" as BlockType,
+  },
+];
+
 export function EditorContent({ page, isPlusUser = false }: EditorContentProps) {
   const t = useTranslations("editor");
   const router = useRouter();
@@ -220,10 +260,10 @@ export function EditorContent({ page, isPlusUser = false }: EditorContentProps) 
     }
   };
 
-  const handleAddBlock = async (type: string) => {
+  const handleAddBlock = async (type: string, templateContent?: unknown) => {
     if (!page) return;
 
-    const content = defaultBlockContent[type as BlockType];
+    const content = templateContent || defaultBlockContent[type as BlockType];
     const tempId = `tmp-${crypto.randomUUID()}`;
     const optimisticBlock: Block = {
       id: tempId,
@@ -681,17 +721,55 @@ export function EditorContent({ page, isPlusUser = false }: EditorContentProps) 
               </CardHeader>
               <CardContent>
                 {showBlockPicker && (
-                  <div className="grid grid-cols-3 gap-2 mb-4 p-4 bg-muted/50 rounded-lg">
-                    {blockTypes.map(({ type, icon: Icon, label }) => (
-                      <button
-                        key={type}
-                        onClick={() => handleAddBlock(type)}
-                        className="flex flex-col items-center gap-2 p-3 rounded-lg bg-card border border-border hover:border-primary transition-colors"
-                      >
-                        <Icon className="h-5 w-5 text-primary" />
-                        <span className="text-xs">{label}</span>
-                      </button>
-                    ))}
+                  <div className="mb-4 space-y-3 p-4 bg-muted/50 rounded-lg">
+                    <div>
+                      <p className="text-sm font-medium">Biblioteca de seções</p>
+                      <p className="text-xs text-muted-foreground">
+                        Atalhos inspirados no fluxo Keepo
+                      </p>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      {sectionLibrary.map((section) => {
+                        const Icon = section.icon;
+                        return (
+                          <button
+                            key={section.key}
+                            onClick={() =>
+                              handleAddBlock(section.type, section.template)
+                            }
+                            className="flex items-start gap-3 p-3 rounded-lg bg-card border border-border hover:border-primary transition-colors text-left"
+                          >
+                            <Icon className="h-5 w-5 text-primary mt-0.5" />
+                            <span>
+                              <span className="block text-sm font-medium">
+                                {section.label}
+                              </span>
+                              <span className="block text-xs text-muted-foreground">
+                                {section.description}
+                              </span>
+                            </span>
+                          </button>
+                        );
+                      })}
+                    </div>
+
+                    <div className="pt-2 border-t">
+                      <p className="text-xs text-muted-foreground mb-2">
+                        Blocos avançados
+                      </p>
+                      <div className="grid grid-cols-3 gap-2">
+                        {blockTypes.map(({ type, icon: Icon, label }) => (
+                          <button
+                            key={type}
+                            onClick={() => handleAddBlock(type)}
+                            className="flex flex-col items-center gap-2 p-3 rounded-lg bg-card border border-border hover:border-primary transition-colors"
+                          >
+                            <Icon className="h-5 w-5 text-primary" />
+                            <span className="text-xs">{label}</span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
                   </div>
                 )}
 

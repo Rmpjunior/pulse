@@ -346,3 +346,23 @@ Append one entry per coding session.
   - Categoria/metadata de onboarding está sendo salva dentro de `theme`; pode exigir modelagem própria no futuro
 - Next:
   - Iniciar `P1-6`: biblioteca de seções no editor (`Welcome`, `About`, `Catalog`, `Links`, `Social`)
+
+### Session 2026-03-04 17:26 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P1-6` com biblioteca de seções no editor
+- Backlog Item: P1-6
+- Changes:
+  - `src/app/[locale]/(dashboard)/dashboard/editor/editor-content.tsx`: adicionada section library com atalhos `Welcome`, `About`, `Catalog`, `Links`, `Social`
+  - `src/app/[locale]/(dashboard)/dashboard/editor/editor-content.tsx`: atalhos agora criam blocos com templates iniciais quando aplicável
+  - `docs/03_BACKLOG.md`: `P1-6` marcado como `DONE`
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com status da biblioteca de seções
+- Validation:
+  - Command: `npm run test` -> passou (4 arquivos, 11 testes)
+  - Command: `npm run lint` -> passou (0 erros, warnings existentes)
+  - Command: `npm run build` -> passou
+  - Manual (relevante): revisão de fluxo de add section via biblioteca e fallback para blocos avançados
+- Risks:
+  - `Welcome/About` usam mapeamento para blocos existentes (`TEXT`/`HIGHLIGHT`) como fase intermediária, não campos dedicados finais ainda
+- Next:
+  - Iniciar `P1-7`: UX de gestão de seções (add/edit/remove/reorder com controles móveis mais claros)

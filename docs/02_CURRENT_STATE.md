@@ -43,6 +43,7 @@ Last updated: 2026-03-04
 - `FORM` possui caminho completo de edição/render (configurar campos/título/botão no editor e render de formulário no público)
 - Editor com feedback imediato: toasts para sucesso/erro e updates otimistas com rollback em add/edit/delete/reorder/visibility de blocos
 - Onboarding wizard inicial ativo (2 passos): título + username, categoria e primeira seção com criação guiada da página
+- Biblioteca de seções no editor ativa com atalhos `Welcome`, `About`, `Catalog`, `Links`, `Social` (com templates iniciais)
 - Visitor identity para analytics agora usa fingerprint estável por request headers (user-agent + idioma + IP encaminhado hash), substituindo ID aleatório por evento
 - Test baseline ativo com Vitest (`npm run test`) cobrindo helpers críticos de API (error shape + validation)
 - Smoke E2E mínimo ativo (`npm run test:smoke`) validando jornada core persistida (create → edit → publish → view) em fluxo integrado com banco
