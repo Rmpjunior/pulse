@@ -579,6 +579,59 @@ function BlockEditForm({
           </div>
         );
 
+      case "SOCIAL_ICONS": {
+        const platforms = [
+          "facebook",
+          "instagram",
+          "x",
+          "youtube",
+          "linkedin",
+          "whatsapp",
+          "behance",
+          "dribbble",
+          "medium",
+          "twitch",
+          "tiktok",
+          "vimeo",
+        ];
+
+        const icons =
+          (c.icons as Array<{ platform: string; url: string }>) || [];
+        const iconsMap = Object.fromEntries(
+          icons.map((icon) => [icon.platform.toLowerCase(), icon.url]),
+        );
+
+        const setPlatformUrl = (platform: string, url: string) => {
+          const nextMap = { ...iconsMap, [platform]: url.trim() };
+          const nextIcons = Object.entries(nextMap)
+            .filter(([, value]) => Boolean(value))
+            .map(([key, value]) => ({ platform: key, url: value as string }));
+          updateField("icons", nextIcons);
+        };
+
+        return (
+          <div className="space-y-3">
+            <p className="text-sm text-muted-foreground">
+              Preencha os links das plataformas que deseja exibir.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {platforms.map((platform) => (
+                <div key={platform}>
+                  <label className="text-xs uppercase text-muted-foreground mb-1 block">
+                    {platform}
+                  </label>
+                  <Input
+                    value={iconsMap[platform] || ""}
+                    onChange={(e) => setPlatformUrl(platform, e.target.value)}
+                    placeholder={`https://${platform}.com/...`}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      }
+
       case "MEDIA":
         return (
           <div className="space-y-3">

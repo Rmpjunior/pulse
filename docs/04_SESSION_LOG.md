@@ -556,3 +556,23 @@ Append one entry per coding session.
   - Validação de URL ainda client-side no editor (recomendável reforçar no backend em etapa futura)
 - Next:
   - Iniciar `P1-16`: paridade de `Social media` com campos dedicados por plataforma
+
+### Session 2026-03-04 20:40 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P1-16` com paridade de `Social media`
+- Backlog Item: P1-16
+- Changes:
+  - `src/components/editor/block-editor.tsx`: bloco `SOCIAL_ICONS` agora tem editor dedicado com campos por plataforma (FB, IG, X, YouTube, LinkedIn, WhatsApp, Behance, Dribbble, Medium, Twitch, TikTok, Vimeo)
+  - `src/components/editor/block-editor.tsx`: atualização converte inputs preenchidos para `icons[]` de forma consistente
+  - `docs/03_BACKLOG.md`: `P1-16` marcado como `DONE`
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com paridade `Social media`
+- Validation:
+  - Command: `npm run test` -> passou (4 arquivos, 11 testes)
+  - Command: `npm run lint` -> passou (0 erros, warnings existentes)
+  - Command: `npm run build` -> passou
+  - Manual (relevante): revisão de fluxo de edição por plataforma e render condicional dos links sociais
+- Risks:
+  - Render de ícones sociais ainda usa abreviação textual por plataforma (não ícones oficiais de marca)
+- Next:
+  - Iniciar `P2-1`: alinhamento de identificação visual dos ícones sociais (opcional de polish)

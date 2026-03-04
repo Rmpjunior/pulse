@@ -53,6 +53,7 @@ Last updated: 2026-03-04
 - Seção `Welcome` com campos dedicados (foto, display name, featured title, second title, CTA) ativa no editor/preview/público via variante estruturada
 - Seção `About` com campos dedicados (page title, featured title opcional, descrição completa, imagem) ativa no editor/preview/público via variante estruturada
 - `Links` com validação obrigatória de título+URL e suporte a thumbnail por `emoji` ou `image` no editor/preview/público
+- `Social media` com inputs dedicados por plataforma (Facebook, Instagram, X, YouTube, LinkedIn, WhatsApp, Behance, Dribbble, Medium, Twitch, TikTok, Vimeo)
 - Visitor identity para analytics agora usa fingerprint estável por request headers (user-agent + idioma + IP encaminhado hash), substituindo ID aleatório por evento
 - Test baseline ativo com Vitest (`npm run test`) cobrindo helpers críticos de API (error shape + validation)
 - Smoke E2E mínimo ativo (`npm run test:smoke`) validando jornada core persistida (create → edit → publish → view) em fluxo integrado com banco

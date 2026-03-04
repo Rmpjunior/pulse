@@ -33,7 +33,7 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | P1-13 | DONE | Implement `Welcome` section fields parity: profile photo upload, display name, featured title, second title, CTA text/link | Exact first-fold parity |
 | P1-14 | DONE | Implement `About` section fields parity: page title, optional featured title, full description, image | Content storytelling parity |
 | P1-15 | DONE | Implement `Links` item editor parity: title (required), URL (required), thumbnail type (`image`/`emoji`) | Better link conversion UX |
-| P1-16 | TODO | Implement `Social media` section parity with platform-specific inputs | Match Keepo social block utility |
+| P1-16 | DONE | Implement `Social media` section parity with platform-specific inputs | Match Keepo social block utility |
 
 ## P2 (Account, Growth, Monetization Parity)
 
