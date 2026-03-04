@@ -80,7 +80,7 @@ export function BlockEditor({
           {getBlockLabel(block.type)}
         </span>
 
-        <div className="flex items-center gap-1">
+        <div className="hidden sm:flex items-center gap-1">
           <Button
             variant="ghost"
             size="icon"
@@ -120,6 +120,43 @@ export function BlockEditor({
             <Trash2 className="h-4 w-4" />
           </Button>
         </div>
+      </div>
+
+      <div className="sm:hidden grid grid-cols-4 gap-2 px-3 py-2 border-b bg-background">
+        <Button
+          variant="outline"
+          size="sm"
+          className="text-xs"
+          onClick={() => onMoveUp(block.id)}
+          disabled={isFirst}
+        >
+          ↑ Subir
+        </Button>
+        <Button
+          variant="outline"
+          size="sm"
+          className="text-xs"
+          onClick={() => onMoveDown(block.id)}
+          disabled={isLast}
+        >
+          ↓ Descer
+        </Button>
+        <Button
+          variant="outline"
+          size="sm"
+          className="text-xs"
+          onClick={() => onToggleVisibility(block.id)}
+        >
+          {block.visible ? "Ocultar" : "Mostrar"}
+        </Button>
+        <Button
+          variant="outline"
+          size="sm"
+          className="text-xs text-destructive hover:text-destructive"
+          onClick={() => onDelete(block.id)}
+        >
+          Remover
+        </Button>
       </div>
 
       {/* Content */}

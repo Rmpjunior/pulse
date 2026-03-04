@@ -366,3 +366,23 @@ Append one entry per coding session.
   - `Welcome/About` usam mapeamento para blocos existentes (`TEXT`/`HIGHLIGHT`) como fase intermediária, não campos dedicados finais ainda
 - Next:
   - Iniciar `P1-7`: UX de gestão de seções (add/edit/remove/reorder com controles móveis mais claros)
+
+### Session 2026-03-04 17:56 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P1-7` melhorando UX de gestão de seções com foco mobile
+- Backlog Item: P1-7
+- Changes:
+  - `src/components/editor/block-editor.tsx`: adicionada barra de ações mobile dedicada com botões explícitos (`Subir`, `Descer`, `Ocultar/Mostrar`, `Remover`)
+  - `src/components/editor/block-editor.tsx`: ações desktop mantidas em ícones, com separação responsiva clara (`sm:hidden` / `hidden sm:flex`)
+  - `docs/03_BACKLOG.md`: `P1-7` marcado como `DONE`
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com melhorias de UX mobile para gestão de seções
+- Validation:
+  - Command: `npm run test` -> passou (4 arquivos, 11 testes)
+  - Command: `npm run lint` -> passou (0 erros, warnings existentes)
+  - Command: `npm run build` -> passou
+  - Manual (relevante): revisão de usabilidade em layout mobile com ações textuais diretas por seção
+- Risks:
+  - Ainda sem drag-and-drop mobile; reorder segue baseado em ações de subir/descer
+- Next:
+  - Iniciar `P1-8`: fluxo de publish com checagem de disponibilidade de slug + estado explícito de sucesso
