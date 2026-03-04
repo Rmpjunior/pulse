@@ -621,3 +621,22 @@ Append one entry per coding session.
   - Fluxo depende de variáveis Stripe em produção; sem envs configuradas, endpoints retornam erro controlado de configuração pendente
 - Next:
   - Iniciar `P2-3`: detalhar plano de implementação de custom domain/subdomain no backlog técnico
+
+### Session 2026-03-04 21:24 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P2-3` detalhando plano técnico de custom domain/subdomain
+- Backlog Item: P2-3
+- Changes:
+  - `docs/08_CUSTOM_DOMAIN_PLAN.md`: criado blueprint técnico completo (arquitetura, modelo de dados proposto, API surface, verificação DNS, TLS, middleware host resolution, segurança, rollout por etapas, critérios de aceite)
+  - `docs/README.md`: adicionada referência para o novo plano técnico
+  - `docs/03_BACKLOG.md`: `P2-3` marcado como `DONE`
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com plano de domínio custom publicado
+- Validation:
+  - Manual (relevante): revisão de rastreabilidade entre objetivo de negócio e tarefas técnicas executáveis do rollout
+  - Command: `npm run lint` -> passou (0 erros, warnings existentes)
+  - Command: `npm run build` -> passou
+- Risks:
+  - Decisões abertas ainda pendentes (domínio final de subdomínio Pulse, provider DNS verification, limites finais por plano)
+- Next:
+  - Iniciar `P2-4`: implementar plan-gated limits (sections limit, custom colors, watermark removal)

@@ -56,6 +56,7 @@ Last updated: 2026-03-04
 - `Social media` com inputs dedicados por plataforma (Facebook, Instagram, X, YouTube, LinkedIn, WhatsApp, Behance, Dribbble, Medium, Twitch, TikTok, Vimeo)
 - Matriz de gating Free vs Plus definida em código (`src/lib/subscription/gating.ts`) e aplicada em fluxos-chave (editor plan capabilities + watermark no público)
 - Skeleton de billing Stripe ativo: endpoint de checkout (`/api/billing/checkout`) + webhook (`/api/billing/webhook`) + cliente server utilitário com validação de env
+- Plano técnico de custom domain/subdomain publicado em `docs/08_CUSTOM_DOMAIN_PLAN.md` com arquitetura, modelo de dados, APIs, critérios e rollout quebrado em etapas
 - Visitor identity para analytics agora usa fingerprint estável por request headers (user-agent + idioma + IP encaminhado hash), substituindo ID aleatório por evento
 - Test baseline ativo com Vitest (`npm run test`) cobrindo helpers críticos de API (error shape + validation)
 - Smoke E2E mínimo ativo (`npm run test:smoke`) validando jornada core persistida (create → edit → publish → view) em fluxo integrado com banco
