@@ -39,8 +39,8 @@ Last updated: 2026-03-04
 
 ## Partially Implemented / Gaps
 
-- `CATALOG` agora possui caminho completo de edição/render (adicionar item, editar campos e render público com CTA opcional)
-- `FORM` ainda existe em tipos, mas segue sem caminho completo de edição/render no UI
+- `CATALOG` possui caminho completo de edição/render (adicionar item, editar campos e render público com CTA opcional)
+- `FORM` possui caminho completo de edição/render (configurar campos/título/botão no editor e render de formulário no público)
 - Analytics visitor identity is naive/random (not durable across sessions)
 - Test baseline ativo com Vitest (`npm run test`) cobrindo helpers críticos de API (error shape + validation)
 - Smoke E2E mínimo ativo (`npm run test:smoke`) validando jornada core persistida (create → edit → publish → view) em fluxo integrado com banco

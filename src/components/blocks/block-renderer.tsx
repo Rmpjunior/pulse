@@ -288,6 +288,63 @@ export function BlockRenderer({ block, onBlockClick }: BlockRendererProps) {
         </div>
       );
 
+    case "FORM":
+      const title = (content.title as string) || "Formulário";
+      const submitLabel = (content.submitLabel as string) || "Enviar";
+      const fields =
+        (content.fields as Array<{
+          id?: string;
+          label?: string;
+          type?: "text" | "email" | "textarea";
+          required?: boolean;
+        }>) || [];
+
+      if (fields.length === 0) {
+        return (
+          <div className="p-4 rounded-xl bg-muted/50 border border-dashed border-border text-center">
+            <p className="text-sm text-muted-foreground">Formulário vazio</p>
+          </div>
+        );
+      }
+
+      return (
+        <form className="space-y-3 p-4 rounded-xl bg-card border border-border">
+          <p className="font-semibold">{title}</p>
+          {fields.map((field, index) => {
+            const fieldLabel = field.label || `Campo ${index + 1}`;
+            const commonProps = {
+              placeholder: fieldLabel,
+              required: Boolean(field.required),
+              className:
+                "w-full rounded-lg border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring",
+            };
+
+            return (
+              <div key={field.id || index} className="space-y-1">
+                <label className="text-sm font-medium">
+                  {fieldLabel}
+                  {field.required ? " *" : ""}
+                </label>
+                {field.type === "textarea" ? (
+                  <textarea {...commonProps} rows={3} />
+                ) : (
+                  <input
+                    {...commonProps}
+                    type={field.type === "email" ? "email" : "text"}
+                  />
+                )}
+              </div>
+            );
+          })}
+          <button
+            type="button"
+            className="w-full rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
+          >
+            {submitLabel}
+          </button>
+        </form>
+      );
+
     default:
       return (
         <div className="p-4 rounded-xl bg-muted/50 border border-dashed border-border text-center">

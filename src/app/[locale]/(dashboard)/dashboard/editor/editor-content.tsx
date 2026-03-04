@@ -29,6 +29,7 @@ import {
   Palette,
   LayoutGrid,
   ShoppingBag,
+  FileText,
 } from "lucide-react";
 
 interface Block {
@@ -60,6 +61,7 @@ const blockTypes = [
   { type: "HIGHLIGHT", icon: Sparkles, label: "Destaque" },
   { type: "MEDIA", icon: Play, label: "Mídia" },
   { type: "CATALOG", icon: ShoppingBag, label: "Catálogo" },
+  { type: "FORM", icon: FileText, label: "Formulário" },
   { type: "SOCIAL_ICONS", icon: Share2, label: "Redes Sociais" },
   { type: "TEXT", icon: Type, label: "Texto" },
   { type: "DIVIDER", icon: Minus, label: "Divisor" },

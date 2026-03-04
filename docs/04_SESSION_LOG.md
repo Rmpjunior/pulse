@@ -263,3 +263,24 @@ Append one entry per coding session.
   - Sem upload nativo de imagem ainda (usa URL), o que pode limitar UX comparado ao Keepo
 - Next:
   - Iniciar `P1-2`: completar caminho de edição/render do bloco `FORM`
+
+### Session 2026-03-04 15:25 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P1-2` completando caminho de edição/render do bloco `FORM`
+- Backlog Item: P1-2
+- Changes:
+  - `src/components/editor/block-editor.tsx`: adicionada prévia de formulário e editor completo do bloco `FORM` (título, texto do botão, add/remove de campos, tipo e obrigatório)
+  - `src/components/blocks/block-renderer.tsx`: adicionada renderização pública do `FORM` com campos dinâmicos (`text`/`email`/`textarea`) e botão de envio
+  - `src/app/[locale]/(dashboard)/dashboard/editor/editor-content.tsx`: adicionado `FORM` ao block picker
+  - `docs/03_BACKLOG.md`: `P1-2` marcado como `DONE`
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado (CATALOG + FORM com edit/render completos)
+- Validation:
+  - Command: `npm run test` -> passou (3 arquivos, 8 testes)
+  - Command: `npm run lint` -> passou (0 erros, warnings existentes)
+  - Command: `npm run build` -> passou
+  - Manual (relevante): revisão do fluxo de configuração de campos no editor e render final no bloco público
+- Risks:
+  - Bloco FORM ainda não envia submissão para endpoint dedicado (render funcional/estático por enquanto)
+- Next:
+  - Iniciar `P1-3`: melhorar estratégia de identificação de visitantes para analytics

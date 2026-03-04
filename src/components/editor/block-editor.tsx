@@ -208,6 +208,17 @@ function BlockPreview({ type, content, onEdit }: BlockPreviewProps) {
             )}
           </div>
         );
+      case "FORM":
+        const fields =
+          (c.fields as Array<{ label?: string; required?: boolean }>) || [];
+        return (
+          <div>
+            <p className="font-medium">{(c.title as string) || "Formulário"}</p>
+            <p className="text-sm text-muted-foreground">
+              {fields.length} campo(s) configurado(s)
+            </p>
+          </div>
+        );
       case "MEDIA":
         return (
           <p className="text-muted-foreground">
@@ -548,6 +559,149 @@ function BlockEditForm({
                 </button>
               ))}
             </div>
+          </div>
+        );
+
+      case "FORM":
+        const fields =
+          (c.fields as Array<{
+            id: string;
+            label: string;
+            type: "text" | "email" | "textarea";
+            required: boolean;
+          }>) || [];
+
+        const updateFormField = (
+          id: string,
+          patch: Partial<{
+            label: string;
+            type: "text" | "email" | "textarea";
+            required: boolean;
+          }>,
+        ) => {
+          updateField(
+            "fields",
+            fields.map((field) =>
+              field.id === id ? { ...field, ...patch } : field,
+            ),
+          );
+        };
+
+        const addFormField = () => {
+          updateField("fields", [
+            ...fields,
+            {
+              id: crypto.randomUUID(),
+              label: "",
+              type: "text",
+              required: false,
+            },
+          ]);
+        };
+
+        const removeFormField = (id: string) => {
+          updateField(
+            "fields",
+            fields.filter((field) => field.id !== id),
+          );
+        };
+
+        return (
+          <div className="space-y-4">
+            <div>
+              <label className="text-sm font-medium mb-1 block">
+                Título do formulário
+              </label>
+              <Input
+                value={(c.title as string) || ""}
+                onChange={(e) => updateField("title", e.target.value)}
+                placeholder="Entre em contato"
+              />
+            </div>
+
+            <div>
+              <label className="text-sm font-medium mb-1 block">
+                Texto do botão enviar
+              </label>
+              <Input
+                value={(c.submitLabel as string) || ""}
+                onChange={(e) => updateField("submitLabel", e.target.value)}
+                placeholder="Enviar"
+              />
+            </div>
+
+            <div className="flex items-center justify-between">
+              <label className="text-sm font-medium">Campos</label>
+              <Button type="button" variant="outline" size="sm" onClick={addFormField}>
+                Adicionar campo
+              </Button>
+            </div>
+
+            {fields.length === 0 ? (
+              <p className="text-sm text-muted-foreground">
+                Nenhum campo configurado.
+              </p>
+            ) : (
+              <div className="space-y-3">
+                {fields.map((field, index) => (
+                  <div key={field.id} className="rounded-lg border p-3 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <p className="text-sm font-medium">Campo {index + 1}</p>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        className="text-destructive hover:text-destructive"
+                        onClick={() => removeFormField(field.id)}
+                      >
+                        Remover
+                      </Button>
+                    </div>
+
+                    <Input
+                      value={field.label}
+                      onChange={(e) =>
+                        updateFormField(field.id, { label: e.target.value })
+                      }
+                      placeholder="Rótulo do campo"
+                    />
+
+                    <div className="flex gap-2 flex-wrap">
+                      {(["text", "email", "textarea"] as const).map((type) => (
+                        <button
+                          key={type}
+                          onClick={() => updateFormField(field.id, { type })}
+                          className={`px-3 py-1.5 rounded-md text-sm border ${
+                            field.type === type
+                              ? "border-primary bg-primary/10 text-primary"
+                              : "border-border"
+                          }`}
+                        >
+                          {type === "text"
+                            ? "Texto"
+                            : type === "email"
+                              ? "E-mail"
+                              : "Texto longo"}
+                        </button>
+                      ))}
+                    </div>
+
+                    <label className="flex items-center gap-2 text-sm">
+                      <input
+                        type="checkbox"
+                        checked={field.required}
+                        onChange={(e) =>
+                          updateFormField(field.id, {
+                            required: e.target.checked,
+                          })
+                        }
+                      />
+                      Campo obrigatório
+                    </label>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         );
 
