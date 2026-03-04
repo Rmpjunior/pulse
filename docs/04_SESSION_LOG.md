@@ -703,3 +703,26 @@ Append one entry per coding session.
   - Prompt de upgrade na analytics ainda fecha localmente (`Entendi`), sem deep-link automático para checkout
 - Next:
   - Iniciar `P2-7`: fluxos de conta self-service (reset de senha e exclusão de conta)
+
+### Session 2026-03-04 22:28 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P2-7` implementando fluxos self-service de conta
+- Backlog Item: P2-7
+- Changes:
+  - `src/app/api/auth/forgot-password/route.ts`: criado endpoint real para solicitação de reset (gera token, expiração e link de reset em log seguro para integração posterior com e-mail provider)
+  - `src/app/[locale]/(auth)/forgot-password/forgot-password-form.tsx`: formulário conectado ao endpoint real (`/api/auth/forgot-password`)
+  - `src/app/api/user/route.ts`: DELETE de conta endurecido com confirmação explícita (`DELETE_MY_ACCOUNT`) e validação de senha para usuários com credencial
+  - `src/app/[locale]/(dashboard)/dashboard/settings/settings-content.tsx`: adicionadas ações self-service de envio de reset e exclusão de conta com confirmação guiada
+  - `src/app/[locale]/(dashboard)/dashboard/settings/page.tsx`: propagado `hasPassword` para ajustar UX/validação de exclusão
+  - `docs/03_BACKLOG.md`: `P2-7` marcado como `DONE`
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com self-service ativo
+- Validation:
+  - Command: `npm run test` -> passou (5 arquivos, 14 testes)
+  - Command: `npm run lint` -> passou (0 erros, warnings existentes)
+  - Command: `npm run build` -> passou
+  - Manual (relevante): revisão de fluxo forgot-password + confirmação de exclusão no settings
+- Risks:
+  - Envio de e-mail ainda está em modo placeholder (link em log); falta integração com provider transacional para produção
+- Next:
+  - Iniciar `P2-8`: decisão/expansão da estratégia de auth (Google OAuth confiável + fallback)

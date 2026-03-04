@@ -17,11 +17,19 @@ export function ForgotPasswordForm() {
     e.preventDefault();
     setIsLoading(true);
 
-    // Simulate API call (in production, this would call an actual password reset endpoint)
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      const res = await fetch('/api/auth/forgot-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
 
-    setIsSuccess(true);
-    setIsLoading(false);
+      if (res.ok) {
+        setIsSuccess(true);
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   if (isSuccess) {

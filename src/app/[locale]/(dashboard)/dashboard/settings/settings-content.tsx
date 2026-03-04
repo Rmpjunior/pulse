@@ -32,6 +32,7 @@ interface SettingsContentProps {
     name: string | null;
     email: string | null;
     image: string | null;
+    hasPassword: boolean;
   };
   subscription: {
     plan: string;
@@ -44,6 +45,8 @@ export function SettingsContent({ user, subscription }: SettingsContentProps) {
   const [name, setName] = useState(user.name || "");
   const [email, setEmail] = useState(user.email || "");
   const [isSaving, setIsSaving] = useState(false);
+  const [isSendingReset, setIsSendingReset] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
   const [theme, setTheme] = useState<"light" | "dark" | "system">("system");
   const [language, setLanguage] = useState<"pt-BR" | "en">("pt-BR");
 
@@ -68,6 +71,54 @@ export function SettingsContent({ user, subscription }: SettingsContentProps) {
 
   const handleSignOut = async () => {
     await signOut({ callbackUrl: "/" });
+  };
+
+  const handleSendPasswordReset = async () => {
+    if (!user.email) return;
+
+    setIsSendingReset(true);
+    try {
+      await fetch('/api/auth/forgot-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: user.email }),
+      });
+    } finally {
+      setIsSendingReset(false);
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+    const confirmation = window.prompt(
+      'Digite DELETE_MY_ACCOUNT para confirmar a exclusão da conta:',
+    );
+
+    if (confirmation !== 'DELETE_MY_ACCOUNT') return;
+
+    let password: string | undefined;
+    if (user.hasPassword) {
+      const promptPassword = window.prompt('Digite sua senha para confirmar:');
+      if (!promptPassword) return;
+      password = promptPassword;
+    }
+
+    setIsDeleting(true);
+    try {
+      const res = await fetch('/api/user', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          confirmation,
+          password,
+        }),
+      });
+
+      if (res.ok) {
+        await signOut({ callbackUrl: '/' });
+      }
+    } finally {
+      setIsDeleting(false);
+    }
   };
 
   return (
@@ -118,14 +169,26 @@ export function SettingsContent({ user, subscription }: SettingsContentProps) {
             </p>
           </div>
 
-          <Button onClick={handleSaveProfile} disabled={isSaving}>
-            {isSaving ? (
-              <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-            ) : (
-              <Check className="h-4 w-4 mr-2" />
-            )}
-            Salvar alterações
-          </Button>
+          <div className="flex flex-wrap gap-2">
+            <Button onClick={handleSaveProfile} disabled={isSaving}>
+              {isSaving ? (
+                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+              ) : (
+                <Check className="h-4 w-4 mr-2" />
+              )}
+              Salvar alterações
+            </Button>
+            <Button
+              variant="outline"
+              onClick={handleSendPasswordReset}
+              disabled={isSendingReset || !user.email}
+            >
+              {isSendingReset ? (
+                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+              ) : null}
+              Enviar reset de senha
+            </Button>
+          </div>
         </CardContent>
       </Card>
 
@@ -288,8 +351,12 @@ export function SettingsContent({ user, subscription }: SettingsContentProps) {
                 Esta ação é irreversível
               </p>
             </div>
-            <Button variant="destructive">
-              <Trash2 className="h-4 w-4 mr-2" />
+            <Button variant="destructive" onClick={handleDeleteAccount} disabled={isDeleting}>
+              {isDeleting ? (
+                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+              ) : (
+                <Trash2 className="h-4 w-4 mr-2" />
+              )}
               Excluir
             </Button>
           </div>

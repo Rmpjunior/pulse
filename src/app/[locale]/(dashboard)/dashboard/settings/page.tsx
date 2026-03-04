@@ -31,6 +31,7 @@ export default async function SettingsPage() {
         name: user.name,
         email: user.email,
         image: user.image,
+        hasPassword: Boolean(user.password),
       }}
       subscription={
         user.subscription

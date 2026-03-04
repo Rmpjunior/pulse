@@ -1,13 +1,19 @@
 import { NextResponse } from 'next/server';
+import bcrypt from 'bcryptjs';
 import { z } from 'zod';
 import { auth } from '@/lib/auth';
 import { db } from '@/lib/db';
 import { parseBody } from '@/lib/api/validation';
-import { internalServerError, unauthorized } from '@/lib/api/errors';
+import { badRequest, internalServerError, unauthorized } from '@/lib/api/errors';
 
 const updateUserSchema = z.object({
   name: z.string().trim().min(1).max(80).optional(),
   image: z.url().optional(),
+});
+
+const deleteUserSchema = z.object({
+  confirmation: z.literal('DELETE_MY_ACCOUNT'),
+  password: z.string().min(6).optional(),
 });
 
 // PATCH - Update user profile
@@ -46,12 +52,35 @@ export async function PATCH(request: Request) {
 }
 
 // DELETE - Delete user account
-export async function DELETE() {
+export async function DELETE(request: Request) {
   try {
     const session = await auth();
-    
+
     if (!session?.user?.id) {
       return unauthorized();
+    }
+
+    const parsedBody = await parseBody(request, deleteUserSchema);
+    if (!parsedBody.success) {
+      return parsedBody.response;
+    }
+
+    const { password } = parsedBody.data;
+
+    const existingUser = await db.user.findUnique({
+      where: { id: session.user.id },
+      select: { password: true },
+    });
+
+    if (existingUser?.password) {
+      if (!password) {
+        return badRequest('Password is required to delete this account');
+      }
+
+      const passwordValid = await bcrypt.compare(password, existingUser.password);
+      if (!passwordValid) {
+        return badRequest('Invalid password');
+      }
     }
 
     // Delete all user data
