@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
 import { cn } from "@/lib/utils";
@@ -143,6 +143,13 @@ export function EditorContent({ page, isPlusUser = false }: EditorContentProps) 
     useState<BlockType>("LINK");
   const [publishSuccessUrl, setPublishSuccessUrl] = useState<string | null>(null);
   const [isCopyingPublishedLink, setIsCopyingPublishedLink] = useState(false);
+  const [hasDraftRecoveryChoice, setHasDraftRecoveryChoice] = useState(false);
+  const [pendingRecoveredDraft, setPendingRecoveredDraft] = useState<{
+    displayName: string;
+    bio: string;
+    blocks: Block[];
+    themeSettings: ThemeSettings;
+  } | null>(null);
 
   const pushToast = useCallback((type: ToastMessage["type"], text: string) => {
     const id = crypto.randomUUID();
@@ -505,6 +512,68 @@ export function EditorContent({ page, isPlusUser = false }: EditorContentProps) 
     [page, blocks, pushToast],
   );
 
+  const draftStorageKey = page ? `pulse:draft:${page.id}` : null;
+
+  useEffect(() => {
+    if (!page || !draftStorageKey || hasDraftRecoveryChoice) return;
+
+    const rawDraft = localStorage.getItem(draftStorageKey);
+    if (!rawDraft) {
+      setHasDraftRecoveryChoice(true);
+      return;
+    }
+
+    try {
+      const parsed = JSON.parse(rawDraft) as {
+        displayName: string;
+        bio: string;
+        blocks: Block[];
+        themeSettings: ThemeSettings;
+      };
+
+      const currentSerialized = JSON.stringify({
+        displayName,
+        bio,
+        blocks,
+        themeSettings,
+      });
+      const savedSerialized = JSON.stringify(parsed);
+
+      if (currentSerialized !== savedSerialized) {
+        setPendingRecoveredDraft(parsed);
+      }
+    } catch (error) {
+      console.error("Error reading draft:", error);
+      localStorage.removeItem(draftStorageKey);
+    } finally {
+      setHasDraftRecoveryChoice(true);
+    }
+  }, [
+    page,
+    draftStorageKey,
+    hasDraftRecoveryChoice,
+    displayName,
+    bio,
+    blocks,
+    themeSettings,
+  ]);
+
+  useEffect(() => {
+    if (!page || !draftStorageKey) return;
+
+    const timeout = setTimeout(() => {
+      const payload = {
+        displayName,
+        bio,
+        blocks,
+        themeSettings,
+      };
+      localStorage.setItem(draftStorageKey, JSON.stringify(payload));
+    }, 500);
+
+    return () => clearTimeout(timeout);
+  }, [page, draftStorageKey, displayName, bio, blocks, themeSettings]);
+
   // If no page exists, show creation form
   if (!page) {
     return (
@@ -698,6 +767,43 @@ export function EditorContent({ page, isPlusUser = false }: EditorContentProps) 
           mobileView === "preview" ? "hidden lg:block" : "",
         )}
       >
+        {pendingRecoveredDraft && (
+          <div className="mb-4 rounded-lg border border-amber-300 bg-amber-50 px-4 py-3">
+            <p className="text-sm font-medium text-amber-900">
+              Encontramos um rascunho não publicado desta página.
+            </p>
+            <div className="flex gap-2 mt-2">
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => {
+                  setDisplayName(pendingRecoveredDraft.displayName);
+                  setBio(pendingRecoveredDraft.bio);
+                  setBlocks(pendingRecoveredDraft.blocks);
+                  setThemeSettings(pendingRecoveredDraft.themeSettings);
+                  setPendingRecoveredDraft(null);
+                  pushToast("success", "Rascunho recuperado.");
+                }}
+              >
+                Recuperar
+              </Button>
+              <Button
+                size="sm"
+                variant="ghost"
+                onClick={() => {
+                  if (draftStorageKey) {
+                    localStorage.removeItem(draftStorageKey);
+                  }
+                  setPendingRecoveredDraft(null);
+                  pushToast("success", "Rascunho descartado.");
+                }}
+              >
+                Descartar
+              </Button>
+            </div>
+          </div>
+        )}
+
         {/* Tabs */}
         <div className="flex gap-1 p-1 bg-muted rounded-lg mb-6 w-fit">
           <button

@@ -427,3 +427,24 @@ Append one entry per coding session.
   - Fallback `execCommand` pode ter comportamento diferente em alguns browsers modernos com políticas restritas
 - Next:
   - Iniciar `P1-10`: fluxo de recuperação de rascunho (recover/discard)
+
+### Session 2026-03-04 19:10 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P1-10` com fluxo de recuperação de rascunho
+- Backlog Item: P1-10
+- Changes:
+  - `src/app/[locale]/(dashboard)/dashboard/editor/editor-content.tsx`: implementado autosave local de draft (displayName/bio/blocks/theme)
+  - `src/app/[locale]/(dashboard)/dashboard/editor/editor-content.tsx`: ao reabrir editor com divergência, exibe decisão explícita `Recuperar` ou `Descartar`
+  - `src/app/[locale]/(dashboard)/dashboard/editor/editor-content.tsx`: recuperação aplica estado completo do draft; descarte limpa storage
+  - `docs/03_BACKLOG.md`: `P1-10` marcado como `DONE`
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com draft recovery ativo
+- Validation:
+  - Command: `npm run test` -> passou (4 arquivos, 11 testes)
+  - Command: `npm run lint` -> passou (0 erros, warnings existentes)
+  - Command: `npm run build` -> passou
+  - Manual (relevante): revisão do fluxo de detecção de draft + aplicação/limpeza no editor
+- Risks:
+  - Estado de draft é local (browser/localStorage), não sincroniza entre dispositivos/sessões diferentes
+- Next:
+  - Iniciar `P1-11`: perfil essencial no editor + página pública (avatar, display name, bio)
