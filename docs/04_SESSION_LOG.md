@@ -790,3 +790,25 @@ Append one entry per coding session.
   - Validação ainda baseada em regex simples de URL; não valida disponibilidade real do endpoint/embed
 - Next:
   - Iniciar `P3-2`: hardening de performance e acessibilidade da página pública
+
+### Session 2026-03-04 23:24 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P3-2` com hardening de performance/acessibilidade da página pública
+- Backlog Item: P3-2
+- Changes:
+  - `src/app/[locale]/p/[username]/page-content.tsx`: container principal trocado para `<main>` semântico com `aria-label`
+  - `src/app/[locale]/p/[username]/page-content.tsx`: `iframe` de mídia atualizado com `title` e `loading="lazy"`
+  - `src/app/[locale]/p/[username]/page-content.tsx`: imagens da página pública ajustadas com `loading`, `decoding`, `referrerPolicy`
+  - `src/app/[locale]/p/[username]/page-content.tsx`: links de ícones sociais com `aria-label` por plataforma
+  - `docs/03_BACKLOG.md`: `P3-2` marcado como `DONE`
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com hardening inicial aplicado
+- Validation:
+  - Command: `npm run test` -> passou (5 arquivos, 14 testes)
+  - Command: `npm run lint` -> passou (0 erros, warnings existentes)
+  - Command: `npm run build` -> passou
+  - Manual (relevante): revisão de semântica principal, lazy-loading e labels para leitores de tela
+- Risks:
+  - Ainda há warnings de `no-img-element` no projeto; migração completa para `next/image` pode ser etapa futura de otimização
+- Next:
+  - Iniciar `P3-3`: templates reutilizáveis/quick-start presets para acelerar ativação de novos criadores

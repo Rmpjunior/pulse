@@ -84,13 +84,16 @@ export function PublicPageContent({
         />
       </div>
 
-      <div className="relative max-w-md mx-auto px-4 py-12">
+      <main className="relative max-w-md mx-auto px-4 py-12" aria-label="Página pública">
         {/* Profile Header */}
         <div className="text-center mb-8">
           {page.avatar ? (
             <img
               src={page.avatar}
               alt={page.displayName || page.username}
+              loading="eager"
+              decoding="async"
+              referrerPolicy="no-referrer"
               className="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
               style={{
                 boxShadow: `0 0 0 4px ${colors.background}, 0 0 0 6px ${colors.primary}40`,
@@ -150,7 +153,7 @@ export function PublicPageContent({
             </Link>
           </div>
         )}
-      </div>
+      </main>
     </div>
   );
 }
@@ -218,6 +221,9 @@ function ThemedBlock({
                 <img
                   src={content.thumbnailValue as string}
                   alt="Thumbnail"
+                  loading="lazy"
+                  decoding="async"
+                  referrerPolicy="no-referrer"
                   className="h-7 w-7 rounded object-cover"
                 />
               ) : null}
@@ -247,6 +253,9 @@ function ThemedBlock({
               <img
                 src={content.image as string}
                 alt={(content.pageTitle as string) || "About"}
+                loading="lazy"
+                decoding="async"
+                referrerPolicy="no-referrer"
                 className="w-full h-40 object-cover mb-4"
                 style={{ borderRadius: buttonRadius }}
               />
@@ -286,6 +295,9 @@ function ThemedBlock({
             <img
               src={highlightImage}
               alt={(content.title as string) || ""}
+              loading="lazy"
+              decoding="async"
+              referrerPolicy="no-referrer"
               className="w-full h-40 object-cover mb-4"
               style={{ borderRadius: buttonRadius }}
             />
@@ -334,6 +346,9 @@ function ThemedBlock({
               <img
                 src={content.profilePhoto as string}
                 alt={(content.displayName as string) || "Welcome"}
+                loading="lazy"
+                decoding="async"
+                referrerPolicy="no-referrer"
                 className="w-16 h-16 rounded-full mx-auto mb-3 object-cover"
               />
             )}
@@ -465,6 +480,8 @@ function ThemedBlock({
         >
           <iframe
             src={embedSrc}
+            title={`Embed ${mediaType}`}
+            loading="lazy"
             className="w-full h-full"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
@@ -500,6 +517,7 @@ function ThemedBlock({
               href={icon.url}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label={`Abrir ${icon.platform}`}
               onClick={handleClick}
               className="h-10 w-10 rounded-full flex items-center justify-center transition-transform hover:scale-110"
               style={{
