@@ -21,6 +21,8 @@ export interface LinkBlockContent {
   label: string;
   url: string;
   icon?: string;
+  thumbnailType?: 'none' | 'emoji' | 'image';
+  thumbnailValue?: string;
   style?: 'default' | 'outline' | 'gradient';
 }
 
@@ -94,6 +96,8 @@ export const defaultBlockContent: Record<BlockType, BlockContent> = {
   LINK: {
     label: 'Meu link',
     url: 'https://',
+    thumbnailType: 'none',
+    thumbnailValue: '',
     style: 'default',
   },
   HIGHLIGHT: {

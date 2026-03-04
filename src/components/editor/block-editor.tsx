@@ -197,6 +197,15 @@ function BlockPreview({ type, content, onEdit }: BlockPreviewProps) {
         const linkUrl = (c.url as string) || "Sem URL";
         return (
           <div className="flex items-center gap-3">
+            {(c.thumbnailType as string) === "emoji" && (c.thumbnailValue as string) ? (
+              <span className="text-xl">{c.thumbnailValue as string}</span>
+            ) : (c.thumbnailType as string) === "image" && (c.thumbnailValue as string) ? (
+              <img
+                src={c.thumbnailValue as string}
+                alt="Thumbnail"
+                className="h-8 w-8 rounded object-cover"
+              />
+            ) : null}
             <div className="flex-1">
               <p className="font-medium">{linkLabel}</p>
               <p className="text-sm text-muted-foreground truncate">
@@ -328,7 +337,7 @@ function BlockEditForm({
           <div className="space-y-3">
             <div>
               <label className="text-sm font-medium mb-1 block">
-                Texto do botão
+                Título (obrigatório)
               </label>
               <Input
                 value={(c.label as string) || ""}
@@ -337,12 +346,48 @@ function BlockEditForm({
               />
             </div>
             <div>
-              <label className="text-sm font-medium mb-1 block">URL</label>
+              <label className="text-sm font-medium mb-1 block">URL (obrigatória)</label>
               <Input
                 value={(c.url as string) || ""}
                 onChange={(e) => updateField("url", e.target.value)}
                 placeholder="https://..."
               />
+            </div>
+            <div>
+              <label className="text-sm font-medium mb-1 block">Thumbnail</label>
+              <div className="flex gap-2 mb-2">
+                {[
+                  { id: "none", label: "Sem" },
+                  { id: "emoji", label: "Emoji" },
+                  { id: "image", label: "Imagem" },
+                ].map((option) => (
+                  <button
+                    key={option.id}
+                    onClick={() => updateField("thumbnailType", option.id)}
+                    className={`px-3 py-1.5 rounded-md text-sm border ${
+                      (c.thumbnailType as string | undefined) === option.id
+                        ? "border-primary bg-primary/10 text-primary"
+                        : "border-border"
+                    }`}
+                  >
+                    {option.label}
+                  </button>
+                ))}
+              </div>
+              {(c.thumbnailType as string) === "emoji" && (
+                <Input
+                  value={(c.thumbnailValue as string) || ""}
+                  onChange={(e) => updateField("thumbnailValue", e.target.value)}
+                  placeholder="😀"
+                />
+              )}
+              {(c.thumbnailType as string) === "image" && (
+                <Input
+                  value={(c.thumbnailValue as string) || ""}
+                  onChange={(e) => updateField("thumbnailValue", e.target.value)}
+                  placeholder="https://..."
+                />
+              )}
             </div>
             <div>
               <label className="text-sm font-medium mb-1 block">Estilo</label>
@@ -864,15 +909,27 @@ function BlockEditForm({
     }
   };
 
+  const isLink = type === "LINK";
+  const linkLabel = ((c.label as string) || "").trim();
+  const linkUrl = ((c.url as string) || "").trim();
+  const linkIsValid = !isLink || Boolean(linkLabel) || false;
+  const linkUrlIsValid = !isLink || /^https?:\/\/.+/.test(linkUrl);
+  const canSave = linkIsValid && linkUrlIsValid;
+
   return (
     <div className="space-y-4">
       {renderForm()}
+      {isLink && !canSave && (
+        <p className="text-xs text-destructive">
+          Preencha título e URL válida (http/https) para salvar o link.
+        </p>
+      )}
       <div className="flex justify-end gap-2 pt-2 border-t">
         <Button variant="ghost" size="sm" onClick={onCancel}>
           <X className="h-4 w-4 mr-1" />
           Cancelar
         </Button>
-        <Button variant="gradient" size="sm" onClick={onSave}>
+        <Button variant="gradient" size="sm" onClick={onSave} disabled={!canSave}>
           <Check className="h-4 w-4 mr-1" />
           Salvar
         </Button>

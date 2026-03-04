@@ -533,3 +533,26 @@ Append one entry per coding session.
   - `About` segue como variante de `HIGHLIGHT` (não bloco dedicado), exigindo cuidado de compatibilidade em evoluções futuras
 - Next:
   - Iniciar `P1-15`: paridade de `Links` (validação obrigatória title+URL e thumbnail image/emoji)
+
+### Session 2026-03-04 20:26 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P1-15` com paridade do bloco `Links`
+- Backlog Item: P1-15
+- Changes:
+  - `src/components/editor/block-editor.tsx`: editor de `LINK` agora exige título + URL válida (`http/https`) para salvar
+  - `src/components/editor/block-editor.tsx`: adicionado modo de thumbnail para `LINK` (`none`/`emoji`/`image`) com campo dedicado
+  - `src/types/blocks.ts`: tipo e default de `LINK` atualizados para suportar `thumbnailType` e `thumbnailValue`
+  - `src/components/blocks/block-renderer.tsx`: render de `LINK` no preview de blocos com thumbnail emoji/imagem
+  - `src/components/editor/themed-preview.tsx` e `src/app/[locale]/p/[username]/page-content.tsx`: render de `LINK` atualizado para thumbnail por emoji/imagem
+  - `docs/03_BACKLOG.md`: `P1-15` marcado como `DONE`
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com paridade `Links`
+- Validation:
+  - Command: `npm run test` -> passou (4 arquivos, 11 testes)
+  - Command: `npm run lint` -> passou (0 erros, warnings existentes)
+  - Command: `npm run build` -> passou
+  - Manual (relevante): revisão do fluxo editar link obrigatório + escolha thumbnail + render no preview/público
+- Risks:
+  - Validação de URL ainda client-side no editor (recomendável reforçar no backend em etapa futura)
+- Next:
+  - Iniciar `P1-16`: paridade de `Social media` com campos dedicados por plataforma

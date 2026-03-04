@@ -157,7 +157,16 @@ function ThemedBlockWrapper({
           className="block w-full p-4 border transition-all hover:scale-[1.02]"
           style={linkStyles[linkStyle] || linkStyles.default}
         >
-          <div className="flex items-center justify-center">
+          <div className="flex items-center justify-center gap-2">
+            {(content.thumbnailType as string) === "emoji" && (content.thumbnailValue as string) ? (
+              <span className="text-lg">{content.thumbnailValue as string}</span>
+            ) : (content.thumbnailType as string) === "image" && (content.thumbnailValue as string) ? (
+              <img
+                src={content.thumbnailValue as string}
+                alt="Thumbnail"
+                className="h-6 w-6 rounded object-cover"
+              />
+            ) : null}
             <span className="font-medium">
               {(content.label as string) || "Link"}
             </span>

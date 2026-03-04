@@ -38,10 +38,21 @@ export function BlockRenderer({ block, onBlockClick }: BlockRendererProps) {
           onClick={handleClick}
           className={`block w-full p-4 rounded-xl hover:shadow-lg transition-all duration-200 group ${linkClasses[linkStyle as keyof typeof linkClasses]}`}
         >
-          <div className="flex items-center justify-between">
-            <span className="font-medium">
-              {(content.label as string) || "Link"}
-            </span>
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2 min-w-0">
+              {(content.thumbnailType as string) === "emoji" && (content.thumbnailValue as string) ? (
+                <span className="text-lg">{content.thumbnailValue as string}</span>
+              ) : (content.thumbnailType as string) === "image" && (content.thumbnailValue as string) ? (
+                <img
+                  src={content.thumbnailValue as string}
+                  alt="Thumbnail"
+                  className="h-7 w-7 rounded object-cover"
+                />
+              ) : null}
+              <span className="font-medium truncate">
+                {(content.label as string) || "Link"}
+              </span>
+            </div>
             <ExternalLink className="h-4 w-4 opacity-50 group-hover:opacity-100 transition-opacity" />
           </div>
         </a>
