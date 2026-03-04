@@ -40,7 +40,7 @@ Last updated: 2026-03-04
 
 - Some block types exist in types but not fully implemented in UI rendering/editing (`CATALOG`, `FORM`)
 - Analytics visitor identity is naive/random (not durable across sessions)
-- No test suite baseline yet
+- Test baseline ativo com Vitest (`npm run test`) cobrindo helpers críticos de API (error shape + validation)
 - i18n infrastructure exists but runtime is intentionally PT-BR only
 - Stripe/payment flow is not integrated (subscription model exists)
 - PWA/Capacitor strategy docs exist, implementation incomplete

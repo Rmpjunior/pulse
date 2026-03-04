@@ -9,7 +9,7 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | P0-1 | DONE | Add request validation (zod) to page/block/auth APIs | Prevent malformed data and runtime errors |
 | P0-1.1 | DONE | Restore green build/lint gates after validation rollout | Prevent failed Vercel deploys |
 | P0-2 | DONE | Add centralized API error shape and error helper | Make client handling consistent |
-| P0-3 | TODO | Add minimal test baseline for critical flows | Reduce regressions |
+| P0-3 | DONE | Add minimal test baseline for critical flows | Reduce regressions |
 | P0-4 | TODO | Ensure ownership checks are consistent in all mutating APIs | Security/data isolation |
 | P0-5 | TODO | Define official feature parity matrix (Keepo → Pulse) in code/docs and acceptance criteria | Remove ambiguity and guide execution order |
 | P0-6 | TODO | Establish E2E smoke suite for core creator journey (create → edit → publish → view) | Protect core business flow |

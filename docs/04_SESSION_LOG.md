@@ -159,3 +159,25 @@ Append one entry per coding session.
   - Clientes que parseavam apenas `error: string` agora precisam ler `error.message` no novo formato
 - Next:
   - Executar `P0-6`: smoke E2E da jornada core (create → edit → publish → view)
+
+### Session 2026-03-04 12:58 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P0-3` criando baseline mínimo de testes para fluxos críticos de API
+- Backlog Item: P0-3
+- Changes:
+  - `package.json`: adicionado script `test` com `vitest run`
+  - `package-lock.json`: atualizado após instalação do Vitest
+  - `vitest.config.ts`: criada configuração mínima do runner com alias `@` e include de `*.test.ts`
+  - `src/lib/api/errors.test.ts`: adicionados testes para shape/status de erro padronizado
+  - `src/lib/api/validation.test.ts`: adicionados testes para `parseBody`, `parseParams` e `parseQuery`
+  - `docs/03_BACKLOG.md`: `P0-3` marcado como `DONE`
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com baseline de testes ativo
+- Validation:
+  - Command: `npm run test` -> passou (2 arquivos, 7 testes)
+  - Command: `npm run lint` -> passou (0 erros, warnings existentes)
+  - Command: `npm run build` -> passou
+- Risks:
+  - Baseline cobre helpers críticos, mas ainda não cobre fluxo E2E de criação/edição/publicação
+- Next:
+  - Executar `P0-6`: montar smoke E2E da jornada core (create → edit → publish → view)
