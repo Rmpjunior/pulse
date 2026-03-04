@@ -141,6 +141,7 @@ export function EditorContent({ page, isPlusUser = false }: EditorContentProps) 
   const [onboardingCategory, setOnboardingCategory] = useState("creator");
   const [onboardingFirstSection, setOnboardingFirstSection] =
     useState<BlockType>("LINK");
+  const [publishSuccessUrl, setPublishSuccessUrl] = useState<string | null>(null);
 
   const pushToast = useCallback((type: ToastMessage["type"], text: string) => {
     const id = crypto.randomUUID();
@@ -236,6 +237,25 @@ export function EditorContent({ page, isPlusUser = false }: EditorContentProps) 
     setIsPublishing(true);
     try {
       const nextPublished = !published;
+
+      if (nextPublished) {
+        const slugRes = await fetch(
+          `/api/pages/slug?slug=${encodeURIComponent(username)}&pageId=${page.id}`,
+        );
+
+        if (!slugRes.ok) {
+          pushToast("error", "Falha ao validar slug para publicação.");
+          return;
+        }
+
+        const slugData = (await slugRes.json()) as { available: boolean };
+
+        if (!slugData.available) {
+          pushToast("error", "Slug indisponível. Ajuste o username para publicar.");
+          return;
+        }
+      }
+
       const res = await fetch(`/api/pages/${page.id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
@@ -248,10 +268,15 @@ export function EditorContent({ page, isPlusUser = false }: EditorContentProps) 
       }
 
       setPublished(nextPublished);
-      pushToast(
-        "success",
-        nextPublished ? "Página publicada." : "Página despublicada.",
-      );
+
+      if (nextPublished) {
+        const liveUrl = `/p/${username}`;
+        setPublishSuccessUrl(liveUrl);
+        pushToast("success", "Página publicada com sucesso.");
+      } else {
+        setPublishSuccessUrl(null);
+        pushToast("success", "Página despublicada.");
+      }
     } catch (error) {
       console.error("Error publishing:", error);
       pushToast("error", "Erro ao publicar/despublicar.");
@@ -833,6 +858,36 @@ export function EditorContent({ page, isPlusUser = false }: EditorContentProps) 
             {published ? "Despublicar" : "Publicar"}
           </Button>
         </div>
+
+        {publishSuccessUrl && (
+          <div className="rounded-lg border border-emerald-300 bg-emerald-50 px-4 py-3 mt-2">
+            <p className="text-sm font-medium text-emerald-800">
+              Publicado com sucesso 🎉
+            </p>
+            <div className="flex flex-wrap gap-2 mt-2">
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => {
+                  navigator.clipboard.writeText(
+                    `${window.location.origin}${publishSuccessUrl}`,
+                  );
+                  pushToast("success", "Link copiado.");
+                }}
+              >
+                Copiar link
+              </Button>
+              <a
+                href={publishSuccessUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex h-9 items-center justify-center rounded-md bg-emerald-600 px-3 text-sm font-medium text-white"
+              >
+                Ver website
+              </a>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Preview Panel */}
