@@ -1782,3 +1782,24 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Iniciar `P5-41`: checklist curto de auditoria de idioma para novos docs
+
+### Session 2026-03-05 18:52 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-41` criando checklist curto de auditoria de idioma para novos docs
+- Backlog Item: P5-41
+- Changes:
+  - `docs/05_RUNBOOK.md`: adicionada seção `Checklist rápido de auditoria de idioma (novos docs)` com critérios PT-BR/EN, mistura de idioma e links
+  - `docs/03_BACKLOG.md`: `P5-41` marcado como `DONE`; `P5-42` criado para atalho no hub
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com prática de auditoria de idioma para novos documentos
+- Validation:
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Manual: revisão de clareza/objetividade da checklist e aderência à política de idioma vigente
+- Risks:
+  - Sem risco funcional (mudança documental)
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Iniciar `P5-42`: adicionar atalho para checklist de auditoria de idioma no `docs/README.md`

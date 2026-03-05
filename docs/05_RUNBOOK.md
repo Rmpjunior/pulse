@@ -62,6 +62,16 @@ Use este gate **antes de encerrar qualquer sessão com alteração de código/do
 
 Se algum item estiver `no`, não encerrar sessão como concluída: corrigir ou registrar bloqueio explícito.
 
+## Checklist rápido de auditoria de idioma (novos docs)
+
+Aplicar ao criar/editar documentação:
+
+- [ ] Documento operacional está em PT-BR.
+- [ ] Se conteúdo técnico ficou em EN, há justificativa curta (clareza técnica/terminologia).
+- [ ] Não há mistura PT-BR/EN no mesmo bullet sem necessidade.
+- [ ] Links/âncoras continuam válidos após ajustes de idioma.
+- [ ] Atualização refletida em `docs/02_CURRENT_STATE.md` e `docs/03_BACKLOG.md` quando aplicável.
+
 ## Troubleshooting
 
 - Prisma connection issues:
