@@ -1184,3 +1184,21 @@ Append one entry per coding session.
   - Nenhum risco funcional alto; comportamento agora alinha com dashboard multi-site já entregue
 - Next:
   - Executar smoke de criação da 2ª página no dashboard e validar troca de contexto `pageId` no editor
+
+### Session 2026-03-05 12:07 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-13` consolidando índice operacional rápido no README
+- Backlog Item: P5-13
+- Changes:
+  - `README.md`: adicionada seção `Índice operacional rápido` com links diretos para CI status, troubleshooting, checklist pós-deploy, rollback e runbook de autenticação
+  - `docs/03_BACKLOG.md`: `P5-13` marcado como `DONE`; `P5-14` criado para mini-checklist de handoff
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com navegação operacional rápida no README
+- Validation:
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Manual: revisão dos links internos e organização da seção operacional
+- Risks:
+  - Sem risco funcional (mudança documental)
+- Next:
+  - Iniciar `P5-14`: mini-checklist de handoff para continuidade entre turnos/sessões

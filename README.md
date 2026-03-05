@@ -24,6 +24,14 @@ npm run dev
 
 Open `http://localhost:3000`.
 
+## Índice operacional rápido
+
+- [CI Status (quick check)](#ci-status-quick-check)
+- [CI Troubleshooting (quick fix)](#ci-troubleshooting-quick-fix)
+- [Post-deploy quick checklist](#post-deploy-quick-checklist)
+- [Rollback rápido (produção)](#rollback-rápido-produção)
+- [Incidente de autenticação (runbook curto)](#incidente-de-autenticação-runbook-curto)
+
 ## CI Status (quick check)
 
 - Badge above reflects the latest result of `.github/workflows/ci.yml` on `main`.
