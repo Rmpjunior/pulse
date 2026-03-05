@@ -22,6 +22,23 @@ Append one entry per coding session.
   - <next concrete action>
 ```
 
+## Incident Entry Template (quick)
+
+Use this block when recording production/auth/deploy incidents:
+
+```md
+### Incident YYYY-MM-DD HH:MM (local)
+
+- Severity: Low | Medium | High | Critical
+- Scope: <who/what was impacted>
+- Trigger: <what changed right before incident>
+- Detection: <how incident was detected>
+- Mitigation: <rollback/fix applied>
+- Root cause: <confirmed or most likely>
+- Verification: <how recovery was confirmed>
+- Follow-up: <preventive action + owner>
+```
+
 ---
 
 ### Session 2026-02-18
@@ -1313,3 +1330,21 @@ Append one entry per coding session.
   - Sem risco funcional (mudança documental)
 - Next:
   - Iniciar `P5-21`: template curto para registro de incidente no session log
+
+### Session 2026-03-05 13:52 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-21` adicionando template curto de incidente no session log
+- Backlog Item: P5-21
+- Changes:
+  - `docs/04_SESSION_LOG.md`: adicionada seção `Incident Entry Template (quick)` com campos mínimos padronizados (severity, scope, trigger, detection, mitigation, root cause, verification, follow-up)
+  - `docs/03_BACKLOG.md`: `P5-21` marcado como `DONE`; `P5-22` criado para exemplo preenchido
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com padronização de registro de incidentes
+- Validation:
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Manual: revisão da template para uso rápido sob pressão operacional
+- Risks:
+  - Sem risco funcional (mudança documental)
+- Next:
+  - Iniciar `P5-22`: adicionar exemplo fictício preenchido para orientar uso do template
