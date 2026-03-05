@@ -230,6 +230,7 @@ Antes de encerrar um turno/sessão, confirmar:
 - [ ] `docs/03_BACKLOG.md` com próximo item claro (`TODO`/`IN_PROGRESS`/`DONE`)
 - [ ] `npm run lint` e `npm run build` sem erro no lote entregue
 - [ ] Bloqueios externos anotados com **input exato necessário**
+- [ ] Se houve edição no README operacional, checklist de links revisado
 - [ ] Próximo passo descrito em linguagem objetiva para continuidade imediata
 
 ## Existing Documentation

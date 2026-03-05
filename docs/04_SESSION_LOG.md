@@ -1435,3 +1435,21 @@ Use this block when recording production/auth/deploy incidents:
   - Sem risco funcional (mudança documental)
 - Next:
   - Iniciar `P5-26`: incluir regra curta de revisão de links no handoff rápido
+
+### Session 2026-03-05 15:07 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-26` adicionando mini-regra de revisão de links no handoff rápido
+- Backlog Item: P5-26
+- Changes:
+  - `README.md`: seção `Handoff rápido` atualizada com item explícito para revisar checklist de links quando houver edição operacional
+  - `docs/03_BACKLOG.md`: `P5-26` marcado como `DONE`; `P5-27` criado para confirmação de idioma PT-BR no handoff
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com reforço da regra de revisão de links no handoff
+- Validation:
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Manual: revisão do checklist de handoff para garantir clareza e acionabilidade
+- Risks:
+  - Sem risco funcional (mudança documental)
+- Next:
+  - Iniciar `P5-27`: mini-checklist de confirmação PT-BR no handoff

@@ -95,6 +95,7 @@ Last updated: 2026-03-04
 - Índice operacional do README agora inclui atalho direto para o template de incidente no `docs/04_SESSION_LOG.md`
 - Índice operacional também inclui atalho direto para o exemplo fictício de incidente, facilitando onboarding e uso guiado do formato
 - README inclui checklist mínimo de validação de links operacionais após edits, reduzindo risco de âncoras quebradas
+- Handoff rápido agora inclui mini-regra explícita para revisar links quando houver edição do README operacional
 - Plano técnico de custom domain/subdomain publicado em `docs/08_CUSTOM_DOMAIN_PLAN.md` com arquitetura, modelo de dados, APIs, critérios e rollout quebrado em etapas
 - Visitor identity para analytics agora usa fingerprint estável por request headers (user-agent + idioma + IP encaminhado hash), substituindo ID aleatório por evento
 - Test baseline ativo com Vitest (`npm run test`) cobrindo helpers críticos de API (error shape + validation)
