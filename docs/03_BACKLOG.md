@@ -79,15 +79,17 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | P5-6 | DONE | Adicionar pipeline de CI (lint + testes + build) no GitHub Actions | Proteger `main` contra regressões e padronizar validação automática |
 | P5-7 | DONE | Corrigir criação de múltiplas páginas por conta removendo trava legada de página única na API `/api/pages` | Garantir paridade real de multi-site no dashboard |
 | P5-8 | DONE | Otimizar workflow de CI com `concurrency` e permissões mínimas | Reduzir gasto de runner e evitar execuções duplicadas em pushs rápidos |
-| P5-9 | DONE | Publicar badge de CI + instrução rápida no README para status de qualidade | Facilitar visibilidade instantânea de saúde da `main` |
-| P5-10 | DONE | Adicionar seção de troubleshooting rápido da CI no README (falhas comuns + ação imediata) | Reduzir tempo de diagnóstico quando pipeline falhar |
+| P5-9 | DONE | Publicar selo de CI + instrução rápida no README para status de qualidade | Facilitar visibilidade instantânea da saúde da `main` |
+| P5-10 | DONE | Adicionar seção de diagnóstico rápido da CI no README (falhas comuns + ação imediata) | Reduzir tempo de diagnóstico quando pipeline falhar |
 | P5-11 | DONE | Criar checklist pós-deploy (GitHub Actions + Vercel + smoke mínimo) para uso rápido em operação | Padronizar validação final após push em `main` |
-| P5-12 | DONE | Registrar playbook de rollback rápido (critério + passos + verificação) | Diminuir tempo de resposta em incidentes de produção |
-| P5-13 | DONE | Criar runbook curto para incidentes de autenticação (Google OAuth + credenciais) | Acelerar diagnóstico quando login falhar em produção |
-| P5-14 | DONE | Consolidar índice operacional no README (links rápidos para CI, deploy, rollback e auth runbook) | Diminuir tempo de navegação durante operação/incidente |
-| P5-15 | DONE | Adicionar mini-checklist de handoff para próximo turno no README operacional | Garantir continuidade rápida entre sessões/agentes |
+| P5-12 | DONE | Registrar guia de rollback rápido (critério + passos + verificação) | Diminuir tempo de resposta em incidentes de produção |
+| P5-13 | DONE | Criar guia curto para incidentes de autenticação (Google OAuth + credenciais) | Acelerar diagnóstico quando login falhar em produção |
+| P5-14 | DONE | Consolidar índice operacional no README (links rápidos para CI, deploy, rollback e guia de autenticação) | Diminuir tempo de navegação durante operação/incidente |
+| P5-15 | DONE | Adicionar mini-checklist de passagem de turno no README operacional | Garantir continuidade rápida entre sessões/agentes |
 | P5-16 | DONE | Limpar duplicidade de IDs no backlog (`P5-7`) e normalizar numeração contínua | Evitar ambiguidade de rastreio em sessões futuras |
-| P5-17 | TODO | Revisar consistência de nomenclatura dos itens P5 (termos PT-BR/EN) e padronizar estilo | Melhorar legibilidade e busca no backlog |
+| P5-17 | DONE | Revisar consistência de nomenclatura dos itens P5 (termos PT-BR/EN) e padronizar estilo | Melhorar legibilidade e busca no backlog |
+| P5-18 | TODO | Criar seção curta "comandos operacionais frequentes" no README (CI/build/rollback) | Reduzir tempo de execução em resposta a incidentes |
+
 
 
 

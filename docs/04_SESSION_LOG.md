@@ -1238,3 +1238,21 @@ Append one entry per coding session.
   - Sem risco funcional (mudança documental de rastreio)
 - Next:
   - Iniciar `P5-17`: padronizar nomenclatura PT-BR/EN nos títulos dos itens P5
+
+### Session 2026-03-05 12:52 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-17` padronizando nomenclatura PT-BR dos itens P5 no backlog
+- Backlog Item: P5-17
+- Changes:
+  - `docs/03_BACKLOG.md`: itens P5 padronizados para termos PT-BR (ex.: selo, diagnóstico, guia, passagem de turno), reduzindo mistura PT/EN
+  - `docs/03_BACKLOG.md`: `P5-17` marcado como `DONE`; `P5-18` criado para comandos operacionais frequentes
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com status de padronização de nomenclatura
+- Validation:
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Manual: revisão textual de consistência terminológica na seção P5
+- Risks:
+  - Sem risco funcional (mudança documental)
+- Next:
+  - Iniciar `P5-18`: seção de comandos operacionais frequentes no README
