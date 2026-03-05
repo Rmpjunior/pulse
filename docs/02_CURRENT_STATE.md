@@ -69,6 +69,7 @@ Last updated: 2026-03-04
 - PT-BR hardening aplicado em superfícies críticas de onboarding/dashboard (labels de templates/categorias e gestão multi-site), reduzindo textos residuais em inglês para o usuário final
 - Ciclo de qualidade frontend formalizado com `skills.sh` + `docs/10_FRONTEND_QUALITY_PLAYBOOK.md` (referências: vercel-react-best-practices, web-design-guidelines, frontend-design)
 - Landing page recebeu melhoria de hierarquia visual (faixa de confiança no hero + seção "Como funciona" em 3 passos) para reduzir aparência genérica e aumentar clareza de proposta de valor
+- Auditoria visual completa de imagens/ícones documentada em `docs/11_VISUAL_ASSET_AUDIT_PROMPTS.md`, com mapeamento de fragilidades e prompt pack pronto para geração externa
 - Plano técnico de custom domain/subdomain publicado em `docs/08_CUSTOM_DOMAIN_PLAN.md` com arquitetura, modelo de dados, APIs, critérios e rollout quebrado em etapas
 - Visitor identity para analytics agora usa fingerprint estável por request headers (user-agent + idioma + IP encaminhado hash), substituindo ID aleatório por evento
 - Test baseline ativo com Vitest (`npm run test`) cobrindo helpers críticos de API (error shape + validation)

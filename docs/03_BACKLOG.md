@@ -64,7 +64,7 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 |---|---|---|---|
 | P4-1 | DONE | Reinserir/validar autenticação com Google ponta a ponta (login/cadastro/fallback) e listar envs faltantes para produção | Garantir OAuth funcional e sem regressões |
 | P4-2 | DONE | Adicionar e aplicar skills `vercel-react-best-practices`, `web-design-guidelines` e `frontend-design` (referência: `skills.sh`) no ciclo de frontend | Reduzir aparência de app “gerado por IA” e elevar padrão visual/técnico |
-| P4-3 | TODO | Revisão de imagens/ícones da landing e do app completo; mapear pontos fracos visuais e gerar prompts prontos para criação em IA externa | Melhorar percepção de qualidade visual com plano executável |
+| P4-3 | DONE | Revisão de imagens/ícones da landing e do app completo; mapear pontos fracos visuais e gerar prompts prontos para criação em IA externa | Melhorar percepção de qualidade visual com plano executável |
 | P4-4 | TODO | Troca guiada de imagens/ícones após recebimento dos assets gerados + validação visual responsiva | Fechar loop de melhoria visual com implementação real |
 
 ## Discovery Notes (Keepo live exploration)

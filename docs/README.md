@@ -18,6 +18,7 @@ This folder has two documentation layers:
 - `docs/08_CUSTOM_DOMAIN_PLAN.md`: Technical implementation plan for custom domain/subdomain support
 - `docs/09_GOOGLE_AUTH_PRODUCTION_CHECKLIST.md`: Production env checklist + end-to-end validation for Google OAuth
 - `docs/10_FRONTEND_QUALITY_PLAYBOOK.md`: Frontend quality playbook applied in P4-2 (`skills.sh` reference)
+- `docs/11_VISUAL_ASSET_AUDIT_PROMPTS.md`: Visual audit (landing/app) + ready-to-use prompts for external AI asset generation
 
 ## Reference Docs (Secondary)
 
