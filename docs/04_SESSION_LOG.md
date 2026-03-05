@@ -1096,3 +1096,21 @@ Append one entry per coding session.
   - Badge reflete a branch padrão; em caso de mudança de nome de workflow/branch, atualizar URL
 - Next:
   - Iniciar `P5-9`: documentar falhas comuns da CI e ações de resposta rápida
+
+### Session 2026-03-05 11:07 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-9` com troubleshooting rápido da CI no README
+- Backlog Item: P5-9
+- Changes:
+  - `README.md`: adicionada seção `CI Troubleshooting (quick fix)` com falhas comuns e ações imediatas (`npm ci`, testes/e2e, build e Prisma)
+  - `docs/03_BACKLOG.md`: `P5-9` marcado como `DONE`
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com cobertura de troubleshooting da CI
+- Validation:
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Manual: revisão de clareza do guia para resposta rápida a falhas de pipeline
+- Risks:
+  - Sem risco funcional (mudança documental)
+- Next:
+  - Próximo ciclo: definir checklist curto de verificação pós-deploy quando acesso de monitoramento GitHub/Vercel estiver disponível

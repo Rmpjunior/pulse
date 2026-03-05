@@ -79,7 +79,7 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | P5-6 | DONE | Adicionar pipeline de CI (lint + testes + build) no GitHub Actions | Proteger `main` contra regressões e padronizar validação automática |
 | P5-7 | DONE | Otimizar workflow de CI com `concurrency` e permissões mínimas | Reduzir gasto de runner e evitar execuções duplicadas em pushs rápidos |
 | P5-8 | DONE | Publicar badge de CI + instrução rápida no README para status de qualidade | Facilitar visibilidade instantânea de saúde da `main` |
-| P5-9 | TODO | Adicionar seção de troubleshooting rápido da CI no README (falhas comuns + ação imediata) | Reduzir tempo de diagnóstico quando pipeline falhar |
+| P5-9 | DONE | Adicionar seção de troubleshooting rápido da CI no README (falhas comuns + ação imediata) | Reduzir tempo de diagnóstico quando pipeline falhar |
 
 
 ## Discovery Notes (Keepo live exploration)

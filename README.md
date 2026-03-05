@@ -30,6 +30,20 @@ Open `http://localhost:3000`.
 - Direct link: https://github.com/Rmpjunior/pulse/actions/workflows/ci.yml
 - Expected quality gates: `npm run lint` + `npm run test` + `npm run build`
 
+## CI Troubleshooting (quick fix)
+
+- `npm ci` failed:
+  - Run locally: `rm -rf node_modules package-lock.json && npm install`
+  - Commit the updated `package-lock.json`.
+- `npm run test` failed (smoke/e2e):
+  - Check `.env` / `.env.local` and database connectivity.
+  - Run `npx prisma db push` before re-running tests.
+- `npm run build` failed:
+  - Run `npm run lint` and `npm run test` first to isolate root cause.
+  - Check recently changed routes/components for typing/runtime regressions.
+- Prisma client mismatch:
+  - Run `npx prisma generate` and commit lockfile/schema changes when applicable.
+
 ## Existing Documentation
 
 - `docs/FEATURES.md`: Product scope and inspiration notes
