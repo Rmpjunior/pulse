@@ -1719,3 +1719,24 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Iniciar `P5-38`: revisar descrições EN residuais no hub e planejar migração PT-BR por lotes
+
+### Session 2026-03-05 18:07 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-38` revisando descrições EN residuais no hub operacional
+- Backlog Item: P5-38
+- Changes:
+  - `docs/README.md`: descrições dos itens operacionais convertidas para PT-BR de ponta a ponta
+  - `docs/03_BACKLOG.md`: `P5-38` marcado como `DONE`; `P5-39` criado para política de idioma no bloco `Reference Docs`
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com remoção de resíduos de inglês no bloco operacional do hub
+- Validation:
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Manual: revisão textual completa do bloco `Operational Docs (Primary)` no hub
+- Risks:
+  - Sem risco funcional (mudança documental)
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Iniciar `P5-39`: definir política PT-BR/EN para o bloco `Reference Docs` no hub
