@@ -18,6 +18,9 @@ Append one entry per coding session.
   - Manual: <flow tested>
 - Risks:
   - <known risk>
+- Quality Check (docs):
+  - Links operacionais revisados: <yes/no>
+  - PT-BR confirmado em textos novos: <yes/no>
 - Next:
   - <next concrete action>
 ```
@@ -1490,3 +1493,21 @@ Use this block when recording production/auth/deploy incidents:
   - Sem risco funcional (mudança documental)
 - Next:
   - Iniciar `P5-29`: incluir nota de revisão links+PT-BR no template do session log
+
+### Session 2026-03-05 15:52 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-29` adicionando nota de quality check (links + PT-BR) no template de sessão
+- Backlog Item: P5-29
+- Changes:
+  - `docs/04_SESSION_LOG.md`: template base da sessão atualizado com seção `Quality Check (docs)` (links revisados + PT-BR confirmado)
+  - `docs/03_BACKLOG.md`: `P5-29` marcado como `DONE`; `P5-30` criado para reforçar preenchimento da seção
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com novo requisito de qualidade documental no template
+- Validation:
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Manual: revisão do template para garantir clareza e aplicabilidade em novas entradas
+- Risks:
+  - Sem risco funcional (mudança documental)
+- Next:
+  - Iniciar `P5-30`: lembrete explícito para preenchimento da seção `Quality Check (docs)`

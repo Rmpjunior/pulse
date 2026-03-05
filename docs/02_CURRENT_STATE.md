@@ -98,6 +98,7 @@ Last updated: 2026-03-04
 - Handoff rápido agora inclui mini-regra explícita para revisar links quando houver edição do README operacional
 - Handoff rápido inclui validação de idioma PT-BR para qualquer texto novo de UI/documentação, reforçando guardrail anti-regressão em inglês
 - Referência cruzada da regra PT-BR foi explicitada entre `README.md` (handoff), `docs/03_BACKLOG.md` (`P2-10`) e `docs/README.md` (hub operacional)
+- Template padrão de sessão (`docs/04_SESSION_LOG.md`) agora exige quality check documental (revisão de links + confirmação PT-BR)
 - Plano técnico de custom domain/subdomain publicado em `docs/08_CUSTOM_DOMAIN_PLAN.md` com arquitetura, modelo de dados, APIs, critérios e rollout quebrado em etapas
 - Visitor identity para analytics agora usa fingerprint estável por request headers (user-agent + idioma + IP encaminhado hash), substituindo ID aleatório por evento
 - Test baseline ativo com Vitest (`npm run test`) cobrindo helpers críticos de API (error shape + validation)
