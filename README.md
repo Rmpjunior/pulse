@@ -212,6 +212,15 @@ Use quando o merge envolve autenticação, billing, publicação, editor ou APIs
 - [ ] Logs sem erro crítico novo após deploy
 - [ ] Se houver regressão: aplicar rollback rápido + registrar incidente no `docs/04_SESSION_LOG.md`
 
+## Validação rápida de links (README operacional)
+
+Sempre que editar seções operacionais do README:
+
+- [ ] Validar todos os links âncora do índice operacional
+- [ ] Validar links para arquivos locais (ex.: `docs/04_SESSION_LOG.md`)
+- [ ] Confirmar que os títulos das seções continuam idênticos às âncoras
+- [ ] Verificar se não há link duplicado/obsoleto após renome de seção
+
 ## Handoff rápido (próximo turno)
 
 Antes de encerrar um turno/sessão, confirmar:

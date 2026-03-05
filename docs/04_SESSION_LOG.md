@@ -1417,3 +1417,21 @@ Use this block when recording production/auth/deploy incidents:
   - Sem risco funcional (mudança documental)
 - Next:
   - Iniciar `P5-25`: checklist mínimo para validar links do README operacional após alterações
+
+### Session 2026-03-05 14:52 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-25` com checklist mínimo de validação de links no README operacional
+- Backlog Item: P5-25
+- Changes:
+  - `README.md`: adicionada seção `Validação rápida de links (README operacional)` com checklist objetivo para âncoras e links locais
+  - `docs/03_BACKLOG.md`: `P5-25` marcado como `DONE`; `P5-26` criado para reforço no handoff
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com validação de links como prática operacional
+- Validation:
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Manual: revisão da seção para cobrir links âncora, links locais e renome de seções
+- Risks:
+  - Sem risco funcional (mudança documental)
+- Next:
+  - Iniciar `P5-26`: incluir regra curta de revisão de links no handoff rápido

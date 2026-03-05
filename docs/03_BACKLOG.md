@@ -95,7 +95,9 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | P5-22 | DONE | Adicionar exemplo preenchido de incidente no session log (fictício) para facilitar uso | Reduzir atrito na adoção do template durante incidentes reais |
 | P5-23 | DONE | Incluir atalho para template de incidente no índice operacional do README | Facilitar acesso rápido em momentos de pressão operacional |
 | P5-24 | DONE | Adicionar atalho para exemplo fictício de incidente no README | Facilitar onboarding de novos agentes no fluxo de incidentes |
-| P5-25 | TODO | Adicionar checklist mínimo para validar links do README operacional após edits | Evitar links quebrados na documentação de operação |
+| P5-25 | DONE | Adicionar checklist mínimo para validar links do README operacional após edits | Evitar links quebrados na documentação de operação |
+| P5-26 | TODO | Incluir mini-regra de revisão de links no handoff rápido | Garantir que validação de links não seja esquecida entre turnos |
+
 
 
 
