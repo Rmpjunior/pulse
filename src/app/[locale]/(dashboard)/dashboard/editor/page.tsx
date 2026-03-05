@@ -7,7 +7,7 @@ import { getPlanCapabilities } from "@/lib/subscription/gating";
 export default async function EditorPage({
   searchParams,
 }: {
-  searchParams?: Promise<{ pageId?: string }>;
+  searchParams?: Promise<{ pageId?: string; create?: string }>;
 }) {
   const session = await auth();
 
@@ -28,9 +28,12 @@ export default async function EditorPage({
 
   const resolvedSearchParams = (await searchParams) || {};
   const selectedPageId = resolvedSearchParams.pageId;
+  const createNew = resolvedSearchParams.create === "1";
 
-  // Get selected page (or first page) for this user
-  const page = await db.page.findFirst({
+  // Get selected page (or first page) for this user unless explicit create flow
+  const page = createNew
+    ? null
+    : await db.page.findFirst({
     where: {
       userId: session.user.id,
       ...(selectedPageId ? { id: selectedPageId } : {}),
