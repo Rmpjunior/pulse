@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { signOut } from "next-auth/react";
 import { Button } from "@/components/ui/button";
@@ -53,10 +54,13 @@ export function DashboardHeader({ user, onMenuClick }: DashboardHeaderProps) {
             </div>
 
             {user.image ? (
-              <img
-                className="h-9 w-9 rounded-full ring-2 ring-border"
+              <Image
+                className="h-9 w-9 rounded-full ring-2 ring-border object-cover"
                 src={user.image}
                 alt={user.name || "User"}
+                width={36}
+                height={36}
+                unoptimized
               />
             ) : (
               <div className="h-9 w-9 rounded-full bg-primary/10 flex items-center justify-center ring-2 ring-border">

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { ExternalLink, Play } from "lucide-react";
 import type { BlockType } from "@/types/blocks";
 
@@ -43,9 +44,12 @@ export function BlockRenderer({ block, onBlockClick }: BlockRendererProps) {
               {(content.thumbnailType as string) === "emoji" && (content.thumbnailValue as string) ? (
                 <span className="text-lg">{content.thumbnailValue as string}</span>
               ) : (content.thumbnailType as string) === "image" && (content.thumbnailValue as string) ? (
-                <img
+                <Image
                   src={content.thumbnailValue as string}
                   alt="Thumbnail"
+                  width={28}
+                  height={28}
+                  unoptimized
                   className="h-7 w-7 rounded object-cover"
                 />
               ) : null}
@@ -66,9 +70,12 @@ export function BlockRenderer({ block, onBlockClick }: BlockRendererProps) {
       return (
         <div className="p-5 rounded-xl bg-gradient-to-br from-primary/10 via-secondary/10 to-primary/5 border border-border">
           {highlightImage && (
-            <img
+            <Image
               src={highlightImage}
               alt={(content.title as string) || ""}
+              width={640}
+              height={160}
+              unoptimized
               className="w-full h-40 object-cover rounded-lg mb-4"
             />
           )}
@@ -252,9 +259,12 @@ export function BlockRenderer({ block, onBlockClick }: BlockRendererProps) {
               <div className="p-4 rounded-xl bg-card border border-border hover:border-primary/40 transition-colors">
                 <div className="flex gap-3">
                   {item.image ? (
-                    <img
+                    <Image
                       src={item.image}
                       alt={item.name || `Item ${i + 1}`}
+                      width={64}
+                      height={64}
+                      unoptimized
                       className="w-16 h-16 rounded-lg object-cover shrink-0"
                     />
                   ) : (

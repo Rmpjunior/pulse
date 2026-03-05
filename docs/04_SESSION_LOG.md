@@ -981,3 +981,22 @@ Append one entry per coding session.
   - Ainda existem `<img>` em editor/preview/componentes compartilhados; continuar migração em lotes pequenos evita regressão visual
 - Next:
   - Iniciar `P5-3`: migrar `<img>` remanescentes em editor/preview/components compartilhados
+
+### Session 2026-03-05 05:37 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-3` migrando `<img>` remanescentes em componentes compartilhados
+- Backlog Item: P5-3
+- Changes:
+  - `src/components/dashboard/header.tsx`: avatar do usuário migrado para `next/image`
+  - `src/components/blocks/block-renderer.tsx`: migrados para `next/image` thumbnail de link, imagem de destaque e imagem de item de catálogo
+  - `docs/03_BACKLOG.md`: `P5-3` marcado como `DONE` e `P5-4` criado para lote final de warnings
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com redução adicional de warnings
+- Validation:
+  - Command: `npm run lint` -> passou (0 erros; warnings reduzidos de 10 para 6)
+  - Command: `npm run build` -> passou
+  - Manual: revisão visual de avatar no header e cards de bloco com imagem (link/highlight/catalog)
+- Risks:
+  - Restam warnings concentrados em editor/preview; mudança deve ser finalizada em lote curto para não quebrar edição visual
+- Next:
+  - Iniciar `P5-4`: migrar `<img>` finais em `editor-content`, `block-editor` e `themed-preview`
