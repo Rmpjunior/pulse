@@ -9,8 +9,8 @@ This folder has two documentation layers:
 
 - `docs/00_AGENT_START_HERE.md`: Mandatory workflow for each coding session
 - `docs/01_PRODUCT_BRIEF.md`: Product goals, users, and constraints
-- `docs/02_CURRENT_STATE.md`: What is implemented today vs missing
-- `docs/03_BACKLOG.md`: Prioritized work queue
+- `docs/02_CURRENT_STATE.md`: What is implemented today vs missing (inclui guardrail ativo de idioma PT-BR)
+- `docs/03_BACKLOG.md`: Prioritized work queue (ver `P2-10` para regra de bloqueio de textos em inglês)
 - `docs/04_SESSION_LOG.md`: Session-by-session changelog template
 - `docs/05_RUNBOOK.md`: Run, test, deploy, and troubleshoot instructions
 - `docs/06_OPENCLAW_SETUP.md`: Requirements and permissions for OpenClaw sessions

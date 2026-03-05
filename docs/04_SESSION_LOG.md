@@ -1471,3 +1471,22 @@ Use this block when recording production/auth/deploy incidents:
   - Sem risco funcional (mudança documental)
 - Next:
   - Iniciar `P5-28`: adicionar referência cruzada da regra PT-BR entre docs operacionais
+
+### Session 2026-03-05 15:37 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-28` adicionando referência cruzada da regra PT-BR entre docs operacionais
+- Backlog Item: P5-28
+- Changes:
+  - `README.md`: handoff agora referencia explicitamente `docs/03_BACKLOG.md` (`P2-10`) e `docs/02_CURRENT_STATE.md` para regra PT-BR
+  - `docs/README.md`: hub operacional atualizado destacando guardrail PT-BR em `docs/02_CURRENT_STATE.md` e referência de bloqueio em `P2-10`
+  - `docs/03_BACKLOG.md`: `P5-28` marcado como `DONE`; `P5-29` criado para reforço no template do session log
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com status de referência cruzada PT-BR
+- Validation:
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Manual: revisão de rastreabilidade da regra PT-BR entre README/backlog/docs hub
+- Risks:
+  - Sem risco funcional (mudança documental)
+- Next:
+  - Iniciar `P5-29`: incluir nota de revisão links+PT-BR no template do session log
