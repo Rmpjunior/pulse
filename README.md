@@ -32,6 +32,7 @@ Open `http://localhost:3000`.
 - [Rollback rápido (produção)](#rollback-rápido-produção)
 - [Incidente de autenticação (runbook curto)](#incidente-de-autenticação-runbook-curto)
 - [Comandos operacionais frequentes](#comandos-operacionais-frequentes)
+- [Nota de monitoramento (limitações atuais)](#nota-de-monitoramento-limitações-atuais)
 
 ## CI Status (quick check)
 
@@ -176,6 +177,24 @@ git push origin main
 npx prisma generate
 npx prisma db push
 ```
+
+## Nota de monitoramento (limitações atuais)
+
+No ambiente atual do agente, o monitoramento em tempo real de deploy tem limitações:
+
+- Sem acesso CLI/API do GitHub Actions (`gh` ou token equivalente) para consultar runs automaticamente.
+- Sem acesso CLI/API da Vercel (`vercel` ou token equivalente) para consultar status de deploy automaticamente.
+
+### Acesso necessário para observabilidade completa
+
+- **GitHub**: token com permissão de leitura de Actions (ou `gh` autenticado).
+- **Vercel**: token com permissão de leitura de deployments (ou `vercel` autenticado).
+
+### Enquanto o acesso não vem
+
+- Usar links diretos no README para conferência manual de CI.
+- Executar gates locais (`lint`, `test`, `build`) antes de cada push.
+- Registrar bloqueio e próximo passo no update operacional.
 
 ## Handoff rápido (próximo turno)
 

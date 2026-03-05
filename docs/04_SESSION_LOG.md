@@ -1275,3 +1275,22 @@ Append one entry per coding session.
   - Sem risco funcional (mudança documental)
 - Next:
   - Iniciar `P5-19`: explicitar limitações de monitoramento e acessos necessários no README
+
+### Session 2026-03-05 13:08 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-19` documentando limitações e acessos necessários de monitoramento
+- Backlog Item: P5-19
+- Changes:
+  - `README.md`: adicionada seção `Nota de monitoramento (limitações atuais)` com bloqueios atuais de observabilidade e acessos necessários (GitHub/Vercel)
+  - `README.md`: índice operacional atualizado com link para a nova seção
+  - `docs/03_BACKLOG.md`: `P5-19` marcado como `DONE`; `P5-20` criado para checklist pós-merge de PRs críticos
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com transparência operacional de monitoramento
+- Validation:
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Manual: revisão textual da nota de monitoramento e alinhamento com bloqueios reais do ambiente
+- Risks:
+  - Sem risco funcional (mudança documental)
+- Next:
+  - Iniciar `P5-20`: checklist curto pós-merge para PRs críticos
