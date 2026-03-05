@@ -115,6 +115,7 @@ Last updated: 2026-03-04
 - Âncoras críticas do hub foram estabilizadas com IDs ASCII explícitos (`quality-check-docs` e `language-audit-checklist`) para compatibilidade entre renderizadores markdown
 - Atalho do template de sessão no hub também foi migrado para ID explícito (`session-template`), consolidando padrão de links internos críticos
 - Convenção oficial de âncoras internas (IDs ASCII explícitos) documentada no hub (`docs/README.md`) e reforçada no runbook para prevenir regressões de compatibilidade
+- `docs/05_RUNBOOK.md` agora inclui exemplo prático de criação de seção com âncora explícita, com passo de atualização do atalho no hub
 - Plano técnico de custom domain/subdomain publicado em `docs/08_CUSTOM_DOMAIN_PLAN.md` com arquitetura, modelo de dados, APIs, critérios e rollout quebrado em etapas
 - Visitor identity para analytics agora usa fingerprint estável por request headers (user-agent + idioma + IP encaminhado hash), substituindo ID aleatório por evento
 - Test baseline ativo com Vitest (`npm run test`) cobrindo helpers críticos de API (error shape + validation)

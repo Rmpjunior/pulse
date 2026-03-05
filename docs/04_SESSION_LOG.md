@@ -1895,3 +1895,24 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Iniciar `P5-46`: adicionar exemplo rápido de seção com âncora explícita no runbook
+
+### Session 2026-03-05 21:37 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-46` adicionando exemplo rápido de seção com âncora explícita no runbook
+- Backlog Item: P5-46
+- Changes:
+  - `docs/05_RUNBOOK.md`: adicionada seção `Exemplo rápido: nova seção com âncora explícita` com snippet padrão e passos de validação/atalho
+  - `docs/03_BACKLOG.md`: `P5-46` marcado como `DONE`; `P5-47` criado para reforço no handoff
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com exemplo prático da convenção de âncoras
+- Validation:
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Manual: revisão do snippet e dos passos pós-criação (atalho + validação do link)
+- Risks:
+  - Sem risco funcional (mudança documental)
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Iniciar `P5-47`: adicionar mini-check de âncora explícita no checklist de handoff

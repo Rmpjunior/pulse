@@ -76,6 +76,21 @@ Aplicar ao criar/editar documentação:
 - [ ] Links/âncoras continuam válidos após ajustes de idioma.
 - [ ] Atualização refletida em `docs/02_CURRENT_STATE.md` e `docs/03_BACKLOG.md` quando aplicável.
 
+## Exemplo rápido: nova seção com âncora explícita
+
+```md
+<a id="meu-topico-operacional"></a>
+
+## Meu tópico operacional
+
+Descrição curta do procedimento.
+```
+
+Depois de criar a seção:
+
+- atualizar o atalho correspondente no `docs/README.md`;
+- validar que o link abre corretamente no renderizador principal.
+
 ## Troubleshooting
 
 - Prisma connection issues:

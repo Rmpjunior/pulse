@@ -116,7 +116,9 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | P5-43 | DONE | Validar e ajustar âncoras com acentos nos atalhos do hub para máxima compatibilidade | Evitar link quebrado entre renderizadores markdown diferentes |
 | P5-44 | DONE | Revisar atalhos restantes do hub e migrar para IDs explícitos quando crítico | Padronizar estratégia de links internos para documentação operacional |
 | P5-45 | DONE | Documentar convenção oficial de IDs de âncora (ASCII) no hub/runbook | Prevenir regressão futura em links internos entre renderizadores |
-| P5-46 | TODO | Adicionar exemplo rápido de criação de nova seção com âncora explícita no runbook | Acelerar adoção consistente da convenção por novos agentes |
+| P5-46 | DONE | Adicionar exemplo rápido de criação de nova seção com âncora explícita no runbook | Acelerar adoção consistente da convenção por novos agentes |
+| P5-47 | TODO | Adicionar mini-check de âncora explícita no checklist de handoff | Garantir execução da convenção também no fechamento da sessão |
+
 
 
 
