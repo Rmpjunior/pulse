@@ -25,7 +25,12 @@
       "title": "Transforme seu bio em um minisite profissional",
       "subtitle": "Centralize seus links, produtos e conteúdo em uma única página. Fácil de criar, fácil de compartilhar.",
       "cta": "Criar minha página grátis",
-      "ctaSecondary": "Ver exemplos"
+      "ctaSecondary": "Ver planos",
+      "trust": {
+        "noCode": "Sem precisar programar",
+        "mobileFirst": "Editor pensado para celular",
+        "publishFast": "Publicação em poucos minutos"
+      }
     },
     "features": {
       "title": "Tudo que você precisa",
@@ -52,6 +57,22 @@
       "themes": {
         "title": "Temas personalizáveis",
         "description": "Paletas de cores e fontes"
+      }
+    },
+    "howItWorks": {
+      "title": "Como funciona",
+      "stepLabel": "Passo {number}",
+      "step1": {
+        "title": "Monte sua página",
+        "description": "Escolha um template e personalize suas seções em poucos toques."
+      },
+      "step2": {
+        "title": "Publique com um clique",
+        "description": "Defina seu link público e deixe seu minisite no ar na hora."
+      },
+      "step3": {
+        "title": "Compartilhe e acompanhe",
+        "description": "Divulgue nas redes e veja visualizações/cliques no painel."
       }
     },
     "pricing": {

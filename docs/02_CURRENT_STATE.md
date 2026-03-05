@@ -67,6 +67,8 @@ Last updated: 2026-03-04
 - Página pública com hardening inicial de performance/acessibilidade: `main` semântico, `iframe` com `title`+`loading=lazy`, imagens com `loading/decoding/referrerPolicy` e links sociais com `aria-label`
 - Onboarding com templates reutilizáveis (Creator/Business/Personal packs) para acelerar ativação com blocos iniciais prontos
 - PT-BR hardening aplicado em superfícies críticas de onboarding/dashboard (labels de templates/categorias e gestão multi-site), reduzindo textos residuais em inglês para o usuário final
+- Ciclo de qualidade frontend formalizado com `skills.sh` + `docs/10_FRONTEND_QUALITY_PLAYBOOK.md` (referências: vercel-react-best-practices, web-design-guidelines, frontend-design)
+- Landing page recebeu melhoria de hierarquia visual (faixa de confiança no hero + seção "Como funciona" em 3 passos) para reduzir aparência genérica e aumentar clareza de proposta de valor
 - Plano técnico de custom domain/subdomain publicado em `docs/08_CUSTOM_DOMAIN_PLAN.md` com arquitetura, modelo de dados, APIs, critérios e rollout quebrado em etapas
 - Visitor identity para analytics agora usa fingerprint estável por request headers (user-agent + idioma + IP encaminhado hash), substituindo ID aleatório por evento
 - Test baseline ativo com Vitest (`npm run test`) cobrindo helpers críticos de API (error shape + validation)

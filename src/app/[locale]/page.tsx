@@ -12,6 +12,9 @@ import {
   ArrowRight,
   Check,
   Sparkles,
+  Rocket,
+  PenSquare,
+  Share2,
 } from "lucide-react";
 
 export default function HomePage() {
@@ -24,6 +27,14 @@ export default function HomePage() {
     { icon: BarChart3, key: "analytics" },
     { icon: FileText, key: "form" },
     { icon: Palette, key: "themes" },
+  ];
+
+  const trustBullets = ["noCode", "mobileFirst", "publishFast"] as const;
+
+  const howItWorks = [
+    { icon: PenSquare, key: "step1" },
+    { icon: Rocket, key: "step2" },
+    { icon: Share2, key: "step3" },
   ];
 
   return (
@@ -87,11 +98,23 @@ export default function HomePage() {
                 <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
-            <Link href="#examples">
+            <Link href="#pricing">
               <Button variant="outline" size="xl">
                 {t("landing.hero.ctaSecondary")}
               </Button>
             </Link>
+          </div>
+
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-2 md:gap-3">
+            {trustBullets.map((key) => (
+              <span
+                key={key}
+                className="inline-flex items-center rounded-full border border-border bg-card px-3 py-1 text-xs md:text-sm text-muted-foreground"
+              >
+                <Check className="mr-1.5 h-3.5 w-3.5 text-success" />
+                {t(`landing.hero.trust.${key}`)}
+              </span>
+            ))}
           </div>
 
           {/* Demo Preview */}
@@ -139,6 +162,38 @@ export default function HomePage() {
                 </h3>
                 <p className="text-sm text-muted-foreground">
                   {t(`landing.features.${key}.description`)}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* How it works */}
+      <section className="py-20 px-4">
+        <div className="container mx-auto max-w-5xl">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+            {t("landing.howItWorks.title")}
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+            {howItWorks.map(({ icon: Icon, key }, index) => (
+              <div
+                key={key}
+                className="p-6 bg-card border border-border rounded-xl h-full"
+              >
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="h-10 w-10 rounded-lg gradient-primary flex items-center justify-center">
+                    <Icon className="h-5 w-5 text-white" />
+                  </div>
+                  <span className="text-xs font-semibold text-muted-foreground">
+                    {t("landing.howItWorks.stepLabel", { number: index + 1 })}
+                  </span>
+                </div>
+                <h3 className="font-semibold mb-2">
+                  {t(`landing.howItWorks.${key}.title`)}
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  {t(`landing.howItWorks.${key}.description`)}
                 </p>
               </div>
             ))}
