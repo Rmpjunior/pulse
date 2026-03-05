@@ -1761,3 +1761,24 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Iniciar `P5-40`: adicionar nota curta da política de idioma no `docs/01_PRODUCT_BRIEF.md`
+
+### Session 2026-03-05 18:37 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-40` adicionando nota de política de idioma no product brief
+- Backlog Item: P5-40
+- Changes:
+  - `docs/01_PRODUCT_BRIEF.md`: adicionada seção curta `Documentation Language Policy (short)` com regra PT-BR/EN
+  - `docs/03_BACKLOG.md`: `P5-40` marcado como `DONE`; `P5-41` criado para checklist de auditoria de idioma em novos docs
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com alinhamento da política de idioma também no product brief
+- Validation:
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Manual: revisão textual da seção para consistência com política já definida no hub
+- Risks:
+  - Sem risco funcional (mudança documental)
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Iniciar `P5-41`: checklist curto de auditoria de idioma para novos docs

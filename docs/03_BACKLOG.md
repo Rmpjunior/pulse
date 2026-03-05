@@ -110,7 +110,9 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | P5-37 | DONE | Padronizar descrição do item `docs/04_SESSION_LOG.md` no hub (PT-BR) | Manter consistência de idioma também nos metadados de documentação |
 | P5-38 | DONE | Revisar descrições EN residuais no `docs/README.md` (itens operacionais) e abrir item dedicado de migração PT-BR | Completar consistência de idioma no hub sem escopo excessivo nesta sessão |
 | P5-39 | DONE | Revisar bloco "Reference Docs" no hub e decidir política PT-BR/EN por seção | Evitar inconsistência futura entre docs operacionais (PT-BR) e referência técnica |
-| P5-40 | TODO | Adicionar nota de política de idioma no `docs/01_PRODUCT_BRIEF.md` (resumo curto) | Alinhar produto/operação sobre quando usar PT-BR vs EN na documentação |
+| P5-40 | DONE | Adicionar nota de política de idioma no `docs/01_PRODUCT_BRIEF.md` (resumo curto) | Alinhar produto/operação sobre quando usar PT-BR vs EN na documentação |
+| P5-41 | TODO | Criar checklist curto de auditoria de idioma para novos docs (PT-BR/EN) | Evitar drift de idioma em documentos futuros |
+
 
 
 

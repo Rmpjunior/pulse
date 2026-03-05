@@ -33,3 +33,9 @@ Turn a social bio into a conversion-oriented minisite quickly.
 2. Editor quality and polish
 3. Analytics correctness
 4. Premium/payment foundation
+
+## Documentation Language Policy (short)
+
+- Operação e conteúdo voltado ao usuário final: **PT-BR obrigatório**.
+- Referências técnicas estruturais podem permanecer em **EN** quando isso reduzir ambiguidade técnica.
+- Em caso de dúvida, priorizar PT-BR e registrar exceção técnica no docs hub (`docs/README.md`).

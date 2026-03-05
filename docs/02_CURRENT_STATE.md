@@ -109,6 +109,7 @@ Last updated: 2026-03-04
 - Descrição do item `docs/04_SESSION_LOG.md` no hub foi padronizada em PT-BR para consistência de linguagem nos metadados de documentação
 - `docs/README.md` teve as descrições operacionais revisadas para PT-BR de ponta a ponta, removendo resíduos de inglês no bloco principal de execução
 - Política de idioma do hub foi definida: docs operacionais em PT-BR; docs de referência técnica podem permanecer em EN (quando estrutural/técnico)
+- `docs/01_PRODUCT_BRIEF.md` agora traz resumo curto da política de idioma, alinhando direção de produto e execução operacional
 - Plano técnico de custom domain/subdomain publicado em `docs/08_CUSTOM_DOMAIN_PLAN.md` com arquitetura, modelo de dados, APIs, critérios e rollout quebrado em etapas
 - Visitor identity para analytics agora usa fingerprint estável por request headers (user-agent + idioma + IP encaminhado hash), substituindo ID aleatório por evento
 - Test baseline ativo com Vitest (`npm run test`) cobrindo helpers críticos de API (error shape + validation)
