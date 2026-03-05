@@ -134,9 +134,20 @@ export default function HomePage() {
       {/* Features Section */}
       <section id="features" className="py-20 px-4 bg-muted/30">
         <div className="container mx-auto max-w-6xl">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-8">
             {t("landing.features.title")}
           </h2>
+
+          <div className="mb-8 overflow-hidden rounded-2xl border border-border bg-card p-2 shadow-sm">
+            <Image
+              src="/assets/landing-features-grid-v2.jpg"
+              alt="Visão das principais funcionalidades do Pulse"
+              width={1536}
+              height={1024}
+              className="h-auto w-full rounded-xl object-cover"
+            />
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {features.map(({ icon: Icon, key }) => (
               <div
