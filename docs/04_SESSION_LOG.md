@@ -1916,3 +1916,24 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Iniciar `P5-47`: adicionar mini-check de âncora explícita no checklist de handoff
+
+### Session 2026-03-05 21:52 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-47` adicionando mini-check de âncora explícita no handoff
+- Backlog Item: P5-47
+- Changes:
+  - `README.md`: seção `Handoff rápido` atualizada com item explícito para criação/validação de âncora ASCII quando houver nova seção linkável
+  - `docs/03_BACKLOG.md`: `P5-47` marcado como `DONE`; `P5-48` criado para alinhar bloco `Existing Documentation` à política de idioma
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com reforço da convenção de âncoras no fechamento de sessão
+- Validation:
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Manual: revisão do checklist de handoff para clareza e acionabilidade do novo item
+- Risks:
+  - Sem risco funcional (mudança documental)
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Iniciar `P5-48`: alinhar bloco `Existing Documentation` do README com política PT-BR/EN

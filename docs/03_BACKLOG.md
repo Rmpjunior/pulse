@@ -117,7 +117,9 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | P5-44 | DONE | Revisar atalhos restantes do hub e migrar para IDs explícitos quando crítico | Padronizar estratégia de links internos para documentação operacional |
 | P5-45 | DONE | Documentar convenção oficial de IDs de âncora (ASCII) no hub/runbook | Prevenir regressão futura em links internos entre renderizadores |
 | P5-46 | DONE | Adicionar exemplo rápido de criação de nova seção com âncora explícita no runbook | Acelerar adoção consistente da convenção por novos agentes |
-| P5-47 | TODO | Adicionar mini-check de âncora explícita no checklist de handoff | Garantir execução da convenção também no fechamento da sessão |
+| P5-47 | DONE | Adicionar mini-check de âncora explícita no checklist de handoff | Garantir execução da convenção também no fechamento da sessão |
+| P5-48 | TODO | Alinhar seção "Existing Documentation" do README com política PT-BR/EN definida no hub | Evitar conflito de linguagem entre raiz e hub de docs |
+
 
 
 
