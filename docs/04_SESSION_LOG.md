@@ -1348,6 +1348,9 @@ Use this block when recording production/auth/deploy incidents:
   - Manual: revisão do checklist para cobrir fluxo crítico sem redundância
 - Risks:
   - Sem risco funcional (mudança documental)
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
 - Next:
   - Iniciar `P5-21`: template curto para registro de incidente no session log
 
@@ -1366,6 +1369,9 @@ Use this block when recording production/auth/deploy incidents:
   - Manual: revisão da template para uso rápido sob pressão operacional
 - Risks:
   - Sem risco funcional (mudança documental)
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
 - Next:
   - Iniciar `P5-22`: adicionar exemplo fictício preenchido para orientar uso do template
 
@@ -1384,6 +1390,9 @@ Use this block when recording production/auth/deploy incidents:
   - Manual: revisão de clareza e completude do exemplo (severity, trigger, mitigação, causa raiz, follow-up)
 - Risks:
   - Sem risco funcional (mudança documental)
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
 - Next:
   - Iniciar `P5-23`: adicionar atalho para template de incidente no índice operacional do README
 
@@ -1402,6 +1411,9 @@ Use this block when recording production/auth/deploy incidents:
   - Manual: conferência do link no índice operacional
 - Risks:
   - Sem risco funcional (mudança documental)
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
 - Next:
   - Iniciar `P5-24`: adicionar atalho para exemplo fictício de incidente
 
@@ -1420,6 +1432,9 @@ Use this block when recording production/auth/deploy incidents:
   - Manual: conferência do atalho para exemplo fictício no índice operacional
 - Risks:
   - Sem risco funcional (mudança documental)
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
 - Next:
   - Iniciar `P5-25`: checklist mínimo para validar links do README operacional após alterações
 
@@ -1438,6 +1453,9 @@ Use this block when recording production/auth/deploy incidents:
   - Manual: revisão da seção para cobrir links âncora, links locais e renome de seções
 - Risks:
   - Sem risco funcional (mudança documental)
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
 - Next:
   - Iniciar `P5-26`: incluir regra curta de revisão de links no handoff rápido
 
@@ -1456,6 +1474,9 @@ Use this block when recording production/auth/deploy incidents:
   - Manual: revisão do checklist de handoff para garantir clareza e acionabilidade
 - Risks:
   - Sem risco funcional (mudança documental)
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
 - Next:
   - Iniciar `P5-27`: mini-checklist de confirmação PT-BR no handoff
 
@@ -1474,6 +1495,9 @@ Use this block when recording production/auth/deploy incidents:
   - Manual: revisão da checklist para garantir clareza operacional e cobertura da regra de idioma
 - Risks:
   - Sem risco funcional (mudança documental)
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
 - Next:
   - Iniciar `P5-28`: adicionar referência cruzada da regra PT-BR entre docs operacionais
 
@@ -1493,6 +1517,9 @@ Use this block when recording production/auth/deploy incidents:
   - Manual: revisão de rastreabilidade da regra PT-BR entre README/backlog/docs hub
 - Risks:
   - Sem risco funcional (mudança documental)
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
 - Next:
   - Iniciar `P5-29`: incluir nota de revisão links+PT-BR no template do session log
 
@@ -1511,6 +1538,9 @@ Use this block when recording production/auth/deploy incidents:
   - Manual: revisão do template para garantir clareza e aplicabilidade em novas entradas
 - Risks:
   - Sem risco funcional (mudança documental)
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
 - Next:
   - Iniciar `P5-30`: lembrete explícito para preenchimento da seção `Quality Check (docs)`
 
@@ -1534,3 +1564,24 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Iniciar `P5-31`: atualizar entradas recentes com `Quality Check (docs)` preenchido
+
+### Session 2026-03-05 16:22 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-31` retroajustando entradas recentes com `Quality Check (docs)` preenchido
+- Backlog Item: P5-31
+- Changes:
+  - `docs/04_SESSION_LOG.md`: sessões recentes de 2026-03-05 foram atualizadas para incluir `Quality Check (docs)` com status preenchido
+  - `docs/03_BACKLOG.md`: `P5-31` marcado como `DONE`; `P5-32` criado para reforço no runbook
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com consistência histórica do quality check
+- Validation:
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Manual: conferência por amostragem das sessões recentes para presença da seção `Quality Check (docs)`
+- Risks:
+  - Sem risco funcional (mudança documental)
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Iniciar `P5-32`: adicionar nota no runbook para usar `Quality Check (docs)` como gate de saída
