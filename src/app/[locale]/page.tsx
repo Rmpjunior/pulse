@@ -119,10 +119,10 @@ export default function HomePage() {
             <div className="absolute inset-0 bg-gradient-to-r from-orange-500/20 to-purple-500/20 blur-3xl" />
             <div className="relative bg-card border border-border rounded-2xl p-3 shadow-2xl max-w-md mx-auto">
               <Image
-                src="/Gemini_Generated_Image_mhylomhylomhylom.png"
+                src="/assets/landing-hero-v2.jpg"
                 alt="Prévia de minisite criado no Pulse"
-                width={944}
-                height={944}
+                width={1024}
+                height={1024}
                 priority
                 className="w-full h-auto rounded-xl object-cover"
               />
@@ -161,9 +161,20 @@ export default function HomePage() {
       {/* How it works */}
       <section className="py-20 px-4">
         <div className="container mx-auto max-w-5xl">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-8">
             {t("landing.howItWorks.title")}
           </h2>
+
+          <div className="mb-8 overflow-hidden rounded-2xl border border-border bg-card p-2 shadow-sm">
+            <Image
+              src="/assets/landing-how-it-works-v2.jpg"
+              alt="Ilustração do fluxo de criação no Pulse"
+              width={1536}
+              height={1024}
+              className="h-auto w-full rounded-xl object-cover"
+            />
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
             {howItWorks.map(({ icon: Icon, key }, index) => (
               <div
