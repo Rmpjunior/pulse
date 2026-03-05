@@ -39,6 +39,21 @@ Use this block when recording production/auth/deploy incidents:
 - Follow-up: <preventive action + owner>
 ```
 
+### Incident Example (fictitious)
+
+```md
+### Incident 2026-03-05 09:40 UTC (local)
+
+- Severity: High
+- Scope: Login com Google indisponível para novos acessos; login por e-mail/senha seguiu funcional
+- Trigger: Alteração de configuração OAuth no provedor sem atualizar callback de produção
+- Detection: Alertas de suporte + aumento de erro em callback `/api/auth/callback/google`
+- Mitigation: Correção de redirect URI no provedor + validação de env (`AUTH_GOOGLE_ID/SECRET`)
+- Root cause: Divergência entre URL de callback configurada no provedor e domínio ativo
+- Verification: Login Google restabelecido; fluxo de logout/login testado em produção
+- Follow-up: Adicionar verificação de callback no checklist pós-deploy (owner: equipe produto)
+```
+
 ---
 
 ### Session 2026-02-18
@@ -1348,3 +1363,21 @@ Use this block when recording production/auth/deploy incidents:
   - Sem risco funcional (mudança documental)
 - Next:
   - Iniciar `P5-22`: adicionar exemplo fictício preenchido para orientar uso do template
+
+### Session 2026-03-05 14:07 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-22` adicionando exemplo fictício de incidente no session log
+- Backlog Item: P5-22
+- Changes:
+  - `docs/04_SESSION_LOG.md`: adicionada seção `Incident Example (fictitious)` com exemplo preenchido completo para orientar uso da template em incidentes reais
+  - `docs/03_BACKLOG.md`: `P5-22` marcado como `DONE`; `P5-23` criado para atalho de template no README
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com disponibilidade de exemplo prático de incidente
+- Validation:
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Manual: revisão de clareza e completude do exemplo (severity, trigger, mitigação, causa raiz, follow-up)
+- Risks:
+  - Sem risco funcional (mudança documental)
+- Next:
+  - Iniciar `P5-23`: adicionar atalho para template de incidente no índice operacional do README

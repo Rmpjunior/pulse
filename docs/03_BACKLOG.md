@@ -92,7 +92,9 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | P5-19 | DONE | Adicionar nota de monitoramento (limitações atuais + acesso necessário) no README operacional | Tornar explícito o que falta para observabilidade completa de deploy |
 | P5-20 | DONE | Adicionar checklist curto de verificação pós-merge para PRs críticos | Reduzir risco de regressão silenciosa após mudanças sensíveis |
 | P5-21 | DONE | Adicionar template curto de registro de incidente no `docs/04_SESSION_LOG.md` | Padronizar documentação de falhas e reduzir omissões no pós-mortem |
-| P5-22 | TODO | Adicionar exemplo preenchido de incidente no session log (fictício) para facilitar uso | Reduzir atrito na adoção do template durante incidentes reais |
+| P5-22 | DONE | Adicionar exemplo preenchido de incidente no session log (fictício) para facilitar uso | Reduzir atrito na adoção do template durante incidentes reais |
+| P5-23 | TODO | Incluir atalho para template de incidente no índice operacional do README | Facilitar acesso rápido em momentos de pressão operacional |
+
 
 
 

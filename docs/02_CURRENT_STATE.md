@@ -91,6 +91,7 @@ Last updated: 2026-03-04
 - README inclui nota explícita de monitoramento (limitações atuais + acessos GitHub/Vercel necessários) para transparência operacional
 - README inclui checklist pós-merge para PRs críticos (CI, deploy, smoke e ação imediata em regressão)
 - `docs/04_SESSION_LOG.md` agora inclui template curto de incidente (severity, trigger, mitigação, causa raiz e follow-up), padronizando pós-mortem rápido
+- `docs/04_SESSION_LOG.md` inclui exemplo fictício preenchido de incidente para acelerar adoção do template em situações reais
 - Plano técnico de custom domain/subdomain publicado em `docs/08_CUSTOM_DOMAIN_PLAN.md` com arquitetura, modelo de dados, APIs, critérios e rollout quebrado em etapas
 - Visitor identity para analytics agora usa fingerprint estável por request headers (user-agent + idioma + IP encaminhado hash), substituindo ID aleatório por evento
 - Test baseline ativo com Vitest (`npm run test`) cobrindo helpers críticos de API (error shape + validation)
