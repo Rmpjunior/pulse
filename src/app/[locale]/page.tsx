@@ -204,9 +204,20 @@ export default function HomePage() {
       {/* Pricing Section */}
       <section id="pricing" className="py-20 px-4">
         <div className="container mx-auto max-w-4xl">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-8">
             {t("landing.pricing.title")}
           </h2>
+
+          <div className="mb-8 overflow-hidden rounded-2xl border border-border bg-card p-2 shadow-sm">
+            <Image
+              src="/assets/landing-pricing-v2.jpg"
+              alt="Comparativo visual entre os planos Free e Plus"
+              width={1536}
+              height={1024}
+              className="h-auto w-full rounded-xl object-cover"
+            />
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Free Plan */}
             <div className="p-8 bg-card border border-border rounded-2xl">
