@@ -1220,3 +1220,21 @@ Append one entry per coding session.
   - Sem risco funcional (mudança documental)
 - Next:
   - Iniciar `P5-15`: corrigir duplicidade de IDs no backlog e normalizar numeração
+
+### Session 2026-03-05 12:37 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-16` normalizando numeração duplicada no backlog P5
+- Backlog Item: P5-16
+- Changes:
+  - `docs/03_BACKLOG.md`: removida duplicidade de ID (`P5-7`) e renumerados os itens subsequentes para sequência contínua (`P5-8` ... `P5-16`)
+  - `docs/03_BACKLOG.md`: `P5-16` marcado como `DONE` e criado `P5-17` para padronização de nomenclatura
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com nota de normalização da numeração do backlog
+- Validation:
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Manual: revisão de consistência da sequência de IDs na seção P5
+- Risks:
+  - Sem risco funcional (mudança documental de rastreio)
+- Next:
+  - Iniciar `P5-17`: padronizar nomenclatura PT-BR/EN nos títulos dos itens P5
