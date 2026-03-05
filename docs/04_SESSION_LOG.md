@@ -1980,3 +1980,24 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Iniciar `P5-50`: completar migração do índice operacional para IDs explícitos nas seções restantes
+
+### Session 2026-03-05 23:06 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-50` completando migração do índice operacional para IDs explícitos no README raiz
+- Backlog Item: P5-50
+- Changes:
+  - `README.md`: adicionados IDs explícitos ASCII nas seções operacionais restantes (CI status, troubleshooting, post-deploy, comandos, validação de links e handoff)
+  - `docs/03_BACKLOG.md`: `P5-50` marcado como `DONE`; `P5-51` criado para nota de manutenção contínua
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com conclusão da padronização de âncoras no README raiz
+- Validation:
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Manual: revisão dos links do índice operacional para confirmar correspondência com IDs explícitos
+- Risks:
+  - Sem risco funcional (mudança documental)
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Iniciar `P5-51`: adicionar nota de manutenção para novos IDs explícitos no README raiz

@@ -120,7 +120,9 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | P5-47 | DONE | Adicionar mini-check de âncora explícita no checklist de handoff | Garantir execução da convenção também no fechamento da sessão |
 | P5-48 | DONE | Alinhar seção "Existing Documentation" do README com política PT-BR/EN definida no hub | Evitar conflito de linguagem entre raiz e hub de docs |
 | P5-49 | DONE | Revisar links do índice operacional para usar IDs explícitos também no README raiz (quando aplicável) | Completar padronização de navegação interna com menor ambiguidade |
-| P5-50 | TODO | Completar migração do índice operacional para IDs explícitos nas seções restantes do README raiz | Fechar padronização total de âncoras internas em pontos críticos |
+| P5-50 | DONE | Completar migração do índice operacional para IDs explícitos nas seções restantes do README raiz | Fechar padronização total de âncoras internas em pontos críticos |
+| P5-51 | TODO | Adicionar nota de manutenção: sempre criar ID explícito ao adicionar nova seção no README raiz | Evitar regressão futura da padronização recém-concluída |
+
 
 
 

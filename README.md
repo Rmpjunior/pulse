@@ -37,11 +37,15 @@ Open `http://localhost:3000`.
 - [Template de incidente (session log)](docs/04_SESSION_LOG.md#incident-entry-template-quick)
 - [Exemplo fictício de incidente](docs/04_SESSION_LOG.md#incident-example-fictitious)
 
+<a id="ci-status-quick-check"></a>
+
 ## CI Status (quick check)
 
 - Badge above reflects the latest result of `.github/workflows/ci.yml` on `main`.
 - Direct link: https://github.com/Rmpjunior/pulse/actions/workflows/ci.yml
 - Expected quality gates: `npm run lint` + `npm run test` + `npm run build`
+
+<a id="ci-troubleshooting-quick-fix"></a>
 
 ## CI Troubleshooting (quick fix)
 
@@ -56,6 +60,8 @@ Open `http://localhost:3000`.
   - Check recently changed routes/components for typing/runtime regressions.
 - Prisma client mismatch:
   - Run `npx prisma generate` and commit lockfile/schema changes when applicable.
+
+<a id="post-deploy-quick-checklist"></a>
 
 ## Post-deploy quick checklist
 
@@ -167,6 +173,8 @@ Use quando login/cadastro falhar para usuários (Google OAuth ou e-mail/senha).
   - ação aplicada,
   - horário de normalização.
 
+<a id="comandos-operacionais-frequentes"></a>
+
 ## Comandos operacionais frequentes
 
 ```bash
@@ -220,6 +228,8 @@ Use quando o merge envolve autenticação, billing, publicação, editor ou APIs
 - [ ] Logs sem erro crítico novo após deploy
 - [ ] Se houver regressão: aplicar rollback rápido + registrar incidente no `docs/04_SESSION_LOG.md`
 
+<a id="validacao-rapida-links-readme-operacional"></a>
+
 ## Validação rápida de links (README operacional)
 
 Sempre que editar seções operacionais do README:
@@ -228,6 +238,8 @@ Sempre que editar seções operacionais do README:
 - [ ] Validar links para arquivos locais (ex.: `docs/04_SESSION_LOG.md`)
 - [ ] Confirmar que os títulos das seções continuam idênticos às âncoras
 - [ ] Verificar se não há link duplicado/obsoleto após renome de seção
+
+<a id="handoff-rapido-proximo-turno"></a>
 
 ## Handoff rápido (próximo turno)
 
