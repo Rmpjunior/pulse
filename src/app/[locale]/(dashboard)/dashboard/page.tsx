@@ -124,10 +124,10 @@ export default async function DashboardPage() {
           {/* Page preview card */}
           <Card>
             <CardHeader>
-              <div className="flex items-center justify-between">
-                <div>
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                <div className="min-w-0">
                   <CardTitle>{t("yourPage")}</CardTitle>
-                  <CardDescription>
+                  <CardDescription className="break-all sm:break-normal">
                     pulse.vercel.app/{primaryPage?.username}
                     {primaryPage?.published ? (
                       <span className="ml-2 inline-flex items-center rounded-full bg-success/10 px-2 py-0.5 text-xs font-medium text-success">
@@ -140,15 +140,15 @@ export default async function DashboardPage() {
                     )}
                   </CardDescription>
                 </div>
-                <div className="flex gap-2">
-                  <Link href={`/p/${primaryPage?.username}`} target="_blank">
-                    <Button variant="outline" size="sm">
+                <div className="grid w-full grid-cols-1 gap-2 sm:flex sm:w-auto sm:flex-wrap sm:justify-end">
+                  <Link href={`/p/${primaryPage?.username}`} target="_blank" className="w-full sm:w-auto">
+                    <Button variant="outline" size="sm" className="w-full sm:w-auto">
                       <ExternalLink className="h-4 w-4 mr-2" />
                       {t("viewPage")}
                     </Button>
                   </Link>
-                  <Link href={`/dashboard/editor?pageId=${primaryPage?.id}`}>
-                    <Button variant="gradient" size="sm">
+                  <Link href={`/dashboard/editor?pageId=${primaryPage?.id}`} className="w-full sm:w-auto">
+                    <Button variant="gradient" size="sm" className="w-full sm:w-auto">
                       {t("editPage")}
                     </Button>
                   </Link>

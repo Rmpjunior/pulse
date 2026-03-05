@@ -44,7 +44,7 @@ export function DashboardSidebar({ isOpen, onClose }: DashboardSidebarProps) {
   const cleanPath = pathname.replace(/^\/(pt-BR|en)/, "");
 
   const sidebarContent = (
-    <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-border bg-card px-6 pb-4">
+    <div className="flex h-full min-h-[100dvh] flex-col gap-y-5 overflow-y-auto border-r border-border bg-card px-6 pb-4">
       <div className="flex h-16 shrink-0 items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
           <BrandLogo size={32} className="shadow-sm" />
@@ -127,7 +127,7 @@ export function DashboardSidebar({ isOpen, onClose }: DashboardSidebarProps) {
             className="fixed inset-0 bg-black/50 backdrop-blur-sm"
             onClick={onClose}
           />
-          <div className="fixed inset-y-0 left-0 w-72 animate-slide-in-left">
+          <div className="fixed inset-y-0 left-0 h-[100dvh] w-72 animate-slide-in-left">
             {sidebarContent}
           </div>
         </div>
