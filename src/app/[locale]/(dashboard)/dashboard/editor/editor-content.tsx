@@ -771,8 +771,8 @@ export function EditorContent({
                   <label className="text-sm font-medium mb-2 block">
                     Escolha seu username
                   </label>
-                  <div className="flex items-center gap-2">
-                    <span className="text-muted-foreground">pulse.vercel.app/p/</span>
+                  <div className="space-y-1 sm:flex sm:items-center sm:gap-2 sm:space-y-0">
+                    <span className="text-xs text-muted-foreground sm:text-sm">pulse.vercel.app/p/</span>
                     <Input
                       value={username}
                       onChange={(e) =>
@@ -783,7 +783,7 @@ export function EditorContent({
                         )
                       }
                       placeholder="seu-username"
-                      className="flex-1"
+                      className="w-full sm:flex-1"
                     />
                   </div>
                 </div>
