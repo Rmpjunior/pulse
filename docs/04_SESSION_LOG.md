@@ -1627,3 +1627,24 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Iniciar `P5-34`: adicionar referência explícita ao gate documental em `docs/06_OPENCLAW_SETUP.md`
+
+### Session 2026-03-05 17:07 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-34` adicionando referência explícita ao gate documental no setup OpenClaw
+- Backlog Item: P5-34
+- Changes:
+  - `docs/06_OPENCLAW_SETUP.md`: comportamento obrigatório de sessão atualizado com gate documental (`Quality Check (docs)`, revisão de links e confirmação PT-BR)
+  - `docs/03_BACKLOG.md`: `P5-34` marcado como `DONE`; `P5-35` criado para reforço no hub de docs
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com alinhamento entre setup e critérios de saída documental
+- Validation:
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Manual: revisão da seção de comportamento obrigatório para confirmar presença explícita do gate
+- Risks:
+  - Sem risco funcional (mudança documental)
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Iniciar `P5-35`: adicionar nota no `docs/README.md` reforçando gate documental obrigatório

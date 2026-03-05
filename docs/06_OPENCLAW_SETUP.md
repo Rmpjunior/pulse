@@ -76,7 +76,11 @@ Each OpenClaw/Codex session must:
    - `docs/02_CURRENT_STATE.md` when behavior changes
    - `docs/03_BACKLOG.md` status
    - `docs/04_SESSION_LOG.md` new entry
-5. Push branch and open PR (or provide patch) for review
+5. Antes de encerrar a sessão, aplicar gate documental:
+   - preencher `Quality Check (docs)` no `docs/04_SESSION_LOG.md`
+   - confirmar revisão de links operacionais quando docs/README mudarem
+   - confirmar PT-BR em textos novos de UI/documentação
+6. Push branch and open PR (or provide patch) for review
 
 ## 7) Manual Approval Gates (Recommended)
 
