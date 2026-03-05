@@ -2022,3 +2022,26 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Iniciar `P5-52`: avaliar micro-check automático para detectar índice sem âncora explícita
+
+### Session 2026-03-05 23:22 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-52` criando micro-check automático de âncoras explícitas no README raiz
+- Backlog Item: P5-52
+- Changes:
+  - `scripts/verify-readme-operational-anchors.mjs`: novo script para validar se todos os links do índice operacional (`#...`) possuem `<a id="...">` correspondente
+  - `package.json`: novo script `check:readme-anchors`
+  - `docs/03_BACKLOG.md`: `P5-52` marcado como `DONE`; `P5-53` criado para extensão da verificação (links de arquivo)
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com adoção do micro-check automático
+- Validation:
+  - Command: `npm run check:readme-anchors` -> passou (`OK: 8 âncoras`)
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Manual: revisão do escopo do script para garantir foco no índice operacional
+- Risks:
+  - Checagem atual cobre âncoras locais do README; links para arquivos externos ainda não são validados automaticamente
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Iniciar `P5-53`: expandir micro-check para validar links de arquivo no índice operacional
