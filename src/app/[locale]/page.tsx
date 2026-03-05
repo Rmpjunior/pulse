@@ -65,13 +65,13 @@ export default function HomePage() {
 
           <div className="flex items-center gap-2">
             <ThemeToggle />
-            <Link href="/login">
+            <Link href="/login" className="hidden sm:block">
               <Button variant="ghost" size="sm">
                 {t("auth.login.title")}
               </Button>
             </Link>
             <Link href="/register">
-              <Button variant="gradient" size="sm">
+              <Button variant="gradient" size="sm" className="whitespace-nowrap px-3 sm:px-4">
                 {t("auth.register.title")}
               </Button>
             </Link>
@@ -117,7 +117,7 @@ export default function HomePage() {
           {/* Demo Preview */}
           <div className="mt-16 relative">
             <div className="absolute inset-0 bg-gradient-to-r from-orange-500/20 to-purple-500/20 blur-3xl" />
-            <div className="relative bg-card border border-border rounded-2xl p-3 shadow-2xl max-w-md mx-auto">
+            <div className="relative bg-card/90 border border-border rounded-2xl p-3 shadow-2xl ring-1 ring-black/5 dark:ring-white/10 max-w-md mx-auto">
               <Image
                 src="/assets/landing-hero-v2.jpg"
                 alt="Prévia de minisite criado no Pulse"
@@ -263,7 +263,7 @@ export default function HomePage() {
             {/* Plus Plan */}
             <div className="p-8 bg-card border-2 border-primary rounded-2xl relative overflow-hidden">
               <div className="absolute top-0 right-0 bg-primary text-primary-foreground text-xs font-bold px-3 py-1 rounded-bl-lg">
-                Popular
+                Mais escolhido
               </div>
               <h3 className="text-2xl font-bold mb-2">
                 {t("landing.pricing.plus.name")}
