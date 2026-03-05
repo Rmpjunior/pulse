@@ -48,7 +48,6 @@ export function SettingsContent({ user, subscription }: SettingsContentProps) {
   const [isSendingReset, setIsSendingReset] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [theme, setTheme] = useState<"light" | "dark" | "system">("system");
-  const [language, setLanguage] = useState<"pt-BR" | "en">("pt-BR");
 
   const isPlusUser =
     subscription?.plan !== "FREE" && subscription?.plan !== undefined;
@@ -297,28 +296,7 @@ export function SettingsContent({ user, subscription }: SettingsContentProps) {
             </div>
           </div>
 
-          {/* Language */}
-          <div>
-            <label className="text-sm font-medium mb-2 block">Idioma</label>
-            <div className="flex gap-2">
-              {[
-                { id: "pt-BR", label: "Português" },
-                { id: "en", label: "English" },
-              ].map(({ id, label }) => (
-                <button
-                  key={id}
-                  onClick={() => setLanguage(id as typeof language)}
-                  className={`px-4 py-2 rounded-lg border-2 transition-colors ${
-                    language === id
-                      ? "border-primary bg-primary/10"
-                      : "border-border hover:border-primary/50"
-                  }`}
-                >
-                  <span className="text-sm">{label}</span>
-                </button>
-              ))}
-            </div>
-          </div>
+
         </CardContent>
       </Card>
 

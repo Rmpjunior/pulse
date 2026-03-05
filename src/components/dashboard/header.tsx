@@ -6,6 +6,7 @@ import { signOut } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { LogOut, Menu, User } from "lucide-react";
+import { Link } from "@/i18n/navigation";
 import { getInitials } from "@/lib/utils";
 
 interface DashboardHeaderProps {
@@ -53,26 +54,28 @@ export function DashboardHeader({ user, onMenuClick }: DashboardHeaderProps) {
               </span>
             </div>
 
-            {user.image ? (
-              <Image
-                className="h-9 w-9 rounded-full ring-2 ring-border object-cover"
-                src={user.image}
-                alt={user.name || "User"}
-                width={36}
-                height={36}
-                unoptimized
-              />
-            ) : (
-              <div className="h-9 w-9 rounded-full bg-primary/10 flex items-center justify-center ring-2 ring-border">
-                <span className="text-sm font-medium text-primary">
-                  {user.name ? (
-                    getInitials(user.name)
-                  ) : (
-                    <User className="h-4 w-4" />
-                  )}
-                </span>
-              </div>
-            )}
+            <Link href="/dashboard/settings" aria-label="Abrir configurações da conta">
+              {user.image ? (
+                <Image
+                  className="h-9 w-9 rounded-full ring-2 ring-border object-cover"
+                  src={user.image}
+                  alt={user.name || "User"}
+                  width={36}
+                  height={36}
+                  unoptimized
+                />
+              ) : (
+                <div className="h-9 w-9 rounded-full bg-primary/10 flex items-center justify-center ring-2 ring-border">
+                  <span className="text-sm font-medium text-primary">
+                    {user.name ? (
+                      getInitials(user.name)
+                    ) : (
+                      <User className="h-4 w-4" />
+                    )}
+                  </span>
+                </div>
+              )}
+            </Link>
 
             <Button
               variant="ghost"
