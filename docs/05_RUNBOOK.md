@@ -62,6 +62,8 @@ Use este gate **antes de encerrar qualquer sessão com alteração de código/do
 
 Se algum item estiver `no`, não encerrar sessão como concluída: corrigir ou registrar bloqueio explícito.
 
+<a id="language-audit-checklist"></a>
+
 ## Checklist rápido de auditoria de idioma (novos docs)
 
 Aplicar ao criar/editar documentação:

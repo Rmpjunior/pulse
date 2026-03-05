@@ -27,6 +27,8 @@ Append one entry per coding session.
   - <next concrete action>
 ```
 
+<a id="quality-check-docs"></a>
+
 ## Quality Check (docs)
 
 Preenchimento obrigatório em novas sessões:
@@ -1824,3 +1826,26 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Iniciar `P5-43`: validar/ajustar compatibilidade de âncoras com acentos no hub
+
+### Session 2026-03-05 19:22 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-43` validando/ajustando âncoras com acentos para compatibilidade
+- Backlog Item: P5-43
+- Changes:
+  - `docs/05_RUNBOOK.md`: adicionado ID explícito ASCII (`language-audit-checklist`) antes da seção de auditoria de idioma
+  - `docs/04_SESSION_LOG.md`: adicionado ID explícito ASCII (`quality-check-docs`) antes da seção de quality check
+  - `docs/README.md`: atalho do runbook migrado para usar ID explícito ASCII
+  - `docs/03_BACKLOG.md`: `P5-43` marcado como `DONE`; `P5-44` criado para revisão dos demais atalhos
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com estratégia de compatibilidade de âncoras
+- Validation:
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Manual: revisão dos atalhos críticos para garantir independência de normalização por acento
+- Risks:
+  - Ainda pode haver atalhos sem ID explícito; revisar gradualmente nos próximos ciclos
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Iniciar `P5-44`: revisar atalhos restantes do hub e migrar IDs críticos para padrão explícito
