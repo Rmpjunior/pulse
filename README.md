@@ -237,9 +237,11 @@ Antes de encerrar um turno/sessão, confirmar:
 
 ## Existing Documentation
 
-- `docs/FEATURES.md`: Product scope and inspiration notes
-- `docs/ARCHITECTURE.md`: Initial architecture plan
-- `docs/DATABASE.md`: Database model documentation
-- `docs/API.md`: API reference
-- `ENV_SETUP.md`: Environment setup details
-- `PROGRESS.md`: Historical progress notes (legacy format)
+> Política aplicada: docs operacionais em PT-BR; referência técnica pode permanecer em EN quando fizer sentido estrutural.
+
+- `docs/FEATURES.md`: Escopo do produto e notas de inspiração (EN técnico permitido)
+- `docs/ARCHITECTURE.md`: Plano inicial de arquitetura (EN técnico permitido)
+- `docs/DATABASE.md`: Documentação do modelo de dados (EN técnico permitido)
+- `docs/API.md`: Referência de API (EN técnico permitido)
+- `ENV_SETUP.md`: Detalhes de configuração de ambiente
+- `PROGRESS.md`: Histórico de progresso (formato legado)

@@ -1937,3 +1937,24 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Iniciar `P5-48`: alinhar bloco `Existing Documentation` do README com política PT-BR/EN
+
+### Session 2026-03-05 22:36 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-48` alinhando seção `Existing Documentation` do README com política PT-BR/EN
+- Backlog Item: P5-48
+- Changes:
+  - `README.md`: seção `Existing Documentation` revisada para PT-BR com marcação explícita de onde EN técnico é permitido
+  - `docs/03_BACKLOG.md`: `P5-48` marcado como `DONE`; `P5-49` criado para continuidade da padronização de navegação
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com alinhamento de linguagem entre README raiz e hub
+- Validation:
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Manual: revisão textual da seção para consistência com política de idioma definida no hub
+- Risks:
+  - Sem risco funcional (mudança documental)
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Iniciar `P5-49`: revisar índice operacional do README raiz para IDs explícitos quando aplicável
