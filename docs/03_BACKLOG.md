@@ -97,7 +97,9 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | P5-24 | DONE | Adicionar atalho para exemplo fictício de incidente no README | Facilitar onboarding de novos agentes no fluxo de incidentes |
 | P5-25 | DONE | Adicionar checklist mínimo para validar links do README operacional após edits | Evitar links quebrados na documentação de operação |
 | P5-26 | DONE | Incluir mini-regra de revisão de links no handoff rápido | Garantir que validação de links não seja esquecida entre turnos |
-| P5-27 | TODO | Adicionar mini-checklist de confirmação de idioma PT-BR no handoff | Evitar regressão de textos em inglês em ciclos rápidos |
+| P5-27 | DONE | Adicionar mini-checklist de confirmação de idioma PT-BR no handoff | Evitar regressão de textos em inglês em ciclos rápidos |
+| P5-28 | TODO | Adicionar referência cruzada do handoff para regra PT-BR em docs operacionais | Melhorar rastreabilidade da regra de idioma entre documentos |
+
 
 
 

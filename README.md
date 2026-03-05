@@ -231,6 +231,7 @@ Antes de encerrar um turno/sessão, confirmar:
 - [ ] `npm run lint` e `npm run build` sem erro no lote entregue
 - [ ] Bloqueios externos anotados com **input exato necessário**
 - [ ] Se houve edição no README operacional, checklist de links revisado
+- [ ] Se houve texto novo de UI/documentação do app, confirmar PT-BR (sem inglês residual)
 - [ ] Próximo passo descrito em linguagem objetiva para continuidade imediata
 
 ## Existing Documentation

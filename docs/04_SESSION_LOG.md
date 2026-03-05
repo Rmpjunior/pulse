@@ -1453,3 +1453,21 @@ Use this block when recording production/auth/deploy incidents:
   - Sem risco funcional (mudança documental)
 - Next:
   - Iniciar `P5-27`: mini-checklist de confirmação PT-BR no handoff
+
+### Session 2026-03-05 15:22 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-27` adicionando validação PT-BR no handoff rápido
+- Backlog Item: P5-27
+- Changes:
+  - `README.md`: checklist de `Handoff rápido` atualizado com item explícito para confirmar PT-BR em textos novos de UI/documentação
+  - `docs/03_BACKLOG.md`: `P5-27` marcado como `DONE`; `P5-28` criado para referência cruzada da regra de idioma
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com reforço de guardrail anti-regressão de inglês
+- Validation:
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Manual: revisão da checklist para garantir clareza operacional e cobertura da regra de idioma
+- Risks:
+  - Sem risco funcional (mudança documental)
+- Next:
+  - Iniciar `P5-28`: adicionar referência cruzada da regra PT-BR entre docs operacionais
