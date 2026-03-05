@@ -13,7 +13,7 @@ This folder has two documentation layers:
 - `docs/01_PRODUCT_BRIEF.md`: Product goals, users, and constraints
 - `docs/02_CURRENT_STATE.md`: What is implemented today vs missing (inclui guardrail ativo de idioma PT-BR)
 - `docs/03_BACKLOG.md`: Prioritized work queue (ver `P2-10` para regra de bloqueio de textos em inglês)
-- `docs/04_SESSION_LOG.md`: Session-by-session changelog template (atalho: `docs/04_SESSION_LOG.md#template` + `docs/04_SESSION_LOG.md#quality-check-docs`)
+- `docs/04_SESSION_LOG.md`: Registro de sessões e template operacional (atalho: `docs/04_SESSION_LOG.md#template` + `docs/04_SESSION_LOG.md#quality-check-docs`)
 - `docs/05_RUNBOOK.md`: Run, test, deploy, and troubleshoot instructions
 - `docs/06_OPENCLAW_SETUP.md`: Requirements and permissions for OpenClaw sessions
 - `docs/07_FEATURE_PARITY_MATRIX.md`: Official Keepo → Pulse parity matrix + acceptance criteria

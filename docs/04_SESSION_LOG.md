@@ -1698,3 +1698,24 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Iniciar `P5-37`: padronizar descrição PT-BR do item `docs/04_SESSION_LOG.md` no hub
+
+### Session 2026-03-05 17:52 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-37` padronizando descrição PT-BR do item de session log no hub
+- Backlog Item: P5-37
+- Changes:
+  - `docs/README.md`: descrição de `docs/04_SESSION_LOG.md` padronizada para PT-BR (`Registro de sessões e template operacional`)
+  - `docs/03_BACKLOG.md`: `P5-37` marcado como `DONE`; `P5-38` criado para revisão gradual de descrições EN residuais no hub
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com consistência de idioma no metadado do session log
+- Validation:
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Manual: revisão textual da linha de `docs/04_SESSION_LOG.md` no hub
+- Risks:
+  - Sem risco funcional (mudança documental)
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Iniciar `P5-38`: revisar descrições EN residuais no hub e planejar migração PT-BR por lotes
