@@ -90,7 +90,9 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | P5-17 | DONE | Revisar consistência de nomenclatura dos itens P5 (termos PT-BR/EN) e padronizar estilo | Melhorar legibilidade e busca no backlog |
 | P5-18 | DONE | Criar seção curta "comandos operacionais frequentes" no README (CI/build/rollback) | Reduzir tempo de execução em resposta a incidentes |
 | P5-19 | DONE | Adicionar nota de monitoramento (limitações atuais + acesso necessário) no README operacional | Tornar explícito o que falta para observabilidade completa de deploy |
-| P5-20 | TODO | Adicionar checklist curto de verificação pós-merge para PRs críticos | Reduzir risco de regressão silenciosa após mudanças sensíveis |
+| P5-20 | DONE | Adicionar checklist curto de verificação pós-merge para PRs críticos | Reduzir risco de regressão silenciosa após mudanças sensíveis |
+| P5-21 | TODO | Adicionar template curto de registro de incidente no `docs/04_SESSION_LOG.md` | Padronizar documentação de falhas e reduzir omissões no pós-mortem |
+
 
 
 

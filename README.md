@@ -33,6 +33,7 @@ Open `http://localhost:3000`.
 - [Incidente de autenticação (runbook curto)](#incidente-de-autenticação-runbook-curto)
 - [Comandos operacionais frequentes](#comandos-operacionais-frequentes)
 - [Nota de monitoramento (limitações atuais)](#nota-de-monitoramento-limitações-atuais)
+- [Checklist pós-merge (PRs críticos)](#checklist-pós-merge-prs-críticos)
 
 ## CI Status (quick check)
 
@@ -195,6 +196,19 @@ No ambiente atual do agente, o monitoramento em tempo real de deploy tem limita�
 - Usar links diretos no README para conferência manual de CI.
 - Executar gates locais (`lint`, `test`, `build`) antes de cada push.
 - Registrar bloqueio e próximo passo no update operacional.
+
+## Checklist pós-merge (PRs críticos)
+
+Use quando o merge envolve autenticação, billing, publicação, editor ou APIs centrais.
+
+- [ ] CI da `main` verde (`lint`, `test`, `build`)
+- [ ] Deploy de produção concluído sem erro de build/runtime
+- [ ] Smoke mínimo executado:
+  - [ ] login/cadastro
+  - [ ] dashboard/editor
+  - [ ] publicação e página pública
+- [ ] Logs sem erro crítico novo após deploy
+- [ ] Se houver regressão: aplicar rollback rápido + registrar incidente no `docs/04_SESSION_LOG.md`
 
 ## Handoff rápido (próximo turno)
 

@@ -1294,3 +1294,22 @@ Append one entry per coding session.
   - Sem risco funcional (mudança documental)
 - Next:
   - Iniciar `P5-20`: checklist curto pós-merge para PRs críticos
+
+### Session 2026-03-05 13:37 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-20` com checklist pós-merge para PRs críticos
+- Backlog Item: P5-20
+- Changes:
+  - `README.md`: adicionada seção `Checklist pós-merge (PRs críticos)` com verificação de CI, deploy, smoke e resposta a regressão
+  - `README.md`: índice operacional atualizado com link para o checklist
+  - `docs/03_BACKLOG.md`: `P5-20` marcado como `DONE`; `P5-21` criado para template de incidente
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com checklist pós-merge
+- Validation:
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Manual: revisão do checklist para cobrir fluxo crítico sem redundância
+- Risks:
+  - Sem risco funcional (mudança documental)
+- Next:
+  - Iniciar `P5-21`: template curto para registro de incidente no session log
