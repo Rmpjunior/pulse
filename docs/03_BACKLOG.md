@@ -88,7 +88,9 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | P5-15 | DONE | Adicionar mini-checklist de passagem de turno no README operacional | Garantir continuidade rápida entre sessões/agentes |
 | P5-16 | DONE | Limpar duplicidade de IDs no backlog (`P5-7`) e normalizar numeração contínua | Evitar ambiguidade de rastreio em sessões futuras |
 | P5-17 | DONE | Revisar consistência de nomenclatura dos itens P5 (termos PT-BR/EN) e padronizar estilo | Melhorar legibilidade e busca no backlog |
-| P5-18 | TODO | Criar seção curta "comandos operacionais frequentes" no README (CI/build/rollback) | Reduzir tempo de execução em resposta a incidentes |
+| P5-18 | DONE | Criar seção curta "comandos operacionais frequentes" no README (CI/build/rollback) | Reduzir tempo de execução em resposta a incidentes |
+| P5-19 | TODO | Adicionar nota de monitoramento (limitações atuais + acesso necessário) no README operacional | Tornar explícito o que falta para observabilidade completa de deploy |
+
 
 
 

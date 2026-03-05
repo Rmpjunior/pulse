@@ -1256,3 +1256,22 @@ Append one entry per coding session.
   - Sem risco funcional (mudança documental)
 - Next:
   - Iniciar `P5-18`: seção de comandos operacionais frequentes no README
+
+### Session 2026-03-05 13:07 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-18` adicionando comandos operacionais frequentes no README
+- Backlog Item: P5-18
+- Changes:
+  - `README.md`: adicionada seção `Comandos operacionais frequentes` com comandos de gates locais (`lint/test/build`), rollback e Prisma
+  - `README.md`: índice operacional atualizado com link para a nova seção
+  - `docs/03_BACKLOG.md`: `P5-18` marcado como `DONE`; `P5-19` criado para nota de monitoramento
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com seção operacional de comandos
+- Validation:
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Manual: revisão de clareza dos comandos e aderência ao fluxo operacional real
+- Risks:
+  - Sem risco funcional (mudança documental)
+- Next:
+  - Iniciar `P5-19`: explicitar limitações de monitoramento e acessos necessários no README

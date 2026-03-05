@@ -31,6 +31,7 @@ Open `http://localhost:3000`.
 - [Post-deploy quick checklist](#post-deploy-quick-checklist)
 - [Rollback rápido (produção)](#rollback-rápido-produção)
 - [Incidente de autenticação (runbook curto)](#incidente-de-autenticação-runbook-curto)
+- [Comandos operacionais frequentes](#comandos-operacionais-frequentes)
 
 ## CI Status (quick check)
 
@@ -157,6 +158,24 @@ Use quando login/cadastro falhar para usuários (Google OAuth ou e-mail/senha).
   - causa raiz,
   - ação aplicada,
   - horário de normalização.
+
+## Comandos operacionais frequentes
+
+```bash
+# Gates locais de qualidade
+npm run lint
+npm run test
+npm run build
+
+# Fluxo rápido de rollback (exemplo)
+git log --oneline -n 5
+git revert <commit_problematico>
+git push origin main
+
+# Prisma / banco (quando necessário)
+npx prisma generate
+npx prisma db push
+```
 
 ## Handoff rápido (próximo turno)
 
