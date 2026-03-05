@@ -1585,3 +1585,24 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Iniciar `P5-32`: adicionar nota no runbook para usar `Quality Check (docs)` como gate de saída
+
+### Session 2026-03-05 16:37 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-32` adicionando gate de saída documental no runbook
+- Backlog Item: P5-32
+- Changes:
+  - `docs/05_RUNBOOK.md`: nova seção `Gate de saída documental (Quality Check (docs))` com critérios e regra de bloqueio quando houver `no`
+  - `docs/03_BACKLOG.md`: `P5-32` marcado como `DONE`; `P5-33` criado para reforço no `docs/00_AGENT_START_HERE.md`
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com gate documental no runbook
+- Validation:
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Manual: revisão de clareza da regra de uso e critério de não encerrar sessão sem quality check
+- Risks:
+  - Sem risco funcional (mudança documental)
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Iniciar `P5-33`: incluir micro-checklist do gate documental no `docs/00_AGENT_START_HERE.md`

@@ -101,6 +101,7 @@ Last updated: 2026-03-04
 - Template padrão de sessão (`docs/04_SESSION_LOG.md`) agora exige quality check documental (revisão de links + confirmação PT-BR)
 - Template inclui lembrete explícito de preenchimento obrigatório do `Quality Check (docs)` em novas sessões
 - Entradas recentes do session log (lotes de 2026-03-05) foram retroajustadas com `Quality Check (docs)` preenchido para manter consistência histórica imediata
+- `docs/05_RUNBOOK.md` agora define quando usar `Quality Check (docs)` como gate de saída obrigatório em sessões com alterações
 - Plano técnico de custom domain/subdomain publicado em `docs/08_CUSTOM_DOMAIN_PLAN.md` com arquitetura, modelo de dados, APIs, critérios e rollout quebrado em etapas
 - Visitor identity para analytics agora usa fingerprint estável por request headers (user-agent + idioma + IP encaminhado hash), substituindo ID aleatório por evento
 - Test baseline ativo com Vitest (`npm run test`) cobrindo helpers críticos de API (error shape + validation)

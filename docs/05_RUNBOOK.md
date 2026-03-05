@@ -52,6 +52,16 @@ npx prisma studio
   - run `npm run build`
   - smoke-test auth + editor + public page
 
+## Gate de saída documental (`Quality Check (docs)`)
+
+Use este gate **antes de encerrar qualquer sessão com alteração de código/docs**:
+
+- Confirmar que links operacionais alterados continuam válidos.
+- Confirmar PT-BR em qualquer texto novo de UI/documentação.
+- Registrar `yes/no` no campo `Quality Check (docs)` em `docs/04_SESSION_LOG.md`.
+
+Se algum item estiver `no`, não encerrar sessão como concluída: corrigir ou registrar bloqueio explícito.
+
 ## Troubleshooting
 
 - Prisma connection issues:
