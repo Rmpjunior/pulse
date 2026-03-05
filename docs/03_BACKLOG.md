@@ -106,7 +106,9 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | P5-33 | DONE | Adicionar micro-checklist de gate documental no `docs/00_AGENT_START_HERE.md` | Garantir que o gate seja visto no início de cada sessão |
 | P5-34 | DONE | Incluir referência explícita ao gate documental em `docs/06_OPENCLAW_SETUP.md` | Manter alinhamento entre setup de execução e critérios de saída |
 | P5-35 | DONE | Adicionar nota curta no `docs/README.md` apontando gate documental obrigatório | Reforçar visibilidade do gate já na entrada do hub de docs |
-| P5-36 | TODO | Incluir no hub de docs atalho direto para seção `Quality Check (docs)` do session log | Reduzir tempo para consultar o formato obrigatório de encerramento |
+| P5-36 | DONE | Incluir no hub de docs atalho direto para seção `Quality Check (docs)` do session log | Reduzir tempo para consultar o formato obrigatório de encerramento |
+| P5-37 | TODO | Padronizar descrição do item `docs/04_SESSION_LOG.md` no hub (PT-BR) | Manter consistência de idioma também nos metadados de documentação |
+
 
 
 

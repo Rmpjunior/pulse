@@ -27,6 +27,13 @@ Append one entry per coding session.
   - <next concrete action>
 ```
 
+## Quality Check (docs)
+
+Preenchimento obrigatório em novas sessões:
+
+- `Links operacionais revisados`: `yes/no`
+- `PT-BR confirmado em textos novos`: `yes/no`
+
 ## Incident Entry Template (quick)
 
 Use this block when recording production/auth/deploy incidents:
@@ -1669,3 +1676,25 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Iniciar `P5-36`: adicionar atalho direto para a seção `Quality Check (docs)` no hub de docs
+
+### Session 2026-03-05 17:22 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-36` adicionando atalho direto para `Quality Check (docs)` no hub de docs
+- Backlog Item: P5-36
+- Changes:
+  - `docs/README.md`: linha de `docs/04_SESSION_LOG.md` atualizada com atalho para `#template` e `#quality-check-docs`
+  - `docs/04_SESSION_LOG.md`: criada seção explícita `Quality Check (docs)` para âncora estável e consulta rápida
+  - `docs/03_BACKLOG.md`: `P5-36` marcado como `DONE`; `P5-37` criado para padronização de idioma no hub
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com referência ao novo atalho
+- Validation:
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Manual: verificação de consistência das âncoras e navegabilidade do hub para o session log
+- Risks:
+  - Sem risco funcional (mudança documental)
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Iniciar `P5-37`: padronizar descrição PT-BR do item `docs/04_SESSION_LOG.md` no hub

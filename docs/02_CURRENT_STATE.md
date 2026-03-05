@@ -105,6 +105,7 @@ Last updated: 2026-03-04
 - `docs/00_AGENT_START_HERE.md` agora inclui micro-checklist de gate documental no fluxo obrigatório de sessão
 - `docs/06_OPENCLAW_SETUP.md` agora referencia explicitamente o gate documental (`Quality Check (docs)` + revisão de links + confirmação PT-BR) como parte do comportamento obrigatório de sessão
 - `docs/README.md` (hub operacional) agora destaca explicitamente o gate documental obrigatório na entrada da seção de docs primárias
+- Hub de docs agora aponta direto para `docs/04_SESSION_LOG.md#quality-check-docs`, reduzindo tempo para consultar o formato obrigatório
 - Plano técnico de custom domain/subdomain publicado em `docs/08_CUSTOM_DOMAIN_PLAN.md` com arquitetura, modelo de dados, APIs, critérios e rollout quebrado em etapas
 - Visitor identity para analytics agora usa fingerprint estável por request headers (user-agent + idioma + IP encaminhado hash), substituindo ID aleatório por evento
 - Test baseline ativo com Vitest (`npm run test`) cobrindo helpers críticos de API (error shape + validation)
