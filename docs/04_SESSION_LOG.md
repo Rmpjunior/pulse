@@ -1114,3 +1114,21 @@ Append one entry per coding session.
   - Sem risco funcional (mudança documental)
 - Next:
   - Próximo ciclo: definir checklist curto de verificação pós-deploy quando acesso de monitoramento GitHub/Vercel estiver disponível
+
+### Session 2026-03-05 11:23 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-10` com checklist pós-deploy operacional
+- Backlog Item: P5-10
+- Changes:
+  - `README.md`: adicionada seção `Post-deploy quick checklist` com validação de CI, deploy Vercel e smoke manual mínimo
+  - `docs/03_BACKLOG.md`: `P5-10` marcado como `DONE`; `P5-11` criado como próximo passo (rollback rápido)
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com disponibilidade do checklist pós-deploy
+- Validation:
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Manual: revisão da checklist para garantir ordem de execução e acionamento de troubleshooting em falha
+- Risks:
+  - Sem risco funcional (mudança documental/processual)
+- Next:
+  - Iniciar `P5-11`: playbook de rollback rápido para incidentes em produção

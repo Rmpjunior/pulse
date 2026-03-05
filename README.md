@@ -44,6 +44,24 @@ Open `http://localhost:3000`.
 - Prisma client mismatch:
   - Run `npx prisma generate` and commit lockfile/schema changes when applicable.
 
+## Post-deploy quick checklist
+
+Use this after any push to `main`:
+
+1. **GitHub Actions (CI)**
+   - Open: https://github.com/Rmpjunior/pulse/actions/workflows/ci.yml
+   - Confirm latest run is green (`lint`, `test`, `build`).
+2. **Vercel deployment**
+   - Confirm production deployment completed without build/runtime errors.
+3. **Smoke check (manual)**
+   - Open landing page.
+   - Login/register flow loads correctly.
+   - Dashboard/editor opens for authenticated user.
+   - Public page (`/p/{username}`) renders and tracks clicks.
+4. **If any step fails**
+   - Check `CI Troubleshooting (quick fix)` section above.
+   - Roll back only if production is impacted.
+
 ## Existing Documentation
 
 - `docs/FEATURES.md`: Product scope and inspiration notes
