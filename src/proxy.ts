@@ -17,6 +17,7 @@ const skipIntlRoutes = [
   '/manifest.json',
   '/sw.js',
   '/icons',
+  '/assets',
 ];
 
 export function proxy(request: NextRequest) {
@@ -27,13 +28,18 @@ export function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
+  // Skip any request for static files in /public (e.g. .png, .jpg, .svg, .webp, .ico)
+  if (/\.[a-zA-Z0-9]+$/.test(pathname)) {
+    return NextResponse.next();
+  }
+
   // Apply i18n middleware for all other routes
   return intlMiddleware(request);
 }
 
 export const config = {
   matcher: [
-    // Match all paths except static files and API
-    '/((?!api|_next/static|_next/image|favicon.ico|icons|manifest.json|sw.js).*)',
+    // Match app routes only (skip API, Next internals and static/public files)
+    '/((?!api|_next|.*\\..*|favicon.ico|icons|assets|manifest.json|sw.js).*)',
   ],
 };
