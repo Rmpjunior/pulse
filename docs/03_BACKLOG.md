@@ -100,7 +100,9 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | P5-27 | DONE | Adicionar mini-checklist de confirmação de idioma PT-BR no handoff | Evitar regressão de textos em inglês em ciclos rápidos |
 | P5-28 | DONE | Adicionar referência cruzada do handoff para regra PT-BR em docs operacionais | Melhorar rastreabilidade da regra de idioma entre documentos |
 | P5-29 | DONE | Adicionar nota curta de revisão de links+PT-BR no template da sessão (`docs/04_SESSION_LOG.md`) | Fechar ciclo de qualidade documental dentro do próprio log |
-| P5-30 | TODO | Adicionar lembrete para preencher "Quality Check (docs)" em novas sessões no template | Aumentar adesão prática ao controle documental |
+| P5-30 | DONE | Adicionar lembrete para preencher "Quality Check (docs)" em novas sessões no template | Aumentar adesão prática ao controle documental |
+| P5-31 | TODO | Atualizar últimas entradas de sessão com `Quality Check (docs)` preenchido | Garantir consistência entre template novo e prática real |
+
 
 
 

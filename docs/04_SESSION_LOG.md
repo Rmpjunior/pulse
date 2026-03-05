@@ -4,6 +4,8 @@ Append one entry per coding session.
 
 ## Template
 
+> Obrigatório em novas sessões: preencher `Quality Check (docs)` com `yes/no` antes de concluir o registro.
+
 ```md
 ### Session YYYY-MM-DD HH:MM (local)
 
@@ -1511,3 +1513,24 @@ Use this block when recording production/auth/deploy incidents:
   - Sem risco funcional (mudança documental)
 - Next:
   - Iniciar `P5-30`: lembrete explícito para preenchimento da seção `Quality Check (docs)`
+
+### Session 2026-03-05 16:07 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-30` adicionando lembrete obrigatório de preenchimento do quality check no template
+- Backlog Item: P5-30
+- Changes:
+  - `docs/04_SESSION_LOG.md`: template atualizado com lembrete explícito de preenchimento obrigatório de `Quality Check (docs)`
+  - `docs/03_BACKLOG.md`: `P5-30` marcado como `DONE`; `P5-31` criado para alinhar entradas recentes ao novo padrão
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com reforço de adoção prática do quality check
+- Validation:
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Manual: revisão do template para confirmar visibilidade do lembrete obrigatório
+- Risks:
+  - Sem risco funcional (mudança documental)
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Iniciar `P5-31`: atualizar entradas recentes com `Quality Check (docs)` preenchido
