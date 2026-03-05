@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -200,9 +201,12 @@ function BlockPreview({ type, content, onEdit }: BlockPreviewProps) {
             {(c.thumbnailType as string) === "emoji" && (c.thumbnailValue as string) ? (
               <span className="text-xl">{c.thumbnailValue as string}</span>
             ) : (c.thumbnailType as string) === "image" && (c.thumbnailValue as string) ? (
-              <img
+              <Image
                 src={c.thumbnailValue as string}
                 alt="Thumbnail"
+                width={32}
+                height={32}
+                unoptimized
                 className="h-8 w-8 rounded object-cover"
               />
             ) : null}

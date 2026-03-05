@@ -74,7 +74,8 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | P5-1 | DONE | Reduzir warnings de lint prioritários (imports/estados não usados + migração incremental de `<img>` para `next/image`) | Manter qualidade contínua pós-roadmap e facilitar evolução sem ruído |
 | P5-2 | DONE | Migrar `<img>` críticos da página pública (`/p/[username]`) para `next/image` em lotes pequenos | Melhorar performance percebida e reduzir warnings de lint remanescentes |
 | P5-3 | DONE | Migrar `<img>` remanescentes em editor/preview/components compartilhados para `next/image` | Finalizar limpeza de warnings de imagem com menor risco incremental |
-| P5-4 | TODO | Migrar `<img>` finais em `editor-content`, `block-editor` e `themed-preview` para zerar warnings de imagem | Fechar hardening visual/performance com lint praticamente limpo |
+| P5-4 | DONE | Migrar `<img>` finais em `editor-content`, `block-editor` e `themed-preview` para zerar warnings de imagem | Fechar hardening visual/performance com lint praticamente limpo |
+| P5-5 | TODO | Resolver aviso recorrente de workspace root do Next.js (`turbopack.root`/lockfiles) | Reduzir ruído de build e risco de configuração ambígua em CI/deploy |
 
 ## Discovery Notes (Keepo live exploration)
 

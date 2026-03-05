@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { CSSProperties } from "react";
 import {
   themePresets,
@@ -57,9 +58,12 @@ export function ThemedPreview({
       {/* Profile Header */}
       <div className="text-center mb-6">
         {avatarUrl ? (
-          <img
+          <Image
             src={avatarUrl}
             alt={displayName || 'Avatar'}
+            width={80}
+            height={80}
+            unoptimized
             className="w-20 h-20 rounded-full mx-auto mb-4 object-cover"
             style={{
               boxShadow: `0 0 0 4px ${colors.background}, 0 0 0 6px ${colors.secondary}40`,
@@ -161,9 +165,12 @@ function ThemedBlockWrapper({
             {(content.thumbnailType as string) === "emoji" && (content.thumbnailValue as string) ? (
               <span className="text-lg">{content.thumbnailValue as string}</span>
             ) : (content.thumbnailType as string) === "image" && (content.thumbnailValue as string) ? (
-              <img
+              <Image
                 src={content.thumbnailValue as string}
                 alt="Thumbnail"
+                width={24}
+                height={24}
+                unoptimized
                 className="h-6 w-6 rounded object-cover"
               />
             ) : null}
@@ -188,9 +195,12 @@ function ThemedBlockWrapper({
             }}
           >
             {(content.image as string) && (
-              <img
+              <Image
                 src={content.image as string}
                 alt={(content.pageTitle as string) || 'About'}
+                width={512}
+                height={128}
+                unoptimized
                 className="w-full h-32 object-cover rounded-lg mb-3"
               />
             )}
@@ -241,9 +251,12 @@ function ThemedBlockWrapper({
         return (
           <div className="text-center p-4 rounded-xl" style={{ backgroundColor: `${colors.primary}10` }}>
             {(content.profilePhoto as string) ? (
-              <img
+              <Image
                 src={content.profilePhoto as string}
                 alt={(content.displayName as string) || 'Welcome'}
+                width={64}
+                height={64}
+                unoptimized
                 className="w-16 h-16 rounded-full mx-auto mb-3 object-cover"
               />
             ) : null}

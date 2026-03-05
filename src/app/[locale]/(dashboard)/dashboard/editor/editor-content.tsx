@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState, useCallback, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -1065,9 +1066,12 @@ export function EditorContent({
               <CardContent className="space-y-4">
                 <div className="flex items-center gap-4">
                   {avatar ? (
-                    <img
+                    <Image
                       src={avatar}
                       alt={displayName || "Avatar"}
+                      width={80}
+                      height={80}
+                      unoptimized
                       className="h-20 w-20 rounded-full object-cover"
                     />
                   ) : (

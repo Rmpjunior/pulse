@@ -1000,3 +1000,23 @@ Append one entry per coding session.
   - Restam warnings concentrados em editor/preview; mudança deve ser finalizada em lote curto para não quebrar edição visual
 - Next:
   - Iniciar `P5-4`: migrar `<img>` finais em `editor-content`, `block-editor` e `themed-preview`
+
+### Session 2026-03-05 05:52 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-4` para zerar warnings de imagem com migração final para `next/image`
+- Backlog Item: P5-4
+- Changes:
+  - `src/app/[locale]/(dashboard)/dashboard/editor/editor-content.tsx`: avatar de perfil no editor migrado para `next/image`
+  - `src/components/editor/block-editor.tsx`: thumbnail de preview de link migrada para `next/image`
+  - `src/components/editor/themed-preview.tsx`: avatar, thumbnail de link, imagem de About e foto da seção Welcome migradas para `next/image`
+  - `docs/03_BACKLOG.md`: `P5-4` marcado como `DONE`; `P5-5` criado para tratar aviso recorrente de root do Next.js
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com lint limpo
+- Validation:
+  - Command: `npm run lint` -> passou (sem warnings e sem erros)
+  - Command: `npm run build` -> passou (warning isolado de configuração de workspace root do Next.js permanece)
+  - Manual: revisão de editor e preview para confirmar corte/proporção de avatares e imagens de seção
+- Risks:
+  - Build ainda mostra warning de configuração (`turbopack.root` / lockfiles múltiplos), que pode confundir setup em CI
+- Next:
+  - Iniciar `P5-5`: resolver aviso de workspace root do Next.js para reduzir ruído de build/deploy

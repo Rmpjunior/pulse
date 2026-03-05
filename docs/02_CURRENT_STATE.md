@@ -74,6 +74,7 @@ Last updated: 2026-03-04
 - Hardening contínuo pós-roadmap iniciado: limpeza de warnings prioritários (import/estado não usados) e migração incremental de imagem no settings para `next/image`
 - Página pública (`/p/[username]`) migrou imagens críticas para `next/image` (avatar, thumbnails de link, imagens de About/Destaque e foto da seção Welcome), reduzindo warnings de lint de 15 para 10
 - Componentes compartilhados também avançaram na migração (`dashboard/header` e `blocks/block-renderer`), reduzindo warnings de imagem para 6 no total
+- Migração final de `<img>` concluída em `editor-content`, `block-editor` e `themed-preview`; `npm run lint` agora sem warnings/erros
 - Plano técnico de custom domain/subdomain publicado em `docs/08_CUSTOM_DOMAIN_PLAN.md` com arquitetura, modelo de dados, APIs, critérios e rollout quebrado em etapas
 - Visitor identity para analytics agora usa fingerprint estável por request headers (user-agent + idioma + IP encaminhado hash), substituindo ID aleatório por evento
 - Test baseline ativo com Vitest (`npm run test`) cobrindo helpers críticos de API (error shape + validation)
