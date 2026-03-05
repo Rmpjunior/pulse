@@ -16,6 +16,7 @@ This folder has two documentation layers:
 - `docs/06_OPENCLAW_SETUP.md`: Requirements and permissions for OpenClaw sessions
 - `docs/07_FEATURE_PARITY_MATRIX.md`: Official Keepo → Pulse parity matrix + acceptance criteria
 - `docs/08_CUSTOM_DOMAIN_PLAN.md`: Technical implementation plan for custom domain/subdomain support
+- `docs/09_GOOGLE_AUTH_PRODUCTION_CHECKLIST.md`: Production env checklist + end-to-end validation for Google OAuth
 
 ## Reference Docs (Secondary)
 

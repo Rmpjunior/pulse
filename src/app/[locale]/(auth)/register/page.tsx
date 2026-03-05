@@ -9,10 +9,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Sparkles } from "lucide-react";
+import { isGoogleOAuthEnabled } from "@/lib/auth/google-config";
 
 export default function RegisterPage() {
   const t = useTranslations("auth.register");
   const tCommon = useTranslations("common");
+  const googleEnabled = isGoogleOAuthEnabled();
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-background to-muted/30 p-4">
@@ -39,7 +41,7 @@ export default function RegisterPage() {
             <CardDescription>{t("subtitle")}</CardDescription>
           </CardHeader>
           <CardContent>
-            <RegisterForm />
+            <RegisterForm googleEnabled={googleEnabled} />
 
             <div className="mt-6 text-center text-sm">
               <span className="text-muted-foreground">{t("hasAccount")} </span>

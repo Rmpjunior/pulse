@@ -8,7 +8,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Link } from "@/i18n/navigation";
 
-export function LoginForm() {
+type LoginFormProps = {
+  googleEnabled: boolean;
+};
+
+export function LoginForm({ googleEnabled }: LoginFormProps) {
   const t = useTranslations("auth.login");
   const tErrors = useTranslations("auth.errors");
   const router = useRouter();
@@ -17,8 +21,6 @@ export function LoginForm() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const googleEnabled =
-    process.env.NEXT_PUBLIC_AUTH_GOOGLE_ENABLED === "true";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

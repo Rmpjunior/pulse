@@ -7,7 +7,11 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-export function RegisterForm() {
+type RegisterFormProps = {
+  googleEnabled: boolean;
+};
+
+export function RegisterForm({ googleEnabled }: RegisterFormProps) {
   const t = useTranslations("auth.register");
   const tErrors = useTranslations("auth.errors");
   const router = useRouter();
@@ -18,8 +22,6 @@ export function RegisterForm() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const googleEnabled =
-    process.env.NEXT_PUBLIC_AUTH_GOOGLE_ENABLED === "true";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

@@ -4,10 +4,11 @@ import Google from 'next-auth/providers/google';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import bcrypt from 'bcryptjs';
 import { db } from './db';
+import { isGoogleOAuthEnabled } from './auth/google-config';
 
 const providers = [];
 
-if (process.env.AUTH_GOOGLE_ID && process.env.AUTH_GOOGLE_SECRET) {
+if (isGoogleOAuthEnabled()) {
   providers.push(
     Google({
       clientId: process.env.AUTH_GOOGLE_ID,

@@ -8,12 +8,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Sparkles } from "lucide-react";
+import { isGoogleOAuthEnabled } from "@/lib/auth/google-config";
 
 export default function LoginPage() {
   const t = useTranslations("auth.login");
   const tCommon = useTranslations("common");
+  const googleEnabled = isGoogleOAuthEnabled();
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-background to-muted/30 p-4">
@@ -40,7 +41,7 @@ export default function LoginPage() {
             <CardDescription>{t("subtitle")}</CardDescription>
           </CardHeader>
           <CardContent>
-            <LoginForm />
+            <LoginForm googleEnabled={googleEnabled} />
 
             <div className="mt-6 text-center text-sm">
               <span className="text-muted-foreground">{t("noAccount")} </span>

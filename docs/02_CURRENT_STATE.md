@@ -60,7 +60,8 @@ Last updated: 2026-03-04
 - Gatilhos contextuais de upgrade ativos na jornada do editor (ao bater limite de seções e ao acessar aba de tema sem Plus), com CTA direto para assinatura
 - Analytics UX alinhada ao plano: filtro por período com lock contextual quando excede limite de histórico (`analyticsDays`) e prompt de upgrade orientado
 - Self-service de conta fortalecido: forgot-password agora usa endpoint real (`/api/auth/forgot-password`) com token de reset e settings com exclusão de conta confirmada (`DELETE_MY_ACCOUNT` + senha quando aplicável)
-- Estratégia de auth robustecida: provider Google agora é opcional por configuração (sem quebrar auth quando env faltar) + fallback explícito de UI para login/cadastro por credenciais
+- Estratégia de auth Google validada ponta a ponta: provider só ativa com env obrigatória, login/cadastro usam a mesma regra do servidor (evita drift client-side) e fallback por credenciais permanece estável
+- Checklist de produção para Google OAuth publicado em `docs/09_GOOGLE_AUTH_PRODUCTION_CHECKLIST.md` com envs obrigatórias/recomendadas e passo a passo de validação manual
 - Dashboard com paridade multi-site (`Your Keepos`): lista de sites com ações rápidas `Editar`, `Abrir` e `Config`, além de editor suportando seleção por `pageId`
 - UX de validação de social/media enriquecida: editor sinaliza URL inválida em redes sociais e exige formato válido para embeds de mídia antes de salvar
 - Página pública com hardening inicial de performance/acessibilidade: `main` semântico, `iframe` com `title`+`loading=lazy`, imagens com `loading/decoding/referrerPolicy` e links sociais com `aria-label`

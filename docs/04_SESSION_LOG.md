@@ -853,3 +853,28 @@ Append one entry per coding session.
   - Ainda há textos técnicos em inglês dentro do código/logs internos; próximos passes podem cobrir traduções completas de superfícies secundárias
 - Next:
   - Iniciar revisão geral pós-roadmap (estabilização + backlog de hardening técnico, priorizando limpeza de warnings)
+
+### Session 2026-03-05 04:11 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P4-1` validando Google OAuth ponta a ponta com fallback e checklist de envs para produção
+- Backlog Item: P4-1
+- Changes:
+  - `src/lib/auth/google-config.ts`: criado helper central para habilitação do Google OAuth e relatório de envs faltantes (obrigatórias + recomendadas)
+  - `src/lib/auth.ts`: provider Google agora usa regra central (`isGoogleOAuthEnabled`) para evitar drift de lógica
+  - `src/app/[locale]/(auth)/login/page.tsx` e `src/app/[locale]/(auth)/register/page.tsx`: páginas server-side agora resolvem `googleEnabled` com a mesma regra do backend
+  - `src/app/[locale]/(auth)/login/login-form.tsx` e `src/app/[locale]/(auth)/register/register-form.tsx`: forms passaram a receber `googleEnabled` por prop (remoção de dependência de flag client-side)
+  - `src/lib/auth/google-config.test.ts`: adicionados testes para cobertura da regra de habilitação e relatório de env
+  - `docs/09_GOOGLE_AUTH_PRODUCTION_CHECKLIST.md`: novo guia com envs faltantes/recomendadas e roteiro de validação manual
+  - `docs/README.md`: adicionada referência para o checklist de produção Google Auth
+  - `docs/03_BACKLOG.md`: `P4-1` marcado como `DONE`
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com status da validação de auth Google + checklist
+- Validation:
+  - Command: `npm run test` -> passou (6 arquivos, 16 testes)
+  - Command: `npm run lint` -> passou (0 erros, warnings existentes de `<img>`/unused pré-existentes)
+  - Command: `npm run build` -> passou
+  - Manual: checklist de validação e fallback documentado para execução em ambiente de produção/staging (`docs/09_GOOGLE_AUTH_PRODUCTION_CHECKLIST.md`)
+- Risks:
+  - Validação OAuth real no provider Google depende de `AUTH_GOOGLE_ID/SECRET` válidos e redirect URI configurada no Google Cloud
+- Next:
+  - Iniciar `P4-2`: aplicar skills de frontend quality (`vercel-react-best-practices`, `web-design-guidelines`, `frontend-design`) no ciclo de UI
