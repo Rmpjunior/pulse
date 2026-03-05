@@ -1740,3 +1740,24 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Iniciar `P5-39`: definir política PT-BR/EN para o bloco `Reference Docs` no hub
+
+### Session 2026-03-05 18:07 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-39` definindo política de idioma para `Reference Docs` no hub
+- Backlog Item: P5-39
+- Changes:
+  - `docs/README.md`: bloco `Reference Docs (Secondary)` atualizado com política explícita de idioma (operacional PT-BR, referência técnica pode permanecer EN)
+  - `docs/03_BACKLOG.md`: `P5-39` marcado como `DONE`; `P5-40` criado para propagação resumida no `docs/01_PRODUCT_BRIEF.md`
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com decisão de política PT-BR/EN por tipo de documentação
+- Validation:
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Manual: revisão de clareza da política de idioma no hub e coerência com prática já adotada
+- Risks:
+  - Sem risco funcional (mudança documental)
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Iniciar `P5-40`: adicionar nota curta da política de idioma no `docs/01_PRODUCT_BRIEF.md`

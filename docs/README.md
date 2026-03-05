@@ -24,9 +24,11 @@ This folder has two documentation layers:
 
 ## Reference Docs (Secondary)
 
-- `docs/FEATURES.md`
-- `docs/ARCHITECTURE.md`
-- `docs/DATABASE.md`
-- `docs/API.md`
+> **Política de idioma (decisão):** docs operacionais em PT-BR; docs de referência técnica podem permanecer em EN quando o conteúdo for mais estável/estrutural.
+
+- `docs/FEATURES.md` (EN técnico permitido)
+- `docs/ARCHITECTURE.md` (EN técnico permitido)
+- `docs/DATABASE.md` (EN técnico permitido)
+- `docs/API.md` (EN técnico permitido)
 
 Use operational docs first to avoid context drift.
