@@ -2,6 +2,8 @@
 
 Append one entry per coding session.
 
+<a id="session-template"></a>
+
 ## Template
 
 > Obrigatório em novas sessões: preencher `Quality Check (docs)` com `yes/no` antes de concluir o registro.
@@ -1849,3 +1851,25 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Iniciar `P5-44`: revisar atalhos restantes do hub e migrar IDs críticos para padrão explícito
+
+### Session 2026-03-05 19:37 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-44` revisando atalhos restantes do hub e migrando IDs críticos
+- Backlog Item: P5-44
+- Changes:
+  - `docs/04_SESSION_LOG.md`: template de sessão ganhou ID explícito ASCII (`session-template`)
+  - `docs/README.md`: atalho do template operacional atualizado para `docs/04_SESSION_LOG.md#session-template`
+  - `docs/03_BACKLOG.md`: `P5-44` marcado como `DONE`; `P5-45` criado para formalizar convenção de IDs ASCII
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com consolidação do padrão de links internos críticos
+- Validation:
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Manual: conferência de consistência dos atalhos críticos do hub (`session-template`, `quality-check-docs`, `language-audit-checklist`)
+- Risks:
+  - Sem risco funcional (mudança documental)
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Iniciar `P5-45`: documentar convenção oficial de IDs de âncora (ASCII)
