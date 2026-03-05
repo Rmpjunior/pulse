@@ -82,7 +82,9 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | P5-9 | DONE | Adicionar seção de troubleshooting rápido da CI no README (falhas comuns + ação imediata) | Reduzir tempo de diagnóstico quando pipeline falhar |
 | P5-10 | DONE | Criar checklist pós-deploy (GitHub Actions + Vercel + smoke mínimo) para uso rápido em operação | Padronizar validação final após push em `main` |
 | P5-11 | DONE | Registrar playbook de rollback rápido (critério + passos + verificação) | Diminuir tempo de resposta em incidentes de produção |
-| P5-12 | TODO | Criar runbook curto para incidentes de autenticação (Google OAuth + credenciais) | Acelerar diagnóstico quando login falhar em produção |
+| P5-12 | DONE | Criar runbook curto para incidentes de autenticação (Google OAuth + credenciais) | Acelerar diagnóstico quando login falhar em produção |
+| P5-13 | TODO | Consolidar índice operacional no README (links rápidos para CI, deploy, rollback e auth runbook) | Diminuir tempo de navegação durante operação/incidente |
+
 
 
 

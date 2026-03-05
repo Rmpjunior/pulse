@@ -1150,3 +1150,21 @@ Append one entry per coding session.
   - Sem risco funcional (mudança documental/processual)
 - Next:
   - Iniciar `P5-12`: runbook curto de incidentes de login/auth (Google + credenciais)
+
+### Session 2026-03-05 11:52 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-12` com runbook de incidente de autenticação
+- Backlog Item: P5-12
+- Changes:
+  - `README.md`: adicionada seção `Incidente de autenticação (runbook curto)` cobrindo diagnóstico rápido, envs críticas, callback Google, ações por cenário, verificação pós-correção e protocolo de comunicação
+  - `docs/03_BACKLOG.md`: `P5-12` marcado como `DONE`; `P5-13` criado para consolidar índice operacional rápido
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com disponibilidade do runbook de auth
+- Validation:
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Manual: revisão de completude do fluxo (Google OAuth + credenciais) e consistência com fallback existente
+- Risks:
+  - Sem risco funcional (mudança documental/processual)
+- Next:
+  - Iniciar `P5-13`: índice operacional no README para acesso rápido em incidentes

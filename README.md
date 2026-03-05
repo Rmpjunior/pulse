@@ -101,6 +101,55 @@ Use quando um deploy novo quebra fluxo crítico (login, editor, página pública
   - horário,
   - status final de produção.
 
+## Incidente de autenticação (runbook curto)
+
+Use quando login/cadastro falhar para usuários (Google OAuth ou e-mail/senha).
+
+### Diagnóstico rápido
+
+1. **Escopo do incidente**
+   - Falha só no Google?
+   - Falha só em credenciais?
+   - Falha geral de autenticação?
+2. **Checagem de ambiente**
+   - Garantir presença de envs críticas:
+     - `AUTH_SECRET`
+     - `AUTH_TRUST_HOST=true`
+     - `NEXTAUTH_URL`
+   - Para Google OAuth:
+     - `AUTH_GOOGLE_ID`
+     - `AUTH_GOOGLE_SECRET`
+3. **Validação de callback Google**
+   - URI esperada: `https://SEU_DOMINIO/api/auth/callback/google`
+   - Conferir no Google Cloud Console se origin + redirect URI batem com produção.
+
+### Ação imediata por cenário
+
+- **Google quebrado, credenciais ok**
+  - Manter fallback por e-mail/senha ativo.
+  - Corrigir `AUTH_GOOGLE_ID/SECRET` ou callback URI.
+- **Credenciais quebradas, Google ok**
+  - Validar banco/conexão e fluxo de senha.
+  - Checar integridade de `AUTH_SECRET` e sessões.
+- **Tudo quebrado**
+  - Verificar envs base (`AUTH_SECRET`, `NEXTAUTH_URL`, `AUTH_TRUST_HOST`).
+  - Se incidente persistir, executar rollback rápido (seção acima).
+
+### Verificação pós-correção
+
+- Login por e-mail/senha funciona.
+- Login com Google funciona (se habilitado).
+- Logout funciona.
+- Redirecionamento pós-login vai para dashboard sem erro.
+
+### Comunicação
+
+- Registrar no `docs/04_SESSION_LOG.md`:
+  - tipo de falha (Google, credenciais ou geral),
+  - causa raiz,
+  - ação aplicada,
+  - horário de normalização.
+
 ## Existing Documentation
 
 - `docs/FEATURES.md`: Product scope and inspiration notes
