@@ -35,6 +35,7 @@ Open `http://localhost:3000`.
 - [Nota de monitoramento (limitações atuais)](#nota-de-monitoramento-limitações-atuais)
 - [Checklist pós-merge (PRs críticos)](#checklist-pós-merge-prs-críticos)
 - [Template de incidente (session log)](docs/04_SESSION_LOG.md#incident-entry-template-quick)
+- [Exemplo fictício de incidente](docs/04_SESSION_LOG.md#incident-example-fictitious)
 
 ## CI Status (quick check)
 

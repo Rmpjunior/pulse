@@ -94,7 +94,9 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | P5-21 | DONE | Adicionar template curto de registro de incidente no `docs/04_SESSION_LOG.md` | Padronizar documentação de falhas e reduzir omissões no pós-mortem |
 | P5-22 | DONE | Adicionar exemplo preenchido de incidente no session log (fictício) para facilitar uso | Reduzir atrito na adoção do template durante incidentes reais |
 | P5-23 | DONE | Incluir atalho para template de incidente no índice operacional do README | Facilitar acesso rápido em momentos de pressão operacional |
-| P5-24 | TODO | Adicionar atalho para exemplo fictício de incidente no README | Facilitar onboarding de novos agentes no fluxo de incidentes |
+| P5-24 | DONE | Adicionar atalho para exemplo fictício de incidente no README | Facilitar onboarding de novos agentes no fluxo de incidentes |
+| P5-25 | TODO | Adicionar checklist mínimo para validar links do README operacional após edits | Evitar links quebrados na documentação de operação |
+
 
 
 

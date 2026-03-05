@@ -1399,3 +1399,21 @@ Use this block when recording production/auth/deploy incidents:
   - Sem risco funcional (mudança documental)
 - Next:
   - Iniciar `P5-24`: adicionar atalho para exemplo fictício de incidente
+
+### Session 2026-03-05 14:37 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-24` adicionando atalho para exemplo fictício de incidente no README
+- Backlog Item: P5-24
+- Changes:
+  - `README.md`: índice operacional atualizado com link direto para `docs/04_SESSION_LOG.md#incident-example-fictitious`
+  - `docs/03_BACKLOG.md`: `P5-24` marcado como `DONE`; `P5-25` criado para checklist de validação de links
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com atalho para exemplo de incidente
+- Validation:
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Manual: conferência do atalho para exemplo fictício no índice operacional
+- Risks:
+  - Sem risco funcional (mudança documental)
+- Next:
+  - Iniciar `P5-25`: checklist mínimo para validar links do README operacional após alterações
