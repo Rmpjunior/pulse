@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { CSSProperties } from "react";
 import { Link } from "@/i18n/navigation";
 import { Sparkles, ExternalLink } from "lucide-react";
@@ -88,12 +89,12 @@ export function PublicPageContent({
         {/* Profile Header */}
         <div className="text-center mb-8">
           {page.avatar ? (
-            <img
+            <Image
               src={page.avatar}
               alt={page.displayName || page.username}
-              loading="eager"
-              decoding="async"
-              referrerPolicy="no-referrer"
+              width={96}
+              height={96}
+              unoptimized
               className="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
               style={{
                 boxShadow: `0 0 0 4px ${colors.background}, 0 0 0 6px ${colors.primary}40`,
@@ -218,12 +219,12 @@ function ThemedBlock({
               {(content.thumbnailType as string) === "emoji" && (content.thumbnailValue as string) ? (
                 <span className="text-lg">{content.thumbnailValue as string}</span>
               ) : (content.thumbnailType as string) === "image" && (content.thumbnailValue as string) ? (
-                <img
+                <Image
                   src={content.thumbnailValue as string}
                   alt="Thumbnail"
-                  loading="lazy"
-                  decoding="async"
-                  referrerPolicy="no-referrer"
+                  width={28}
+                  height={28}
+                  unoptimized
                   className="h-7 w-7 rounded object-cover"
                 />
               ) : null}
@@ -250,12 +251,12 @@ function ThemedBlock({
             }}
           >
             {(content.image as string) && (
-              <img
+              <Image
                 src={content.image as string}
                 alt={(content.pageTitle as string) || "About"}
-                loading="lazy"
-                decoding="async"
-                referrerPolicy="no-referrer"
+                width={640}
+                height={160}
+                unoptimized
                 className="w-full h-40 object-cover mb-4"
                 style={{ borderRadius: buttonRadius }}
               />
@@ -292,12 +293,12 @@ function ThemedBlock({
           }}
         >
           {highlightImage && (
-            <img
+            <Image
               src={highlightImage}
               alt={(content.title as string) || ""}
-              loading="lazy"
-              decoding="async"
-              referrerPolicy="no-referrer"
+              width={640}
+              height={160}
+              unoptimized
               className="w-full h-40 object-cover mb-4"
               style={{ borderRadius: buttonRadius }}
             />
@@ -343,12 +344,12 @@ function ThemedBlock({
             }}
           >
             {(content.profilePhoto as string) && (
-              <img
+              <Image
                 src={content.profilePhoto as string}
                 alt={(content.displayName as string) || "Welcome"}
-                loading="lazy"
-                decoding="async"
-                referrerPolicy="no-referrer"
+                width={64}
+                height={64}
+                unoptimized
                 className="w-16 h-16 rounded-full mx-auto mb-3 object-cover"
               />
             )}

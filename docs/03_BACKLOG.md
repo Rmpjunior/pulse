@@ -72,7 +72,8 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | ID | Status | Task | Why |
 |---|---|---|---|
 | P5-1 | DONE | Reduzir warnings de lint prioritários (imports/estados não usados + migração incremental de `<img>` para `next/image`) | Manter qualidade contínua pós-roadmap e facilitar evolução sem ruído |
-| P5-2 | TODO | Migrar `<img>` críticos da página pública (`/p/[username]`) para `next/image` em lotes pequenos | Melhorar performance percebida e reduzir warnings de lint remanescentes |
+| P5-2 | DONE | Migrar `<img>` críticos da página pública (`/p/[username]`) para `next/image` em lotes pequenos | Melhorar performance percebida e reduzir warnings de lint remanescentes |
+| P5-3 | TODO | Migrar `<img>` remanescentes em editor/preview/components compartilhados para `next/image` | Finalizar limpeza de warnings de imagem com menor risco incremental |
 
 ## Discovery Notes (Keepo live exploration)
 

@@ -962,3 +962,22 @@ Append one entry per coding session.
   - Ainda existem warnings de `<img>` em editor/public/components; migração deve continuar em lotes pequenos para evitar regressões visuais
 - Next:
   - Iniciar `P5-2`: migrar `<img>` mais críticos da página pública (`/p/[username]`) para `next/image`
+
+### Session 2026-03-05 05:22 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-2` migrando imagens críticas da página pública para `next/image`
+- Backlog Item: P5-2
+- Changes:
+  - `src/app/[locale]/p/[username]/page-content.tsx`: adicionada importação de `next/image`
+  - `src/app/[locale]/p/[username]/page-content.tsx`: migrados para `Image` (com `unoptimized`) os pontos críticos da página pública: avatar principal, thumbnail de link, imagem da seção `About`, imagem de `Highlight` e foto da seção `Welcome`
+  - `docs/03_BACKLOG.md`: `P5-2` marcado como `DONE` e `P5-3` criado para continuação incremental
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com status da migração na página pública
+- Validation:
+  - Command: `npm run lint` -> passou (0 erros; warnings reduzidos de 15 para 10)
+  - Command: `npm run build` -> passou
+  - Manual: revisão de render no fluxo público para manter proporção/corte de avatar e cards com imagens
+- Risks:
+  - Ainda existem `<img>` em editor/preview/componentes compartilhados; continuar migração em lotes pequenos evita regressão visual
+- Next:
+  - Iniciar `P5-3`: migrar `<img>` remanescentes em editor/preview/components compartilhados

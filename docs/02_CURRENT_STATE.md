@@ -72,6 +72,7 @@ Last updated: 2026-03-04
 - Auditoria visual completa de imagens/ícones documentada em `docs/11_VISUAL_ASSET_AUDIT_PROMPTS.md`, com mapeamento de fragilidades e prompt pack pronto para geração externa
 - Troca guiada de assets iniciada e aplicada em superfícies-chave: landing hero agora usa imagem real (`public/Gemini_Generated_Image_mhylomhylomhylom.png`) e branding principal migrou para `BrandLogo` com `public/icon.png` (landing + auth + sidebar), com validação responsiva base
 - Hardening contínuo pós-roadmap iniciado: limpeza de warnings prioritários (import/estado não usados) e migração incremental de imagem no settings para `next/image`
+- Página pública (`/p/[username]`) migrou imagens críticas para `next/image` (avatar, thumbnails de link, imagens de About/Destaque e foto da seção Welcome), reduzindo warnings de lint de 15 para 10
 - Plano técnico de custom domain/subdomain publicado em `docs/08_CUSTOM_DOMAIN_PLAN.md` com arquitetura, modelo de dados, APIs, critérios e rollout quebrado em etapas
 - Visitor identity para analytics agora usa fingerprint estável por request headers (user-agent + idioma + IP encaminhado hash), substituindo ID aleatório por evento
 - Test baseline ativo com Vitest (`npm run test`) cobrindo helpers críticos de API (error shape + validation)
