@@ -112,7 +112,9 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | P5-39 | DONE | Revisar bloco "Reference Docs" no hub e decidir política PT-BR/EN por seção | Evitar inconsistência futura entre docs operacionais (PT-BR) e referência técnica |
 | P5-40 | DONE | Adicionar nota de política de idioma no `docs/01_PRODUCT_BRIEF.md` (resumo curto) | Alinhar produto/operação sobre quando usar PT-BR vs EN na documentação |
 | P5-41 | DONE | Criar checklist curto de auditoria de idioma para novos docs (PT-BR/EN) | Evitar drift de idioma em documentos futuros |
-| P5-42 | TODO | Adicionar atalho para checklist de auditoria de idioma no hub (`docs/README.md`) | Aumentar adoção prática da checklist em sessões futuras |
+| P5-42 | DONE | Adicionar atalho para checklist de auditoria de idioma no hub (`docs/README.md`) | Aumentar adoção prática da checklist em sessões futuras |
+| P5-43 | TODO | Validar e ajustar âncoras com acentos nos atalhos do hub para máxima compatibilidade | Evitar link quebrado entre renderizadores markdown diferentes |
+
 
 
 

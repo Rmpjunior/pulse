@@ -1803,3 +1803,24 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Iniciar `P5-42`: adicionar atalho para checklist de auditoria de idioma no `docs/README.md`
+
+### Session 2026-03-05 19:07 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-42` adicionando atalho para checklist de auditoria de idioma no hub
+- Backlog Item: P5-42
+- Changes:
+  - `docs/README.md`: item do runbook atualizado com atalho direto para `#checklist-rápido-de-auditoria-de-idioma-novos-docs`
+  - `docs/03_BACKLOG.md`: `P5-42` marcado como `DONE`; `P5-43` criado para validação de âncoras com acentos
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com reforço de adoção prática da checklist
+- Validation:
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Manual: revisão do atalho inserido no hub e coerência com a seção do runbook
+- Risks:
+  - Âncoras com acentos podem variar entre renderizadores markdown; validar compatibilidade no próximo passo
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Iniciar `P5-43`: validar/ajustar compatibilidade de âncoras com acentos no hub
