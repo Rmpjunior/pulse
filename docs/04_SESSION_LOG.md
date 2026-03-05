@@ -1648,3 +1648,24 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Iniciar `P5-35`: adicionar nota no `docs/README.md` reforçando gate documental obrigatório
+
+### Session 2026-03-05 17:22 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-35` reforçando gate documental obrigatório no hub de docs
+- Backlog Item: P5-35
+- Changes:
+  - `docs/README.md`: adicionada nota destacada de gate documental obrigatório na abertura da seção de docs operacionais
+  - `docs/03_BACKLOG.md`: `P5-35` marcado como `DONE`; `P5-36` criado para atalho direto à seção `Quality Check (docs)`
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com reforço de visibilidade do gate no hub
+- Validation:
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Manual: revisão da posição e clareza da nota no hub de documentação
+- Risks:
+  - Sem risco funcional (mudança documental)
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Iniciar `P5-36`: adicionar atalho direto para a seção `Quality Check (docs)` no hub de docs
