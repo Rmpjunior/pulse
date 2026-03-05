@@ -1219,7 +1219,7 @@ export function EditorContent({
         )}
 
         {/* Action buttons */}
-        <div className="flex gap-2 sm:gap-3 mt-6 sticky bottom-0 bg-background/95 backdrop-blur py-3 border-t">
+        <div className="mt-6 flex gap-2 border-t pt-3 sm:gap-3 lg:sticky lg:bottom-0 lg:bg-background/95 lg:py-3 lg:backdrop-blur">
           <Button
             variant="gradient"
             className="flex-1"
