@@ -16,6 +16,10 @@ This file is the operating contract for any AI coding agent working on Pulse.
    - mark backlog item status
    - append a new session entry in `docs/04_SESSION_LOG.md`
    - update `docs/02_CURRENT_STATE.md` if behavior changed
+6. Before closing session, run documentary gate checklist:
+   - [ ] `Quality Check (docs)` preenchido no `docs/04_SESSION_LOG.md`
+   - [ ] Links operacionais revisados quando README/docs operacionais mudarem
+   - [ ] PT-BR confirmado para qualquer texto novo de UI/documentação
 
 ## Non-Negotiable Rules
 

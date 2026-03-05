@@ -1606,3 +1606,24 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Iniciar `P5-33`: incluir micro-checklist do gate documental no `docs/00_AGENT_START_HERE.md`
+
+### Session 2026-03-05 16:52 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-33` adicionando micro-checklist de gate documental no start guide
+- Backlog Item: P5-33
+- Changes:
+  - `docs/00_AGENT_START_HERE.md`: workflow obrigatório ganhou micro-checklist de gate documental antes de encerrar sessão
+  - `docs/03_BACKLOG.md`: `P5-33` marcado como `DONE`; `P5-34` criado para alinhamento no setup OpenClaw
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com reforço do gate documental no start guide
+- Validation:
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Manual: revisão da ordem do workflow para garantir visibilidade do checklist no início da sessão
+- Risks:
+  - Sem risco funcional (mudança documental)
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Iniciar `P5-34`: adicionar referência explícita ao gate documental em `docs/06_OPENCLAW_SETUP.md`

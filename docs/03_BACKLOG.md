@@ -103,7 +103,9 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | P5-30 | DONE | Adicionar lembrete para preencher "Quality Check (docs)" em novas sessões no template | Aumentar adesão prática ao controle documental |
 | P5-31 | DONE | Atualizar últimas entradas de sessão com `Quality Check (docs)` preenchido | Garantir consistência entre template novo e prática real |
 | P5-32 | DONE | Adicionar nota no runbook sobre quando usar `Quality Check (docs)` como gate de saída | Evitar fechamento de sessão sem verificação documental |
-| P5-33 | TODO | Adicionar micro-checklist de gate documental no `docs/00_AGENT_START_HERE.md` | Garantir que o gate seja visto no início de cada sessão |
+| P5-33 | DONE | Adicionar micro-checklist de gate documental no `docs/00_AGENT_START_HERE.md` | Garantir que o gate seja visto no início de cada sessão |
+| P5-34 | TODO | Incluir referência explícita ao gate documental em `docs/06_OPENCLAW_SETUP.md` | Manter alinhamento entre setup de execução e critérios de saída |
+
 
 
 
