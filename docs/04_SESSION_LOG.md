@@ -942,3 +942,23 @@ Append one entry per coding session.
   - Ainda restam superfícies com `<img>` legado e oportunidades de trocar placeholders secundários quando novos assets externos chegarem
 - Next:
   - Pós-roadmap concluído (P4 fechado). Próximo ciclo sugerido: hardening técnico de imagens (`next/image` nas áreas com warning) + monitoramento de deploy quando acesso for liberado
+
+### Session 2026-03-05 05:07 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar hardening contínuo pós-roadmap reduzindo warnings prioritários
+- Backlog Item: P5-1
+- Changes:
+  - `src/components/editor/theme-editor.tsx`: removido import não utilizado (`Button`)
+  - `src/app/[locale]/(dashboard)/dashboard/settings/settings-content.tsx`: removido estado não utilizado (`email`) e input passou a usar `user.email` diretamente
+  - `src/app/[locale]/(dashboard)/dashboard/settings/settings-content.tsx`: avatar migrado de `<img>` para `next/image`
+  - `docs/03_BACKLOG.md`: criada seção `P5 (Continuous Hardening)` e `P5-1` marcado como `DONE`
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com status do hardening incremental
+- Validation:
+  - Command: `npm run lint` -> passou (0 erros; warnings reduzidos de 18 para 15)
+  - Command: `npm run build` -> passou
+  - Manual: revisão do card de conta em settings (avatar + campos) para garantir consistência visual
+- Risks:
+  - Ainda existem warnings de `<img>` em editor/public/components; migração deve continuar em lotes pequenos para evitar regressões visuais
+- Next:
+  - Iniciar `P5-2`: migrar `<img>` mais críticos da página pública (`/p/[username]`) para `next/image`

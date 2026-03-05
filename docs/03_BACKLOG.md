@@ -67,6 +67,13 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | P4-3 | DONE | Revisão de imagens/ícones da landing e do app completo; mapear pontos fracos visuais e gerar prompts prontos para criação em IA externa | Melhorar percepção de qualidade visual com plano executável |
 | P4-4 | DONE | Troca guiada de imagens/ícones após recebimento dos assets gerados + validação visual responsiva | Fechar loop de melhoria visual com implementação real |
 
+## P5 (Continuous Hardening)
+
+| ID | Status | Task | Why |
+|---|---|---|---|
+| P5-1 | DONE | Reduzir warnings de lint prioritários (imports/estados não usados + migração incremental de `<img>` para `next/image`) | Manter qualidade contínua pós-roadmap e facilitar evolução sem ruído |
+| P5-2 | TODO | Migrar `<img>` críticos da página pública (`/p/[username]`) para `next/image` em lotes pequenos | Melhorar performance percebida e reduzir warnings de lint remanescentes |
+
 ## Discovery Notes (Keepo live exploration)
 
 Validated in real Keepo flow (`editor.keepo.bio`) using authenticated session:

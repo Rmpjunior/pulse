@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 import { Button } from "@/components/ui/button";
@@ -43,7 +44,6 @@ interface SettingsContentProps {
 export function SettingsContent({ user, subscription }: SettingsContentProps) {
   const router = useRouter();
   const [name, setName] = useState(user.name || "");
-  const [email, setEmail] = useState(user.email || "");
   const [isSaving, setIsSaving] = useState(false);
   const [isSendingReset, setIsSendingReset] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -137,10 +137,12 @@ export function SettingsContent({ user, subscription }: SettingsContentProps) {
         <CardContent className="space-y-4">
           <div className="flex items-center gap-4">
             {user.image ? (
-              <img
+              <Image
                 src={user.image}
                 alt={user.name || ""}
-                className="h-16 w-16 rounded-full"
+                width={64}
+                height={64}
+                className="h-16 w-16 rounded-full object-cover"
               />
             ) : (
               <div className="h-16 w-16 rounded-full gradient-primary flex items-center justify-center text-white text-xl font-bold">
@@ -163,7 +165,7 @@ export function SettingsContent({ user, subscription }: SettingsContentProps) {
 
           <div>
             <label className="text-sm font-medium mb-2 block">E-mail</label>
-            <Input value={email} disabled className="bg-muted" />
+            <Input value={user.email || ""} disabled className="bg-muted" />
             <p className="text-xs text-muted-foreground mt-1">
               O e-mail não pode ser alterado
             </p>
