@@ -1,5 +1,7 @@
 # Pulse
 
+[![CI](https://github.com/Rmpjunior/pulse/actions/workflows/ci.yml/badge.svg)](https://github.com/Rmpjunior/pulse/actions/workflows/ci.yml)
+
 Pulse is a bio-page builder inspired by keepo.bio.
 
 This repository is structured to be continued by human contributors and AI coding agents (for example, OpenClaw + Codex).
@@ -21,6 +23,12 @@ npm run dev
 ```
 
 Open `http://localhost:3000`.
+
+## CI Status (quick check)
+
+- Badge above reflects the latest result of `.github/workflows/ci.yml` on `main`.
+- Direct link: https://github.com/Rmpjunior/pulse/actions/workflows/ci.yml
+- Expected quality gates: `npm run lint` + `npm run test` + `npm run build`
 
 ## Existing Documentation
 

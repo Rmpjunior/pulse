@@ -1077,3 +1077,22 @@ Append one entry per coding session.
   - Nenhum risco funcional esperado; mudança atua apenas no controle de execução e permissões da pipeline
 - Next:
   - Iniciar `P5-8`: expor status de CI de forma mais visível no README
+
+### Session 2026-03-05 10:52 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-8` com visibilidade de status da CI no README
+- Backlog Item: P5-8
+- Changes:
+  - `README.md`: adicionada badge da workflow de CI (`ci.yml`) com link direto para o Actions
+  - `README.md`: adicionada seção `CI Status (quick check)` com link e gates esperados (`lint`, `test`, `build`)
+  - `docs/03_BACKLOG.md`: `P5-8` marcado como `DONE`; `P5-9` criado para troubleshooting rápido da CI
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com visibilidade de CI no README
+- Validation:
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Manual: conferência de links e markdown da badge no README
+- Risks:
+  - Badge reflete a branch padrão; em caso de mudança de nome de workflow/branch, atualizar URL
+- Next:
+  - Iniciar `P5-9`: documentar falhas comuns da CI e ações de resposta rápida
