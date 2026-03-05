@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { RegisterForm } from "./register-form";
@@ -25,6 +26,15 @@ export default function RegisterPage() {
       </div>
 
       <div className="w-full max-w-md relative z-10">
+        <div className="mb-6 overflow-hidden rounded-2xl border border-border/50 bg-card p-2 shadow-lg">
+          <Image
+            src="/assets/auth-illustration-v2.jpg"
+            alt="Ilustração de criação de minisite"
+            width={1218}
+            height={653}
+            className="h-auto w-full rounded-xl object-cover"
+          />
+        </div>
         {/* Logo */}
         <Link href="/" className="flex items-center justify-center gap-2 mb-8">
           <BrandLogo size={40} className="rounded-xl" />
