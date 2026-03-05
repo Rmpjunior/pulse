@@ -1202,3 +1202,21 @@ Append one entry per coding session.
   - Sem risco funcional (mudança documental)
 - Next:
   - Iniciar `P5-14`: mini-checklist de handoff para continuidade entre turnos/sessões
+
+### Session 2026-03-05 12:22 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-14` com mini-checklist de handoff para próximo turno
+- Backlog Item: P5-14
+- Changes:
+  - `README.md`: adicionada seção `Handoff rápido (próximo turno)` com checklist objetivo para continuidade entre sessões/agentes
+  - `docs/03_BACKLOG.md`: `P5-14` marcado como `DONE`; `P5-15` criado para normalização de IDs duplicados
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com checklist de handoff
+- Validation:
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Manual: revisão da checklist para garantir completude mínima de continuidade
+- Risks:
+  - Sem risco funcional (mudança documental)
+- Next:
+  - Iniciar `P5-15`: corrigir duplicidade de IDs no backlog e normalizar numeração

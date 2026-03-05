@@ -84,6 +84,7 @@ Last updated: 2026-03-04
 - README inclui playbook de rollback rápido em produção (critério, passos, verificação e protocolo de comunicação)
 - README inclui runbook curto de incidente de autenticação (Google OAuth + credenciais) com diagnóstico, ações por cenário e verificação pós-correção
 - README agora tem índice operacional rápido com links diretos para CI, troubleshooting, checklist pós-deploy, rollback e incidente de autenticação
+- README inclui mini-checklist de handoff para continuidade entre turnos/sessões sem perda de contexto operacional
 - Plano técnico de custom domain/subdomain publicado em `docs/08_CUSTOM_DOMAIN_PLAN.md` com arquitetura, modelo de dados, APIs, critérios e rollout quebrado em etapas
 - Visitor identity para analytics agora usa fingerprint estável por request headers (user-agent + idioma + IP encaminhado hash), substituindo ID aleatório por evento
 - Test baseline ativo com Vitest (`npm run test`) cobrindo helpers críticos de API (error shape + validation)

@@ -158,6 +158,17 @@ Use quando login/cadastro falhar para usuários (Google OAuth ou e-mail/senha).
   - ação aplicada,
   - horário de normalização.
 
+## Handoff rápido (próximo turno)
+
+Antes de encerrar um turno/sessão, confirmar:
+
+- [ ] Último commit/push em `main` registrado no `docs/04_SESSION_LOG.md`
+- [ ] `docs/02_CURRENT_STATE.md` atualizado com o status real
+- [ ] `docs/03_BACKLOG.md` com próximo item claro (`TODO`/`IN_PROGRESS`/`DONE`)
+- [ ] `npm run lint` e `npm run build` sem erro no lote entregue
+- [ ] Bloqueios externos anotados com **input exato necessário**
+- [ ] Próximo passo descrito em linguagem objetiva para continuidade imediata
+
 ## Existing Documentation
 
 - `docs/FEATURES.md`: Product scope and inspiration notes
