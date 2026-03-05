@@ -62,6 +62,45 @@ Use this after any push to `main`:
    - Check `CI Troubleshooting (quick fix)` section above.
    - Roll back only if production is impacted.
 
+## Rollback rápido (produção)
+
+Use quando um deploy novo quebra fluxo crítico (login, editor, página pública, erro 5xx recorrente).
+
+### Critérios para rollback
+
+- CI verde, mas produção com erro crítico para usuário final.
+- Regressão confirmada após deploy recente em `main`.
+- Impacto em jornada principal (acesso, edição, publicação, visualização pública).
+
+### Passos (resposta rápida)
+
+1. Identificar último commit estável conhecido em `main`.
+2. Criar commit de reversão:
+   - `git revert <commit_problematico>`
+   - ou `git revert <sha_inicio>^..<sha_fim>` (quando forem vários)
+3. Rodar validação local mínima:
+   - `npm run lint`
+   - `npm run test`
+   - `npm run build`
+4. Push para `main` e acompanhar CI.
+5. Confirmar novo deploy em produção.
+
+### Verificação pós-rollback
+
+- Landing abre sem erro.
+- Login/cadastro funcionam.
+- Dashboard/editor carregam.
+- Página pública (`/p/{username}`) renderiza corretamente.
+- Não há erros críticos no deploy/runtime.
+
+### Comunicação
+
+- Registrar no `docs/04_SESSION_LOG.md`:
+  - causa do rollback,
+  - commit revertido,
+  - horário,
+  - status final de produção.
+
 ## Existing Documentation
 
 - `docs/FEATURES.md`: Product scope and inspiration notes

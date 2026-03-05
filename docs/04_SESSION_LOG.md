@@ -1132,3 +1132,21 @@ Append one entry per coding session.
   - Sem risco funcional (mudança documental/processual)
 - Next:
   - Iniciar `P5-11`: playbook de rollback rápido para incidentes em produção
+
+### Session 2026-03-05 11:37 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-11` com playbook de rollback rápido para produção
+- Backlog Item: P5-11
+- Changes:
+  - `README.md`: adicionada seção `Rollback rápido (produção)` com critérios de acionamento, passos operacionais, verificação pós-rollback e protocolo de comunicação
+  - `docs/03_BACKLOG.md`: `P5-11` marcado como `DONE`; `P5-12` criado para runbook de incidentes de autenticação
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com disponibilidade do playbook de rollback
+- Validation:
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Manual: revisão de clareza e ordem do playbook para resposta em incidente real
+- Risks:
+  - Sem risco funcional (mudança documental/processual)
+- Next:
+  - Iniciar `P5-12`: runbook curto de incidentes de login/auth (Google + credenciais)
