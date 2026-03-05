@@ -1958,3 +1958,25 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Iniciar `P5-49`: revisar índice operacional do README raiz para IDs explícitos quando aplicável
+
+### Session 2026-03-05 22:37 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-49` migrando links do índice operacional do README raiz para IDs explícitos quando aplicável
+- Backlog Item: P5-49
+- Changes:
+  - `README.md`: índice operacional atualizado para IDs explícitos em seções com acento/maior ambiguidade (`rollback-rapido-producao`, `incidente-autenticacao-runbook-curto`, `nota-monitoramento-limitacoes`, `checklist-pos-merge-prs-criticos`)
+  - `README.md`: adicionados IDs explícitos nas respectivas seções para navegação estável
+  - `docs/03_BACKLOG.md`: `P5-49` marcado como `DONE`; `P5-50` criado para concluir migração de IDs explícitos nas seções restantes
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com avanço da padronização de âncoras no README raiz
+- Validation:
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Manual: revisão dos links atualizados no índice operacional
+- Risks:
+  - Algumas seções ainda usam slug implícito; migração será finalizada no próximo lote
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Iniciar `P5-50`: completar migração do índice operacional para IDs explícitos nas seções restantes

@@ -29,11 +29,11 @@ Open `http://localhost:3000`.
 - [CI Status (quick check)](#ci-status-quick-check)
 - [CI Troubleshooting (quick fix)](#ci-troubleshooting-quick-fix)
 - [Post-deploy quick checklist](#post-deploy-quick-checklist)
-- [Rollback rápido (produção)](#rollback-rápido-produção)
-- [Incidente de autenticação (runbook curto)](#incidente-de-autenticação-runbook-curto)
+- [Rollback rápido (produção)](#rollback-rapido-producao)
+- [Incidente de autenticação (runbook curto)](#incidente-autenticacao-runbook-curto)
 - [Comandos operacionais frequentes](#comandos-operacionais-frequentes)
-- [Nota de monitoramento (limitações atuais)](#nota-de-monitoramento-limitações-atuais)
-- [Checklist pós-merge (PRs críticos)](#checklist-pós-merge-prs-críticos)
+- [Nota de monitoramento (limitações atuais)](#nota-monitoramento-limitacoes)
+- [Checklist pós-merge (PRs críticos)](#checklist-pos-merge-prs-criticos)
 - [Template de incidente (session log)](docs/04_SESSION_LOG.md#incident-entry-template-quick)
 - [Exemplo fictício de incidente](docs/04_SESSION_LOG.md#incident-example-fictitious)
 
@@ -75,6 +75,8 @@ Use this after any push to `main`:
    - Check `CI Troubleshooting (quick fix)` section above.
    - Roll back only if production is impacted.
 
+<a id="rollback-rapido-producao"></a>
+
 ## Rollback rápido (produção)
 
 Use quando um deploy novo quebra fluxo crítico (login, editor, página pública, erro 5xx recorrente).
@@ -113,6 +115,8 @@ Use quando um deploy novo quebra fluxo crítico (login, editor, página pública
   - commit revertido,
   - horário,
   - status final de produção.
+
+<a id="incidente-autenticacao-runbook-curto"></a>
 
 ## Incidente de autenticação (runbook curto)
 
@@ -181,6 +185,8 @@ npx prisma generate
 npx prisma db push
 ```
 
+<a id="nota-monitoramento-limitacoes"></a>
+
 ## Nota de monitoramento (limitações atuais)
 
 No ambiente atual do agente, o monitoramento em tempo real de deploy tem limitações:
@@ -198,6 +204,8 @@ No ambiente atual do agente, o monitoramento em tempo real de deploy tem limita�
 - Usar links diretos no README para conferência manual de CI.
 - Executar gates locais (`lint`, `test`, `build`) antes de cada push.
 - Registrar bloqueio e próximo passo no update operacional.
+
+<a id="checklist-pos-merge-prs-criticos"></a>
 
 ## Checklist pós-merge (PRs críticos)
 
