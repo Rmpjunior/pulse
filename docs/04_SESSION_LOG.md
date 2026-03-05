@@ -1038,3 +1038,22 @@ Append one entry per coding session.
   - Nenhum risco funcional direto; manter `next.config.ts` alinhado caso o projeto vire monorepo real no futuro
 - Next:
   - Após backlog atual concluído, entrar em ciclo de manutenção contínua (tests visuais/responsivos, performance fina e observabilidade de deploy)
+
+### Session 2026-03-05 06:22 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-6` com pipeline de CI para gates automáticos de qualidade
+- Backlog Item: P5-6
+- Changes:
+  - `.github/workflows/ci.yml`: criada pipeline de CI no GitHub Actions para `push` em `main` e `pull_request` com etapas `npm ci`, `npm run lint`, `npm run test`, `npm run build`
+  - `docs/03_BACKLOG.md`: `P5-6` marcado como `DONE`
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com status da CI
+- Validation:
+  - Command: `npm run lint` -> passou (sem warnings/erros)
+  - Command: `npm run test` -> passou (6 arquivos, 16 testes)
+  - Command: `npm run build` -> passou
+  - Manual: revisão da workflow para garantir ordem correta de gates e cache de npm
+- Risks:
+  - Smoke test depende de ambiente de banco/variáveis no runner; em caso de falha no GitHub pode exigir ajuste de env secrets
+- Next:
+  - Monitorar primeira execução da CI em `main` e, se necessário, ajustar variáveis no GitHub Actions

@@ -76,6 +76,7 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | P5-3 | DONE | Migrar `<img>` remanescentes em editor/preview/components compartilhados para `next/image` | Finalizar limpeza de warnings de imagem com menor risco incremental |
 | P5-4 | DONE | Migrar `<img>` finais em `editor-content`, `block-editor` e `themed-preview` para zerar warnings de imagem | Fechar hardening visual/performance com lint praticamente limpo |
 | P5-5 | DONE | Resolver aviso recorrente de workspace root do Next.js (`turbopack.root`/lockfiles) | Reduzir ruído de build e risco de configuração ambígua em CI/deploy |
+| P5-6 | DONE | Adicionar pipeline de CI (lint + testes + build) no GitHub Actions | Proteger `main` contra regressões e padronizar validação automática |
 
 ## Discovery Notes (Keepo live exploration)
 
