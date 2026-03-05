@@ -38,6 +38,8 @@ Preenchimento obrigatório em novas sessões:
 - `Links operacionais revisados`: `yes/no`
 - `PT-BR confirmado em textos novos`: `yes/no`
 
+<a id="incident-entry-template-quick"></a>
+
 ## Incident Entry Template (quick)
 
 Use this block when recording production/auth/deploy incidents:
@@ -54,6 +56,8 @@ Use this block when recording production/auth/deploy incidents:
 - Verification: <how recovery was confirmed>
 - Follow-up: <preventive action + owner>
 ```
+
+<a id="incident-example-fictitious"></a>
 
 ### Incident Example (fictitious)
 
@@ -2045,3 +2049,26 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Iniciar `P5-53`: expandir micro-check para validar links de arquivo no índice operacional
+
+### Session 2026-03-05 23:51 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-53` expandindo micro-check para validar links de arquivo no índice operacional
+- Backlog Item: P5-53
+- Changes:
+  - `scripts/verify-readme-operational-anchors.mjs`: agora valida links locais (`#...`) e também links para arquivos com âncora (`arquivo.md#...`), incluindo existência do arquivo e do `<a id="...">` no destino
+  - `docs/04_SESSION_LOG.md`: adicionados IDs explícitos `incident-entry-template-quick` e `incident-example-fictitious` para compatibilidade com validação automática
+  - `docs/03_BACKLOG.md`: `P5-53` marcado como `DONE`; `P5-54` criado para integração do check na CI
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com cobertura estendida do micro-check
+- Validation:
+  - Command: `npm run check:readme-anchors` -> passou (`OK: 10 links do índice operacional validados`)
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Manual: revisão dos links de arquivo do índice operacional (`docs/04_SESSION_LOG.md#...`)
+- Risks:
+  - Sem risco funcional (mudança documental/tooling)
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Iniciar `P5-54`: integrar `check:readme-anchors` na CI para enforcement contínuo
