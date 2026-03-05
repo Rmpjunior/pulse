@@ -1168,3 +1168,19 @@ Append one entry per coding session.
   - Sem risco funcional (mudança documental/processual)
 - Next:
   - Iniciar `P5-13`: índice operacional no README para acesso rápido em incidentes
+
+### Session 2026-03-05 11:58 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Diagnosticar relato de impossibilidade de adicionar mais páginas na mesma conta
+- Backlog Item: P5-7
+- Changes:
+  - `src/app/api/pages/route.ts`: removida trava legada que bloqueava criação quando usuário já tinha uma página (`User already has a page`)
+  - `docs/03_BACKLOG.md`: adicionado `P5-7` como `DONE`
+- Validation:
+  - Lógica validada por inspeção de fluxo: endpoint `POST /api/pages` agora permite múltiplas páginas por usuário mantendo validação de `username` único
+  - Build/lint/test executados após patch
+- Risks:
+  - Nenhum risco funcional alto; comportamento agora alinha com dashboard multi-site já entregue
+- Next:
+  - Executar smoke de criação da 2ª página no dashboard e validar troca de contexto `pageId` no editor

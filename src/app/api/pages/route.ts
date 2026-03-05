@@ -63,15 +63,6 @@ export async function POST(request: Request) {
       return conflict('Username already taken');
     }
 
-    // Check if user already has a page
-    const userPage = await db.page.findFirst({
-      where: { userId: session.user.id },
-    });
-
-    if (userPage) {
-      return conflict('User already has a page');
-    }
-
     // Create the page
     const page = await db.page.create({
       data: {
