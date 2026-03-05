@@ -1873,3 +1873,25 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Iniciar `P5-45`: documentar convenção oficial de IDs de âncora (ASCII)
+
+### Session 2026-03-05 21:37 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-45` documentando convenção oficial de âncoras ASCII no hub/runbook
+- Backlog Item: P5-45
+- Changes:
+  - `docs/README.md`: adicionada seção `Convenção de âncoras internas (padrão)` com regra de IDs ASCII explícitos
+  - `docs/05_RUNBOOK.md`: reforço da convenção junto à checklist de auditoria de idioma
+  - `docs/03_BACKLOG.md`: `P5-45` marcado como `DONE`; `P5-46` criado para exemplo prático de nova seção ancorada
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com convenção oficial de âncoras documentada
+- Validation:
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Manual: revisão de consistência entre hub e runbook sobre o padrão de IDs ASCII
+- Risks:
+  - Sem risco funcional (mudança documental)
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Iniciar `P5-46`: adicionar exemplo rápido de seção com âncora explícita no runbook

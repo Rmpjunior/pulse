@@ -64,6 +64,8 @@ Se algum item estiver `no`, não encerrar sessão como concluída: corrigir ou r
 
 <a id="language-audit-checklist"></a>
 
+> Convenção de âncoras internas: usar IDs ASCII explícitos para seções linkadas pelo hub (evitar dependência de slug automático com acentos).
+
 ## Checklist rápido de auditoria de idioma (novos docs)
 
 Aplicar ao criar/editar documentação:

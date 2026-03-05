@@ -32,3 +32,11 @@ This folder has two documentation layers:
 - `docs/API.md` (EN técnico permitido)
 
 Use operational docs first to avoid context drift.
+
+## Convenção de âncoras internas (padrão)
+
+Para links internos usados no hub/runbook/session log:
+
+- Usar IDs explícitos em ASCII (ex.: `session-template`, `quality-check-docs`, `language-audit-checklist`).
+- Evitar depender de slug automático com acentos.
+- Sempre atualizar o atalho correspondente no `docs/README.md` quando criar/renomear seção ancorada.
