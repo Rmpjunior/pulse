@@ -1,7 +1,9 @@
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { BrandLogo } from "@/components/ui/brand-logo";
 import {
   Link as LinkIcon,
   Play,
@@ -11,7 +13,6 @@ import {
   Palette,
   ArrowRight,
   Check,
-  Sparkles,
   Rocket,
   PenSquare,
   Share2,
@@ -43,12 +44,8 @@ export default function HomePage() {
       <header className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <div className="h-8 w-8 rounded-lg gradient-primary flex items-center justify-center">
-              <Sparkles className="h-5 w-5 text-white" />
-            </div>
-            <span className="font-bold text-xl gradient-primary-text">
-              Pulse
-            </span>
+            <BrandLogo size={32} className="shadow-sm" />
+            <span className="font-bold text-xl gradient-primary-text">Pulse</span>
           </Link>
 
           <nav className="hidden md:flex items-center gap-6">
@@ -120,23 +117,15 @@ export default function HomePage() {
           {/* Demo Preview */}
           <div className="mt-16 relative">
             <div className="absolute inset-0 bg-gradient-to-r from-orange-500/20 to-purple-500/20 blur-3xl" />
-            <div className="relative bg-card border border-border rounded-2xl p-4 shadow-2xl max-w-sm mx-auto">
-              <div className="aspect-[9/16] bg-muted rounded-xl flex items-center justify-center">
-                <div className="text-center p-6">
-                  <div className="w-20 h-20 rounded-full gradient-primary mx-auto mb-4 flex items-center justify-center">
-                    <span className="text-2xl text-white font-bold">P</span>
-                  </div>
-                  <h3 className="font-semibold mb-1">@username</h3>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    Minha bio aqui
-                  </p>
-                  <div className="space-y-2">
-                    <div className="h-10 rounded-lg gradient-primary opacity-80" />
-                    <div className="h-10 rounded-lg bg-secondary opacity-80" />
-                    <div className="h-10 rounded-lg bg-muted" />
-                  </div>
-                </div>
-              </div>
+            <div className="relative bg-card border border-border rounded-2xl p-3 shadow-2xl max-w-md mx-auto">
+              <Image
+                src="/Gemini_Generated_Image_mhylomhylomhylom.png"
+                alt="Prévia de minisite criado no Pulse"
+                width={944}
+                height={944}
+                priority
+                className="w-full h-auto rounded-xl object-cover"
+              />
             </div>
           </div>
         </div>

@@ -920,3 +920,25 @@ Append one entry per coding session.
   - Qualidade final depende da geração dos assets externos e da consistência de estilo entre lotes
 - Next:
   - Iniciar `P4-4`: aplicar assets gerados no produto com validação responsiva antes/depois
+
+### Session 2026-03-05 04:52 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P4-4` com primeira troca guiada de assets e validação responsiva
+- Backlog Item: P4-4
+- Changes:
+  - `src/components/ui/brand-logo.tsx`: criado componente de branding reutilizável baseado em `public/icon.png`
+  - `src/app/[locale]/page.tsx`: hero da landing trocado de mockup abstrato para asset real (`/Gemini_Generated_Image_mhylomhylomhylom.png`) com `next/image`
+  - `src/app/[locale]/page.tsx`: logo principal da landing migrado para `BrandLogo`
+  - `src/app/[locale]/(auth)/login/page.tsx`, `src/app/[locale]/(auth)/register/page.tsx`, `src/app/[locale]/(auth)/forgot-password/page.tsx`: branding de topo migrado para `BrandLogo`
+  - `src/components/dashboard/sidebar.tsx`: logo do sidebar migrado para `BrandLogo`
+  - `docs/03_BACKLOG.md`: `P4-4` marcado como `DONE`
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com status da troca guiada de assets
+- Validation:
+  - Command: `npm run lint` -> passou (0 erros; warnings pré-existentes)
+  - Command: `npm run build` -> passou
+  - Manual: revisão visual responsiva base em landing e auth (desktop/mobile) para checar proporção do novo hero e legibilidade do novo logo
+- Risks:
+  - Ainda restam superfícies com `<img>` legado e oportunidades de trocar placeholders secundários quando novos assets externos chegarem
+- Next:
+  - Pós-roadmap concluído (P4 fechado). Próximo ciclo sugerido: hardening técnico de imagens (`next/image` nas áreas com warning) + monitoramento de deploy quando acesso for liberado

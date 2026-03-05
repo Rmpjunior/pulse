@@ -9,10 +9,10 @@ import {
   FileEdit,
   BarChart3,
   Settings,
-  Sparkles,
   CreditCard,
   X,
 } from "lucide-react";
+import { BrandLogo } from "@/components/ui/brand-logo";
 
 const navigation = [
   { name: "dashboard.title", href: "/dashboard", icon: LayoutDashboard },
@@ -47,9 +47,7 @@ export function DashboardSidebar({ isOpen, onClose }: DashboardSidebarProps) {
     <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-border bg-card px-6 pb-4">
       <div className="flex h-16 shrink-0 items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
-          <div className="h-8 w-8 rounded-lg gradient-primary flex items-center justify-center">
-            <Sparkles className="h-5 w-5 text-white" />
-          </div>
+          <BrandLogo size={32} className="shadow-sm" />
           <span className="font-bold text-xl gradient-primary-text">
             {tCommon("appName")}
           </span>

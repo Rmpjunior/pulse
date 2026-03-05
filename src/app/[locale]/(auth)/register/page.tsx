@@ -8,8 +8,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Sparkles } from "lucide-react";
 import { isGoogleOAuthEnabled } from "@/lib/auth/google-config";
+import { BrandLogo } from "@/components/ui/brand-logo";
 
 export default function RegisterPage() {
   const t = useTranslations("auth.register");
@@ -27,9 +27,7 @@ export default function RegisterPage() {
       <div className="w-full max-w-md relative z-10">
         {/* Logo */}
         <Link href="/" className="flex items-center justify-center gap-2 mb-8">
-          <div className="h-10 w-10 rounded-xl gradient-primary flex items-center justify-center">
-            <Sparkles className="h-6 w-6 text-white" />
-          </div>
+          <BrandLogo size={40} className="rounded-xl" />
           <span className="font-bold text-2xl gradient-primary-text">
             {tCommon("appName")}
           </span>
