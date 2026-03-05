@@ -1020,3 +1020,21 @@ Append one entry per coding session.
   - Build ainda mostra warning de configuração (`turbopack.root` / lockfiles múltiplos), que pode confundir setup em CI
 - Next:
   - Iniciar `P5-5`: resolver aviso de workspace root do Next.js para reduzir ruído de build/deploy
+
+### Session 2026-03-05 06:07 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-5` removendo aviso recorrente de workspace root no build do Next.js
+- Backlog Item: P5-5
+- Changes:
+  - `next.config.ts`: adicionado `turbopack.root` usando `process.cwd()` para fixar root do workspace e eliminar ambiguidade de lockfiles
+  - `docs/03_BACKLOG.md`: `P5-5` marcado como `DONE`
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com ajuste de configuração do build
+- Validation:
+  - Command: `npm run lint` -> passou (sem warnings/erros)
+  - Command: `npm run build` -> passou e warning de workspace root não apareceu mais
+  - Manual: revisão do output de build para confirmar remoção do warning
+- Risks:
+  - Nenhum risco funcional direto; manter `next.config.ts` alinhado caso o projeto vire monorepo real no futuro
+- Next:
+  - Após backlog atual concluído, entrar em ciclo de manutenção contínua (tests visuais/responsivos, performance fina e observabilidade de deploy)
