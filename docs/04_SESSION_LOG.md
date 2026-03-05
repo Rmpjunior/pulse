@@ -2001,3 +2001,24 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Iniciar `P5-51`: adicionar nota de manutenção para novos IDs explícitos no README raiz
+
+### Session 2026-03-05 23:21 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-51` adicionando nota de manutenção para IDs explícitos no README raiz
+- Backlog Item: P5-51
+- Changes:
+  - `README.md`: seção `Índice operacional rápido` agora inclui nota de manutenção exigindo ID ASCII explícito para novas seções
+  - `docs/03_BACKLOG.md`: `P5-51` marcado como `DONE`; `P5-52` criado para possível micro-check automático
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com regra de manutenção para prevenir regressão de âncoras
+- Validation:
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Manual: revisão da nota para clareza e acionabilidade em futuras edições
+- Risks:
+  - Sem risco funcional (mudança documental)
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Iniciar `P5-52`: avaliar micro-check automático para detectar índice sem âncora explícita

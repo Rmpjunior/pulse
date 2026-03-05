@@ -26,6 +26,8 @@ Open `http://localhost:3000`.
 
 ## Índice operacional rápido
 
+> Manutenção: ao adicionar nova seção operacional neste README, criar também um `<a id="...">` ASCII explícito e atualizar o índice.
+
 - [CI Status (quick check)](#ci-status-quick-check)
 - [CI Troubleshooting (quick fix)](#ci-troubleshooting-quick-fix)
 - [Post-deploy quick checklist](#post-deploy-quick-checklist)
