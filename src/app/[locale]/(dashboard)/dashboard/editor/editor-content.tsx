@@ -355,7 +355,7 @@ export function EditorContent({
       ]);
 
       pushToast("success", "Página criada com onboarding inicial.");
-      router.refresh();
+      router.push(`/dashboard/editor?pageId=${createdPage.id}`);
     } catch (error) {
       console.error("Error creating page:", error);
       pushToast("error", "Erro ao criar página.");
