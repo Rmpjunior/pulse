@@ -1057,3 +1057,23 @@ Append one entry per coding session.
   - Smoke test depende de ambiente de banco/variáveis no runner; em caso de falha no GitHub pode exigir ajuste de env secrets
 - Next:
   - Monitorar primeira execução da CI em `main` e, se necessário, ajustar variáveis no GitHub Actions
+
+### Session 2026-03-05 10:38 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-7` para otimizar pipeline de CI sem alterar fluxo funcional
+- Backlog Item: P5-7
+- Changes:
+  - `.github/workflows/ci.yml`: adicionado `concurrency` com `cancel-in-progress` para evitar runs duplicadas
+  - `.github/workflows/ci.yml`: adicionada seção `permissions` mínima (`contents: read`)
+  - `docs/03_BACKLOG.md`: `P5-7` marcado como `DONE`; `P5-8` criado como próximo passo de visibilidade
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com melhorias de eficiência/segurança da CI
+- Validation:
+  - Command: `npm run lint` -> passou
+  - Command: `npm run test` -> passou (6 arquivos, 16 testes)
+  - Command: `npm run build` -> passou
+  - Manual: revisão da workflow para confirmar cancelamento de runs em pushes rápidos e escopo mínimo de permissões
+- Risks:
+  - Nenhum risco funcional esperado; mudança atua apenas no controle de execução e permissões da pipeline
+- Next:
+  - Iniciar `P5-8`: expor status de CI de forma mais visível no README

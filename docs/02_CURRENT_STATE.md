@@ -77,6 +77,7 @@ Last updated: 2026-03-04
 - Migração final de `<img>` concluída em `editor-content`, `block-editor` e `themed-preview`; `npm run lint` agora sem warnings/erros
 - Configuração do Next.js ajustada com `turbopack.root` (`process.cwd()`), removendo aviso recorrente de root ambíguo no build
 - Pipeline de CI adicionada em `.github/workflows/ci.yml` com gates automáticos de `lint`, `test` e `build` para `push` na `main` e `pull_request`
+- Workflow de CI otimizada com `concurrency` (`cancel-in-progress`) e permissões mínimas (`contents: read`) para reduzir execuções redundantes e endurecer segurança padrão
 - Plano técnico de custom domain/subdomain publicado em `docs/08_CUSTOM_DOMAIN_PLAN.md` com arquitetura, modelo de dados, APIs, critérios e rollout quebrado em etapas
 - Visitor identity para analytics agora usa fingerprint estável por request headers (user-agent + idioma + IP encaminhado hash), substituindo ID aleatório por evento
 - Test baseline ativo com Vitest (`npm run test`) cobrindo helpers críticos de API (error shape + validation)
