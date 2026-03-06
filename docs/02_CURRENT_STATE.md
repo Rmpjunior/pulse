@@ -157,6 +157,7 @@ Last updated: 2026-03-04
 - `P6-23` concluído: runbook inclui checklist de evidência mínima para PRs que alterem QA pesado (smokes + gates técnicos + artefatos)
 - `P6-24` concluído: `docs/00_AGENT_START_HERE.md` agora referencia explicitamente o checklist de evidência P6 do runbook antes de abrir/atualizar PR
 - `P6-37` concluído: runbook define janela retroativa padrão (últimas 5 sessões) para micro-checks novos, reduzindo escopo indefinido em backfills históricos
+- `P6-38` concluído: template de sessão em `docs/04_SESSION_LOG.md` agora inclui confirmação explícita da janela retroativa padrão (últimas 5 sessões)
 - `P6-36` concluído: últimas sessões recentes no `docs/04_SESSION_LOG.md` receberam retroativamente o campo de micro-check de consistência de evidência P6
 - `P6-35` concluído: template de sessão (`docs/04_SESSION_LOG.md`) agora exige também micro-check de consistência do bullet "Quando usar evidência P6" entre README/hub/start guide
 - `P6-34` concluído: runbook ganhou micro-check para validar consistência do texto "Quando usar evidência P6" entre README raiz, hub e start guide

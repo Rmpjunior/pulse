@@ -26,6 +26,7 @@ Append one entry per coding session.
   - Links operacionais revisados: <yes/no>
   - PT-BR confirmado em textos novos: <yes/no>
   - Micro-check "Quando usar evidência P6" consistente entre README/docs hub/start guide: <yes/no>
+  - Janela retroativa padrão para micro-checks novos respeitada (últimas 5 sessões): <yes/no>
 - Next:
   - <next concrete action>
 ```
@@ -3253,3 +3254,31 @@ Use this block when recording production/auth/deploy incidents:
   - Micro-check "Quando usar evidência P6" consistente entre README/docs hub/start guide: yes
 - Next:
   - Executar `P6-38`: explicitar janela retroativa padrão no template de `docs/04_SESSION_LOG.md`
+
+### Session 2026-03-06 16:19 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P6-38` explicitando no template a janela retroativa padrão para novos micro-checks
+- Backlog Item: P6-38
+- Changes:
+  - `docs/04_SESSION_LOG.md`: template de sessão ganhou linha obrigatória no `Quality Check (docs)` para confirmar respeito à janela retroativa padrão (últimas 5 sessões)
+  - `docs/03_BACKLOG.md`: `P6-38` marcado como `DONE`; `P6-39` criado para exemplo curto de preenchimento no runbook
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com a formalização da janela retroativa no template
+- Validation:
+  - Command: `npm run qa:p6-route-matrix` -> passou
+  - Command: `npm run qa:p6-degraded-api-smoke` -> passou
+  - Command: `npm run test` -> passou (17/17)
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Route-level UI checks: baseline preservado pelos smokes de rota/degradado
+- Monitoring:
+  - GitHub/Vercel CLI indisponíveis neste host (`gh`/`vercel` não instalados); monitoramento segue por evidência local de build/test
+- Risks:
+  - Sem exemplo preenchido no runbook, pode haver interpretação divergente do novo campo por agentes novos
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+  - Micro-check "Quando usar evidência P6" consistente entre README/docs hub/start guide: yes
+  - Janela retroativa padrão para micro-checks novos respeitada (últimas 5 sessões): yes
+- Next:
+  - Executar `P6-39`: adicionar no runbook um exemplo curto de preenchimento da linha de janela retroativa

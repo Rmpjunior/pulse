@@ -178,7 +178,8 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | P6-35 | DONE | Incluir lembrete desse micro-check no template de sessão (`docs/04_SESSION_LOG.md`) | Aumentar adesão operacional ao controle de consistência P6 |
 | P6-36 | DONE | Adicionar linha equivalente de micro-check nas últimas sessões sem esse campo (ajuste retroativo curto) | Melhorar consistência histórica do log recente |
 | P6-37 | DONE | Adicionar nota no runbook definindo janela retroativa padrão (ex.: últimas 5-10 sessões) para micro-checks novos | Evitar escopo indefinido em ajustes históricos futuros |
-| P6-38 | TODO | Referenciar no template do session log a janela retroativa padrão (últimas 5 sessões) | Tornar explícito o limite de backfill no ponto onde a rotina é executada |
+| P6-38 | DONE | Referenciar no template do session log a janela retroativa padrão (últimas 5 sessões) | Tornar explícito o limite de backfill no ponto onde a rotina é executada |
+| P6-39 | TODO | Adicionar no runbook exemplo curto de preenchimento da linha de janela retroativa no Quality Check | Reduzir ambiguidade de preenchimento entre agentes |
 
 
 
