@@ -2558,3 +2558,26 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Executar `P6-11`: documentar variáveis e segredos necessários para ativar smoke logado no pipeline
+
+### Session 2026-03-06 05:46 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Concluir `P6-11` documentando ativação segura do smoke logado no runbook de CI
+- Backlog Item: P6-11
+- Changes:
+  - `docs/05_RUNBOOK.md`: seção `CI: smoke logado opcional (P6)` consolidada com flag, secrets e comportamento de sucesso/falha
+  - `docs/03_BACKLOG.md`: `P6-11` marcado como `DONE`; `P6-12` criado para validação opcional de credenciais com mensagem guiada
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com fechamento do item de documentação operacional do smoke logado
+- Validation:
+  - Command: `npm run qa:p6-route-matrix` -> passou
+  - Command: `npm run test` -> passou (17/17)
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Route-level UI checks: baseline P6 preservado (sem regressão observada neste lote)
+- Risks:
+  - Se secrets inválidos forem injetados no CI, diagnóstico ainda é técnico; `P6-12` vai melhorar mensagem guiada
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Executar `P6-12` para adicionar validação opcional de credenciais com feedback amigável em PT-BR no smoke logado

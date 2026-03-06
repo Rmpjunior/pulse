@@ -143,6 +143,8 @@ Last updated: 2026-03-04
 - `P6-8` concluído: job `p6-route-ui-smoke` agora captura screenshots automáticos (desktop/mobile) quando `qa:p6-route-matrix` falha e publica junto dos logs
 - `P6-9` concluído: startup healthcheck do job agora usa timeout explícito (90s) e diagnóstico amigável (tail de log + probes HTTP) quando app não sobe no CI
 - `P6-10` concluído: CI agora suporta smoke logado opcional (`qa:p6-auth-ui-smoke`) via env flag + secrets, com artefatos dedicados (`p6-auth-smoke-artifacts`) e log próprio
+- `P6-11` concluído: runbook documenta ativação do smoke logado no CI (flag, secrets, comportamento esperado e diagnóstico)
+- `P6-11` concluído: runbook agora documenta claramente variáveis/secrets de ativação, comportamento esperado e diagnóstico do smoke logado no CI
 - Verificação visual pós-correção confirmada em login (`/pt-BR/login`) com UI íntegra em PT-BR e sem regressão estrutural no fluxo principal
 - Plano técnico de custom domain/subdomain publicado em `docs/08_CUSTOM_DOMAIN_PLAN.md` com arquitetura, modelo de dados, APIs, critérios e rollout quebrado em etapas
 - Visitor identity para analytics agora usa fingerprint estável por request headers (user-agent + idioma + IP encaminhado hash), substituindo ID aleatório por evento

@@ -52,6 +52,28 @@ npx prisma studio
   - run `npm run build`
   - smoke-test auth + editor + public page
 
+## CI: smoke logado opcional (P6)
+
+Job relacionado: `.github/workflows/ci.yml` → `p6-route-ui-smoke`.
+
+### Como ativar
+
+1. Definir variável de repositório:
+   - `P6_AUTH_SMOKE_ENABLED=true`
+2. Definir secrets de CI:
+   - `P6_AUTH_EMAIL`
+   - `P6_AUTH_PASSWORD`
+
+### Comportamento esperado
+
+- Com `P6_AUTH_SMOKE_ENABLED=false` (default): passo logado é ignorado com sucesso.
+- Com `P6_AUTH_SMOKE_ENABLED=true` e secrets válidos:
+  - roda `npm run qa:p6-auth-ui-smoke`
+  - valida login + rotas `/dashboard`, `/dashboard/editor`, `/dashboard/settings`
+  - publica artefatos em `p6-auth-smoke-artifacts`
+- Com flag ativa e secrets ausentes/inválidos:
+  - o passo falha (diagnóstico no `p6-auth-ui-smoke.log`)
+
 ## Gate de saída documental (`Quality Check (docs)`)
 
 Use este gate **antes de encerrar qualquer sessão com alteração de código/docs**:
