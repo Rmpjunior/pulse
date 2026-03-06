@@ -87,6 +87,9 @@ jobs:
         continue-on-error: true
         run: npm run qa:p6-route-matrix | tee p6-route-matrix.log
 
+      - name: Run P6 degraded API smoke
+        run: npm run qa:p6-degraded-api-smoke | tee p6-degraded-api-smoke.log
+
       - name: Run optional P6 auth UI smoke
         env:
           P6_AUTH_SMOKE_ENABLED: ${{ vars.P6_AUTH_SMOKE_ENABLED || 'false' }}
@@ -117,6 +120,7 @@ jobs:
           path: |
             p6-route-ui-smoke.log
             p6-route-matrix.log
+            p6-degraded-api-smoke.log
             p6-auth-ui-smoke.log
             p6-failure-screenshots
             p6-auth-smoke-artifacts

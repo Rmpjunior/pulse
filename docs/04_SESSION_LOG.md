@@ -2656,3 +2656,28 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Executar `P6-15`: integrar `qa:p6-degraded-api-smoke` no job de QA pesado da CI
+
+### Session 2026-03-06 08:14 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P6-15` integrando smoke degradado de API ao job de QA pesado na CI
+- Backlog Item: P6-15
+- Changes:
+  - `.github/workflows/ci.yml`: job `p6-route-ui-smoke` agora executa `npm run qa:p6-degraded-api-smoke` e gera `p6-degraded-api-smoke.log`
+  - `.github/workflows/ci.yml`: upload de artefatos atualizado para incluir log dedicado do smoke degradado
+  - `docs/03_BACKLOG.md`: `P6-15` marcado como `DONE`; `P6-16` criado para retenção/limpeza de artefatos
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com conclusão da integração no pipeline
+- Validation:
+  - Command: `npm run qa:p6-degraded-api-smoke` -> passou
+  - Command: `npm run qa:p6-route-matrix` -> passou
+  - Command: `npm run test` -> passou (17/17)
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Route-level UI checks: baseline preservado pelos smokes de rota e degradado
+- Risks:
+  - Com mais logs/artefatos no job, cresce custo de retenção em runs frequentes (endereçado em `P6-16`)
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Executar `P6-16` para definir rotina de retenção/limpeza de artefatos de QA pesado
