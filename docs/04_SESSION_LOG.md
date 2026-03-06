@@ -2628,3 +2628,31 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Executar `P6-14`: cenário degradado avançado (falha de upstream + verificação de resposta na UI)
+
+### Session 2026-03-06 08:06 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P6-14` com cenário degradado avançado (API failures) e validar microcopy PT-BR
+- Backlog Item: P6-14
+- Changes:
+  - `scripts/p6-degraded-api-smoke.mjs`: novo smoke para cenários degradados de API
+    - JSON malformado em `/api/auth/register`
+    - corpo inválido em `/api/auth/register`
+    - acesso sem sessão em `/api/user`
+  - `package.json`: novo comando `qa:p6-degraded-api-smoke`
+  - `docs/03_BACKLOG.md`: `P6-14` marcado como `DONE`; `P6-15` criado para integração do smoke degradado no CI
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com cobertura degradada em PT-BR
+- Validation:
+  - Command: `npm run qa:p6-degraded-api-smoke` -> passou
+  - Command: `npm run qa:p6-route-matrix` -> passou
+  - Command: `npm run test` -> passou (17/17)
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Route-level UI checks: baseline de rotas preservado via `qa:p6-route-matrix` sem regressão
+- Risks:
+  - Smoke degradado ainda roda local/manualmente; sem integração no CI ele pode não ser executado em todo merge
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Executar `P6-15`: integrar `qa:p6-degraded-api-smoke` no job de QA pesado da CI
