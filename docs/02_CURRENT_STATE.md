@@ -138,6 +138,8 @@ Last updated: 2026-03-04
 - P6-5b concluiu limpeza adicional de resíduos EN em fluxos secundários: `Welcome/About` de templates/fallbacks migrados para PT-BR (`Boas-vindas`/`Sobre`) e rótulos `mobile/desktop` em mensagens PT-BR migrados para `Celular/Computador`
 - P6-5c concluiu varredura final de templates/fallbacks com validação visual e checks técnicos; bloco P6-5 foi fechado como `DONE`
 - P6-6 concluiu sweep de microcopy em erros de API: helpers de erro/validação e mensagens-chave de rotas API migradas para PT-BR (incluindo cenários de request inválida, senha e recursos não encontrados)
+- CI ganhou job dedicado `p6-route-ui-smoke` (após quality-gates) para executar `qa:p6-route-matrix` com artefatos de log, tornando parte do QA pesado recorrente no pipeline
+- `P6-7` fechado: QA pesado já roda de forma recorrente no CI; próximo passo é enriquecer artefatos visuais em falha (`P6-8`)
 - Verificação visual pós-correção confirmada em login (`/pt-BR/login`) com UI íntegra em PT-BR e sem regressão estrutural no fluxo principal
 - Plano técnico de custom domain/subdomain publicado em `docs/08_CUSTOM_DOMAIN_PLAN.md` com arquitetura, modelo de dados, APIs, critérios e rollout quebrado em etapas
 - Visitor identity para analytics agora usa fingerprint estável por request headers (user-agent + idioma + IP encaminhado hash), substituindo ID aleatório por evento

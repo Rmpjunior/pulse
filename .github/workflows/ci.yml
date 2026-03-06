@@ -44,3 +44,42 @@ jobs:
 
       - name: Build
         run: npm run build
+
+  p6-route-ui-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    needs: quality-gates
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build app
+        run: npm run build
+
+      - name: Start app
+        run: npm run start > p6-route-ui-smoke.log 2>&1 &
+
+      - name: Wait for app
+        run: npx -y wait-on http://127.0.0.1:3000/pt-BR
+
+      - name: Run P6 route matrix smoke
+        run: npm run qa:p6-route-matrix | tee p6-route-matrix.log
+
+      - name: Upload P6 smoke logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p6-route-ui-smoke-logs
+          path: |
+            p6-route-ui-smoke.log
+            p6-route-matrix.log

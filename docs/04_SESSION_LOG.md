@@ -2458,3 +2458,26 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Consolidar fechamento do ciclo P6 e definir próximo bloco de QA pesado (ex.: monitoramento de regressão contínua + cenários degradados avançados)
+
+### Session 2026-03-06 04:46 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Fechar `P6-7` com enforcement contínuo de QA pesado no CI
+- Backlog Item: P6-7
+- Changes:
+  - `.github/workflows/ci.yml`: job `p6-route-ui-smoke` adicionado (dependente de `quality-gates`) com build, start, wait-on, execução de `qa:p6-route-matrix` e upload de logs como artefato
+  - `docs/03_BACKLOG.md`: `P6-7` marcado como `DONE`; `P6-8` criado para evolução com screenshots automáticos em falha
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com pipeline de QA pesado recorrente
+- Validation:
+  - Command: `npm run qa:p6-route-matrix` -> passou
+  - Command: `npm run test` -> passou (17/17)
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Route-level UI checks: cobertos em baseline P6 e smoke de rota integrado ao CI
+- Risks:
+  - Job atual sobe artefato de log; para triagem visual ideal ainda falta captura automática de screenshots em falha (`P6-8`)
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Executar `P6-8`: estender job com screenshots automáticos em caso de falha
