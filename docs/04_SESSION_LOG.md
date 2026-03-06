@@ -2581,3 +2581,28 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Executar `P6-12` para adicionar validação opcional de credenciais com feedback amigável em PT-BR no smoke logado
+
+### Session 2026-03-06 06:19 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P6-12` com validação opcional de credenciais no smoke logado (mensagens guiadas PT-BR)
+- Backlog Item: P6-12
+- Changes:
+  - `scripts/p6-auth-ui-smoke.mjs`: mensagens de estado/erro migradas para PT-BR com orientação clara para credenciais ausentes/inválidas
+  - `scripts/p6-auth-ui-smoke.mjs`: em falha de login, script salva `p6-auth-smoke-artifacts/login-failure.png` para triagem
+  - `docs/03_BACKLOG.md`: `P6-12` marcado como `DONE`; `P6-13` criado para limpeza do warning OpenClaw
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com melhoria de diagnóstico no smoke logado
+- Validation:
+  - Command: `npm run qa:p6-auth-ui-smoke` -> passou (skip controlado quando flag desativada)
+  - Command: `npm run qa:p6-route-matrix` -> passou
+  - Command: `npm run test` -> passou (17/17)
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Route-level UI checks: baseline P6 preservado neste lote
+- Risks:
+  - Fluxo logado no CI continua dependente de secrets válidos e usuário existente no ambiente alvo
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Executar `P6-13`: remover entrada obsoleta `google-antigravity-auth` da config OpenClaw e confirmar sumiço do warning
