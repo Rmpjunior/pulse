@@ -2954,3 +2954,29 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Executar `P6-27`: adicionar atalho da âncora `#p6-pr-evidence-checklist` no hub de docs (`docs/README.md`)
+
+### Session 2026-03-06 13:33 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P6-27` referenciando âncora ASCII do checklist de evidência P6 no hub de docs
+- Backlog Item: P6-27
+- Changes:
+  - `docs/README.md`: item do runbook atualizado para expor atalho direto `docs/05_RUNBOOK.md#p6-pr-evidence-checklist`
+  - `docs/03_BACKLOG.md`: `P6-27` marcado como `DONE`; `P6-28` criado para visibilidade equivalente no README raiz
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com descoberta rápida do checklist P6 no hub
+- Validation:
+  - Command: `npm run qa:p6-route-matrix` -> passou
+  - Command: `npm run qa:p6-degraded-api-smoke` -> passou
+  - Command: `npm run test` -> passou (17/17)
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Route-level UI checks: baseline P6 preservado pelos smokes de rota/degradado
+- Monitoring:
+  - Tentativa de monitorar GitHub/Vercel via CLI local bloqueada (`gh` e `vercel` indisponíveis no host atual)
+- Risks:
+  - Sem `gh`/`vercel` local, monitoramento em tempo real de pipeline/deploy segue limitado
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Executar `P6-28`: expor atalho do checklist P6 também no README raiz
