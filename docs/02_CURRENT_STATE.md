@@ -156,6 +156,7 @@ Last updated: 2026-03-04
 - `P6-22` concluído: smoke degradado agora também suporta fixture pública estrita opcional, com diagnóstico PT-BR claro quando a fixture não responder 200
 - `P6-23` concluído: runbook inclui checklist de evidência mínima para PRs que alterem QA pesado (smokes + gates técnicos + artefatos)
 - `P6-24` concluído: `docs/00_AGENT_START_HERE.md` agora referencia explicitamente o checklist de evidência P6 do runbook antes de abrir/atualizar PR
+- `P6-30` concluído: hub `docs/README.md` agora inclui mini-nota de contexto para quando aplicar checklist de evidências P6
 - `P6-29` concluído: índice raiz (`README.md`) agora inclui nota curta de quando aplicar o checklist de evidência P6 (mudanças em scripts/workflows de QA pesado)
 - `P6-27` concluído: hub de docs (`docs/README.md`) passou a expor atalho ASCII direto para `p6-pr-evidence-checklist` no runbook
 - `P6-26` concluído: checklist de evidência P6 no runbook recebeu âncora ASCII explícita (`#p6-pr-evidence-checklist`) e o start guide passou a apontar para esse alvo estável

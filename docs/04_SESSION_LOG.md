@@ -3032,3 +3032,29 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Executar `P6-30`: adicionar nota equivalente de contexto de uso no `docs/README.md`
+
+### Session 2026-03-06 14:17 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P6-30` reforçando contexto de uso do checklist de evidências P6 no hub de docs
+- Backlog Item: P6-30
+- Changes:
+  - `docs/README.md`: adicionada mini-nota na seção de docs operacionais explicando quando aplicar checklist de evidências P6 (alterações em scripts/workflows de QA pesado)
+  - `docs/03_BACKLOG.md`: `P6-30` marcado como `DONE`; `P6-31` criado para referência cruzada adicional no runbook
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com reforço de contexto no hub
+- Validation:
+  - Command: `npm run qa:p6-route-matrix` -> passou
+  - Command: `npm run qa:p6-degraded-api-smoke` -> passou
+  - Command: `npm run test` -> passou (17/17)
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Route-level UI checks: baseline P6 preservado pelos smokes de rota/degradado
+- Monitoring:
+  - Tentativa de monitorar GitHub/Vercel via CLI local bloqueada (`gh` e `vercel` indisponíveis no host atual)
+- Risks:
+  - Sem `gh`/`vercel` local, monitoramento em tempo real de pipeline/deploy segue limitado
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Executar `P6-31`: reforçar referência cruzada no runbook para manter rastreabilidade bidirecional com o hub
