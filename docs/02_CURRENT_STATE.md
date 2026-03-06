@@ -153,6 +153,7 @@ Last updated: 2026-03-04
 - `P6-19` concluído: runbook documenta como habilitar/operar `P6_PUBLIC_FIXTURE_USERNAME` e o comportamento com/sem fixture pública estrita
 - `P6-20` concluído: runbook define fallback seguro para ambiente sem seed pública (manter gate estrito desativado até fixture estável)
 - `P6-21` concluído: runbook inclui checklist de habilitação gradual do gate público estrito (pré-requisitos, ativação monitorada e rollback rápido)
+- `P6-22` concluído: smoke degradado agora também suporta fixture pública estrita opcional, com diagnóstico PT-BR claro quando a fixture não responder 200
 - `P6-16` concluído: upload de artefatos do QA pesado agora usa retenção de 7 dias + compressão (`compression-level: 6`) para reduzir custo de storage
 - `P6-11` concluído: runbook agora documenta claramente variáveis/secrets de ativação, comportamento esperado e diagnóstico do smoke logado no CI
 - Verificação visual pós-correção confirmada em login (`/pt-BR/login`) com UI íntegra em PT-BR e sem regressão estrutural no fluxo principal

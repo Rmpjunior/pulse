@@ -90,6 +90,8 @@ jobs:
         run: npm run qa:p6-route-matrix | tee p6-route-matrix.log
 
       - name: Run P6 degraded API smoke
+        env:
+          P6_PUBLIC_FIXTURE_USERNAME: ${{ vars.P6_PUBLIC_FIXTURE_USERNAME }}
         run: npm run qa:p6-degraded-api-smoke | tee p6-degraded-api-smoke.log
 
       - name: Run optional P6 auth UI smoke

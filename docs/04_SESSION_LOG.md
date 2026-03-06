@@ -2826,3 +2826,28 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Executar `P6-22` para unificar diagnóstico de fixture pública entre smokes
+
+### Session 2026-03-06 10:00 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P6-22` unificando validação de fixture pública entre smoke de rota e smoke degradado
+- Backlog Item: P6-22
+- Changes:
+  - `scripts/p6-degraded-api-smoke.mjs`: adicionado suporte opcional a `P6_PUBLIC_FIXTURE_USERNAME` com check estrito (200) e diagnóstico PT-BR quando fixture falhar
+  - `.github/workflows/ci.yml`: step `Run P6 degraded API smoke` agora recebe `P6_PUBLIC_FIXTURE_USERNAME`
+  - `docs/03_BACKLOG.md`: `P6-22` marcado como `DONE`; `P6-23` criado para padronização de evidências em PR
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com unificação de diagnóstico de fixture pública
+- Validation:
+  - Command: `npm run qa:p6-degraded-api-smoke` -> passou
+  - Command: `npm run qa:p6-route-matrix` -> passou
+  - Command: `npm run test` -> passou (17/17)
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Route-level UI checks: baseline preservado pelos smokes de rota e degradado
+- Risks:
+  - Quando fixture pública estiver habilitada no CI, ausência de seed continuará gerando falha legítima (mitigada por fallback documentado)
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Executar `P6-23`: checklist de evidência mínima em PR para mudanças de QA pesado
