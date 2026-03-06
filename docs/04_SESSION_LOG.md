@@ -2802,3 +2802,27 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Executar `P6-21`: checklist curto de habilitação gradual do gate público estrito (pré-requisitos + rollback)
+
+### Session 2026-03-06 09:42 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P6-21` com checklist de habilitação gradual do gate público estrito
+- Backlog Item: P6-21
+- Changes:
+  - `docs/05_RUNBOOK.md`: adicionada seção com checklist de pré-requisitos, ativação monitorada e rollback rápido para `P6_PUBLIC_FIXTURE_USERNAME`
+  - `docs/03_BACKLOG.md`: `P6-21` marcado como `DONE`; `P6-22` criado para alinhar diagnóstico no smoke degradado
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com governança operacional do gate público estrito
+- Validation:
+  - Command: `npm run qa:p6-route-matrix` -> passou
+  - Command: `npm run qa:p6-degraded-api-smoke` -> passou
+  - Command: `npm run test` -> passou (17/17)
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Route-level UI checks: baseline P6 preservado pelos smokes de rota/degradado
+- Risks:
+  - Sem automação de detecção de fixture ausente no smoke degradado; cobrir no `P6-22`
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Executar `P6-22` para unificar diagnóstico de fixture pública entre smokes

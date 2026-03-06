@@ -90,6 +90,22 @@ Job relacionado: `.github/workflows/ci.yml` → `p6-route-ui-smoke`.
 - Fallback seguro para ambiente novo (sem seed pública):
   - manter `P6_PUBLIC_FIXTURE_USERNAME` **não definido** até existir username público estável;
   - após seed confirmada, habilitar variável para ativar gate estrito.
+
+### Habilitação gradual do gate público estrito (checklist)
+
+Pré-requisitos:
+- [ ] Username público de fixture estável criado no ambiente alvo
+- [ ] Rota `/pt-BR/p/{username}` responde 200 de forma consistente
+- [ ] Smoke local `qa:p6-route-matrix` validado com `P6_PUBLIC_FIXTURE_USERNAME`
+
+Ativação:
+- [ ] Definir `P6_PUBLIC_FIXTURE_USERNAME` em variáveis do repositório CI
+- [ ] Rodar 1 pipeline monitorado para confirmar estabilidade
+
+Rollback rápido (se houver falso negativo):
+- [ ] Remover/limpar `P6_PUBLIC_FIXTURE_USERNAME` do CI
+- [ ] Reexecutar pipeline e confirmar volta ao modo permissivo (200/404)
+- [ ] Registrar incidente/causa em `docs/04_SESSION_LOG.md`
 - Com `P6_AUTH_SMOKE_ENABLED=false` (default): passo logado é ignorado com sucesso.
 - Com `P6_AUTH_SMOKE_ENABLED=true` e secrets válidos:
   - roda `npm run qa:p6-auth-ui-smoke`
