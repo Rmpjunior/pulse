@@ -2256,3 +2256,26 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Consolidar fechamento de `P6-1` e entrar em `P6-2` (stress multi-site com sequência de salvar/publicar)
+
+### Session 2026-03-06 02:44 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P6-2` com stress multi-site automatizado (3 páginas + alternância + publicar)
+- Backlog Item: P6-2
+- Changes:
+  - `src/e2e/multisite-stress.smoke.test.ts`: novo smoke test cobrindo criação de 3 páginas, alternância repetida por `pageId`, updates de blocos e publicação em sequência
+  - `docs/03_BACKLOG.md`: `P6-2` marcado como `DONE`
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com cobertura de stress multi-site automatizada
+- Validation:
+  - Command: `npm run qa:p6-route-matrix` -> passou
+  - Command: `npm run test` -> passou (17/17; novo teste multi-site incluído)
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Route-level UI checks: mantidos no lote P6 anterior (deslogado + logado)
+- Risks:
+  - Stress atual é smoke de backend/DB; cenário completo de interação UI multi-site ainda pode ser expandido em E2E browser dedicado
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Avançar `P6-3` (baseline de regressão visual consolidada + diff manual guiado)
