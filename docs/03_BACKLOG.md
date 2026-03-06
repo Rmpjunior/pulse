@@ -160,7 +160,8 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | P6-17 | DONE | Versionar política de retenção por tipo de artefato (log vs screenshot) no runbook | Facilitar ajuste futuro sem tocar CI às cegas |
 | P6-18 | DONE | Adicionar smoke de sanidade para rota pública existente no CI (quando fixture estiver disponível) | Cobrir regressão de render público além de login/dashboard |
 | P6-19 | DONE | Documentar variável `P6_PUBLIC_FIXTURE_USERNAME` no runbook de CI | Facilitar ativação segura da verificação pública estrita |
-| P6-20 | TODO | Adicionar observação de fallback seguro quando fixture pública não existir (ambiente novo) | Evitar falso negativo de CI em ambientes sem seed pública |
+| P6-20 | DONE | Adicionar observação de fallback seguro quando fixture pública não existir (ambiente novo) | Evitar falso negativo de CI em ambientes sem seed pública |
+| P6-21 | TODO | Registrar checklist curto de habilitação gradual do gate público estrito (pré-requisitos + rollback) | Reduzir risco de ativação prematura em CI |
 
 
 

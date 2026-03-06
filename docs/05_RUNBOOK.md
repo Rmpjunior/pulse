@@ -87,6 +87,9 @@ Job relacionado: `.github/workflows/ci.yml` → `p6-route-ui-smoke`.
 
 - Sem `P6_PUBLIC_FIXTURE_USERNAME`: rota pública segue validação permissiva (200/404) no route matrix.
 - Com `P6_PUBLIC_FIXTURE_USERNAME` definido: rota pública do fixture vira validação estrita (200 obrigatório).
+- Fallback seguro para ambiente novo (sem seed pública):
+  - manter `P6_PUBLIC_FIXTURE_USERNAME` **não definido** até existir username público estável;
+  - após seed confirmada, habilitar variável para ativar gate estrito.
 - Com `P6_AUTH_SMOKE_ENABLED=false` (default): passo logado é ignorado com sucesso.
 - Com `P6_AUTH_SMOKE_ENABLED=true` e secrets válidos:
   - roda `npm run qa:p6-auth-ui-smoke`

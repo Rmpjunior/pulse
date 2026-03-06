@@ -2778,3 +2778,27 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Executar `P6-20`: formalizar fallback seguro quando fixture pública não existir no ambiente
+
+### Session 2026-03-06 09:27 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P6-20` formalizando fallback seguro quando fixture pública não existir
+- Backlog Item: P6-20
+- Changes:
+  - `docs/05_RUNBOOK.md`: adicionada orientação explícita de fallback para ambientes sem seed pública (`P6_PUBLIC_FIXTURE_USERNAME` desativado até fixture estável)
+  - `docs/03_BACKLOG.md`: `P6-20` marcado como `DONE`; `P6-21` criado para checklist de habilitação gradual do gate estrito
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com política de fallback segura para evitar falso negativo de CI
+- Validation:
+  - Command: `npm run qa:p6-route-matrix` -> passou
+  - Command: `npm run qa:p6-degraded-api-smoke` -> passou
+  - Command: `npm run test` -> passou (17/17)
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Route-level UI checks: baseline P6 preservado pelos smokes de rota/degradado
+- Risks:
+  - Sem checklist de ativação gradual, equipe pode habilitar gate estrito cedo demais; cobrir em `P6-21`
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Executar `P6-21`: checklist curto de habilitação gradual do gate público estrito (pré-requisitos + rollback)
