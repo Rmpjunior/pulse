@@ -2481,3 +2481,29 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Executar `P6-8`: estender job com screenshots automáticos em caso de falha
+
+### Session 2026-03-06 05:00 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P6-8` adicionando captura automática de screenshots no CI quando smoke de rota falhar
+- Backlog Item: P6-8
+- Changes:
+  - `.github/workflows/ci.yml`: step `Run P6 route matrix smoke` passou a usar `id` + `continue-on-error`
+  - `.github/workflows/ci.yml`: novo step `Capture screenshots on P6 smoke failure` com Playwright (desktop/mobile) para landing/login
+  - `.github/workflows/ci.yml`: novo step `Enforce P6 smoke result` para falhar o job quando o smoke falhar (após captura)
+  - `.github/workflows/ci.yml`: upload de artefato expandido para incluir diretório `p6-failure-screenshots`
+  - `docs/03_BACKLOG.md`: `P6-8` marcado como `DONE`; `P6-9` criado para robustez de startup diagnosticável
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com cobertura visual automática em falha no CI
+- Validation:
+  - Command: `npm run qa:p6-route-matrix` -> passou
+  - Command: `npm run test` -> passou (17/17)
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Route-level UI checks: baseline mantido; comportamento de captura em falha validado por revisão da workflow
+- Risks:
+  - Captura de screenshot depende de download runtime do Playwright no runner; em ambiente com rede restrita pode aumentar tempo/falhar
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Executar `P6-9`: adicionar healthcheck de startup com diagnóstico amigável no job de smoke
