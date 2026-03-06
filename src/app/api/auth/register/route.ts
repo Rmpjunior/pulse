@@ -25,7 +25,7 @@ export async function POST(request: Request) {
     });
 
     if (existingUser) {
-      return conflict('Email already in use');
+      return conflict('E-mail já está em uso');
     }
 
     // Hash password
@@ -50,7 +50,7 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json(
-      { message: 'User created successfully', userId: user.id },
+      { message: 'Usuário criado com sucesso', userId: user.id },
       { status: 201 }
     );
   } catch (error) {

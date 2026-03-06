@@ -22,7 +22,7 @@ const updateBlockSchema = z
     order: z.number().int().min(0).optional(),
   })
   .refine((data) => Object.keys(data).length > 0, {
-    message: 'At least one field must be provided',
+    message: 'Pelo menos um campo deve ser informado',
   });
 
 async function findOwnedBlock(params: {
@@ -174,7 +174,7 @@ export async function DELETE(request: Request, { params }: RouteParams) {
       ),
     );
 
-    return NextResponse.json({ message: 'Block deleted' });
+    return NextResponse.json({ message: 'Bloco excluído' });
   } catch (error) {
     console.error('Error deleting block:', error);
     return internalServerError();

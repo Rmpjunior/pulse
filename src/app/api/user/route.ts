@@ -74,12 +74,12 @@ export async function DELETE(request: Request) {
 
     if (existingUser?.password) {
       if (!password) {
-        return badRequest('Password is required to delete this account');
+        return badRequest('Senha é obrigatória para excluir esta conta');
       }
 
       const passwordValid = await bcrypt.compare(password, existingUser.password);
       if (!passwordValid) {
-        return badRequest('Invalid password');
+        return badRequest('Senha inválida');
       }
     }
 
@@ -111,7 +111,7 @@ export async function DELETE(request: Request) {
       }),
     ]);
 
-    return NextResponse.json({ message: 'Account deleted' });
+    return NextResponse.json({ message: 'Conta excluída' });
   } catch (error) {
     console.error('Error deleting user:', error);
     return internalServerError();

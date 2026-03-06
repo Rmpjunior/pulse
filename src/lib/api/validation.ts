@@ -23,7 +23,7 @@ export async function parseBody<T>(
   try {
     body = await request.json();
   } catch {
-    return { success: false, response: badRequest("Invalid JSON body") };
+    return { success: false, response: badRequest("JSON inválido no corpo da requisição") };
   }
 
   const parsed = schema.safeParse(body);
@@ -31,7 +31,7 @@ export async function parseBody<T>(
   if (!parsed.success) {
     return {
       success: false,
-      response: badRequest("Invalid request body", parsed.error.issues),
+      response: badRequest("Corpo da requisição inválido", parsed.error.issues),
     };
   }
 
@@ -47,7 +47,7 @@ export function parseParams<T>(
   if (!parsed.success) {
     return {
       success: false,
-      response: badRequest("Invalid route params", parsed.error.issues),
+      response: badRequest("Parâmetros de rota inválidos", parsed.error.issues),
     };
   }
 
@@ -64,7 +64,7 @@ export function parseQuery<T>(
   if (!parsed.success) {
     return {
       success: false,
-      response: badRequest("Invalid query params", parsed.error.issues),
+      response: badRequest("Parâmetros de consulta inválidos", parsed.error.issues),
     };
   }
 

@@ -23,7 +23,7 @@ const updatePageSchema = z
     published: z.boolean().optional(),
   })
   .refine((data) => Object.keys(data).length > 0, {
-    message: 'At least one field must be provided',
+    message: 'Pelo menos um campo deve ser informado',
   });
 
 // GET - Get a specific page
@@ -50,7 +50,7 @@ export async function GET(request: Request, { params }: RouteParams) {
     });
 
     if (!page) {
-      return notFound('Page not found');
+      return notFound('Página não encontrada');
     }
 
     return NextResponse.json(page);
@@ -86,7 +86,7 @@ export async function PATCH(request: Request, { params }: RouteParams) {
     });
 
     if (!existingPage || existingPage.userId !== session.user.id) {
-      return notFound('Page not found');
+      return notFound('Página não encontrada');
     }
 
     // Update the page
@@ -128,14 +128,14 @@ export async function DELETE(request: Request, { params }: RouteParams) {
     });
 
     if (!existingPage || existingPage.userId !== session.user.id) {
-      return notFound('Page not found');
+      return notFound('Página não encontrada');
     }
 
     await db.page.delete({
       where: { id: pageId },
     });
 
-    return NextResponse.json({ message: 'Page deleted' });
+    return NextResponse.json({ message: 'Página excluída' });
   } catch (error) {
     console.error('Error deleting page:', error);
     return internalServerError();

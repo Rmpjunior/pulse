@@ -2430,3 +2430,31 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Executar `P6-6` com simulação de falhas de API para varredura final de microcopy em cenários degradados
+
+### Session 2026-03-06 04:36 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P6-6` com sweep de microcopy em cenários de erro raros (API failures simulados)
+- Backlog Item: P6-6
+- Changes:
+  - `src/lib/api/errors.ts`: defaults de erro migrados para PT-BR (`Não autorizado`, `Acesso negado`, `Recurso não encontrado`, `Erro interno do servidor`)
+  - `src/lib/api/validation.ts`: mensagens de validação migradas para PT-BR (`JSON inválido...`, `Corpo da requisição inválido`, etc.)
+  - `src/lib/api/errors.test.ts` e `src/lib/api/validation.test.ts`: expectativas ajustadas para os novos textos PT-BR
+  - `src/app/api/auth/register/route.ts`: mensagens de conflito/sucesso em PT-BR
+  - `src/app/api/user/route.ts`: mensagens de senha/remoção de conta em PT-BR
+  - `src/app/api/pages/[pageId]/route.ts` e `src/app/api/pages/[pageId]/blocks/*`: mensagens de não encontrado/reordenação/exclusão/validação em PT-BR
+  - `docs/03_BACKLOG.md`: `P6-6` marcado como `DONE`
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com fechamento do sweep de microcopy de erro
+- Validation:
+  - Command: `npm run qa:p6-route-matrix` -> passou
+  - Command: `npm run test` -> passou (17/17)
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Route-level UI checks: baseline mantido, sem regressão estrutural após ajustes de microcopy
+- Risks:
+  - Mensagens específicas de terceiros/provedores externos podem ainda vir em EN e exigem normalização pontual quando expostas na UI
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Consolidar fechamento do ciclo P6 e definir próximo bloco de QA pesado (ex.: monitoramento de regressão contínua + cenários degradados avançados)

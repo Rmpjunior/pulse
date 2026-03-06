@@ -22,7 +22,7 @@ describe('api errors helper', () => {
     await expect(response.json()).resolves.toEqual({
       error: {
         code: 'UNAUTHORIZED',
-        message: 'Unauthorized',
+        message: 'Não autorizado',
       },
     });
   });

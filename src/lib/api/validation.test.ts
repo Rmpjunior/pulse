@@ -37,7 +37,7 @@ describe('api validation helpers', () => {
       await expect(result.response.json()).resolves.toMatchObject({
         error: {
           code: 'BAD_REQUEST',
-          message: 'Invalid JSON body',
+          message: 'JSON inválido no corpo da requisição',
         },
       });
     }
@@ -53,7 +53,7 @@ describe('api validation helpers', () => {
       await expect(result.response.json()).resolves.toMatchObject({
         error: {
           code: 'BAD_REQUEST',
-          message: 'Invalid route params',
+          message: 'Parâmetros de rota inválidos',
         },
       });
     }
@@ -69,7 +69,7 @@ describe('api validation helpers', () => {
       await expect(result.response.json()).resolves.toMatchObject({
         error: {
           code: 'BAD_REQUEST',
-          message: 'Invalid query params',
+          message: 'Parâmetros de consulta inválidos',
         },
       });
     }

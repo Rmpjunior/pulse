@@ -62,7 +62,7 @@ export async function GET(request: Request, { params }: RouteParams) {
     });
 
     if (!page || page.userId !== session.user.id) {
-      return notFound('Page not found');
+      return notFound('Página não encontrada');
     }
 
     const blocks = await db.block.findMany({
@@ -103,7 +103,7 @@ export async function POST(request: Request, { params }: RouteParams) {
     });
 
     if (!page || page.userId !== session.user.id) {
-      return notFound('Page not found');
+      return notFound('Página não encontrada');
     }
 
     // Create the block
@@ -150,7 +150,7 @@ export async function PATCH(request: Request, { params }: RouteParams) {
     });
 
     if (!page || page.userId !== session.user.id) {
-      return notFound('Page not found');
+      return notFound('Página não encontrada');
     }
 
     const blockIds = blocks.map((block) => block.id);
@@ -181,7 +181,7 @@ export async function PATCH(request: Request, { params }: RouteParams) {
       ),
     );
 
-    return NextResponse.json({ message: 'Blocks reordered' });
+    return NextResponse.json({ message: 'Blocos reordenados' });
   } catch (error) {
     console.error('Error reordering blocks:', error);
     return internalServerError();

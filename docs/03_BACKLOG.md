@@ -146,7 +146,7 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | P6-5a | DONE | Corrigir resíduos EN críticos iniciais (toggle de tema, CTA de upgrade e metadata pública) | Reduzir exposição imediata de textos em inglês nas rotas principais |
 | P6-5b | DONE | Auditar e corrigir resíduos EN em fluxos secundários (mensagens de erro/toast/metadata adicional) | Concluir etapa linguística antes de avançar para novo ciclo de features |
 | P6-5c | DONE | Revisar textos de seções/templates internos restantes (editor/public-page fallbacks) com validação visual | Fechar lacunas de PT-BR em conteúdos menos frequentes |
-| P6-6 | TODO | Rodar sweep final de microcopy em fluxos de erro raros (API failures simulados) | Garantir consistência de linguagem também em cenários degradados |
+| P6-6 | DONE | Rodar sweep final de microcopy em fluxos de erro raros (API failures simulados) | Garantir consistência de linguagem também em cenários degradados |
 | P6-6 | TODO | Adicionar job de E2E UI na CI (Playwright ou Cypress) com artefatos de falha (screenshots/video/log) | Tornar QA pesado recorrente e automático |
 
 
