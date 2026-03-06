@@ -117,6 +117,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: p6-route-ui-smoke-logs
+          retention-days: 7
+          compression-level: 6
           path: |
             p6-route-ui-smoke.log
             p6-route-matrix.log

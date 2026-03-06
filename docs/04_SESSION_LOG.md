@@ -2681,3 +2681,27 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Executar `P6-16` para definir rotina de retenção/limpeza de artefatos de QA pesado
+
+### Session 2026-03-06 08:28 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P6-16` definindo retenção/limpeza de artefatos de QA pesado no CI
+- Backlog Item: P6-16
+- Changes:
+  - `.github/workflows/ci.yml`: upload de artefatos `p6-route-ui-smoke-logs` atualizado com `retention-days: 7` e `compression-level: 6`
+  - `docs/03_BACKLOG.md`: `P6-16` marcado como `DONE`; `P6-17` criado para política versionada por tipo de artefato
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com política de retenção aplicada no pipeline
+- Validation:
+  - Command: `npm run qa:p6-degraded-api-smoke` -> passou
+  - Command: `npm run qa:p6-route-matrix` -> passou
+  - Command: `npm run test` -> passou (17/17)
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Route-level UI checks: baseline preservado (smokes de rota e degradado sem regressão)
+- Risks:
+  - Retenção fixa de 7 dias pode ser curta para análises históricas mais longas; avaliar em `P6-17`
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Executar `P6-17`: versionar política de retenção por tipo de artefato no runbook

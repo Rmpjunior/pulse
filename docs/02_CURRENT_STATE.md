@@ -148,6 +148,7 @@ Last updated: 2026-03-04
 - `P6-12` concluído: smoke logado ganhou mensagens de validação/erro guiadas em PT-BR para credenciais ausentes/inválidas, com captura de `login-failure.png` para triagem
 - `P6-14` concluído: novo smoke `qa:p6-degraded-api-smoke` valida cenários degradados de API (JSON inválido, corpo inválido e não autorizado) com mensagens PT-BR esperadas
 - `P6-15` concluído com integração do `qa:p6-degraded-api-smoke` ao job `p6-route-ui-smoke` na CI (log dedicado em artefatos)
+- `P6-16` concluído: upload de artefatos do QA pesado agora usa retenção de 7 dias + compressão (`compression-level: 6`) para reduzir custo de storage
 - `P6-11` concluído: runbook agora documenta claramente variáveis/secrets de ativação, comportamento esperado e diagnóstico do smoke logado no CI
 - Verificação visual pós-correção confirmada em login (`/pt-BR/login`) com UI íntegra em PT-BR e sem regressão estrutural no fluxo principal
 - Plano técnico de custom domain/subdomain publicado em `docs/08_CUSTOM_DOMAIN_PLAN.md` com arquitetura, modelo de dados, APIs, critérios e rollout quebrado em etapas
