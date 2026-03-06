@@ -3006,3 +3006,29 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Executar `P6-29`: adicionar nota curta no índice raiz sobre quando aplicar checklist P6 (mudanças em scripts/workflows de QA)
+
+### Session 2026-03-06 14:03 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P6-29` adicionando contexto de uso do checklist de evidência P6 no índice raiz
+- Backlog Item: P6-29
+- Changes:
+  - `README.md`: adicionada nota objetiva no índice operacional informando quando aplicar o checklist de evidência P6 (mudanças em scripts/automações/workflows de QA pesado)
+  - `docs/03_BACKLOG.md`: `P6-29` marcado como `DONE`; `P6-30` criado para reforço equivalente no hub de docs
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com a nova orientação contextual no índice raiz
+- Validation:
+  - Command: `npm run qa:p6-route-matrix` -> passou
+  - Command: `npm run qa:p6-degraded-api-smoke` -> passou
+  - Command: `npm run test` -> passou (17/17)
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Route-level UI checks: baseline P6 preservado pelos smokes de rota/degradado
+- Monitoring:
+  - Tentativa de monitorar GitHub/Vercel via CLI local bloqueada (`gh` e `vercel` indisponíveis no host atual)
+- Risks:
+  - Sem `gh`/`vercel` local, monitoramento em tempo real de pipeline/deploy segue limitado
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Executar `P6-30`: adicionar nota equivalente de contexto de uso no `docs/README.md`

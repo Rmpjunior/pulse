@@ -40,6 +40,8 @@ Open `http://localhost:3000`.
 - [Exemplo fictício de incidente](docs/04_SESSION_LOG.md#incident-example-fictitious)
 - [Checklist de evidência P6 (QA pesado)](docs/05_RUNBOOK.md#p6-pr-evidence-checklist)
 
+> Quando usar o checklist de evidência P6: sempre que a entrega alterar scripts, automações ou workflows de QA pesado (smokes/CI E2E/artefatos).
+
 <a id="ci-status-quick-check"></a>
 
 ## CI Status (quick check)
