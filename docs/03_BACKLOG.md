@@ -172,7 +172,8 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | P6-29 | DONE | Adicionar nota curta no índice raiz orientando quando usar o checklist P6 (mudanças em scripts/workflows QA) | Reduzir uso indevido/omissão do checklist por falta de contexto |
 | P6-30 | DONE | Adicionar mini-nota equivalente no hub `docs/README.md` para reforçar contexto de uso do checklist P6 | Alinhar orientação de uso tanto no índice raiz quanto no hub de docs |
 | P6-31 | DONE | Adicionar referência curta à nota de uso P6 no runbook para fechar ciclo de rastreabilidade entre hub e procedimento | Reduzir risco de interpretação divergente entre guia e execução |
-| P6-32 | TODO | Consolidar checklist rápido “quando usar evidência P6” em bullet único no start guide + hub + runbook | Reduzir drift de linguagem entre os 3 pontos de entrada operacional |
+| P6-32 | DONE | Consolidar checklist rápido “quando usar evidência P6” em bullet único no start guide + hub + runbook | Reduzir drift de linguagem entre os 3 pontos de entrada operacional |
+| P6-33 | TODO | Padronizar wording dessa regra também no README raiz | Manter consistência total entre docs operacionais e índice principal |
 
 
 

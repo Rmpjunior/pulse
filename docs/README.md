@@ -15,7 +15,7 @@ This folder has two documentation layers:
 - `docs/03_BACKLOG.md`: Fila priorizada de trabalho (ver `P2-10` para regra de bloqueio de textos em inglês)
 - `docs/04_SESSION_LOG.md`: Registro de sessões e template operacional (atalho: `docs/04_SESSION_LOG.md#session-template` + `docs/04_SESSION_LOG.md#quality-check-docs`)
 - `docs/05_RUNBOOK.md`: Instruções para executar, testar, deployar e resolver problemas (atalhos: `docs/05_RUNBOOK.md#p6-pr-evidence-checklist`, `docs/05_RUNBOOK.md#language-audit-checklist`)
-  - Nota de uso (P6): aplicar o checklist de evidências ao alterar scripts/workflows de QA pesado antes de abrir/atualizar PR.
+  - Quando usar evidência P6: somente se a entrega alterar scripts, automações ou workflows de QA pesado (smokes/CI E2E/artefatos); nesses casos, aplicar o checklist antes de abrir/atualizar PR.
 - `docs/06_OPENCLAW_SETUP.md`: Requisitos e permissões para sessões com OpenClaw
 - `docs/07_FEATURE_PARITY_MATRIX.md`: Matriz oficial de paridade Keepo → Pulse + critérios de aceite
 - `docs/08_CUSTOM_DOMAIN_PLAN.md`: Plano técnico para suporte a domínio/subdomínio customizado

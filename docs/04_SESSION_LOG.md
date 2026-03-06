@@ -3084,3 +3084,31 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Executar `P6-32` consolidando um bullet único de “quando usar evidência P6” no start guide, hub e runbook
+
+### Session 2026-03-06 14:48 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P6-32` consolidando regra única de uso de evidência P6 em start guide + hub + runbook
+- Backlog Item: P6-32
+- Changes:
+  - `docs/00_AGENT_START_HERE.md`: bullet de checks P6 atualizado com texto único de “quando usar evidência P6”
+  - `docs/README.md`: nota de uso P6 alinhada ao mesmo wording do start guide/runbook
+  - `docs/05_RUNBOOK.md`: seção de checklist P6 agora inicia com o mesmo bullet consolidado
+  - `docs/03_BACKLOG.md`: `P6-32` marcado como `DONE`; `P6-33` criado para padronizar regra também no README raiz
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com conclusão do alinhamento de linguagem entre os 3 pontos operacionais
+- Validation:
+  - Command: `npm run qa:p6-route-matrix` -> passou
+  - Command: `npm run qa:p6-degraded-api-smoke` -> passou
+  - Command: `npm run test` -> passou (17/17)
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Route-level UI checks: baseline preservado pelos smokes de rota/degradado
+- Monitoring:
+  - Tentativa de monitorar GitHub/Vercel via CLI local bloqueada (`gh` e `vercel` indisponíveis no host atual)
+- Risks:
+  - README raiz ainda usa frase equivalente, mas não idêntica; risco de drift residual mitigado via `P6-33`
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Executar `P6-33`: padronizar wording da regra de uso de evidência P6 também no README raiz

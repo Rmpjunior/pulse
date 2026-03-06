@@ -12,7 +12,7 @@ This file is the operating contract for any AI coding agent working on Pulse.
 2. Choose the top backlog item not blocked.
 3. Implement in small verifiable steps.
 4. Run checks (at minimum lint + relevant runtime check).
-   - Para mudanças de QA pesado (P6), usar checklist mínimo de evidências do runbook (`docs/05_RUNBOOK.md#p6-pr-evidence-checklist`) antes de abrir/atualizar PR.
+   - Quando usar evidência P6: somente se a entrega alterar scripts, automações ou workflows de QA pesado (smokes/CI E2E/artefatos); nesses casos, aplicar `docs/05_RUNBOOK.md#p6-pr-evidence-checklist` antes de abrir/atualizar PR.
 5. Update docs:
    - mark backlog item status
    - append a new session entry in `docs/04_SESSION_LOG.md`

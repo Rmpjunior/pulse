@@ -76,7 +76,9 @@ Versão atual: **v1 (2026-03-06)**
 Referência cruzada: este checklist deve ser aplicado em conjunto com o fluxo de execução do `docs/00_AGENT_START_HERE.md` (passo de checks para mudanças P6).
 Nota de rastreabilidade: para contexto de quando aplicar (scripts/workflows QA pesado), ver também as notas de uso em `docs/README.md` e `README.md`.
 
-Para qualquer PR que altere scripts/workflows de QA pesado (P6), anexar evidências mínimas:
+Quando usar evidência P6: somente se a entrega alterar scripts, automações ou workflows de QA pesado (smokes/CI E2E/artefatos); nesses casos, aplicar este checklist antes de abrir/atualizar PR.
+
+Para qualquer PR desse tipo, anexar evidências mínimas:
 
 - [ ] Resultado de `npm run qa:p6-route-matrix`
 - [ ] Resultado de `npm run qa:p6-degraded-api-smoke`
