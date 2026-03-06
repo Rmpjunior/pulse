@@ -2116,3 +2116,20 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Iniciar `P5-56`: criar comando composto `verify:ops-docs` para rotina operacional
+
+### Session 2026-03-05 23:58 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Abrir trilha de QA pesado ponta-a-ponta e automatizar execução contínua noturna
+- Backlog Item: P6 (novo bloco)
+- Changes:
+  - `docs/12_HEAVY_TEST_ROADMAP.md`: criado roadmap de testes pesados (deslogado/logado, fluxos críticos, visual QA, CI E2E)
+  - `docs/03_BACKLOG.md`: adicionada seção `P6` com itens `P6-1`..`P6-6`
+  - cron `pulse-continuous-exec`: atualizado para focar execução automática em `P6` a cada 15 minutos
+- Validation:
+  - auditoria mobile inicial executada em rotas públicas e privadas com Playwright (sem overflow X crítico)
+  - evidências salvas em screenshots locais (`audit-*.png`)
+- Risks:
+  - execução manual de `openclaw cron run` pode bater timeout de gateway em alguns ciclos; agenda periódica permanece ativa
+- Next:
+  - iniciar `P6-1`/`P6-2` com stress de multi-site (3 páginas) + regressão visual claro/escuro
