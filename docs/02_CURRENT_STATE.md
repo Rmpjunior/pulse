@@ -129,6 +129,7 @@ Last updated: 2026-03-04
 - P6 avançou com baseline técnico: `qa:p6-route-matrix` agora valida rotas deslogadas e protegidas em perfis mobile/tablet/desktop (com checagem de redirect para login)
 - Route-level UI checks deslogado foram executados em browser real (landing/login/register/forgot + redirect dashboard→login), confirmando fluxo visual básico sem regressão crítica
 - Baseline visual deslogado começou a ser materializado com screenshots mobile/desktop em artefatos locais (`/home/claw/.openclaw/media/browser/...`) para comparação manual entre ciclos de QA pesado
+- Baseline visual logado também foi executado (dashboard/editor/analytics/settings) com usuário de QA dedicado, cobrindo o núcleo autenticado do app em QA pesado
 - Plano técnico de custom domain/subdomain publicado em `docs/08_CUSTOM_DOMAIN_PLAN.md` com arquitetura, modelo de dados, APIs, critérios e rollout quebrado em etapas
 - Visitor identity para analytics agora usa fingerprint estável por request headers (user-agent + idioma + IP encaminhado hash), substituindo ID aleatório por evento
 - Test baseline ativo com Vitest (`npm run test`) cobrindo helpers críticos de API (error shape + validation)

@@ -2230,3 +2230,29 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Iniciar cobertura logada para completar `P6-1` e depois partir para `P6-2` (stress multi-site)
+
+### Session 2026-03-06 01:32 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Avançar P6 com route-level UI checks logado e evidências visuais em rotas críticas autenticadas
+- Backlog Item: P6-1d
+- Changes:
+  - `docs/03_BACKLOG.md`: adicionado `P6-1d` como `DONE` (checks logado com screenshots)
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com baseline visual logado
+- Validation:
+  - Command: `npm run qa:p6-route-matrix` -> passou
+  - Command: `npm run test` -> passou (16/16)
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Route-level UI checks logado (browser real):
+    - Dashboard: `/home/claw/.openclaw/media/browser/28b00864-f61d-4b3d-a79b-0d198da5eb23.png`
+    - Editor (onboarding): `/home/claw/.openclaw/media/browser/7b01afd8-9e7f-46fb-b8ee-649c7ab95a0a.png`
+    - Analytics: `/home/claw/.openclaw/media/browser/49cd1a56-e0f3-442e-a3cc-d209d27abd1d.png`
+    - Settings: `/home/claw/.openclaw/media/browser/1f6fff72-9e35-4d04-928f-dbb5b349a00f.png`
+- Risks:
+  - P6-1 ainda em aberto no agregado (faltam evidências mais sistemáticas por viewport/rota e automatização de captura)
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Consolidar fechamento de `P6-1` e entrar em `P6-2` (stress multi-site com sequência de salvar/publicar)
