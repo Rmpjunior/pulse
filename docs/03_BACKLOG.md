@@ -174,7 +174,8 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | P6-31 | DONE | Adicionar referência curta à nota de uso P6 no runbook para fechar ciclo de rastreabilidade entre hub e procedimento | Reduzir risco de interpretação divergente entre guia e execução |
 | P6-32 | DONE | Consolidar checklist rápido “quando usar evidência P6” em bullet único no start guide + hub + runbook | Reduzir drift de linguagem entre os 3 pontos de entrada operacional |
 | P6-33 | DONE | Padronizar wording dessa regra também no README raiz | Manter consistência total entre docs operacionais e índice principal |
-| P6-34 | TODO | Adicionar micro-check no runbook para validar consistência do texto "Quando usar evidência P6" entre README/docs hub/start guide | Evitar drift de wording em futuras edições operacionais |
+| P6-34 | DONE | Adicionar micro-check no runbook para validar consistência do texto "Quando usar evidência P6" entre README/docs hub/start guide | Evitar drift de wording em futuras edições operacionais |
+| P6-35 | TODO | Incluir lembrete desse micro-check no template de sessão (`docs/04_SESSION_LOG.md`) | Aumentar adesão operacional ao controle de consistência P6 |
 
 
 

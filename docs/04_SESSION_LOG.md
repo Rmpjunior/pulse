@@ -3138,3 +3138,29 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Executar `P6-34`: micro-check no runbook para consistência do wording "Quando usar evidência P6" entre README/hub/start guide/runbook
+
+### Session 2026-03-06 15:18 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P6-34` adicionando micro-check de consistência do wording "Quando usar evidência P6"
+- Backlog Item: P6-34
+- Changes:
+  - `docs/05_RUNBOOK.md`: checklist de evidência P6 ganhou micro-check obrigatório para validar alinhamento semântico entre `README.md`, `docs/README.md` e `docs/00_AGENT_START_HERE.md`
+  - `docs/03_BACKLOG.md`: `P6-34` marcado como `DONE`; `P6-35` criado para levar o lembrete também ao template de sessão
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com a inclusão do micro-check de consistência
+- Validation:
+  - Command: `npm run qa:p6-route-matrix` -> passou
+  - Command: `npm run qa:p6-degraded-api-smoke` -> passou
+  - Command: `npm run test` -> passou (17/17)
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Route-level UI checks: baseline P6 preservado pelos smokes de rota/degradado
+- Monitoring:
+  - Tentativa de monitorar GitHub/Vercel via CLI local bloqueada (`gh` e `vercel` indisponíveis no host atual)
+- Risks:
+  - Sem lembrete no template da sessão, o micro-check ainda depende de leitura ativa do runbook (`P6-35` cobre)
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Executar `P6-35`: incluir lembrete do micro-check no template de sessão (`docs/04_SESSION_LOG.md`)
