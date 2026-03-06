@@ -142,10 +142,11 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | P6-4 | DONE | Auditoria de tema claro/escuro com foco em contraste, legibilidade e assets com fundo inadequado | Melhorar consistência visual cross-theme |
 | P6-4a | DONE | Executar auditoria inicial de tema em rotas logadas (settings/dashboard/editor) com evidências | Identificar regressões de contraste/tema antes de correção |
 | P6-4b | DONE | Corrigir bug de aplicação do tema escuro (toggle ativo sem refletir visual global) | Fechar inconsistência crítica de UX no dark mode |
-| P6-5 | IN_PROGRESS | PT-BR final audit (UI, toasts, erros, placeholders, empty states) com correção em lote | Fechar qualidade de linguagem de ponta a ponta |
+| P6-5 | DONE | PT-BR final audit (UI, toasts, erros, placeholders, empty states) com correção em lote | Fechar qualidade de linguagem de ponta a ponta |
 | P6-5a | DONE | Corrigir resíduos EN críticos iniciais (toggle de tema, CTA de upgrade e metadata pública) | Reduzir exposição imediata de textos em inglês nas rotas principais |
 | P6-5b | DONE | Auditar e corrigir resíduos EN em fluxos secundários (mensagens de erro/toast/metadata adicional) | Concluir etapa linguística antes de avançar para novo ciclo de features |
-| P6-5c | TODO | Revisar textos de seções/templates internos restantes (editor/public-page fallbacks) com validação visual | Fechar lacunas de PT-BR em conteúdos menos frequentes |
+| P6-5c | DONE | Revisar textos de seções/templates internos restantes (editor/public-page fallbacks) com validação visual | Fechar lacunas de PT-BR em conteúdos menos frequentes |
+| P6-6 | TODO | Rodar sweep final de microcopy em fluxos de erro raros (API failures simulados) | Garantir consistência de linguagem também em cenários degradados |
 | P6-6 | TODO | Adicionar job de E2E UI na CI (Playwright ou Cypress) com artefatos de falha (screenshots/video/log) | Tornar QA pesado recorrente e automático |
 
 

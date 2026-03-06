@@ -167,7 +167,7 @@ function ThemedBlockWrapper({
             ) : (content.thumbnailType as string) === "image" && (content.thumbnailValue as string) ? (
               <Image
                 src={content.thumbnailValue as string}
-                alt="Thumbnail"
+                alt="Miniatura"
                 width={24}
                 height={24}
                 unoptimized

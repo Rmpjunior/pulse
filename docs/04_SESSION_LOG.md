@@ -2403,3 +2403,30 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Executar `P6-5c` para revisão final de templates internos/fallbacks com validação visual dedicada
+
+### Session 2026-03-06 04:19 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Fechar `P6-5` com varredura final PT-BR em templates/fallbacks e validação completa
+- Backlog Item: P6-5c
+- Changes:
+  - `src/app/[locale]/(dashboard)/dashboard/editor/editor-content.tsx`: seção `Welcome` -> `Boas-vindas`
+  - `src/components/editor/block-editor.tsx`: fallback `Welcome` -> `Boas-vindas`
+  - `src/app/[locale]/p/[username]/page-content.tsx`: `alt` fallback `About/Welcome` -> `Sobre/Boas-vindas`
+  - `src/components/blocks/block-renderer.tsx`, `src/components/editor/themed-preview.tsx`, `src/components/editor/block-editor.tsx`, `src/app/[locale]/p/[username]/page-content.tsx`: `alt` de imagem `Thumbnail` -> `Miniatura`
+  - `src/i18n/messages/pt-BR.json`: labels `desktop/mobile` -> `Computador/Celular`
+  - `docs/03_BACKLOG.md`: `P6-5c` marcado como `DONE` e `P6-5` fechado como `DONE`; criado `P6-6`
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com fechamento do bloco linguístico P6-5
+- Validation:
+  - Command: `npm run qa:p6-route-matrix` -> passou
+  - Command: `npm run test` -> passou (17/17)
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Route-level UI check: login em PT-BR após ajustes (`/home/claw/.openclaw/media/browser/7a2745aa-0190-4983-892a-426ea52faa17.png`)
+- Risks:
+  - Podem existir textos EN em cenários de erro raros e pouco exercitados; cobrir em `P6-6`
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Executar `P6-6` com simulação de falhas de API para varredura final de microcopy em cenários degradados

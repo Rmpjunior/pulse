@@ -203,7 +203,7 @@ function BlockPreview({ type, content, onEdit }: BlockPreviewProps) {
             ) : (c.thumbnailType as string) === "image" && (c.thumbnailValue as string) ? (
               <Image
                 src={c.thumbnailValue as string}
-                alt="Thumbnail"
+                alt="Miniatura"
                 width={32}
                 height={32}
                 unoptimized

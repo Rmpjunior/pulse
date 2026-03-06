@@ -46,7 +46,7 @@ export function BlockRenderer({ block, onBlockClick }: BlockRendererProps) {
               ) : (content.thumbnailType as string) === "image" && (content.thumbnailValue as string) ? (
                 <Image
                   src={content.thumbnailValue as string}
-                  alt="Thumbnail"
+                  alt="Miniatura"
                   width={28}
                   height={28}
                   unoptimized
