@@ -2351,3 +2351,29 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Iniciar `P6-5` com auditoria PT-BR de UI/toasts/erros/placeholders/empty states
+
+### Session 2026-03-06 03:48 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Avançar `P6-5` com limpeza de resíduos EN críticos e validação visual de rota principal
+- Backlog Item: P6-5a
+- Changes:
+  - `src/components/ui/theme-toggle.tsx`: `aria-label` ajustado para PT-BR (`Alternar tema`)
+  - `src/app/[locale]/(dashboard)/dashboard/settings/settings-content.tsx`: CTA `Upgrade` ajustado para `Fazer upgrade`
+  - `src/app/[locale]/p/[username]/page.tsx`: metadata pública ajustada para PT-BR (`Página não encontrada` / `Confira a página de ...`)
+  - `docs/03_BACKLOG.md`: `P6-5b` criado para fechar auditoria linguística em fluxos secundários
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com validação visual pós-correção
+- Validation:
+  - Command: `npm run qa:p6-route-matrix` -> passou
+  - Command: `npm run test` -> passou (17/17)
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Route-level UI checks:
+    - Login (PT-BR e estrutura estável): `/home/claw/.openclaw/media/browser/8c0b369f-a793-4169-965c-241ce2d77161.png`
+- Risks:
+  - Auditoria PT-BR ainda parcial; resíduos EN podem existir em fluxos menos frequentes (toasts/erros específicos)
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Executar `P6-5b` para varrer e corrigir resíduos EN em fluxos secundários

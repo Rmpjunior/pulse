@@ -240,7 +240,7 @@ export function SettingsContent({ user, subscription }: SettingsContentProps) {
             ) : (
               <Button variant="gradient" size="sm">
                 <Sparkles className="h-4 w-4 mr-1" />
-                Upgrade
+                Fazer upgrade
               </Button>
             )}
           </div>

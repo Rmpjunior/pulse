@@ -31,7 +31,7 @@ export function ThemeToggle() {
       variant="ghost"
       size="icon"
       onClick={cycleTheme}
-      aria-label="Toggle theme"
+      aria-label="Alternar tema"
     >
       {icon}
     </Button>

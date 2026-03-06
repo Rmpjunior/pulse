@@ -18,17 +18,17 @@ export async function generateMetadata({ params }: PublicPageProps) {
 
   if (!page) {
     return {
-      title: "Page Not Found",
+      title: "Página não encontrada",
     };
   }
 
   return {
     title: page.displayName || `@${page.username}`,
-    description: page.bio || `Check out ${page.displayName || username}'s page`,
+    description: page.bio || `Confira a página de ${page.displayName || username}`,
     openGraph: {
       title: page.displayName || `@${page.username}`,
       description:
-        page.bio || `Check out ${page.displayName || username}'s page`,
+        page.bio || `Confira a página de ${page.displayName || username}`,
       type: "profile",
     },
   };

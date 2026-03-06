@@ -134,6 +134,8 @@ Last updated: 2026-03-04
 - Baseline de regressão visual P6 consolidado em `docs/13_VISUAL_BASELINE_QA.md` com evidências (deslogado/logado) e checklist de diff manual guiado
 - Auditoria inicial de tema (P6-4a) identificou inconsistência crítica: modo escuro fica ativo em preferências, mas telas logadas continuam renderizando visual claro (settings/dashboard/editor)
 - Correção aplicada em `settings-content`: seleção de tema agora usa `useTheme()` global (em vez de estado local isolado), restabelecendo dark mode real em rotas logadas; P6-4 fechado
+- P6-5 iniciado com limpeza de resíduos EN críticos: `aria-label` do toggle de tema, CTA de upgrade em settings e metadata da página pública ajustados para PT-BR
+- Verificação visual pós-correção confirmada em login (`/pt-BR/login`) com UI íntegra em PT-BR e sem regressão estrutural no fluxo principal
 - Plano técnico de custom domain/subdomain publicado em `docs/08_CUSTOM_DOMAIN_PLAN.md` com arquitetura, modelo de dados, APIs, critérios e rollout quebrado em etapas
 - Visitor identity para analytics agora usa fingerprint estável por request headers (user-agent + idioma + IP encaminhado hash), substituindo ID aleatório por evento
 - Test baseline ativo com Vitest (`npm run test`) cobrindo helpers críticos de API (error shape + validation)
