@@ -126,6 +126,7 @@ Last updated: 2026-03-04
 - P6 QA iniciado com `qa:p6-route-matrix` (smoke de rotas deslogadas) + checagem manual de UI em login/register/forgot-password via browser snapshot
 - CI agora executa `npm run check:readme-anchors` dentro do job principal, transformando a convenção de âncoras em gate contínuo de merge
 - README operacional agora recomenda `npm run check:readme-anchors` como pré-push local para antecipar falhas documentais antes da CI
+- P6 avançou com baseline técnico: `qa:p6-route-matrix` agora valida rotas deslogadas e protegidas em perfis mobile/tablet/desktop (com checagem de redirect para login)
 - Plano técnico de custom domain/subdomain publicado em `docs/08_CUSTOM_DOMAIN_PLAN.md` com arquitetura, modelo de dados, APIs, critérios e rollout quebrado em etapas
 - Visitor identity para analytics agora usa fingerprint estável por request headers (user-agent + idioma + IP encaminhado hash), substituindo ID aleatório por evento
 - Test baseline ativo com Vitest (`npm run test`) cobrindo helpers críticos de API (error shape + validation)

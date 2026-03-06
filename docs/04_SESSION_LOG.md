@@ -2158,3 +2158,25 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Seguir P6-1 com fluxo logado assim que credenciais/fixture forem disponibilizadas; em paralelo, continuar automação incremental de QA pesado
+
+### Session 2026-03-06 00:24 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Avançar `P6-1` com baseline multi-device para route matrix deslogado/protegido
+- Backlog Item: P6-1a
+- Changes:
+  - `scripts/p6-route-matrix-smoke.mjs`: expandido para 3 perfis de cliente (mobile/tablet/desktop) e validação de rotas protegidas com redirect esperado para `/login`
+  - `docs/03_BACKLOG.md`: adicionado `P6-1a` como `DONE` mantendo `P6-1` em `IN_PROGRESS`
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com avanço do baseline de QA pesado
+- Validation:
+  - Command: `npm run qa:p6-route-matrix` -> passou
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Manual: execução local do app para varredura de rotas com perfil mobile/tablet/desktop
+- Risks:
+  - `P6-1` ainda não concluído: falta cobertura logada completa + evidências por screenshot por rota
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Avançar `P6-1` com captura de screenshots por rota (deslogado/logado) para fechar critério de evidência visual
