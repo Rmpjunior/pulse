@@ -2279,3 +2279,27 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Avançar `P6-3` (baseline de regressão visual consolidada + diff manual guiado)
+
+### Session 2026-03-06 03:01 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P6-3` consolidando baseline de regressão visual e checklist de diff manual
+- Backlog Item: P6-3
+- Changes:
+  - `docs/13_VISUAL_BASELINE_QA.md`: novo documento com baseline visual consolidado (deslogado/logado), caminhos de artefatos e checklist de comparação manual guiada
+  - `docs/README.md`: adicionado atalho para `docs/13_VISUAL_BASELINE_QA.md` no hub operacional
+  - `docs/03_BACKLOG.md`: `P6-3` marcado como `DONE`
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com baseline visual consolidado do P6
+- Validation:
+  - Command: `npm run qa:p6-route-matrix` -> passou
+  - Command: `npm run test` -> passou (17/17)
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Route-level UI checks: cobertos no baseline P6 consolidado (deslogado + logado)
+- Risks:
+  - Diff visual ainda é manual; automação de comparação poderá entrar em etapa posterior de CI E2E visual
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Iniciar `P6-4`: auditoria tema claro/escuro com foco em contraste, legibilidade e assets com fundo inadequado

@@ -21,6 +21,7 @@ This folder has two documentation layers:
 - `docs/09_GOOGLE_AUTH_PRODUCTION_CHECKLIST.md`: Checklist de produção + validação ponta a ponta do Google OAuth
 - `docs/10_FRONTEND_QUALITY_PLAYBOOK.md`: Playbook de qualidade frontend aplicado no P4-2 (`skills.sh`)
 - `docs/11_VISUAL_ASSET_AUDIT_PROMPTS.md`: Auditoria visual (landing/app) + prompts prontos para geração externa de assets
+- `docs/13_VISUAL_BASELINE_QA.md`: Baseline visual de QA pesado (P6) + checklist de diff manual guiado
 
 ## Reference Docs (Secondary)
 

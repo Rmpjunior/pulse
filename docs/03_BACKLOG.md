@@ -138,7 +138,7 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | P6-1c | DONE | Capturar evidências de screenshot deslogado (mobile + desktop) para rotas críticas e registrar caminhos de artefato | Criar baseline visual rastreável para comparação manual futura |
 | P6-1d | DONE | Executar route-level UI checks logado (dashboard/editor/analytics/settings) com screenshots de evidência | Cobrir baseline visual autenticado para detectar regressão em áreas críticas |
 | P6-2 | DONE | Rodar stress de multi-site (3 páginas por conta + alternância de `pageId` + salvar/publicar em sequência) | Validar robustez real da feature multi-site |
-| P6-3 | TODO | Consolidar baseline de regressão visual (landing, auth, dashboard, editor, settings) e diff manual guiado | Evitar drift visual silencioso a cada deploy |
+| P6-3 | DONE | Consolidar baseline de regressão visual (landing, auth, dashboard, editor, settings) e diff manual guiado | Evitar drift visual silencioso a cada deploy |
 | P6-4 | TODO | Auditoria de tema claro/escuro com foco em contraste, legibilidade e assets com fundo inadequado | Melhorar consistência visual cross-theme |
 | P6-5 | TODO | PT-BR final audit (UI, toasts, erros, placeholders, empty states) com correção em lote | Fechar qualidade de linguagem de ponta a ponta |
 | P6-6 | TODO | Adicionar job de E2E UI na CI (Playwright ou Cypress) com artefatos de falha (screenshots/video/log) | Tornar QA pesado recorrente e automático |
