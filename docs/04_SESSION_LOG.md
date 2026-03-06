@@ -2729,3 +2729,27 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Executar `P6-18` com smoke de sanidade para rota pública existente (quando fixture disponível no ambiente)
+
+### Session 2026-03-06 09:00 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P6-18` com verificação pública estrita opcional no CI
+- Backlog Item: P6-18
+- Changes:
+  - `scripts/p6-route-matrix-smoke.mjs`: adicionada rota pública estrita opcional (200 obrigatório) quando `P6_PUBLIC_FIXTURE_USERNAME` estiver definido
+  - `.github/workflows/ci.yml`: `p6-route-ui-smoke` agora repassa `P6_PUBLIC_FIXTURE_USERNAME` para o route matrix
+  - `docs/03_BACKLOG.md`: `P6-18` marcado como `DONE`; `P6-19` criado para documentação operacional da nova variável
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com cobertura pública estrita condicionada por fixture
+- Validation:
+  - Command: `npm run qa:p6-route-matrix` -> passou
+  - Command: `npm run test` -> passou (17/17)
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Route-level UI checks: sem regressão; baseline P6 preservado
+- Risks:
+  - Sem `P6_PUBLIC_FIXTURE_USERNAME` configurado, verificação pública continua em modo permissivo (200|404) para fixture padrão
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Executar `P6-19`: documentar `P6_PUBLIC_FIXTURE_USERNAME` no runbook de CI

@@ -20,6 +20,8 @@ const clients = [
   },
 ];
 
+const publicFixtureUsername = process.env.P6_PUBLIC_FIXTURE_USERNAME;
+
 const routes = [
   { path: "/pt-BR", expected: [200] },
   { path: "/pt-BR/login", expected: [200] },
@@ -51,6 +53,13 @@ const routes = [
     expectedFinalPathIncludes: "/login",
   },
 ];
+
+if (publicFixtureUsername && publicFixtureUsername.trim().length > 0) {
+  routes.push({
+    path: `/pt-BR/p/${publicFixtureUsername.trim()}`,
+    expected: [200],
+  });
+}
 
 function fetchStatus(path, userAgent, hop = 0) {
   const url = new URL(path, BASE_URL);

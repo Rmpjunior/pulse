@@ -85,6 +85,8 @@ jobs:
       - name: Run P6 route matrix smoke
         id: p6_route_smoke
         continue-on-error: true
+        env:
+          P6_PUBLIC_FIXTURE_USERNAME: ${{ vars.P6_PUBLIC_FIXTURE_USERNAME }}
         run: npm run qa:p6-route-matrix | tee p6-route-matrix.log
 
       - name: Run P6 degraded API smoke

@@ -158,7 +158,8 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | P6-15 | DONE | Integrar `qa:p6-degraded-api-smoke` no job de CI de QA pesado | Garantir regressão contínua para microcopy de erro e validações degradadas |
 | P6-16 | DONE | Adicionar rotina de retenção/limpeza de artefatos de QA pesado (logs/screenshots) | Controlar custo de storage e manter histórico útil |
 | P6-17 | DONE | Versionar política de retenção por tipo de artefato (log vs screenshot) no runbook | Facilitar ajuste futuro sem tocar CI às cegas |
-| P6-18 | TODO | Adicionar smoke de sanidade para rota pública existente no CI (quando fixture estiver disponível) | Cobrir regressão de render público além de login/dashboard |
+| P6-18 | DONE | Adicionar smoke de sanidade para rota pública existente no CI (quando fixture estiver disponível) | Cobrir regressão de render público além de login/dashboard |
+| P6-19 | TODO | Documentar variável `P6_PUBLIC_FIXTURE_USERNAME` no runbook de CI | Facilitar ativação segura da verificação pública estrita |
 
 
 
