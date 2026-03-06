@@ -2901,3 +2901,29 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Executar `P6-25`: referência cruzada no runbook para reforçar uso do checklist já no start guide
+
+### Session 2026-03-06 13:03 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P6-25` com referência cruzada bidirecional entre runbook e start guide
+- Backlog Item: P6-25
+- Changes:
+  - `docs/05_RUNBOOK.md`: seção de checklist de evidência mínima agora inclui referência cruzada explícita ao `docs/00_AGENT_START_HERE.md`
+  - `docs/03_BACKLOG.md`: `P6-25` marcado como `DONE`; `P6-26` criado para link reverso com âncora ASCII explícita
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com reforço de rastreabilidade bidirecional
+- Validation:
+  - Command: `npm run qa:p6-route-matrix` -> passou
+  - Command: `npm run qa:p6-degraded-api-smoke` -> passou
+  - Command: `npm run test` -> passou (17/17)
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Route-level UI checks: baseline P6 preservado pelos smokes de rota/degradado
+- Monitoring:
+  - Tentativa de monitorar GitHub/Vercel via CLI local bloqueada (`gh` e `vercel` indisponíveis no host atual)
+- Risks:
+  - Sem `gh`/`vercel`, monitoramento de status de deploy continua dependente de acesso externo/manual
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Executar `P6-26`: adicionar link reverso no start guide para seção exata de evidências no runbook com âncora explícita ASCII
