@@ -139,7 +139,9 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | P6-1d | DONE | Executar route-level UI checks logado (dashboard/editor/analytics/settings) com screenshots de evidência | Cobrir baseline visual autenticado para detectar regressão em áreas críticas |
 | P6-2 | DONE | Rodar stress de multi-site (3 páginas por conta + alternância de `pageId` + salvar/publicar em sequência) | Validar robustez real da feature multi-site |
 | P6-3 | DONE | Consolidar baseline de regressão visual (landing, auth, dashboard, editor, settings) e diff manual guiado | Evitar drift visual silencioso a cada deploy |
-| P6-4 | TODO | Auditoria de tema claro/escuro com foco em contraste, legibilidade e assets com fundo inadequado | Melhorar consistência visual cross-theme |
+| P6-4 | IN_PROGRESS | Auditoria de tema claro/escuro com foco em contraste, legibilidade e assets com fundo inadequado | Melhorar consistência visual cross-theme |
+| P6-4a | DONE | Executar auditoria inicial de tema em rotas logadas (settings/dashboard/editor) com evidências | Identificar regressões de contraste/tema antes de correção |
+| P6-4b | TODO | Corrigir bug de aplicação do tema escuro (toggle ativo sem refletir visual global) | Fechar inconsistência crítica de UX no dark mode |
 | P6-5 | TODO | PT-BR final audit (UI, toasts, erros, placeholders, empty states) com correção em lote | Fechar qualidade de linguagem de ponta a ponta |
 | P6-6 | TODO | Adicionar job de E2E UI na CI (Playwright ou Cypress) com artefatos de falha (screenshots/video/log) | Tornar QA pesado recorrente e automático |
 

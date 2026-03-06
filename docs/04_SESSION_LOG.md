@@ -2303,3 +2303,27 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Iniciar `P6-4`: auditoria tema claro/escuro com foco em contraste, legibilidade e assets com fundo inadequado
+
+### Session 2026-03-06 03:12 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P6-4a` (auditoria inicial de tema claro/escuro em rotas logadas)
+- Backlog Item: P6-4a
+- Changes:
+  - `docs/03_BACKLOG.md`: `P6-4` movido para `IN_PROGRESS`, `P6-4a` marcado como `DONE`, e `P6-4b` criado para correção do bug de dark mode
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com achado crítico da auditoria de tema
+- Validation:
+  - Route-level UI checks (browser real, conta logada):
+    - Settings (preferência tema escuro ativa): `/home/claw/.openclaw/media/browser/78282f39-2b3c-4a7b-8828-d5764b028d84.png`
+    - Dashboard: `/home/claw/.openclaw/media/browser/36509ac8-d4d3-4017-9170-b457c813b5dc.png`
+    - Editor: `/home/claw/.openclaw/media/browser/4c3ca6e6-74c2-42db-a1a0-690de6e82848.png`
+  - Resultado da auditoria:
+    - Tema escuro aparece ativo no controle de preferências, porém superfícies principais continuam em visual claro.
+    - Achado classificado como inconsistência crítica de UX para `P6-4b`.
+- Risks:
+  - Usuário pode acreditar que está em dark mode quando o app segue em light, gerando baixa confiança na preferência
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Executar `P6-4b`: corrigir aplicação global do tema escuro e validar novamente em settings/dashboard/editor
