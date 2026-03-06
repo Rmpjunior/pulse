@@ -185,6 +185,9 @@ npm run lint
 npm run test
 npm run build
 
+# Gate de documentação (pré-push recomendado)
+npm run check:readme-anchors
+
 # Fluxo rápido de rollback (exemplo)
 git log --oneline -n 5
 git revert <commit_problematico>

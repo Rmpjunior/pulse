@@ -125,7 +125,9 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | P5-52 | DONE | Criar micro-check automático (script/docs) para detectar índice sem âncora explícita no README raiz | Reduzir chance de regressão humana na convenção de links |
 | P5-53 | DONE | Expandir micro-check para validar links de arquivo no índice operacional (`docs/04_SESSION_LOG.md#...`) | Cobrir regressão além de âncoras locais do README |
 | P5-54 | DONE | Integrar `check:readme-anchors` na CI (job existente) para enforcement contínuo | Evitar regressão de links passar despercebida em merges |
-| P5-55 | TODO | Expor `check:readme-anchors` no README operacional (comando de pré-push recomendado) | Aumentar uso local do gate antes da CI |
+| P5-55 | DONE | Expor `check:readme-anchors` no README operacional (comando de pré-push recomendado) | Aumentar uso local do gate antes da CI |
+| P5-56 | TODO | Adicionar comando composto `npm run verify:ops-docs` (anchors+lint+build) para rotina operacional | Simplificar execução manual do checklist técnico documental |
+
 
 
 

@@ -2094,3 +2094,25 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Iniciar `P5-55`: expor comando `check:readme-anchors` no README operacional como pré-push recomendado
+
+### Session 2026-03-06 00:21 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-55` expondo `check:readme-anchors` no README como pré-push recomendado
+- Backlog Item: P5-55
+- Changes:
+  - `README.md`: seção `Comandos operacionais frequentes` atualizada com `npm run check:readme-anchors` como gate de documentação pré-push
+  - `docs/03_BACKLOG.md`: `P5-55` marcado como `DONE`; `P5-56` criado para comando composto operacional
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com recomendação local do gate documental antes da CI
+- Validation:
+  - Command: `npm run check:readme-anchors` -> passou (`OK: 10 links do índice operacional validados`)
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Manual: revisão da seção de comandos operacionais para visibilidade do pré-push
+- Risks:
+  - Sem risco funcional (mudança documental)
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Iniciar `P5-56`: criar comando composto `verify:ops-docs` para rotina operacional
