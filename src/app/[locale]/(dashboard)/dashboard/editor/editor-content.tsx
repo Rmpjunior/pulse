@@ -78,7 +78,7 @@ const blockTypes = [
 const sectionLibrary = [
   {
     key: "WELCOME",
-    label: "Welcome",
+    label: "Boas-vindas",
     description: "Introdução com título curto",
     icon: Sparkles,
     type: "TEXT" as BlockType,

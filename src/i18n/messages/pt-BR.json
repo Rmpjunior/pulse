@@ -187,8 +187,8 @@
   "editor": {
     "title": "Editor",
     "preview": "Pré-visualização",
-    "desktop": "Desktop",
-    "mobile": "Mobile",
+    "desktop": "Computador",
+    "mobile": "Celular",
     "profile": {
       "title": "Perfil",
       "avatar": "Foto de perfil",

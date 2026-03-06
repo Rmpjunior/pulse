@@ -244,7 +244,7 @@ function BlockPreview({ type, content, onEdit }: BlockPreviewProps) {
           return (
             <div>
               <p className="font-medium">
-                {(c.featuredTitle as string) || "Welcome"}
+                {(c.featuredTitle as string) || "Boas-vindas"}
               </p>
               <p className="text-sm text-muted-foreground">
                 {(c.secondTitle as string) || "Sem subtítulo"}

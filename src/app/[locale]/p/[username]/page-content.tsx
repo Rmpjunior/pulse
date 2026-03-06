@@ -253,7 +253,7 @@ function ThemedBlock({
             {(content.image as string) && (
               <Image
                 src={content.image as string}
-                alt={(content.pageTitle as string) || "About"}
+                alt={(content.pageTitle as string) || "Sobre"}
                 width={640}
                 height={160}
                 unoptimized
@@ -346,7 +346,7 @@ function ThemedBlock({
             {(content.profilePhoto as string) && (
               <Image
                 src={content.profilePhoto as string}
-                alt={(content.displayName as string) || "Welcome"}
+                alt={(content.displayName as string) || "Boas-vindas"}
                 width={64}
                 height={64}
                 unoptimized

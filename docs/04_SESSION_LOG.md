@@ -2377,3 +2377,29 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Executar `P6-5b` para varrer e corrigir resíduos EN em fluxos secundários
+
+### Session 2026-03-06 04:03 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P6-5b` com limpeza de resíduos EN em fluxos secundários
+- Backlog Item: P6-5b
+- Changes:
+  - `src/app/[locale]/(dashboard)/dashboard/editor/editor-content.tsx`: label de seção `Welcome` -> `Boas-vindas`
+  - `src/components/editor/block-editor.tsx`: fallback de título `Welcome` -> `Boas-vindas`
+  - `src/app/[locale]/p/[username]/page-content.tsx`: fallbacks de `alt` (`About`/`Welcome`) -> (`Sobre`/`Boas-vindas`)
+  - `src/i18n/messages/pt-BR.json`: `desktop/mobile` -> `Computador/Celular`
+  - `docs/03_BACKLOG.md`: `P6-5b` marcado como `DONE`; `P6-5c` criado para revisão final de templates/fallbacks
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com escopo concluído do lote P6-5b
+- Validation:
+  - Command: `npm run qa:p6-route-matrix` -> passou
+  - Command: `npm run test` -> passou (17/17)
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Route-level UI checks: mantidos no baseline P6 (deslogado/logado), sem regressão estrutural após ajustes de texto
+- Risks:
+  - Ainda podem existir lacunas pontuais em fallbacks raros; `P6-5c` cobre fechamento final desse perímetro
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Executar `P6-5c` para revisão final de templates internos/fallbacks com validação visual dedicada
