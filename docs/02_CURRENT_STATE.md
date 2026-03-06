@@ -150,6 +150,7 @@ Last updated: 2026-03-04
 - `P6-15` concluído com integração do `qa:p6-degraded-api-smoke` ao job `p6-route-ui-smoke` na CI (log dedicado em artefatos)
 - `P6-17` concluiu versionamento da política de retenção de artefatos no runbook (v1, 7 dias, compressão 6) com regra explícita de evolução
 - `P6-18` concluído: route matrix suporta verificação pública estrita (`200 obrigatório`) quando `P6_PUBLIC_FIXTURE_USERNAME` estiver configurado no CI
+- `P6-19` concluído: runbook documenta como habilitar/operar `P6_PUBLIC_FIXTURE_USERNAME` e o comportamento com/sem fixture pública estrita
 - `P6-16` concluído: upload de artefatos do QA pesado agora usa retenção de 7 dias + compressão (`compression-level: 6`) para reduzir custo de storage
 - `P6-11` concluído: runbook agora documenta claramente variáveis/secrets de ativação, comportamento esperado e diagnóstico do smoke logado no CI
 - Verificação visual pós-correção confirmada em login (`/pt-BR/login`) com UI íntegra em PT-BR e sem regressão estrutural no fluxo principal

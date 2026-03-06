@@ -2753,3 +2753,28 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Executar `P6-19`: documentar `P6_PUBLIC_FIXTURE_USERNAME` no runbook de CI
+
+### Session 2026-03-06 09:12 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P6-19` documentando `P6_PUBLIC_FIXTURE_USERNAME` no runbook de CI
+- Backlog Item: P6-19
+- Changes:
+  - `docs/05_RUNBOOK.md`: seção de CI atualizada com ativação opcional de fixture pública estrita via `P6_PUBLIC_FIXTURE_USERNAME`
+  - `docs/05_RUNBOOK.md`: comportamento esperado detalhado para cenário com/sem fixture pública
+  - `docs/03_BACKLOG.md`: `P6-19` marcado como `DONE`; `P6-20` criado para fallback seguro em ambiente sem seed pública
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com fechamento da documentação operacional da variável
+- Validation:
+  - Command: `npm run qa:p6-route-matrix` -> passou
+  - Command: `npm run qa:p6-degraded-api-smoke` -> passou
+  - Command: `npm run test` -> passou (17/17)
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Route-level UI checks: baseline P6 preservado pelos smokes de rota e degradado
+- Risks:
+  - Fixture pública pode não existir em ambientes novos; `P6-20` cobre orientação de fallback seguro
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Executar `P6-20`: formalizar fallback seguro quando fixture pública não existir no ambiente

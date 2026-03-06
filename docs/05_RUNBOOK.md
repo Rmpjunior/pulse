@@ -80,9 +80,13 @@ Job relacionado: `.github/workflows/ci.yml` → `p6-route-ui-smoke`.
 2. Definir secrets de CI:
    - `P6_AUTH_EMAIL`
    - `P6_AUTH_PASSWORD`
+3. (Opcional) Definir fixture pública estrita:
+   - variável `P6_PUBLIC_FIXTURE_USERNAME` (username que deve responder 200 em `/pt-BR/p/{username}`)
 
 ### Comportamento esperado
 
+- Sem `P6_PUBLIC_FIXTURE_USERNAME`: rota pública segue validação permissiva (200/404) no route matrix.
+- Com `P6_PUBLIC_FIXTURE_USERNAME` definido: rota pública do fixture vira validação estrita (200 obrigatório).
 - Com `P6_AUTH_SMOKE_ENABLED=false` (default): passo logado é ignorado com sucesso.
 - Com `P6_AUTH_SMOKE_ENABLED=true` e secrets válidos:
   - roda `npm run qa:p6-auth-ui-smoke`

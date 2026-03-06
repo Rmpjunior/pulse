@@ -159,7 +159,8 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | P6-16 | DONE | Adicionar rotina de retenção/limpeza de artefatos de QA pesado (logs/screenshots) | Controlar custo de storage e manter histórico útil |
 | P6-17 | DONE | Versionar política de retenção por tipo de artefato (log vs screenshot) no runbook | Facilitar ajuste futuro sem tocar CI às cegas |
 | P6-18 | DONE | Adicionar smoke de sanidade para rota pública existente no CI (quando fixture estiver disponível) | Cobrir regressão de render público além de login/dashboard |
-| P6-19 | TODO | Documentar variável `P6_PUBLIC_FIXTURE_USERNAME` no runbook de CI | Facilitar ativação segura da verificação pública estrita |
+| P6-19 | DONE | Documentar variável `P6_PUBLIC_FIXTURE_USERNAME` no runbook de CI | Facilitar ativação segura da verificação pública estrita |
+| P6-20 | TODO | Adicionar observação de fallback seguro quando fixture pública não existir (ambiente novo) | Evitar falso negativo de CI em ambientes sem seed pública |
 
 
 
