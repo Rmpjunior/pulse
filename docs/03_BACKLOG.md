@@ -149,7 +149,8 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | P6-6 | DONE | Rodar sweep final de microcopy em fluxos de erro raros (API failures simulados) | Garantir consistência de linguagem também em cenários degradados |
 | P6-7 | DONE | Adicionar job de E2E UI na CI (Playwright ou Cypress) com artefatos de falha (screenshots/video/log) | Tornar QA pesado recorrente e automático |
 | P6-8 | DONE | Expandir job `p6-route-ui-smoke` para incluir captura automática de screenshots em falha | Melhorar triagem visual sem depender de reprodução manual |
-| P6-9 | TODO | Adicionar healthcheck de startup no job `p6-route-ui-smoke` (timeout + diagnóstico amigável) | Melhorar debuggabilidade quando app não sobe no CI |
+| P6-9 | DONE | Adicionar healthcheck de startup no job `p6-route-ui-smoke` (timeout + diagnóstico amigável) | Melhorar debuggabilidade quando app não sobe no CI |
+| P6-10 | TODO | Adicionar smoke logado opcional no CI (feature-flag por env) para rotas dashboard/editor | Expandir cobertura de regressão sem aumentar custo fixo em todos os runs |
 
 
 

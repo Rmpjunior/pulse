@@ -2507,3 +2507,27 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Executar `P6-9`: adicionar healthcheck de startup com diagnóstico amigável no job de smoke
+
+### Session 2026-03-06 05:16 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P6-9` adicionando healthcheck de startup com diagnóstico amigável no CI smoke job
+- Backlog Item: P6-9
+- Changes:
+  - `.github/workflows/ci.yml`: passo de espera da app substituído por `Healthcheck app startup (with diagnostics)` com timeout de 90s (`wait-on --timeout 90000`)
+  - `.github/workflows/ci.yml`: em falha de startup, job agora imprime tail do log (`p6-route-ui-smoke.log`) e probes HTTP (`/` e `/pt-BR`) antes de encerrar
+  - `docs/03_BACKLOG.md`: `P6-9` marcado como `DONE`; `P6-10` criado para smoke logado opcional em CI
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com melhoria de debuggabilidade no startup do CI
+- Validation:
+  - Command: `npm run qa:p6-route-matrix` -> passou
+  - Command: `npm run test` -> passou (17/17)
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Route-level UI checks: baseline P6 preservado; alteração focada em robustez de pipeline
+- Risks:
+  - `wait-on` continua dependente de disponibilidade de rede para `npx`; ideal futuro é pinar binário local/cacheado no CI
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Iniciar `P6-10`: smoke logado opcional no CI controlado por variável de ambiente

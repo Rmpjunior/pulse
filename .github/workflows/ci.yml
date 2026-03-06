@@ -69,8 +69,18 @@ jobs:
       - name: Start app
         run: npm run start > p6-route-ui-smoke.log 2>&1 &
 
-      - name: Wait for app
-        run: npx -y wait-on http://127.0.0.1:3000/pt-BR
+      - name: Healthcheck app startup (with diagnostics)
+        run: |
+          set -e
+          if ! npx -y wait-on --timeout 90000 http://127.0.0.1:3000/pt-BR; then
+            echo "Startup healthcheck failed: app did not respond at /pt-BR within 90s"
+            echo "--- Last 120 lines of p6-route-ui-smoke.log ---"
+            tail -n 120 p6-route-ui-smoke.log || true
+            echo "--- Probe / and /pt-BR (best effort) ---"
+            curl -I http://127.0.0.1:3000/ || true
+            curl -I http://127.0.0.1:3000/pt-BR || true
+            exit 1
+          fi
 
       - name: Run P6 route matrix smoke
         id: p6_route_smoke
