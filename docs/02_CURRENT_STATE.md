@@ -155,6 +155,7 @@ Last updated: 2026-03-04
 - `P6-21` concluído: runbook inclui checklist de habilitação gradual do gate público estrito (pré-requisitos, ativação monitorada e rollback rápido)
 - `P6-22` concluído: smoke degradado agora também suporta fixture pública estrita opcional, com diagnóstico PT-BR claro quando a fixture não responder 200
 - `P6-23` concluído: runbook inclui checklist de evidência mínima para PRs que alterem QA pesado (smokes + gates técnicos + artefatos)
+- `P6-24` concluído: `docs/00_AGENT_START_HERE.md` agora referencia explicitamente o checklist de evidência P6 do runbook antes de abrir/atualizar PR
 - `P6-16` concluído: upload de artefatos do QA pesado agora usa retenção de 7 dias + compressão (`compression-level: 6`) para reduzir custo de storage
 - `P6-11` concluído: runbook agora documenta claramente variáveis/secrets de ativação, comportamento esperado e diagnóstico do smoke logado no CI
 - Verificação visual pós-correção confirmada em login (`/pt-BR/login`) com UI íntegra em PT-BR e sem regressão estrutural no fluxo principal

@@ -2875,3 +2875,29 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Executar `P6-24`: referenciar checklist de evidência P6 no `docs/00_AGENT_START_HERE.md`
+
+### Session 2026-03-06 12:48 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P6-24` referenciando checklist de evidência P6 no start guide
+- Backlog Item: P6-24
+- Changes:
+  - `docs/00_AGENT_START_HERE.md`: fluxo obrigatório agora aponta explicitamente para o checklist de evidência mínima de QA pesado no runbook
+  - `docs/03_BACKLOG.md`: `P6-24` marcado como `DONE`; `P6-25` criado para reforço de referência cruzada bidirecional
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com adoção do checklist P6 no start guide
+- Validation:
+  - Command: `npm run qa:p6-route-matrix` -> passou
+  - Command: `npm run qa:p6-degraded-api-smoke` -> passou
+  - Command: `npm run test` -> passou (17/17)
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Route-level UI checks: baseline P6 preservado pelos smokes de rota/degradado
+- Monitoring:
+  - Tentativa de monitorar GitHub/Vercel via CLI local bloqueada (`gh` e `vercel` indisponíveis no host atual)
+- Risks:
+  - Sem `gh`/`vercel` local, monitoramento em tempo real de pipeline/deploy segue limitado
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Executar `P6-25`: referência cruzada no runbook para reforçar uso do checklist já no start guide
