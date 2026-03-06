@@ -177,7 +177,8 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | P6-34 | DONE | Adicionar micro-check no runbook para validar consistência do texto "Quando usar evidência P6" entre README/docs hub/start guide | Evitar drift de wording em futuras edições operacionais |
 | P6-35 | DONE | Incluir lembrete desse micro-check no template de sessão (`docs/04_SESSION_LOG.md`) | Aumentar adesão operacional ao controle de consistência P6 |
 | P6-36 | DONE | Adicionar linha equivalente de micro-check nas últimas sessões sem esse campo (ajuste retroativo curto) | Melhorar consistência histórica do log recente |
-| P6-37 | TODO | Adicionar nota no runbook definindo janela retroativa padrão (ex.: últimas 5-10 sessões) para micro-checks novos | Evitar escopo indefinido em ajustes históricos futuros |
+| P6-37 | DONE | Adicionar nota no runbook definindo janela retroativa padrão (ex.: últimas 5-10 sessões) para micro-checks novos | Evitar escopo indefinido em ajustes históricos futuros |
+| P6-38 | TODO | Referenciar no template do session log a janela retroativa padrão (últimas 5 sessões) | Tornar explícito o limite de backfill no ponto onde a rotina é executada |
 
 
 

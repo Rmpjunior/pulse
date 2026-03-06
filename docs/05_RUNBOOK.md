@@ -85,6 +85,10 @@ Micro-check de consistência (antes de fechar a sessão):
 - [ ] O bullet "Quando usar evidência P6" está semanticamente alinhado entre `README.md`, `docs/README.md` e `docs/00_AGENT_START_HERE.md`.
 - [ ] Se houver ajuste de wording em um desses arquivos, os outros dois foram revisados no mesmo ciclo.
 
+Janela retroativa padrão para micro-checks novos:
+- aplicar ajustes históricos somente nas **últimas 5 sessões** do `docs/04_SESSION_LOG.md`;
+- se precisar ampliar para além disso, registrar justificativa curta no próprio log.
+
 - [ ] Resultado de `npm run qa:p6-route-matrix`
 - [ ] Resultado de `npm run qa:p6-degraded-api-smoke`
 - [ ] Resultado de `npm run test`

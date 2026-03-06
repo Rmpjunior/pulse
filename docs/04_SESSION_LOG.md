@@ -3226,3 +3226,30 @@ Use this block when recording production/auth/deploy incidents:
   - Micro-check "Quando usar evidência P6" consistente entre README/docs hub/start guide: yes
 - Next:
   - Executar `P6-37`: definir no runbook a janela retroativa padrão para novos micro-checks
+
+### Session 2026-03-06 16:03 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P6-37` definindo janela retroativa padrão para micro-checks novos
+- Backlog Item: P6-37
+- Changes:
+  - `docs/05_RUNBOOK.md`: adicionada nota de janela retroativa padrão (últimas 5 sessões) para ajustes históricos de micro-checks, com regra de justificar exceções
+  - `docs/03_BACKLOG.md`: `P6-37` marcado como `DONE`; `P6-38` criado para explicitar a mesma janela no template do session log
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com política de janela retroativa para backfills de micro-check
+- Validation:
+  - Command: `npm run qa:p6-route-matrix` -> passou
+  - Command: `npm run qa:p6-degraded-api-smoke` -> passou
+  - Command: `npm run test` -> passou (17/17)
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Route-level UI checks: baseline preservado pelos smokes de rota/degradado
+- Monitoring:
+  - Tentativa de monitorar GitHub/Vercel via CLI local bloqueada (`gh` e `vercel` indisponíveis no host atual)
+- Risks:
+  - Sem `gh`/`vercel` local, monitoramento em tempo real de pipeline/deploy segue limitado
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+  - Micro-check "Quando usar evidência P6" consistente entre README/docs hub/start guide: yes
+- Next:
+  - Executar `P6-38`: explicitar janela retroativa padrão no template de `docs/04_SESSION_LOG.md`
