@@ -10,7 +10,8 @@
     "test": "vitest run",
     "test:smoke": "vitest run src/e2e/creator-journey.smoke.test.ts",
     "check:readme-anchors": "node scripts/verify-readme-operational-anchors.mjs",
-    "qa:p6-route-matrix": "node scripts/p6-route-matrix-smoke.mjs"
+    "qa:p6-route-matrix": "node scripts/p6-route-matrix-smoke.mjs",
+    "qa:p6-auth-ui-smoke": "node scripts/p6-auth-ui-smoke.mjs"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.11.1",
@@ -52,6 +53,7 @@
     "@types/ws": "^8.18.1",
     "eslint": "^9",
     "eslint-config-next": "16.1.4",
+    "playwright": "^1.55.1",
     "tailwindcss": "^4",
     "typescript": "^5",
     "vitest": "^3.2.4"

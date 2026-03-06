@@ -2531,3 +2531,30 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Iniciar `P6-10`: smoke logado opcional no CI controlado por variável de ambiente
+
+### Session 2026-03-06 05:31 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P6-10` adicionando smoke logado opcional no CI
+- Backlog Item: P6-10
+- Changes:
+  - `scripts/p6-auth-ui-smoke.mjs`: novo script de smoke UI logado com Playwright (dashboard/editor/settings) controlado por `P6_AUTH_SMOKE_ENABLED`
+  - `package.json`: novo script `qa:p6-auth-ui-smoke`
+  - `package.json`/lock: adicionado `playwright` como dev dependency para execução consistente no CI
+  - `.github/workflows/ci.yml`: novo step opcional de smoke logado com env flag + secrets (`P6_AUTH_EMAIL`, `P6_AUTH_PASSWORD`), log `p6-auth-ui-smoke.log` e upload de `p6-auth-smoke-artifacts`
+  - `docs/03_BACKLOG.md`: `P6-10` marcado como `DONE`; `P6-11` criado para documentação operacional de variáveis/secrets
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com expansão de cobertura opcional autenticada no CI
+- Validation:
+  - Command: `npm run qa:p6-auth-ui-smoke` -> passou em modo desabilitado (skip controlado)
+  - Command: `npm run qa:p6-route-matrix` -> passou
+  - Command: `npm run test` -> passou (17/17)
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Route-level UI checks: baseline P6 preservado
+- Risks:
+  - Smoke logado depende de secrets válidos no CI; com flag habilitada e secrets ausentes, job deve falhar (com diagnóstico) por desenho
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Executar `P6-11`: documentar variáveis e segredos necessários para ativar smoke logado no pipeline
