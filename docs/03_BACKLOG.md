@@ -176,7 +176,8 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | P6-33 | DONE | Padronizar wording dessa regra também no README raiz | Manter consistência total entre docs operacionais e índice principal |
 | P6-34 | DONE | Adicionar micro-check no runbook para validar consistência do texto "Quando usar evidência P6" entre README/docs hub/start guide | Evitar drift de wording em futuras edições operacionais |
 | P6-35 | DONE | Incluir lembrete desse micro-check no template de sessão (`docs/04_SESSION_LOG.md`) | Aumentar adesão operacional ao controle de consistência P6 |
-| P6-36 | TODO | Adicionar linha equivalente de micro-check nas últimas sessões sem esse campo (ajuste retroativo curto) | Melhorar consistência histórica do log recente |
+| P6-36 | DONE | Adicionar linha equivalente de micro-check nas últimas sessões sem esse campo (ajuste retroativo curto) | Melhorar consistência histórica do log recente |
+| P6-37 | TODO | Adicionar nota no runbook definindo janela retroativa padrão (ex.: últimas 5-10 sessões) para micro-checks novos | Evitar escopo indefinido em ajustes históricos futuros |
 
 
 

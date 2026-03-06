@@ -3005,6 +3005,7 @@ Use this block when recording production/auth/deploy incidents:
 - Quality Check (docs):
   - Links operacionais revisados: yes
   - PT-BR confirmado em textos novos: yes
+  - Micro-check "Quando usar evidência P6" consistente entre README/docs hub/start guide: yes
 - Next:
   - Executar `P6-29`: adicionar nota curta no índice raiz sobre quando aplicar checklist P6 (mudanças em scripts/workflows de QA)
 
@@ -3031,6 +3032,7 @@ Use this block when recording production/auth/deploy incidents:
 - Quality Check (docs):
   - Links operacionais revisados: yes
   - PT-BR confirmado em textos novos: yes
+  - Micro-check "Quando usar evidência P6" consistente entre README/docs hub/start guide: yes
 - Next:
   - Executar `P6-30`: adicionar nota equivalente de contexto de uso no `docs/README.md`
 
@@ -3057,6 +3059,7 @@ Use this block when recording production/auth/deploy incidents:
 - Quality Check (docs):
   - Links operacionais revisados: yes
   - PT-BR confirmado em textos novos: yes
+  - Micro-check "Quando usar evidência P6" consistente entre README/docs hub/start guide: yes
 - Next:
   - Executar `P6-31`: reforçar referência cruzada no runbook para manter rastreabilidade bidirecional com o hub
 
@@ -3083,6 +3086,7 @@ Use this block when recording production/auth/deploy incidents:
 - Quality Check (docs):
   - Links operacionais revisados: yes
   - PT-BR confirmado em textos novos: yes
+  - Micro-check "Quando usar evidência P6" consistente entre README/docs hub/start guide: yes
 - Next:
   - Executar `P6-32` consolidando um bullet único de “quando usar evidência P6” no start guide, hub e runbook
 
@@ -3111,6 +3115,7 @@ Use this block when recording production/auth/deploy incidents:
 - Quality Check (docs):
   - Links operacionais revisados: yes
   - PT-BR confirmado em textos novos: yes
+  - Micro-check "Quando usar evidência P6" consistente entre README/docs hub/start guide: yes
 - Next:
   - Executar `P6-33`: padronizar wording da regra de uso de evidência P6 também no README raiz
 
@@ -3137,6 +3142,7 @@ Use this block when recording production/auth/deploy incidents:
 - Quality Check (docs):
   - Links operacionais revisados: yes
   - PT-BR confirmado em textos novos: yes
+  - Micro-check "Quando usar evidência P6" consistente entre README/docs hub/start guide: yes
 - Next:
   - Executar `P6-34`: micro-check no runbook para consistência do wording "Quando usar evidência P6" entre README/hub/start guide/runbook
 
@@ -3163,6 +3169,7 @@ Use this block when recording production/auth/deploy incidents:
 - Quality Check (docs):
   - Links operacionais revisados: yes
   - PT-BR confirmado em textos novos: yes
+  - Micro-check "Quando usar evidência P6" consistente entre README/docs hub/start guide: yes
 - Next:
   - Executar `P6-35`: incluir lembrete do micro-check no template de sessão (`docs/04_SESSION_LOG.md`)
 
@@ -3192,3 +3199,30 @@ Use this block when recording production/auth/deploy incidents:
   - Micro-check "Quando usar evidência P6" consistente entre README/docs hub/start guide: yes
 - Next:
   - Executar `P6-36`: aplicar ajuste retroativo curto nas últimas sessões sem o novo campo
+
+### Session 2026-03-06 15:48 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P6-36` aplicando ajuste retroativo curto do micro-check de evidência P6 em sessões recentes
+- Backlog Item: P6-36
+- Changes:
+  - `docs/04_SESSION_LOG.md`: adicionada linha de micro-check "Quando usar evidência P6" nas sessões recentes que ainda tinham apenas 2 itens de `Quality Check (docs)`
+  - `docs/03_BACKLOG.md`: `P6-36` marcado como `DONE`; `P6-37` criado para definir janela retroativa padrão em futuras mudanças desse tipo
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com conclusão do ajuste retroativo curto no log
+- Validation:
+  - Command: `npm run qa:p6-route-matrix` -> passou
+  - Command: `npm run qa:p6-degraded-api-smoke` -> passou
+  - Command: `npm run test` -> passou (17/17)
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Route-level UI checks: baseline P6 preservado pelos smokes de rota/degradado
+- Monitoring:
+  - Tentativa de monitorar GitHub/Vercel via CLI local bloqueada (`gh` e `vercel` indisponíveis no host atual)
+- Risks:
+  - Sem definição explícita de janela retroativa padrão, ajustes históricos futuros podem variar de escopo (`P6-37` cobre)
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+  - Micro-check "Quando usar evidência P6" consistente entre README/docs hub/start guide: yes
+- Next:
+  - Executar `P6-37`: definir no runbook a janela retroativa padrão para novos micro-checks
