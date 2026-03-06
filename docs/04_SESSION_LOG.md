@@ -2072,3 +2072,25 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Iniciar `P5-54`: integrar `check:readme-anchors` na CI para enforcement contínuo
+
+### Session 2026-03-06 00:06 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P5-54` integrando `check:readme-anchors` na CI
+- Backlog Item: P5-54
+- Changes:
+  - `.github/workflows/ci.yml`: adicionado passo `Check README operational anchors` (`npm run check:readme-anchors`) no job de qualidade
+  - `docs/03_BACKLOG.md`: `P5-54` marcado como `DONE`; `P5-55` criado para reforço de uso local no README
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com o gate de âncoras incorporado ao pipeline
+- Validation:
+  - Command: `npm run check:readme-anchors` -> passou (`OK: 10 links do índice operacional validados`)
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Manual: revisão da posição do step na workflow (após lint, antes de testes/build)
+- Risks:
+  - Sem risco funcional; eventual falha futura indicará desvio real de documentação/âncoras
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Iniciar `P5-55`: expor comando `check:readme-anchors` no README operacional como pré-push recomendado

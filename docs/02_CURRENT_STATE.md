@@ -123,6 +123,7 @@ Last updated: 2026-03-04
 - README raiz agora inclui nota de manutenção exigindo ID ASCII explícito para novas seções operacionais, prevenindo regressão de padrão
 - Micro-check automático adicionado (`npm run check:readme-anchors`) para validar âncoras do índice operacional no README raiz
 - Micro-check expandido para validar também links de arquivo com âncora (ex.: `docs/04_SESSION_LOG.md#...`) com exigência de IDs explícitos no destino
+- CI agora executa `npm run check:readme-anchors` dentro do job principal, transformando a convenção de âncoras em gate contínuo de merge
 - Plano técnico de custom domain/subdomain publicado em `docs/08_CUSTOM_DOMAIN_PLAN.md` com arquitetura, modelo de dados, APIs, critérios e rollout quebrado em etapas
 - Visitor identity para analytics agora usa fingerprint estável por request headers (user-agent + idioma + IP encaminhado hash), substituindo ID aleatório por evento
 - Test baseline ativo com Vitest (`npm run test`) cobrindo helpers críticos de API (error shape + validation)

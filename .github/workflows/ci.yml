@@ -36,6 +36,9 @@ jobs:
       - name: Lint
         run: npm run lint
 
+      - name: Check README operational anchors
+        run: npm run check:readme-anchors
+
       - name: Unit + smoke tests
         run: npm run test
 

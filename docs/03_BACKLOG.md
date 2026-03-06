@@ -124,7 +124,9 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | P5-51 | DONE | Adicionar nota de manutenção: sempre criar ID explícito ao adicionar nova seção no README raiz | Evitar regressão futura da padronização recém-concluída |
 | P5-52 | DONE | Criar micro-check automático (script/docs) para detectar índice sem âncora explícita no README raiz | Reduzir chance de regressão humana na convenção de links |
 | P5-53 | DONE | Expandir micro-check para validar links de arquivo no índice operacional (`docs/04_SESSION_LOG.md#...`) | Cobrir regressão além de âncoras locais do README |
-| P5-54 | TODO | Integrar `check:readme-anchors` na CI (job existente) para enforcement contínuo | Evitar regressão de links passar despercebida em merges |
+| P5-54 | DONE | Integrar `check:readme-anchors` na CI (job existente) para enforcement contínuo | Evitar regressão de links passar despercebida em merges |
+| P5-55 | TODO | Expor `check:readme-anchors` no README operacional (comando de pré-push recomendado) | Aumentar uso local do gate antes da CI |
+
 
 
 
