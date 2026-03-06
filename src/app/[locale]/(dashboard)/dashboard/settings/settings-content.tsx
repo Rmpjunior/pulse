@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useTheme } from "@/components/providers/theme-provider";
 import {
   Card,
   CardContent,
@@ -47,7 +48,7 @@ export function SettingsContent({ user, subscription }: SettingsContentProps) {
   const [isSaving, setIsSaving] = useState(false);
   const [isSendingReset, setIsSendingReset] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [theme, setTheme] = useState<"light" | "dark" | "system">("system");
+  const { theme, setTheme } = useTheme();
 
   const isPlusUser =
     subscription?.plan !== "FREE" && subscription?.plan !== undefined;

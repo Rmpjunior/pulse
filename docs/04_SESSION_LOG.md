@@ -2327,3 +2327,27 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Executar `P6-4b`: corrigir aplicação global do tema escuro e validar novamente em settings/dashboard/editor
+
+### Session 2026-03-06 03:28 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P6-4b` corrigindo aplicação global do dark mode em telas logadas
+- Backlog Item: P6-4b
+- Changes:
+  - `src/app/[locale]/(dashboard)/dashboard/settings/settings-content.tsx`: tema de preferências passou a usar `useTheme()` global (removendo estado local isolado)
+  - `docs/03_BACKLOG.md`: `P6-4b` marcado como `DONE` e `P6-4` fechado como `DONE`
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com causa raiz e correção aplicada
+- Validation:
+  - Command: `npm run test` -> passou (17/17)
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Route-level UI checks (browser real, conta logada):
+    - Settings dark aplicado: `/home/claw/.openclaw/media/browser/bf9d5e00-b35b-47dc-b739-11a820c78098.png`
+    - Dashboard dark aplicado: `/home/claw/.openclaw/media/browser/6db94d9e-20ce-489b-94a7-beccde445592.png`
+- Risks:
+  - Nenhum risco funcional imediato; próximo passo é auditoria linguística P6-5
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Iniciar `P6-5` com auditoria PT-BR de UI/toasts/erros/placeholders/empty states
