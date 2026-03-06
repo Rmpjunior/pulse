@@ -180,7 +180,8 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | P6-37 | DONE | Adicionar nota no runbook definindo janela retroativa padrão (ex.: últimas 5-10 sessões) para micro-checks novos | Evitar escopo indefinido em ajustes históricos futuros |
 | P6-38 | DONE | Referenciar no template do session log a janela retroativa padrão (últimas 5 sessões) | Tornar explícito o limite de backfill no ponto onde a rotina é executada |
 | P6-39 | DONE | Adicionar no runbook exemplo curto de preenchimento da linha de janela retroativa no Quality Check | Reduzir ambiguidade de preenchimento entre agentes |
-| P6-40 | TODO | Adicionar no start guide referência ao exemplo de preenchimento da janela retroativa no runbook | Aumentar adoção correta do novo campo no ponto de entrada operacional |
+| P6-40 | DONE | Adicionar no start guide referência ao exemplo de preenchimento da janela retroativa no runbook | Aumentar adoção correta do novo campo no ponto de entrada operacional |
+| P6-41 | TODO | Adicionar lembrete equivalente no README raiz para sessões que alterem docs operacionais de QA | Melhorar consistência de orientação fora da pasta docs |
 
 
 

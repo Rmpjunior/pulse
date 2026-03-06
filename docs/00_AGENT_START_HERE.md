@@ -13,6 +13,7 @@ This file is the operating contract for any AI coding agent working on Pulse.
 3. Implement in small verifiable steps.
 4. Run checks (at minimum lint + relevant runtime check).
    - Quando usar evidência P6: somente se a entrega alterar scripts, automações ou workflows de QA pesado (smokes/CI E2E/artefatos); nesses casos, aplicar `docs/05_RUNBOOK.md#p6-pr-evidence-checklist` antes de abrir/atualizar PR.
+   - Para o campo de janela retroativa no `Quality Check (docs)`, seguir o exemplo curto em `docs/05_RUNBOOK.md#exemplo-curto-janela-retroativa-no-quality-check`.
 5. Update docs:
    - mark backlog item status
    - append a new session entry in `docs/04_SESSION_LOG.md`

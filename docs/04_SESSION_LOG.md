@@ -3310,3 +3310,31 @@ Use this block when recording production/auth/deploy incidents:
   - Janela retroativa padrão para micro-checks novos respeitada (últimas 5 sessões): yes
 - Next:
   - Executar `P6-40`: adicionar no start guide referência ao exemplo de preenchimento da janela retroativa no runbook
+
+### Session 2026-03-06 16:49 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P6-40` adicionando no start guide referência ao exemplo de janela retroativa no runbook
+- Backlog Item: P6-40
+- Changes:
+  - `docs/00_AGENT_START_HERE.md`: incluída referência explícita para o exemplo curto de preenchimento da janela retroativa no runbook
+  - `docs/03_BACKLOG.md`: `P6-40` marcado como `DONE`; `P6-41` criado para reforço equivalente no README raiz
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com a nova referência operacional no start guide
+- Validation:
+  - Command: `npm run qa:p6-route-matrix` -> passou
+  - Command: `npm run qa:p6-degraded-api-smoke` -> passou
+  - Command: `npm run test` -> passou (17/17)
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Route-level UI checks: baseline preservado pelos smokes de rota/degradado
+- Monitoring:
+  - Tentativa de monitoramento GitHub/Vercel via CLI local bloqueada (`gh`/`vercel` indisponíveis no host atual)
+- Risks:
+  - README raiz ainda sem lembrete equivalente do exemplo de janela retroativa (`P6-41` cobre)
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+  - Micro-check "Quando usar evidência P6" consistente entre README/docs hub/start guide: yes
+  - Janela retroativa padrão para micro-checks novos respeitada (últimas 5 sessões): yes
+- Next:
+  - Executar `P6-41`: adicionar lembrete equivalente no README raiz para sessões com alteração de docs operacionais QA

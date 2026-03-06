@@ -158,6 +158,7 @@ Last updated: 2026-03-04
 - `P6-24` concluído: `docs/00_AGENT_START_HERE.md` agora referencia explicitamente o checklist de evidência P6 do runbook antes de abrir/atualizar PR
 - `P6-37` concluído: runbook define janela retroativa padrão (últimas 5 sessões) para micro-checks novos, reduzindo escopo indefinido em backfills históricos
 - `P6-38` concluído: template de sessão em `docs/04_SESSION_LOG.md` agora inclui confirmação explícita da janela retroativa padrão (últimas 5 sessões)
+- `P6-40` concluído: start guide agora referencia o exemplo do runbook para preenchimento correto do campo de janela retroativa no quality check
 - `P6-39` concluído: runbook agora traz exemplo curto de preenchimento da linha da janela retroativa no `Quality Check (docs)`
 - `P6-36` concluído: últimas sessões recentes no `docs/04_SESSION_LOG.md` receberam retroativamente o campo de micro-check de consistência de evidência P6
 - `P6-35` concluído: template de sessão (`docs/04_SESSION_LOG.md`) agora exige também micro-check de consistência do bullet "Quando usar evidência P6" entre README/hub/start guide
