@@ -2180,3 +2180,27 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Avançar `P6-1` com captura de screenshots por rota (deslogado/logado) para fechar critério de evidência visual
+
+### Session 2026-03-06 00:48 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Avançar P6 com route-level UI checks deslogado em browser real
+- Backlog Item: P6-1b
+- Changes:
+  - `docs/03_BACKLOG.md`: adicionado `P6-1b` como `DONE` (route-level UI checks deslogado)
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com status da validação visual de rotas deslogadas
+- Validation:
+  - Command: `npm run qa:p6-route-matrix` -> passou (mobile/tablet/desktop + rotas protegidas)
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Route-level UI checks (browser real):
+    - `/pt-BR` (landing) carregou com CTA principal visível
+    - `/pt-BR/login`, `/pt-BR/register`, `/pt-BR/forgot-password` renderizaram sem quebra estrutural
+    - `/pt-BR/dashboard` redirecionou para `/login` quando deslogado
+- Risks:
+  - `P6-1` ainda não finalizado: faltam evidências sistemáticas de screenshot por rota e cobertura logada
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Seguir `P6-1` com captura padronizada de screenshots por rota/viewport e depois entrar em `P6-2` (stress multi-site)
