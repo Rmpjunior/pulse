@@ -38,6 +38,7 @@ Open `http://localhost:3000`.
 - [Checklist pós-merge (PRs críticos)](#checklist-pos-merge-prs-criticos)
 - [Template de incidente (session log)](docs/04_SESSION_LOG.md#incident-entry-template-quick)
 - [Exemplo fictício de incidente](docs/04_SESSION_LOG.md#incident-example-fictitious)
+- [Checklist de evidência P6 (QA pesado)](docs/05_RUNBOOK.md#p6-pr-evidence-checklist)
 
 <a id="ci-status-quick-check"></a>
 

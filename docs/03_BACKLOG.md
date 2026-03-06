@@ -168,7 +168,8 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | P6-25 | DONE | Adicionar referência cruzada no runbook para reforçar uso do checklist já no start guide | Melhorar rastreabilidade bidirecional entre execução e revisão |
 | P6-26 | DONE | Adicionar link reverso no start guide para seção exata de evidências no runbook com âncora explícita ASCII | Reduzir ambiguidade de navegação entre documentos operacionais |
 | P6-27 | DONE | Referenciar âncora ASCII de evidência P6 no hub de docs (`docs/README.md`) | Melhorar descoberta rápida do checklist fora do fluxo de start guide |
-| P6-28 | TODO | Adicionar atalho de evidência P6 também no índice raiz (`README.md`) | Aumentar visibilidade operacional fora da pasta docs |
+| P6-28 | DONE | Adicionar atalho de evidência P6 também no índice raiz (`README.md`) | Aumentar visibilidade operacional fora da pasta docs |
+| P6-29 | TODO | Adicionar nota curta no índice raiz orientando quando usar o checklist P6 (mudanças em scripts/workflows QA) | Reduzir uso indevido/omissão do checklist por falta de contexto |
 
 
 

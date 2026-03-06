@@ -159,6 +159,7 @@ Last updated: 2026-03-04
 - `P6-27` concluído: hub de docs (`docs/README.md`) passou a expor atalho ASCII direto para `p6-pr-evidence-checklist` no runbook
 - `P6-26` concluído: checklist de evidência P6 no runbook recebeu âncora ASCII explícita (`#p6-pr-evidence-checklist`) e o start guide passou a apontar para esse alvo estável
 - `P6-25` concluído: runbook recebeu referência cruzada explícita para reforçar aplicação do checklist P6 junto ao start guide
+- `P6-28` concluído: índice operacional do `README.md` agora expõe atalho direto para o checklist de evidência P6 no runbook
 - `P6-16` concluído: upload de artefatos do QA pesado agora usa retenção de 7 dias + compressão (`compression-level: 6`) para reduzir custo de storage
 - `P6-11` concluído: runbook agora documenta claramente variáveis/secrets de ativação, comportamento esperado e diagnóstico do smoke logado no CI
 - Verificação visual pós-correção confirmada em login (`/pt-BR/login`) com UI íntegra em PT-BR e sem regressão estrutural no fluxo principal

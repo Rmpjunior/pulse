@@ -2980,3 +2980,29 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Executar `P6-28`: expor atalho do checklist P6 também no README raiz
+
+### Session 2026-03-06 13:47 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P6-28` adicionando atalho do checklist de evidência P6 no índice raiz
+- Backlog Item: P6-28
+- Changes:
+  - `README.md`: índice operacional rápido agora inclui atalho `Checklist de evidência P6 (QA pesado)` apontando para `docs/05_RUNBOOK.md#p6-pr-evidence-checklist`
+  - `docs/03_BACKLOG.md`: `P6-28` marcado como `DONE`; `P6-29` criado para adicionar contexto de uso do checklist no índice raiz
+  - `docs/02_CURRENT_STATE.md`: estado atualizado com visibilidade ampliada do checklist P6 fora da pasta `docs`
+- Validation:
+  - Command: `npm run qa:p6-route-matrix` -> passou
+  - Command: `npm run qa:p6-degraded-api-smoke` -> passou
+  - Command: `npm run test` -> passou (17/17)
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Route-level UI checks: baseline P6 preservado pelos smokes de rota/degradado
+- Monitoring:
+  - Tentativa de monitorar GitHub/Vercel via CLI local bloqueada (`gh` e `vercel` indisponíveis no host atual)
+- Risks:
+  - Falta de `gh`/`vercel` mantém monitoramento de deploy dependente de conferência manual por link
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Executar `P6-29`: adicionar nota curta no índice raiz sobre quando aplicar checklist P6 (mudanças em scripts/workflows de QA)
