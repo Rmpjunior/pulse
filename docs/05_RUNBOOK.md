@@ -52,6 +52,23 @@ npx prisma studio
   - run `npm run build`
   - smoke-test auth + editor + public page
 
+## Política de retenção de artefatos QA pesado (P6)
+
+Versão atual: **v1 (2026-03-06)**
+
+- Artefato: `p6-route-ui-smoke-logs`
+  - Conteúdo: logs de startup/route-matrix/degraded/auth + screenshots de falha
+  - Retenção: **7 dias**
+  - Compressão: **nível 6**
+  - Justificativa: balancear custo de storage e janela suficiente para triagem pós-merge
+
+### Regra de evolução
+
+- Mudanças de retenção/compressão devem:
+  1. atualizar esta seção com nova versão (v2, v3...)
+  2. registrar motivo em `docs/04_SESSION_LOG.md`
+  3. atualizar `docs/02_CURRENT_STATE.md`
+
 ## CI: smoke logado opcional (P6)
 
 Job relacionado: `.github/workflows/ci.yml` → `p6-route-ui-smoke`.

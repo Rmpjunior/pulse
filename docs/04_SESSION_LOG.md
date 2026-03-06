@@ -2705,3 +2705,27 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Executar `P6-17`: versionar política de retenção por tipo de artefato no runbook
+
+### Session 2026-03-06 08:42 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P6-17` versionando política de retenção de artefatos no runbook
+- Backlog Item: P6-17
+- Changes:
+  - `docs/05_RUNBOOK.md`: nova seção `Política de retenção de artefatos QA pesado (P6)` com versão `v1` (7 dias, compressão 6) e regra de evolução
+  - `docs/03_BACKLOG.md`: `P6-17` marcado como `DONE`; `P6-18` criado para smoke de rota pública no CI quando fixture existir
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com versionamento da política de retenção
+- Validation:
+  - Command: `npm run qa:p6-degraded-api-smoke` -> passou
+  - Command: `npm run qa:p6-route-matrix` -> passou
+  - Command: `npm run test` -> passou (17/17)
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Route-level UI checks: baseline P6 preservado via smokes de rota/degradado
+- Risks:
+  - Política v1 ainda única para logs+screenshots; refinamento por tipo de artefato pode ser necessário com aumento de volume
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Executar `P6-18` com smoke de sanidade para rota pública existente (quando fixture disponível no ambiente)

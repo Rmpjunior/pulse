@@ -157,7 +157,8 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | P6-14 | DONE | Retomar ciclo P6 com cenário degradado avançado (simulação de falha de upstream + verificação UI) | Aumentar confiança em comportamento sob falha real de integração |
 | P6-15 | DONE | Integrar `qa:p6-degraded-api-smoke` no job de CI de QA pesado | Garantir regressão contínua para microcopy de erro e validações degradadas |
 | P6-16 | DONE | Adicionar rotina de retenção/limpeza de artefatos de QA pesado (logs/screenshots) | Controlar custo de storage e manter histórico útil |
-| P6-17 | TODO | Versionar política de retenção por tipo de artefato (log vs screenshot) no runbook | Facilitar ajuste futuro sem tocar CI às cegas |
+| P6-17 | DONE | Versionar política de retenção por tipo de artefato (log vs screenshot) no runbook | Facilitar ajuste futuro sem tocar CI às cegas |
+| P6-18 | TODO | Adicionar smoke de sanidade para rota pública existente no CI (quando fixture estiver disponível) | Cobrir regressão de render público além de login/dashboard |
 
 
 
