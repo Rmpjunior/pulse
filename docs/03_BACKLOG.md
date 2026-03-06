@@ -153,7 +153,8 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | P6-10 | DONE | Adicionar smoke logado opcional no CI (feature-flag por env) para rotas dashboard/editor | Expandir cobertura de regressão sem aumentar custo fixo em todos os runs |
 | P6-11 | DONE | Documentar variáveis/secrets do smoke logado no runbook de CI | Facilitar ativação segura do fluxo autenticado no pipeline |
 | P6-12 | DONE | Adicionar validação opcional de credenciais no smoke logado (mensagem guiada em PT-BR) | Melhorar diagnóstico quando secrets estiverem inválidos no CI |
-| P6-13 | TODO | Remover warning de config OpenClaw (`google-antigravity-auth` obsoleto) e registrar verificação pós-ajuste | Eliminar ruído operacional recorrente durante QA noturno |
+| P6-13 | DONE | Remover warning de config OpenClaw (`google-antigravity-auth` obsoleto) e registrar verificação pós-ajuste | Eliminar ruído operacional recorrente durante QA noturno |
+| P6-14 | TODO | Retomar ciclo P6 com cenário degradado avançado (simulação de falha de upstream + verificação UI) | Aumentar confiança em comportamento sob falha real de integração |
 
 
 

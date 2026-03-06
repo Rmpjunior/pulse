@@ -2606,3 +2606,25 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Executar `P6-13`: remover entrada obsoleta `google-antigravity-auth` da config OpenClaw e confirmar sumiço do warning
+
+### Session 2026-03-06 06:26 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P6-13` removendo warning recorrente de plugin obsoleto no OpenClaw
+- Backlog Item: P6-13
+- Changes:
+  - `/home/claw/.openclaw/openclaw.json`: removida entrada obsoleta `plugins.entries.google-antigravity-auth`
+  - `docs/03_BACKLOG.md`: `P6-13` marcado como `DONE`; `P6-14` criado para continuidade de cenários degradados avançados
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com limpeza do warning operacional
+- Validation:
+  - Command: `openclaw models list` -> passou sem warning de plugin removido
+  - Command: `npm run test` -> N/A (mudança fora do código do app)
+  - Command: `npm run lint` -> N/A (mudança fora do código do app)
+  - Command: `npm run build` -> N/A (mudança fora do código do app)
+- Risks:
+  - Mudança em config global do OpenClaw; manter backup atual caso seja necessário rollback rápido
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Executar `P6-14`: cenário degradado avançado (falha de upstream + verificação de resposta na UI)
