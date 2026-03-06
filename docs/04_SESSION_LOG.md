@@ -2927,3 +2927,30 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Executar `P6-26`: adicionar link reverso no start guide para seção exata de evidências no runbook com âncora explícita ASCII
+
+### Session 2026-03-06 13:17 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P6-26` com âncora ASCII estável para checklist de evidência P6 no runbook
+- Backlog Item: P6-26
+- Changes:
+  - `docs/05_RUNBOOK.md`: adicionada âncora explícita `<a id="p6-pr-evidence-checklist"></a>` na seção de checklist de evidência mínima
+  - `docs/00_AGENT_START_HERE.md`: referência atualizada para `docs/05_RUNBOOK.md#p6-pr-evidence-checklist`
+  - `docs/03_BACKLOG.md`: `P6-26` marcado como `DONE`; `P6-27` criado para expor atalho também no hub (`docs/README.md`)
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com estabilização do link cross-doc por âncora ASCII
+- Validation:
+  - Command: `npm run qa:p6-route-matrix` -> passou
+  - Command: `npm run qa:p6-degraded-api-smoke` -> passou
+  - Command: `npm run test` -> passou (17/17)
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Route-level UI checks: baseline P6 preservado pelos smokes de rota/degradado
+- Monitoring:
+  - Tentativa de monitorar GitHub/Vercel via CLI local bloqueada (`gh` e `vercel` indisponíveis no host atual)
+- Risks:
+  - Sem alteração funcional de app; risco principal continua operacional (observabilidade externa limitada sem CLIs)
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Executar `P6-27`: adicionar atalho da âncora `#p6-pr-evidence-checklist` no hub de docs (`docs/README.md`)

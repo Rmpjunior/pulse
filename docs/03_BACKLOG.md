@@ -166,7 +166,8 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | P6-23 | DONE | Adicionar checklist de evidência mínima no PR para mudanças de QA pesado (logs + smoke status) | Padronizar revisão e reduzir dúvidas de cobertura |
 | P6-24 | DONE | Adicionar referência do checklist P6 no `docs/00_AGENT_START_HERE.md` | Garantir adoção do padrão de evidência já no início da execução |
 | P6-25 | DONE | Adicionar referência cruzada no runbook para reforçar uso do checklist já no start guide | Melhorar rastreabilidade bidirecional entre execução e revisão |
-| P6-26 | TODO | Adicionar link reverso no start guide para seção exata de evidências no runbook com âncora explícita ASCII | Reduzir ambiguidade de navegação entre documentos operacionais |
+| P6-26 | DONE | Adicionar link reverso no start guide para seção exata de evidências no runbook com âncora explícita ASCII | Reduzir ambiguidade de navegação entre documentos operacionais |
+| P6-27 | TODO | Referenciar âncora ASCII de evidência P6 no hub de docs (`docs/README.md`) | Melhorar descoberta rápida do checklist fora do fluxo de start guide |
 
 
 

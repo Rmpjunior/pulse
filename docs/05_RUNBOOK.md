@@ -69,6 +69,8 @@ Versão atual: **v1 (2026-03-06)**
   2. registrar motivo em `docs/04_SESSION_LOG.md`
   3. atualizar `docs/02_CURRENT_STATE.md`
 
+<a id="p6-pr-evidence-checklist"></a>
+
 ## Checklist de evidência mínima em PR (QA pesado)
 
 Referência cruzada: este checklist deve ser aplicado em conjunto com o fluxo de execução do `docs/00_AGENT_START_HERE.md` (passo de checks para mudanças P6).
