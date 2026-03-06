@@ -74,6 +74,7 @@ Versão atual: **v1 (2026-03-06)**
 ## Checklist de evidência mínima em PR (QA pesado)
 
 Referência cruzada: este checklist deve ser aplicado em conjunto com o fluxo de execução do `docs/00_AGENT_START_HERE.md` (passo de checks para mudanças P6).
+Nota de rastreabilidade: para contexto de quando aplicar (scripts/workflows QA pesado), ver também as notas de uso em `docs/README.md` e `README.md`.
 
 Para qualquer PR que altere scripts/workflows de QA pesado (P6), anexar evidências mínimas:
 

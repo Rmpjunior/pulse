@@ -3058,3 +3058,29 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Executar `P6-31`: reforçar referência cruzada no runbook para manter rastreabilidade bidirecional com o hub
+
+### Session 2026-03-06 14:33 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P6-31` fechando rastreabilidade entre nota de uso P6 (hub/índice) e procedimento no runbook
+- Backlog Item: P6-31
+- Changes:
+  - `docs/05_RUNBOOK.md`: seção de checklist P6 agora referencia explicitamente as notas de uso de `docs/README.md` e `README.md`
+  - `docs/03_BACKLOG.md`: `P6-31` marcado como `DONE`; `P6-32` criado para consolidar wording único entre start guide/hub/runbook
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com fechamento do ciclo de rastreabilidade operacional do checklist P6
+- Validation:
+  - Command: `npm run qa:p6-route-matrix` -> passou
+  - Command: `npm run qa:p6-degraded-api-smoke` -> passou
+  - Command: `npm run test` -> passou (17/17)
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Route-level UI checks: baseline preservado pelos smokes de rota e degradado
+- Monitoring:
+  - Tentativa de monitoramento de GitHub/Vercel via CLI local bloqueada (`gh` e `vercel` não instalados)
+- Risks:
+  - Sem padronização textual única entre os 3 pontos, ainda pode haver micro-divergência de wording (`P6-32` cobre)
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Executar `P6-32` consolidando um bullet único de “quando usar evidência P6” no start guide, hub e runbook
