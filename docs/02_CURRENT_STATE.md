@@ -156,6 +156,7 @@ Last updated: 2026-03-04
 - `P6-22` concluído: smoke degradado agora também suporta fixture pública estrita opcional, com diagnóstico PT-BR claro quando a fixture não responder 200
 - `P6-23` concluído: runbook inclui checklist de evidência mínima para PRs que alterem QA pesado (smokes + gates técnicos + artefatos)
 - `P6-24` concluído: `docs/00_AGENT_START_HERE.md` agora referencia explicitamente o checklist de evidência P6 do runbook antes de abrir/atualizar PR
+- `P6-33` concluído: wording da regra "Quando usar evidência P6" foi padronizado também no `README.md` raiz para manter consistência com runbook/hub/start guide
 - `P6-32` concluído: regra "quando usar evidência P6" foi consolidada com o mesmo texto-base no start guide, hub e runbook para evitar drift de linguagem
 - `P6-31` concluído: runbook agora referencia explicitamente as notas de uso do checklist P6 no hub (`docs/README.md`) e no índice raiz (`README.md`), fechando rastreabilidade entre procedimento e descoberta
 - `P6-30` concluído: hub `docs/README.md` agora inclui mini-nota de contexto para quando aplicar checklist de evidências P6

@@ -3112,3 +3112,29 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Executar `P6-33`: padronizar wording da regra de uso de evidência P6 também no README raiz
+
+### Session 2026-03-06 15:03 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P6-33` padronizando wording da regra "Quando usar evidência P6" no README raiz
+- Backlog Item: P6-33
+- Changes:
+  - `README.md`: nota de uso do checklist P6 ajustada para wording consolidado (somente mudanças em scripts/automações/workflows de QA pesado + aplicação antes de abrir/atualizar PR)
+  - `docs/03_BACKLOG.md`: `P6-33` marcado como `DONE`; `P6-34` criado para micro-check de consistência entre README/hub/start guide/runbook
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com conclusão de padronização de wording no índice principal
+- Validation:
+  - Command: `npm run qa:p6-route-matrix` -> passou
+  - Command: `npm run qa:p6-degraded-api-smoke` -> passou
+  - Command: `npm run test` -> passou (17/17)
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Route-level UI checks: baseline P6 preservado pelos smokes de rota/degradado
+- Monitoring:
+  - Tentativa de monitorar GitHub/Vercel via CLI local bloqueada (`gh` e `vercel` indisponíveis no host atual)
+- Risks:
+  - Sem `gh`/`vercel` local, monitoramento em tempo real de pipeline/deploy segue limitado
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Executar `P6-34`: micro-check no runbook para consistência do wording "Quando usar evidência P6" entre README/hub/start guide/runbook
