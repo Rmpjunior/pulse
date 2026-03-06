@@ -2133,3 +2133,28 @@ Use this block when recording production/auth/deploy incidents:
   - execução manual de `openclaw cron run` pode bater timeout de gateway em alguns ciclos; agenda periódica permanece ativa
 - Next:
   - iniciar `P6-1`/`P6-2` com stress de multi-site (3 páginas) + regressão visual claro/escuro
+
+### Session 2026-03-06 00:37 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Iniciar `P6-1` (Heavy QA) com matrix de rotas deslogadas + checks de UI por rota
+- Backlog Item: P6-1 (IN_PROGRESS)
+- Changes:
+  - `scripts/p6-route-matrix-smoke.mjs`: novo smoke test de rotas deslogadas (`/`, `/login`, `/register`, `/forgot-password`, páginas públicas)
+  - `package.json`: novo comando `qa:p6-route-matrix`
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com início do ciclo P6 e evidência de checks de rota/UI
+- Validation:
+  - Command: `npm run qa:p6-route-matrix` -> passou
+  - Command: `npm run lint` -> passou
+  - Command: `npm run test` -> passou (16/16)
+  - Command: `npm run build` -> passou
+  - UI route-level checks (browser snapshot): `/pt-BR/login`, `/pt-BR/register`, `/pt-BR/forgot-password` renderizando labels PT-BR e CTA esperados
+- Blockers:
+  - Para completar P6-1 (logado + multi-breakpoint com evidência), falta massa/credencial estável de usuário autenticado no ambiente local e plano de captura de evidências persistentes por viewport
+- Risks:
+  - Sem risco funcional de código; risco atual é cobertura incompleta da matrix logada até liberar credenciais/fixtures
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Seguir P6-1 com fluxo logado assim que credenciais/fixture forem disponibilizadas; em paralelo, continuar automação incremental de QA pesado

@@ -123,6 +123,7 @@ Last updated: 2026-03-04
 - README raiz agora inclui nota de manutenção exigindo ID ASCII explícito para novas seções operacionais, prevenindo regressão de padrão
 - Micro-check automático adicionado (`npm run check:readme-anchors`) para validar âncoras do índice operacional no README raiz
 - Micro-check expandido para validar também links de arquivo com âncora (ex.: `docs/04_SESSION_LOG.md#...`) com exigência de IDs explícitos no destino
+- P6 QA iniciado com `qa:p6-route-matrix` (smoke de rotas deslogadas) + checagem manual de UI em login/register/forgot-password via browser snapshot
 - CI agora executa `npm run check:readme-anchors` dentro do job principal, transformando a convenção de âncoras em gate contínuo de merge
 - README operacional agora recomenda `npm run check:readme-anchors` como pré-push local para antecipar falhas documentais antes da CI
 - Plano técnico de custom domain/subdomain publicado em `docs/08_CUSTOM_DOMAIN_PLAN.md` com arquitetura, modelo de dados, APIs, critérios e rollout quebrado em etapas

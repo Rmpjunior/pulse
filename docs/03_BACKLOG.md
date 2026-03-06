@@ -132,7 +132,7 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 
 | ID | Status | Task | Why |
 |---|---|---|---|
-| P6-1 | TODO | Executar test matrix completa deslogado/logado (mobile/tablet/desktop) com evidências de screenshot por rota | Detectar regressões visuais e de layout antes do usuário |
+| P6-1 | IN_PROGRESS | Executar test matrix completa deslogado/logado (mobile/tablet/desktop) com evidências de screenshot por rota | Detectar regressões visuais e de layout antes do usuário |
 | P6-2 | TODO | Rodar stress de multi-site (3 páginas por conta + alternância de `pageId` + salvar/publicar em sequência) | Validar robustez real da feature multi-site |
 | P6-3 | TODO | Consolidar baseline de regressão visual (landing, auth, dashboard, editor, settings) e diff manual guiado | Evitar drift visual silencioso a cada deploy |
 | P6-4 | TODO | Auditoria de tema claro/escuro com foco em contraste, legibilidade e assets com fundo inadequado | Melhorar consistência visual cross-theme |
