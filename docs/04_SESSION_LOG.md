@@ -25,6 +25,7 @@ Append one entry per coding session.
 - Quality Check (docs):
   - Links operacionais revisados: <yes/no>
   - PT-BR confirmado em textos novos: <yes/no>
+  - Micro-check "Quando usar evidência P6" consistente entre README/docs hub/start guide: <yes/no>
 - Next:
   - <next concrete action>
 ```
@@ -3164,3 +3165,30 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Executar `P6-35`: incluir lembrete do micro-check no template de sessão (`docs/04_SESSION_LOG.md`)
+
+### Session 2026-03-06 15:33 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P6-35` adicionando lembrete do micro-check de consistência P6 no template de sessão
+- Backlog Item: P6-35
+- Changes:
+  - `docs/04_SESSION_LOG.md`: template atualizado com campo obrigatório para micro-check "Quando usar evidência P6" consistente entre README/docs hub/start guide
+  - `docs/03_BACKLOG.md`: `P6-35` marcado como `DONE`; `P6-36` criado para ajuste retroativo curto em sessões recentes
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com a exigência do micro-check no template
+- Validation:
+  - Command: `npm run qa:p6-route-matrix` -> passou
+  - Command: `npm run qa:p6-degraded-api-smoke` -> passou
+  - Command: `npm run test` -> passou (17/17)
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Route-level UI checks: baseline P6 preservado pelos smokes de rota/degradado
+- Monitoring:
+  - Tentativa de monitoramento GitHub/Vercel via CLI local bloqueada (`gh` e `vercel` indisponíveis)
+- Risks:
+  - Entradas antigas continuam sem o novo campo até execução do ajuste retroativo (`P6-36`)
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+  - Micro-check "Quando usar evidência P6" consistente entre README/docs hub/start guide: yes
+- Next:
+  - Executar `P6-36`: aplicar ajuste retroativo curto nas últimas sessões sem o novo campo
