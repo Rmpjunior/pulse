@@ -163,7 +163,8 @@ Status legend: `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`
 | P6-20 | DONE | Adicionar observação de fallback seguro quando fixture pública não existir (ambiente novo) | Evitar falso negativo de CI em ambientes sem seed pública |
 | P6-21 | DONE | Registrar checklist curto de habilitação gradual do gate público estrito (pré-requisitos + rollback) | Reduzir risco de ativação prematura em CI |
 | P6-22 | DONE | Adicionar validação opcional de rota pública estrita no smoke degradado (mensagem clara quando fixture faltar) | Unificar diagnóstico de fixture pública entre smokes |
-| P6-23 | TODO | Adicionar checklist de evidência mínima no PR para mudanças de QA pesado (logs + smoke status) | Padronizar revisão e reduzir dúvidas de cobertura |
+| P6-23 | DONE | Adicionar checklist de evidência mínima no PR para mudanças de QA pesado (logs + smoke status) | Padronizar revisão e reduzir dúvidas de cobertura |
+| P6-24 | TODO | Adicionar referência do checklist P6 no `docs/00_AGENT_START_HERE.md` | Garantir adoção do padrão de evidência já no início da execução |
 
 
 

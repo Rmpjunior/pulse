@@ -69,6 +69,18 @@ Versão atual: **v1 (2026-03-06)**
   2. registrar motivo em `docs/04_SESSION_LOG.md`
   3. atualizar `docs/02_CURRENT_STATE.md`
 
+## Checklist de evidência mínima em PR (QA pesado)
+
+Para qualquer PR que altere scripts/workflows de QA pesado (P6), anexar evidências mínimas:
+
+- [ ] Resultado de `npm run qa:p6-route-matrix`
+- [ ] Resultado de `npm run qa:p6-degraded-api-smoke`
+- [ ] Resultado de `npm run test`
+- [ ] Resultado de `npm run lint`
+- [ ] Resultado de `npm run build`
+- [ ] Link/descrição dos artefatos relevantes (logs/screenshot) quando houver falha
+- [ ] Nota curta de risco residual (se existir)
+
 ## CI: smoke logado opcional (P6)
 
 Job relacionado: `.github/workflows/ci.yml` → `p6-route-ui-smoke`.

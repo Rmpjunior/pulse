@@ -2851,3 +2851,27 @@ Use this block when recording production/auth/deploy incidents:
   - PT-BR confirmado em textos novos: yes
 - Next:
   - Executar `P6-23`: checklist de evidência mínima em PR para mudanças de QA pesado
+
+### Session 2026-03-06 10:12 UTC (local)
+
+- Actor: OpenClaw+Codex
+- Objective: Executar `P6-23` adicionando checklist de evidência mínima em PR para QA pesado
+- Backlog Item: P6-23
+- Changes:
+  - `docs/05_RUNBOOK.md`: adicionada seção `Checklist de evidência mínima em PR (QA pesado)` com smokes/gates obrigatórios + artefatos/risco residual
+  - `docs/03_BACKLOG.md`: `P6-23` marcado como `DONE`; `P6-24` criado para referência no start guide
+  - `docs/02_CURRENT_STATE.md`: snapshot atualizado com padrão de evidência para revisão de mudanças de QA pesado
+- Validation:
+  - Command: `npm run qa:p6-route-matrix` -> passou
+  - Command: `npm run qa:p6-degraded-api-smoke` -> passou
+  - Command: `npm run test` -> passou (17/17)
+  - Command: `npm run lint` -> passou
+  - Command: `npm run build` -> passou
+  - Route-level UI checks: baseline P6 preservado pelos smokes de rota/degradado
+- Risks:
+  - Sem referência no start guide, checklist pode ser ignorado por agentes novos (`P6-24` cobre)
+- Quality Check (docs):
+  - Links operacionais revisados: yes
+  - PT-BR confirmado em textos novos: yes
+- Next:
+  - Executar `P6-24`: referenciar checklist de evidência P6 no `docs/00_AGENT_START_HERE.md`
