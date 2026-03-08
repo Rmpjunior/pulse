@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
+import { ImageUpload } from "@/components/ui/image-upload";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useTheme } from "@/components/providers/theme-provider";
@@ -45,6 +46,7 @@ interface SettingsContentProps {
 export function SettingsContent({ user, subscription }: SettingsContentProps) {
   const router = useRouter();
   const [name, setName] = useState(user.name || "");
+  const [imageUrl, setImageUrl] = useState(user.image || "");
   const [isSaving, setIsSaving] = useState(false);
   const [isSendingReset, setIsSendingReset] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -59,7 +61,7 @@ export function SettingsContent({ user, subscription }: SettingsContentProps) {
       await fetch("/api/user", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name }),
+        body: JSON.stringify({ name, image: imageUrl }),
       });
       router.refresh();
     } catch (error) {
@@ -73,40 +75,25 @@ export function SettingsContent({ user, subscription }: SettingsContentProps) {
     await signOut({ callbackUrl: "/" });
   };
 
-  const handleSendPasswordReset = async () => {
-    if (!user.email) return;
-
-    setIsSendingReset(true);
-    try {
-      await fetch('/api/auth/forgot-password', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: user.email }),
-      });
-    } finally {
-      setIsSendingReset(false);
-    }
-  };
-
   const handleDeleteAccount = async () => {
     const confirmation = window.prompt(
-      'Digite DELETE_MY_ACCOUNT para confirmar a exclusão da conta:',
+      "Digite DELETE_MY_ACCOUNT para confirmar a exclusão da conta:",
     );
 
-    if (confirmation !== 'DELETE_MY_ACCOUNT') return;
+    if (confirmation !== "DELETE_MY_ACCOUNT") return;
 
     let password: string | undefined;
     if (user.hasPassword) {
-      const promptPassword = window.prompt('Digite sua senha para confirmar:');
+      const promptPassword = window.prompt("Digite sua senha para confirmar:");
       if (!promptPassword) return;
       password = promptPassword;
     }
 
     setIsDeleting(true);
     try {
-      const res = await fetch('/api/user', {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch("/api/user", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           confirmation,
           password,
@@ -114,7 +101,7 @@ export function SettingsContent({ user, subscription }: SettingsContentProps) {
       });
 
       if (res.ok) {
-        await signOut({ callbackUrl: '/' });
+        await signOut({ callbackUrl: "/" });
       }
     } finally {
       setIsDeleting(false);
@@ -135,23 +122,13 @@ export function SettingsContent({ user, subscription }: SettingsContentProps) {
           <CardDescription>Gerencie suas informações pessoais</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="flex items-center gap-4">
-            {user.image ? (
-              <Image
-                src={user.image}
-                alt={user.name || ""}
-                width={64}
-                height={64}
-                className="h-16 w-16 rounded-full object-cover"
-              />
-            ) : (
-              <div className="h-16 w-16 rounded-full gradient-primary flex items-center justify-center text-white text-xl font-bold">
-                {name?.[0]?.toUpperCase() || "?"}
-              </div>
-            )}
-            <Button variant="outline" size="sm">
-              Alterar foto
-            </Button>
+          <div className="flex flex-col gap-2">
+            <label className="text-sm font-medium">Foto de perfil</label>
+            <ImageUpload
+              value={imageUrl}
+              onChange={setImageUrl}
+              placeholder="Alterar foto"
+            />
           </div>
 
           <div>
@@ -179,16 +156,6 @@ export function SettingsContent({ user, subscription }: SettingsContentProps) {
                 <Check className="h-4 w-4 mr-2" />
               )}
               Salvar alterações
-            </Button>
-            <Button
-              variant="outline"
-              onClick={handleSendPasswordReset}
-              disabled={isSendingReset || !user.email}
-            >
-              {isSendingReset ? (
-                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-              ) : null}
-              Enviar reset de senha
             </Button>
           </div>
         </CardContent>
@@ -296,8 +263,6 @@ export function SettingsContent({ user, subscription }: SettingsContentProps) {
               ))}
             </div>
           </div>
-
-
         </CardContent>
       </Card>
 
@@ -332,7 +297,11 @@ export function SettingsContent({ user, subscription }: SettingsContentProps) {
                 Esta ação é irreversível
               </p>
             </div>
-            <Button variant="destructive" onClick={handleDeleteAccount} disabled={isDeleting}>
+            <Button
+              variant="destructive"
+              onClick={handleDeleteAccount}
+              disabled={isDeleting}
+            >
               {isDeleting ? (
                 <Loader2 className="h-4 w-4 mr-2 animate-spin" />
               ) : (

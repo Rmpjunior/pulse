@@ -48,7 +48,7 @@ export function DashboardSidebar({ isOpen, onClose }: DashboardSidebarProps) {
       <div className="flex h-16 shrink-0 items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
           <BrandLogo size={32} className="shadow-sm" />
-          <span className="font-bold text-xl gradient-primary-text">
+          <span className="font-bold text-xl text-foreground">
             {tCommon("appName")}
           </span>
         </Link>
@@ -101,7 +101,7 @@ export function DashboardSidebar({ isOpen, onClose }: DashboardSidebarProps) {
 
           <li className="mt-auto">
             <div className="rounded-xl bg-gradient-to-r from-orange-500/10 to-purple-500/10 p-4 border border-primary/20">
-              <h3 className="text-sm font-semibold gradient-primary-text">
+              <h3 className="text-sm font-semibold text-foreground">
                 {t("dashboard.upgrade.title")}
               </h3>
               <p className="mt-1 text-xs text-muted-foreground">

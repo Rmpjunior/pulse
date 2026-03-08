@@ -80,7 +80,7 @@ const sectionLibrary = [
     key: "WELCOME",
     label: "Boas-vindas",
     description: "Introdução com título curto",
-    icon: Sparkles,
+    icon: Type,
     type: "TEXT" as BlockType,
     template: {
       variant: "WELCOME",
@@ -132,7 +132,9 @@ const sectionLibrary = [
   },
 ];
 
-function getQuickStartPresetBlocks(preset: "creator" | "business" | "personal") {
+function getQuickStartPresetBlocks(
+  preset: "creator" | "business" | "personal",
+) {
   if (preset === "business") {
     return [
       {
@@ -226,7 +228,7 @@ function getQuickStartPresetBlocks(preset: "creator" | "business" | "personal") 
       content: {
         label: "Meu link principal",
         url: "https://",
-        style: "gradient",
+        style: "default",
         thumbnailType: "emoji",
         thumbnailValue: "🚀",
       },
@@ -276,7 +278,9 @@ export function EditorContent({
   >("creator");
   const [onboardingFirstSection, setOnboardingFirstSection] =
     useState<BlockType>("LINK");
-  const [publishSuccessUrl, setPublishSuccessUrl] = useState<string | null>(null);
+  const [publishSuccessUrl, setPublishSuccessUrl] = useState<string | null>(
+    null,
+  );
   const [isCopyingPublishedLink, setIsCopyingPublishedLink] = useState(false);
   const [hasDraftRecoveryChoice, setHasDraftRecoveryChoice] = useState(false);
   const [pendingRecoveredDraft, setPendingRecoveredDraft] = useState<{
@@ -451,7 +455,10 @@ export function EditorContent({
         const slugData = (await slugRes.json()) as { available: boolean };
 
         if (!slugData.available) {
-          pushToast("error", "Slug indisponível. Ajuste o username para publicar.");
+          pushToast(
+            "error",
+            "Slug indisponível. Ajuste o username para publicar.",
+          );
           return;
         }
       }
@@ -772,7 +779,9 @@ export function EditorContent({
                     Escolha seu username
                   </label>
                   <div className="space-y-1 sm:flex sm:items-center sm:gap-2 sm:space-y-0">
-                    <span className="text-xs text-muted-foreground sm:text-sm">pulse.vercel.app/p/</span>
+                    <span className="text-xs text-muted-foreground sm:text-sm">
+                      pulse.vercel.app/p/
+                    </span>
                     <Input
                       value={username}
                       onChange={(e) =>
@@ -789,7 +798,7 @@ export function EditorContent({
                 </div>
 
                 <Button
-                  variant="gradient"
+                  variant="default"
                   className="w-full"
                   disabled={!username.trim() || !displayName.trim()}
                   onClick={() => setOnboardingStep(2)}
@@ -800,7 +809,9 @@ export function EditorContent({
             ) : (
               <>
                 <div>
-                  <label className="text-sm font-medium mb-2 block">Categoria</label>
+                  <label className="text-sm font-medium mb-2 block">
+                    Categoria
+                  </label>
                   <div className="grid grid-cols-3 gap-2">
                     {[
                       { id: "creator", label: "Criador" },
@@ -824,12 +835,26 @@ export function EditorContent({
                 </div>
 
                 <div>
-                  <label className="text-sm font-medium mb-2 block">Template rápido</label>
+                  <label className="text-sm font-medium mb-2 block">
+                    Template rápido
+                  </label>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                     {[
-                      { id: "creator", label: "Pacote Criador", desc: "Boas-vindas + Link + Redes" },
-                      { id: "business", label: "Pacote Negócios", desc: "Boas-vindas + Catálogo + CTA" },
-                      { id: "personal", label: "Pacote Pessoal", desc: "Boas-vindas + Portfólio + Redes" },
+                      {
+                        id: "creator",
+                        label: "Pacote Criador",
+                        desc: "Boas-vindas + Link + Redes",
+                      },
+                      {
+                        id: "business",
+                        label: "Pacote Negócios",
+                        desc: "Boas-vindas + Catálogo + CTA",
+                      },
+                      {
+                        id: "personal",
+                        label: "Pacote Pessoal",
+                        desc: "Boas-vindas + Portfólio + Redes",
+                      },
                     ].map((preset) => (
                       <button
                         key={preset.id}
@@ -845,8 +870,12 @@ export function EditorContent({
                             : "border-border",
                         )}
                       >
-                        <span className="block text-sm font-medium">{preset.label}</span>
-                        <span className="block text-xs text-muted-foreground">{preset.desc}</span>
+                        <span className="block text-sm font-medium">
+                          {preset.label}
+                        </span>
+                        <span className="block text-xs text-muted-foreground">
+                          {preset.desc}
+                        </span>
                       </button>
                     ))}
                   </div>
@@ -880,7 +909,9 @@ export function EditorContent({
                 </div>
 
                 <div>
-                  <label className="text-sm font-medium mb-2 block">Bio (opcional)</label>
+                  <label className="text-sm font-medium mb-2 block">
+                    Bio (opcional)
+                  </label>
                   <textarea
                     value={bio}
                     onChange={(e) => setBio(e.target.value)}
@@ -890,7 +921,11 @@ export function EditorContent({
                 </div>
 
                 <div className="flex gap-2">
-                  <Button variant="outline" className="flex-1" onClick={() => setOnboardingStep(1)}>
+                  <Button
+                    variant="outline"
+                    className="flex-1"
+                    onClick={() => setOnboardingStep(1)}
+                  >
                     Voltar
                   </Button>
                   <Button
@@ -930,400 +965,406 @@ export function EditorContent({
       </div>
 
       <div className="flex flex-col lg:flex-row gap-4 lg:gap-6 h-[calc(100vh-7rem)] lg:h-[calc(100vh-8rem)]">
-      {/* Mobile View Toggle */}
-      <div className="lg:hidden flex border rounded-lg overflow-hidden shrink-0 sticky top-0 z-10 bg-background">
-        <button
-          onClick={() => setMobileView("editor")}
-          className={cn(
-            "flex-1 py-2 text-sm font-medium transition-colors",
-            mobileView === "editor"
-              ? "bg-primary text-primary-foreground"
-              : "bg-muted text-muted-foreground hover:bg-muted/80",
-          )}
-        >
-          Editor
-        </button>
-        <button
-          onClick={() => setMobileView("preview")}
-          className={cn(
-            "flex-1 py-2 text-sm font-medium transition-colors",
-            mobileView === "preview"
-              ? "bg-primary text-primary-foreground"
-              : "bg-muted text-muted-foreground hover:bg-muted/80",
-          )}
-        >
-          Preview
-        </button>
-      </div>
-
-      {/* Editor Panel */}
-      <div
-        className={cn(
-          "flex-1 overflow-y-auto pr-0 lg:pr-2 pb-24 lg:pb-0", 
-          mobileView === "preview" ? "hidden lg:block" : "",
-        )}
-      >
-        {pendingRecoveredDraft && (
-          <div className="mb-4 rounded-lg border border-amber-300 bg-amber-50 px-4 py-3">
-            <p className="text-sm font-medium text-amber-900">
-              Encontramos um rascunho não publicado desta página.
-            </p>
-            <div className="flex gap-2 mt-2">
-              <Button
-                size="sm"
-                variant="outline"
-                onClick={() => {
-                  setDisplayName(pendingRecoveredDraft.displayName);
-                  setBio(pendingRecoveredDraft.bio);
-                  setAvatar(pendingRecoveredDraft.avatar || "");
-                  setBlocks(pendingRecoveredDraft.blocks);
-                  setThemeSettings(pendingRecoveredDraft.themeSettings);
-                  setPendingRecoveredDraft(null);
-                  pushToast("success", "Rascunho recuperado.");
-                }}
-              >
-                Recuperar
-              </Button>
-              <Button
-                size="sm"
-                variant="ghost"
-                onClick={() => {
-                  if (draftStorageKey) {
-                    localStorage.removeItem(draftStorageKey);
-                  }
-                  setPendingRecoveredDraft(null);
-                  pushToast("success", "Rascunho descartado.");
-                }}
-              >
-                Descartar
-              </Button>
-            </div>
-          </div>
-        )}
-
-        {upgradePromptReason && !isPlusUser && (
-          <div className="mb-4 rounded-lg border border-indigo-300 bg-indigo-50 px-4 py-3">
-            <p className="text-sm text-indigo-900">{upgradePromptReason}</p>
-            <div className="mt-2 flex gap-2">
-              <Button
-                size="sm"
-                variant="outline"
-                onClick={() => router.push('/dashboard/settings')}
-              >
-                Ver plano Plus
-              </Button>
-              <Button
-                size="sm"
-                variant="ghost"
-                onClick={() => setUpgradePromptReason(null)}
-              >
-                Agora não
-              </Button>
-            </div>
-          </div>
-        )}
-
-        {/* Tabs */}
-        <div className="flex gap-1 p-1 bg-muted rounded-lg mb-6 w-fit">
+        {/* Mobile View Toggle */}
+        <div className="lg:hidden flex border rounded-lg overflow-hidden shrink-0 sticky top-0 z-10 bg-background">
           <button
-            onClick={() => setActiveTab("content")}
-            className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-              activeTab === "content"
-                ? "bg-background shadow-sm text-foreground"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
+            onClick={() => setMobileView("editor")}
+            className={cn(
+              "flex-1 py-2 text-sm font-medium transition-colors",
+              mobileView === "editor"
+                ? "bg-primary text-primary-foreground"
+                : "bg-muted text-muted-foreground hover:bg-muted/80",
+            )}
           >
-            <LayoutGrid className="h-4 w-4" />
-            Conteúdo
+            Editor
           </button>
           <button
-            onClick={() => {
-              setActiveTab("theme");
-              if (!isPlusUser) {
-                setUpgradePromptReason(
-                  "Temas premium e customização avançada ficam liberados no plano Plus.",
-                );
-              }
-            }}
-            className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-              activeTab === "theme"
-                ? "bg-background shadow-sm text-foreground"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
+            onClick={() => setMobileView("preview")}
+            className={cn(
+              "flex-1 py-2 text-sm font-medium transition-colors",
+              mobileView === "preview"
+                ? "bg-primary text-primary-foreground"
+                : "bg-muted text-muted-foreground hover:bg-muted/80",
+            )}
           >
-            <Palette className="h-4 w-4" />
-            Tema
+            Preview
           </button>
         </div>
 
-        {activeTab === "content" ? (
-          <div className="space-y-6">
-            {/* Profile Section */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">{t("profile.title")}</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-center gap-4">
-                  {avatar ? (
-                    <Image
-                      src={avatar}
-                      alt={displayName || "Avatar"}
-                      width={80}
-                      height={80}
-                      unoptimized
-                      className="h-20 w-20 rounded-full object-cover"
-                    />
-                  ) : (
-                    <div className="h-20 w-20 rounded-full bg-gradient-to-br from-orange-500 to-purple-500 flex items-center justify-center text-white text-2xl font-bold">
-                      {displayName?.[0]?.toUpperCase() || "?"}
+        {/* Editor Panel */}
+        <div
+          className={cn(
+            "flex-1 overflow-y-auto pr-0 lg:pr-2 pb-24 lg:pb-0",
+            mobileView === "preview" ? "hidden lg:block" : "",
+          )}
+        >
+          {pendingRecoveredDraft && (
+            <div className="mb-4 rounded-lg border border-amber-300 bg-amber-50 px-4 py-3">
+              <p className="text-sm font-medium text-amber-900">
+                Encontramos um rascunho não publicado desta página.
+              </p>
+              <div className="flex gap-2 mt-2">
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => {
+                    setDisplayName(pendingRecoveredDraft.displayName);
+                    setBio(pendingRecoveredDraft.bio);
+                    setAvatar(pendingRecoveredDraft.avatar || "");
+                    setBlocks(pendingRecoveredDraft.blocks);
+                    setThemeSettings(pendingRecoveredDraft.themeSettings);
+                    setPendingRecoveredDraft(null);
+                    pushToast("success", "Rascunho recuperado.");
+                  }}
+                >
+                  Recuperar
+                </Button>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={() => {
+                    if (draftStorageKey) {
+                      localStorage.removeItem(draftStorageKey);
+                    }
+                    setPendingRecoveredDraft(null);
+                    pushToast("success", "Rascunho descartado.");
+                  }}
+                >
+                  Descartar
+                </Button>
+              </div>
+            </div>
+          )}
+
+          {upgradePromptReason && !isPlusUser && (
+            <div className="mb-4 rounded-lg border border-indigo-300 bg-indigo-50 px-4 py-3">
+              <p className="text-sm text-indigo-900">{upgradePromptReason}</p>
+              <div className="mt-2 flex gap-2">
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => router.push("/dashboard/settings")}
+                >
+                  Ver plano Plus
+                </Button>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={() => setUpgradePromptReason(null)}
+                >
+                  Agora não
+                </Button>
+              </div>
+            </div>
+          )}
+
+          {/* Tabs */}
+          <div className="flex gap-1 p-1 bg-muted rounded-lg mb-6 w-fit">
+            <button
+              onClick={() => setActiveTab("content")}
+              className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                activeTab === "content"
+                  ? "bg-background shadow-sm text-foreground"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              <LayoutGrid className="h-4 w-4" />
+              Conteúdo
+            </button>
+            <button
+              onClick={() => {
+                setActiveTab("theme");
+                if (!isPlusUser) {
+                  setUpgradePromptReason(
+                    "Temas premium e customização avançada ficam liberados no plano Plus.",
+                  );
+                }
+              }}
+              className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                activeTab === "theme"
+                  ? "bg-background shadow-sm text-foreground"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              <Palette className="h-4 w-4" />
+              Tema
+            </button>
+          </div>
+
+          {activeTab === "content" ? (
+            <div className="space-y-6">
+              {/* Profile Section */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg">
+                    {t("profile.title")}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="flex items-center gap-4">
+                    {avatar ? (
+                      <Image
+                        src={avatar}
+                        alt={displayName || "Avatar"}
+                        width={80}
+                        height={80}
+                        unoptimized
+                        className="h-20 w-20 rounded-full object-cover"
+                      />
+                    ) : (
+                      <div className="h-20 w-20 rounded-full bg-gradient-to-br from-orange-500 to-purple-500 flex items-center justify-center text-white text-2xl font-bold">
+                        {displayName?.[0]?.toUpperCase() || "?"}
+                      </div>
+                    )}
+                    <div className="flex-1">
+                      <label className="text-sm font-medium mb-2 block">
+                        URL da foto
+                      </label>
+                      <Input
+                        value={avatar}
+                        onChange={(e) => setAvatar(e.target.value)}
+                        placeholder="https://..."
+                      />
                     </div>
-                  )}
-                  <div className="flex-1">
+                  </div>
+
+                  <div>
                     <label className="text-sm font-medium mb-2 block">
-                      URL da foto
+                      {t("profile.displayName")}
                     </label>
                     <Input
-                      value={avatar}
-                      onChange={(e) => setAvatar(e.target.value)}
-                      placeholder="https://..."
+                      value={displayName}
+                      onChange={(e) => setDisplayName(e.target.value)}
+                      placeholder="Seu nome"
                     />
                   </div>
-                </div>
 
-                <div>
-                  <label className="text-sm font-medium mb-2 block">
-                    {t("profile.displayName")}
-                  </label>
-                  <Input
-                    value={displayName}
-                    onChange={(e) => setDisplayName(e.target.value)}
-                    placeholder="Seu nome"
-                  />
-                </div>
+                  <div>
+                    <label className="text-sm font-medium mb-2 block">
+                      {t("profile.bio")}
+                    </label>
+                    <textarea
+                      value={bio}
+                      onChange={(e) => setBio(e.target.value)}
+                      placeholder="Uma breve descrição..."
+                      className="w-full min-h-[80px] rounded-lg border border-input bg-background px-4 py-2 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-ring"
+                    />
+                  </div>
+                </CardContent>
+              </Card>
 
-                <div>
-                  <label className="text-sm font-medium mb-2 block">
-                    {t("profile.bio")}
-                  </label>
-                  <textarea
-                    value={bio}
-                    onChange={(e) => setBio(e.target.value)}
-                    placeholder="Uma breve descrição..."
-                    className="w-full min-h-[80px] rounded-lg border border-input bg-background px-4 py-2 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-ring"
-                  />
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Blocks Section */}
-            <Card>
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-lg">{t("blocks.title")}</CardTitle>
-                  <Button
-                    variant="gradient"
-                    size="sm"
-                    onClick={() => setShowBlockPicker(!showBlockPicker)}
-                    disabled={blocks.length >= maxSections}
-                  >
-                    <Plus className="h-4 w-4 mr-1" />
-                    {t("blocks.add")} ({blocks.length}/{maxSections})
-                  </Button>
-                </div>
-              </CardHeader>
-              <CardContent>
-                {showBlockPicker && (
-                  <div className="mb-4 space-y-3 p-4 bg-muted/50 rounded-lg">
-                    <div>
-                      <p className="text-sm font-medium">Biblioteca de seções</p>
-                      <p className="text-xs text-muted-foreground">
-                        Atalhos inspirados no fluxo Keepo
-                      </p>
-                    </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                      {sectionLibrary.map((section) => {
-                        const Icon = section.icon;
-                        return (
-                          <button
-                            key={section.key}
-                            onClick={() =>
-                              handleAddBlock(section.type, section.template)
-                            }
-                            className="flex items-start gap-3 p-3 rounded-lg bg-card border border-border hover:border-primary transition-colors text-left"
-                          >
-                            <Icon className="h-5 w-5 text-primary mt-0.5" />
-                            <span>
-                              <span className="block text-sm font-medium">
-                                {section.label}
+              {/* Blocks Section */}
+              <Card>
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-lg">
+                      {t("blocks.title")}
+                    </CardTitle>
+                    <Button
+                      variant="gradient"
+                      size="sm"
+                      onClick={() => setShowBlockPicker(!showBlockPicker)}
+                      disabled={blocks.length >= maxSections}
+                    >
+                      <Plus className="h-4 w-4 mr-1" />
+                      {t("blocks.add")} ({blocks.length}/{maxSections})
+                    </Button>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  {showBlockPicker && (
+                    <div className="mb-4 space-y-3 p-4 bg-muted/50 rounded-lg">
+                      <div>
+                        <p className="text-sm font-medium">
+                          Biblioteca de seções
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          Atalhos inspirados no fluxo Keepo
+                        </p>
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        {sectionLibrary.map((section) => {
+                          const Icon = section.icon;
+                          return (
+                            <button
+                              key={section.key}
+                              onClick={() =>
+                                handleAddBlock(section.type, section.template)
+                              }
+                              className="flex items-start gap-3 p-3 rounded-lg bg-card border border-border hover:border-primary transition-colors text-left"
+                            >
+                              <Icon className="h-5 w-5 text-primary mt-0.5" />
+                              <span>
+                                <span className="block text-sm font-medium">
+                                  {section.label}
+                                </span>
+                                <span className="block text-xs text-muted-foreground">
+                                  {section.description}
+                                </span>
                               </span>
-                              <span className="block text-xs text-muted-foreground">
-                                {section.description}
-                              </span>
-                            </span>
-                          </button>
-                        );
-                      })}
-                    </div>
+                            </button>
+                          );
+                        })}
+                      </div>
 
-                    <div className="pt-2 border-t">
-                      <p className="text-xs text-muted-foreground mb-2">
-                        Blocos avançados
-                      </p>
-                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                        {blockTypes.map(({ type, icon: Icon, label }) => (
-                          <button
-                            key={type}
-                            onClick={() => handleAddBlock(type)}
-                            className="flex flex-col items-center gap-2 p-3 rounded-lg bg-card border border-border hover:border-primary transition-colors"
-                          >
-                            <Icon className="h-5 w-5 text-primary" />
-                            <span className="text-xs">{label}</span>
-                          </button>
-                        ))}
+                      <div className="pt-2 border-t">
+                        <p className="text-xs text-muted-foreground mb-2">
+                          Blocos avançados
+                        </p>
+                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                          {blockTypes.map(({ type, icon: Icon, label }) => (
+                            <button
+                              key={type}
+                              onClick={() => handleAddBlock(type)}
+                              className="flex flex-col items-center gap-2 p-3 rounded-lg bg-card border border-border hover:border-primary transition-colors"
+                            >
+                              <Icon className="h-5 w-5 text-primary" />
+                              <span className="text-xs">{label}</span>
+                            </button>
+                          ))}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                )}
+                  )}
 
-                {blocks.length === 0 ? (
-                  <p className="text-center text-muted-foreground py-8">
-                    {t("blocks.empty")}
-                  </p>
-                ) : (
-                  <div className="space-y-3">
-                    {blocks.map((block, index) => (
-                      <BlockEditor
-                        key={block.id}
-                        block={block}
-                        onUpdate={handleUpdateBlock}
-                        onDelete={handleDeleteBlock}
-                        onToggleVisibility={handleToggleVisibility}
-                        onMoveUp={(id) => handleMoveBlock(id, "up")}
-                        onMoveDown={(id) => handleMoveBlock(id, "down")}
-                        isFirst={index === 0}
-                        isLast={index === blocks.length - 1}
-                      />
-                    ))}
-                  </div>
-                )}
-              </CardContent>
-            </Card>
+                  {blocks.length === 0 ? (
+                    <p className="text-center text-muted-foreground py-8">
+                      {t("blocks.empty")}
+                    </p>
+                  ) : (
+                    <div className="space-y-3">
+                      {blocks.map((block, index) => (
+                        <BlockEditor
+                          key={block.id}
+                          block={block}
+                          onUpdate={handleUpdateBlock}
+                          onDelete={handleDeleteBlock}
+                          onToggleVisibility={handleToggleVisibility}
+                          onMoveUp={(id) => handleMoveBlock(id, "up")}
+                          onMoveDown={(id) => handleMoveBlock(id, "down")}
+                          isFirst={index === 0}
+                          isLast={index === blocks.length - 1}
+                        />
+                      ))}
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </div>
+          ) : (
+            <ThemeEditor
+              settings={themeSettings}
+              onChange={setThemeSettings}
+              isPlusUser={isPlusUser}
+            />
+          )}
+
+          {/* Action buttons */}
+          <div className="mt-6 flex gap-2 border-t pt-3 sm:gap-3 lg:sticky lg:bottom-0 lg:bg-background/95 lg:py-3 lg:backdrop-blur">
+            <Button
+              variant="gradient"
+              className="flex-1"
+              onClick={handleSave}
+              disabled={isSaving}
+            >
+              {isSaving ? (
+                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+              ) : (
+                <Save className="h-4 w-4 mr-2" />
+              )}
+              Salvar alterações
+            </Button>
+            <Button
+              variant={published ? "outline" : "default"}
+              onClick={handlePublish}
+              disabled={isPublishing}
+            >
+              {isPublishing ? (
+                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+              ) : (
+                <Globe className="h-4 w-4 mr-2" />
+              )}
+              {published ? "Despublicar" : "Publicar"}
+            </Button>
           </div>
-        ) : (
-          <ThemeEditor
-            settings={themeSettings}
-            onChange={setThemeSettings}
-            isPlusUser={isPlusUser}
-          />
-        )}
 
-        {/* Action buttons */}
-        <div className="mt-6 flex gap-2 border-t pt-3 sm:gap-3 lg:sticky lg:bottom-0 lg:bg-background/95 lg:py-3 lg:backdrop-blur">
-          <Button
-            variant="gradient"
-            className="flex-1"
-            onClick={handleSave}
-            disabled={isSaving}
-          >
-            {isSaving ? (
-              <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-            ) : (
-              <Save className="h-4 w-4 mr-2" />
-            )}
-            Salvar alterações
-          </Button>
-          <Button
-            variant={published ? "outline" : "default"}
-            onClick={handlePublish}
-            disabled={isPublishing}
-          >
-            {isPublishing ? (
-              <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-            ) : (
-              <Globe className="h-4 w-4 mr-2" />
-            )}
-            {published ? "Despublicar" : "Publicar"}
-          </Button>
+          {publishSuccessUrl && (
+            <div className="rounded-lg border border-emerald-300 bg-emerald-50 px-4 py-3 mt-2">
+              <p className="text-sm font-medium text-emerald-800">
+                Publicado com sucesso 🎉
+              </p>
+              <div className="flex flex-wrap gap-2 mt-2">
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={copyPublishedLink}
+                  disabled={isCopyingPublishedLink}
+                >
+                  {isCopyingPublishedLink ? "Copiando..." : "Copiar link"}
+                </Button>
+                <a
+                  href={publishSuccessUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex h-9 items-center justify-center rounded-md bg-emerald-600 px-3 text-sm font-medium text-white"
+                >
+                  Ver website
+                </a>
+              </div>
+            </div>
+          )}
         </div>
 
-        {publishSuccessUrl && (
-          <div className="rounded-lg border border-emerald-300 bg-emerald-50 px-4 py-3 mt-2">
-            <p className="text-sm font-medium text-emerald-800">
-              Publicado com sucesso 🎉
-            </p>
-            <div className="flex flex-wrap gap-2 mt-2">
-              <Button
-                size="sm"
-                variant="outline"
-                onClick={copyPublishedLink}
-                disabled={isCopyingPublishedLink}
+        {/* Preview Panel */}
+        <div
+          className={cn(
+            "w-full lg:w-80 flex flex-col",
+            mobileView === "editor" ? "hidden lg:flex" : "",
+          )}
+        >
+          <div className="flex items-center justify-between mb-4">
+            <span className="text-sm font-medium">{t("preview")}</span>
+            <div className="flex gap-1 p-1 bg-muted rounded-lg">
+              <button
+                onClick={() => setPreviewMode("mobile")}
+                className={`p-1.5 rounded ${previewMode === "mobile" ? "bg-background shadow-sm" : ""}`}
               >
-                {isCopyingPublishedLink ? "Copiando..." : "Copiar link"}
-              </Button>
-              <a
-                href={publishSuccessUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex h-9 items-center justify-center rounded-md bg-emerald-600 px-3 text-sm font-medium text-white"
+                <Smartphone className="h-4 w-4" />
+              </button>
+              <button
+                onClick={() => setPreviewMode("desktop")}
+                className={`p-1.5 rounded ${previewMode === "desktop" ? "bg-background shadow-sm" : ""}`}
               >
-                Ver website
-              </a>
+                <Monitor className="h-4 w-4" />
+              </button>
             </div>
           </div>
-        )}
-      </div>
 
-      {/* Preview Panel */}
-      <div
-        className={cn(
-          "w-full lg:w-80 flex flex-col",
-          mobileView === "editor" ? "hidden lg:flex" : "",
-        )}
-      >
-        <div className="flex items-center justify-between mb-4">
-          <span className="text-sm font-medium">{t("preview")}</span>
-          <div className="flex gap-1 p-1 bg-muted rounded-lg">
-            <button
-              onClick={() => setPreviewMode("mobile")}
-              className={`p-1.5 rounded ${previewMode === "mobile" ? "bg-background shadow-sm" : ""}`}
+          <div className="flex-1 bg-muted rounded-2xl p-2 overflow-hidden">
+            <div className="h-full rounded-xl overflow-y-auto">
+              <ThemedPreview
+                settings={themeSettings}
+                displayName={displayName}
+                bio={bio}
+                avatarUrl={avatar}
+                blocks={blocks}
+              />
+            </div>
+          </div>
+
+          <div className="mt-4">
+            <a
+              href={`/p/${username}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 w-full h-10 px-4 rounded-md border border-input bg-background text-sm font-medium hover:bg-accent hover:text-accent-foreground transition-colors"
             >
-              <Smartphone className="h-4 w-4" />
-            </button>
-            <button
-              onClick={() => setPreviewMode("desktop")}
-              className={`p-1.5 rounded ${previewMode === "desktop" ? "bg-background shadow-sm" : ""}`}
-            >
-              <Monitor className="h-4 w-4" />
-            </button>
+              <Eye className="h-4 w-4" />
+              Ver página ao vivo
+            </a>
           </div>
         </div>
-
-        <div className="flex-1 bg-muted rounded-2xl p-2 overflow-hidden">
-          <div className="h-full rounded-xl overflow-y-auto">
-            <ThemedPreview
-              settings={themeSettings}
-              displayName={displayName}
-              bio={bio}
-              avatarUrl={avatar}
-              blocks={blocks}
-            />
-          </div>
-        </div>
-
-        <div className="mt-4">
-          <a
-            href={`/p/${username}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 w-full h-10 px-4 rounded-md border border-input bg-background text-sm font-medium hover:bg-accent hover:text-accent-foreground transition-colors"
-          >
-            <Eye className="h-4 w-4" />
-            Ver página ao vivo
-          </a>
-        </div>
       </div>
-    </div>
-  </>
+    </>
   );
 }

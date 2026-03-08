@@ -16,6 +16,7 @@ import {
   Check,
 } from "lucide-react";
 import type { BlockType } from "@/types/blocks";
+import { ImageUpload } from "@/components/ui/image-upload";
 
 interface BlockEditorProps {
   block: {
@@ -198,9 +199,11 @@ function BlockPreview({ type, content, onEdit }: BlockPreviewProps) {
         const linkUrl = (c.url as string) || "Sem URL";
         return (
           <div className="flex items-center gap-3">
-            {(c.thumbnailType as string) === "emoji" && (c.thumbnailValue as string) ? (
+            {(c.thumbnailType as string) === "emoji" &&
+            (c.thumbnailValue as string) ? (
               <span className="text-xl">{c.thumbnailValue as string}</span>
-            ) : (c.thumbnailType as string) === "image" && (c.thumbnailValue as string) ? (
+            ) : (c.thumbnailType as string) === "image" &&
+              (c.thumbnailValue as string) ? (
               <Image
                 src={c.thumbnailValue as string}
                 alt="Miniatura"
@@ -222,7 +225,9 @@ function BlockPreview({ type, content, onEdit }: BlockPreviewProps) {
         if (c.variant === "ABOUT") {
           return (
             <div>
-              <p className="font-medium">{(c.pageTitle as string) || "Sobre"}</p>
+              <p className="font-medium">
+                {(c.pageTitle as string) || "Sobre"}
+              </p>
               {(c.featuredTitle as string) && (
                 <p className="text-sm">{c.featuredTitle as string}</p>
               )}
@@ -350,7 +355,9 @@ function BlockEditForm({
               />
             </div>
             <div>
-              <label className="text-sm font-medium mb-1 block">URL (obrigatória)</label>
+              <label className="text-sm font-medium mb-1 block">
+                URL (obrigatória)
+              </label>
               <Input
                 value={(c.url as string) || ""}
                 onChange={(e) => updateField("url", e.target.value)}
@@ -358,7 +365,9 @@ function BlockEditForm({
               />
             </div>
             <div>
-              <label className="text-sm font-medium mb-1 block">Thumbnail</label>
+              <label className="text-sm font-medium mb-1 block">
+                Thumbnail
+              </label>
               <div className="flex gap-2 mb-2">
                 {[
                   { id: "none", label: "Sem" },
@@ -381,16 +390,20 @@ function BlockEditForm({
               {(c.thumbnailType as string) === "emoji" && (
                 <Input
                   value={(c.thumbnailValue as string) || ""}
-                  onChange={(e) => updateField("thumbnailValue", e.target.value)}
+                  onChange={(e) =>
+                    updateField("thumbnailValue", e.target.value)
+                  }
                   placeholder="😀"
                 />
               )}
               {(c.thumbnailType as string) === "image" && (
-                <Input
-                  value={(c.thumbnailValue as string) || ""}
-                  onChange={(e) => updateField("thumbnailValue", e.target.value)}
-                  placeholder="https://..."
-                />
+                <div className="mt-2 text-sm max-w-[240px]">
+                  <ImageUpload
+                    value={(c.thumbnailValue as string) || ""}
+                    onChange={(url) => updateField("thumbnailValue", url)}
+                    placeholder="Miniatura (opcional)"
+                  />
+                </div>
               )}
             </div>
             <div>
@@ -423,7 +436,9 @@ function BlockEditForm({
           return (
             <div className="space-y-3">
               <div>
-                <label className="text-sm font-medium mb-1 block">Page title</label>
+                <label className="text-sm font-medium mb-1 block">
+                  Page title
+                </label>
                 <Input
                   value={(c.pageTitle as string) || ""}
                   onChange={(e) => updateField("pageTitle", e.target.value)}
@@ -431,7 +446,9 @@ function BlockEditForm({
                 />
               </div>
               <div>
-                <label className="text-sm font-medium mb-1 block">Featured title (opcional)</label>
+                <label className="text-sm font-medium mb-1 block">
+                  Featured title (opcional)
+                </label>
                 <Input
                   value={(c.featuredTitle as string) || ""}
                   onChange={(e) => updateField("featuredTitle", e.target.value)}
@@ -439,7 +456,9 @@ function BlockEditForm({
                 />
               </div>
               <div>
-                <label className="text-sm font-medium mb-1 block">Descrição completa</label>
+                <label className="text-sm font-medium mb-1 block">
+                  Descrição completa
+                </label>
                 <textarea
                   value={(c.description as string) || ""}
                   onChange={(e) => updateField("description", e.target.value)}
@@ -448,12 +467,14 @@ function BlockEditForm({
                 />
               </div>
               <div>
-                <label className="text-sm font-medium mb-1 block">Imagem (URL)</label>
-                <Input
-                  value={(c.image as string) || ""}
-                  onChange={(e) => updateField("image", e.target.value)}
-                  placeholder="https://..."
-                />
+                <label className="text-sm font-medium mb-1 block">Imagem</label>
+                <div className="max-w-[240px]">
+                  <ImageUpload
+                    value={(c.image as string) || ""}
+                    onChange={(url) => updateField("image", url)}
+                    placeholder="Imagem de destaque"
+                  />
+                </div>
               </div>
             </div>
           );
@@ -498,15 +519,21 @@ function BlockEditForm({
           return (
             <div className="space-y-3">
               <div>
-                <label className="text-sm font-medium mb-1 block">Foto de perfil (URL)</label>
-                <Input
-                  value={(c.profilePhoto as string) || ""}
-                  onChange={(e) => updateField("profilePhoto", e.target.value)}
-                  placeholder="https://..."
-                />
+                <label className="text-sm font-medium mb-1 block">
+                  Foto de perfil
+                </label>
+                <div className="max-w-[240px]">
+                  <ImageUpload
+                    value={(c.profilePhoto as string) || ""}
+                    onChange={(url) => updateField("profilePhoto", url)}
+                    placeholder="Sua foto de perfil"
+                  />
+                </div>
               </div>
               <div>
-                <label className="text-sm font-medium mb-1 block">Display name</label>
+                <label className="text-sm font-medium mb-1 block">
+                  Display name
+                </label>
                 <Input
                   value={(c.displayName as string) || ""}
                   onChange={(e) => updateField("displayName", e.target.value)}
@@ -514,7 +541,9 @@ function BlockEditForm({
                 />
               </div>
               <div>
-                <label className="text-sm font-medium mb-1 block">Featured title</label>
+                <label className="text-sm font-medium mb-1 block">
+                  Featured title
+                </label>
                 <Input
                   value={(c.featuredTitle as string) || ""}
                   onChange={(e) => updateField("featuredTitle", e.target.value)}
@@ -522,7 +551,9 @@ function BlockEditForm({
                 />
               </div>
               <div>
-                <label className="text-sm font-medium mb-1 block">Second title</label>
+                <label className="text-sm font-medium mb-1 block">
+                  Second title
+                </label>
                 <Input
                   value={(c.secondTitle as string) || ""}
                   onChange={(e) => updateField("secondTitle", e.target.value)}
@@ -629,8 +660,11 @@ function BlockEditForm({
                     onChange={(e) => setPlatformUrl(platform, e.target.value)}
                     placeholder={`https://${platform}.com/...`}
                   />
-                  {iconsMap[platform] && !/^https?:\/\/.+/.test(iconsMap[platform]) ? (
-                    <p className="text-[11px] text-destructive mt-1">URL inválida</p>
+                  {iconsMap[platform] &&
+                  !/^https?:\/\/.+/.test(iconsMap[platform]) ? (
+                    <p className="text-[11px] text-destructive mt-1">
+                      URL inválida
+                    </p>
                   ) : null}
                 </div>
               ))}
@@ -672,7 +706,8 @@ function BlockEditForm({
                 placeholder="Cole o link do vídeo ou música..."
               />
               <p className="text-xs text-muted-foreground mt-1">
-                Suporte recomendado: YouTube, Spotify, Vimeo e SoundCloud com URL completa.
+                Suporte recomendado: YouTube, Spotify, Vimeo e SoundCloud com
+                URL completa.
               </p>
             </div>
           </div>
@@ -726,7 +761,12 @@ function BlockEditForm({
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <label className="text-sm font-medium">Itens do catálogo</label>
-              <Button type="button" variant="outline" size="sm" onClick={addCatalogItem}>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={addCatalogItem}
+              >
                 Adicionar item
               </Button>
             </div>
@@ -738,7 +778,10 @@ function BlockEditForm({
             ) : (
               <div className="space-y-3">
                 {catalogItems.map((item, index) => (
-                  <div key={item.id} className="rounded-lg border p-3 space-y-2">
+                  <div
+                    key={item.id}
+                    className="rounded-lg border p-3 space-y-2"
+                  >
                     <div className="flex items-center justify-between">
                       <p className="text-sm font-medium">Item {index + 1}</p>
                       <Button
@@ -768,25 +811,39 @@ function BlockEditForm({
                     <textarea
                       value={item.description || ""}
                       onChange={(e) =>
-                        updateCatalogItem(item.id, "description", e.target.value)
+                        updateCatalogItem(
+                          item.id,
+                          "description",
+                          e.target.value,
+                        )
                       }
                       placeholder="Descrição curta"
                       className="w-full min-h-[60px] rounded-lg border border-input bg-background px-3 py-2 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-ring"
                     />
-                    <Input
-                      value={item.image || ""}
-                      onChange={(e) =>
-                        updateCatalogItem(item.id, "image", e.target.value)
-                      }
-                      placeholder="URL da imagem (opcional)"
-                    />
-                    <Input
-                      value={item.url || ""}
-                      onChange={(e) =>
-                        updateCatalogItem(item.id, "url", e.target.value)
-                      }
-                      placeholder="URL de destino (opcional)"
-                    />
+                    <div className="space-y-1">
+                      <label className="text-xs text-muted-foreground block">
+                        Imagem
+                      </label>
+                      <ImageUpload
+                        value={item.image || ""}
+                        onChange={(url) =>
+                          updateCatalogItem(item.id, "image", url)
+                        }
+                        placeholder="Imagem do item"
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <label className="text-xs text-muted-foreground block">
+                        URL de destino
+                      </label>
+                      <Input
+                        value={item.url || ""}
+                        onChange={(e) =>
+                          updateCatalogItem(item.id, "url", e.target.value)
+                        }
+                        placeholder="https://..."
+                      />
+                    </div>
                   </div>
                 ))}
               </div>
@@ -890,7 +947,12 @@ function BlockEditForm({
 
             <div className="flex items-center justify-between">
               <label className="text-sm font-medium">Campos</label>
-              <Button type="button" variant="outline" size="sm" onClick={addFormField}>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={addFormField}
+              >
                 Adicionar campo
               </Button>
             </div>
@@ -902,7 +964,10 @@ function BlockEditForm({
             ) : (
               <div className="space-y-3">
                 {fields.map((field, index) => (
-                  <div key={field.id} className="rounded-lg border p-3 space-y-2">
+                  <div
+                    key={field.id}
+                    className="rounded-lg border p-3 space-y-2"
+                  >
                     <div className="flex items-center justify-between">
                       <p className="text-sm font-medium">Campo {index + 1}</p>
                       <Button
@@ -982,14 +1047,17 @@ function BlockEditForm({
   const linkUrlIsValid = !isLink || /^https?:\/\/.+/.test(linkUrl);
 
   const mediaUrl = ((c.embedUrl as string) || "").trim();
-  const mediaUrlIsValid = !isMedia || mediaUrl.length === 0 || /^https?:\/\/.+/.test(mediaUrl);
+  const mediaUrlIsValid =
+    !isMedia || mediaUrl.length === 0 || /^https?:\/\/.+/.test(mediaUrl);
 
   const socialLinks =
     (c.icons as Array<{ platform: string; url: string }>) || [];
   const socialUrlsAreValid =
-    !isSocial || socialLinks.every((icon) => /^https?:\/\/.+/.test((icon.url || "").trim()));
+    !isSocial ||
+    socialLinks.every((icon) => /^https?:\/\/.+/.test((icon.url || "").trim()));
 
-  const canSave = linkIsValid && linkUrlIsValid && mediaUrlIsValid && socialUrlsAreValid;
+  const canSave =
+    linkIsValid && linkUrlIsValid && mediaUrlIsValid && socialUrlsAreValid;
 
   return (
     <div className="space-y-4">
@@ -1006,7 +1074,8 @@ function BlockEditForm({
       )}
       {isSocial && !socialUrlsAreValid && (
         <p className="text-xs text-destructive">
-          Todos os links de redes sociais precisam começar com http:// ou https://.
+          Todos os links de redes sociais precisam começar com http:// ou
+          https://.
         </p>
       )}
       <div className="flex justify-end gap-2 pt-2 border-t">
@@ -1014,7 +1083,12 @@ function BlockEditForm({
           <X className="h-4 w-4 mr-1" />
           Cancelar
         </Button>
-        <Button variant="gradient" size="sm" onClick={onSave} disabled={!canSave}>
+        <Button
+          variant="gradient"
+          size="sm"
+          onClick={onSave}
+          disabled={!canSave}
+        >
           <Check className="h-4 w-4 mr-1" />
           Salvar
         </Button>
