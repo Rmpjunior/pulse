@@ -183,7 +183,7 @@ export default function HomePage() {
                   {t("landing.features.themes.description")}
                 </p>
               </div>
-              <div className="absolute -right-10 -bottom-10 w-[70%] lg:w-[60%] h-auto max-h-full object-contain object-right-bottom transform group-hover:scale-105 transition-transform duration-700 pointer-events-none hidden md:block">
+              <div className="absolute -right-8 top-1/2 -translate-y-1/2 w-[55%] lg:w-[50%] transform group-hover:scale-105 transition-transform duration-700 pointer-events-none hidden md:block">
                 <ThemedImage
                   lightSrc="/assets/features_grid_light.png"
                   darkSrc="/assets/feature_grids_dark.png"
