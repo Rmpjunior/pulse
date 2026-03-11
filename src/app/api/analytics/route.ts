@@ -72,13 +72,13 @@ export async function GET(request: Request) {
     });
 
     // Aggregate views by day
-    const viewsByDay = aggregateByDay(pageViews.map(v => v.createdAt), days);
-    
+    const viewsByDay = aggregateByDay(pageViews.map((v: (typeof pageViews)[number]) => v.createdAt), days);
+
     // Aggregate clicks by day
-    const clicksByDay = aggregateByDay(blockClicks.map(c => c.createdAt), days);
+    const clicksByDay = aggregateByDay(blockClicks.map((c: (typeof blockClicks)[number]) => c.createdAt), days);
 
     // Get top blocks by clicks
-    const blockClickCounts = blockClicks.reduce((acc, click) => {
+    const blockClickCounts = blockClicks.reduce((acc: Record<string, { id: string; type: string; label: string; clicks: number }>, click: (typeof blockClicks)[number]) => {
       const blockId = click.block.id;
       if (!acc[blockId]) {
         acc[blockId] = {
