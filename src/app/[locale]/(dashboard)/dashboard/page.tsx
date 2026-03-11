@@ -53,7 +53,7 @@ export default async function DashboardPage() {
       })
     : 0;
 
-  const totalViews = pages.reduce((sum: number, p) => sum + p._count.pageViews, 0);
+  const totalViews = pages.reduce((sum: number, p: (typeof pages)[number]) => sum + p._count.pageViews, 0);
   const primaryPage = pages[0] || null;
 
   return (
