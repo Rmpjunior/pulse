@@ -12,10 +12,15 @@ import { isGoogleOAuthEnabled } from "@/lib/auth/google-config";
 import { BrandLogo } from "@/components/ui/brand-logo";
 import { ThemedImage } from "@/components/ui/themed-image";
 
-export default function LoginPage() {
+export default async function LoginPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ error?: string }>;
+}) {
   const t = useTranslations("auth.login");
   const tCommon = useTranslations("common");
   const googleEnabled = isGoogleOAuthEnabled();
+  const { error } = await searchParams;
 
   return (
     <div className="min-h-screen grid lg:grid-cols-2">
@@ -54,6 +59,13 @@ export default function LoginPage() {
               <CardDescription>{t("subtitle")}</CardDescription>
             </CardHeader>
             <CardContent>
+              {error && (
+                <div className="mb-4 rounded-md bg-destructive/10 px-4 py-3 text-sm text-destructive">
+                  {error === "OAuthAccountNotLinked"
+                    ? "Este e-mail já está cadastrado. Tente outro método de login."
+                    : "Ocorreu um erro ao fazer login. Tente novamente."}
+                </div>
+              )}
               <LoginForm googleEnabled={googleEnabled} />
 
               <div className="mt-6 text-center text-sm">
