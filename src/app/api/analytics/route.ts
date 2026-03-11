@@ -78,19 +78,20 @@ export async function GET(request: Request) {
     const clicksByDay = aggregateByDay(blockClicks.map((c: (typeof blockClicks)[number]) => c.createdAt), days);
 
     // Get top blocks by clicks
-    const blockClickCounts = blockClicks.reduce((acc: Record<string, { id: string; type: string; label: string; clicks: number }>, click: (typeof blockClicks)[number]) => {
+    type BlockStat = { id: string; type: string; label: string; clicks: number };
+    const blockClickCounts: Record<string, BlockStat> = {};
+    for (const click of blockClicks) {
       const blockId = click.block.id;
-      if (!acc[blockId]) {
-        acc[blockId] = {
+      if (!blockClickCounts[blockId]) {
+        blockClickCounts[blockId] = {
           id: blockId,
           type: click.block.type,
           label: getBlockLabel(click.block),
           clicks: 0,
         };
       }
-      acc[blockId].clicks++;
-      return acc;
-    }, {} as Record<string, { id: string; type: string; label: string; clicks: number }>);
+      blockClickCounts[blockId].clicks++;
+    }
 
     const topBlocks = Object.values(blockClickCounts)
       .sort((a, b) => b.clicks - a.clicks)
