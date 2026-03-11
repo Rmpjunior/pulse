@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+
 import { useTranslations } from "next-intl";
 import { signOut } from "next-auth/react";
 import { Button } from "@/components/ui/button";
@@ -56,13 +56,14 @@ export function DashboardHeader({ user, onMenuClick }: DashboardHeaderProps) {
 
             <Link href="/dashboard/settings" aria-label="Abrir configurações da conta">
               {user.image ? (
-                <Image
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
                   className="h-9 w-9 rounded-full ring-2 ring-border object-cover"
                   src={user.image}
                   alt={user.name || "User"}
                   width={36}
                   height={36}
-                  unoptimized
+                  referrerPolicy="no-referrer"
                 />
               ) : (
                 <div className="h-9 w-9 rounded-full bg-primary/10 flex items-center justify-center ring-2 ring-border">

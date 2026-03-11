@@ -30,6 +30,9 @@ export const metadata: Metadata = {
   authors: [{ name: "Pulse" }],
   creator: "Pulse",
   manifest: "/manifest.json",
+  appleWebApp: {
+    title: "Pulse",
+  },
   icons: {
     icon: "/favicon.ico",
     apple: "/icons/apple-touch-icon.png",

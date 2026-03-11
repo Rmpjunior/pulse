@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { signIn } from "next-auth/react";
+import { signInWithGoogle } from "@/lib/auth/actions";
 import { Button } from "@/components/ui/button";
 
 type LoginFormProps = {
@@ -11,18 +11,14 @@ type LoginFormProps = {
 export function LoginForm({ googleEnabled }: LoginFormProps) {
   const t = useTranslations("auth.login");
 
-  const handleGoogleSignIn = () => {
-    signIn("google", { callbackUrl: "/dashboard" });
-  };
-
   return (
     <div className="space-y-4">
       {googleEnabled ? (
+        <form action={signInWithGoogle}>
         <Button
-          type="button"
+          type="submit"
           variant="outline"
           className="w-full flex items-center justify-center gap-2"
-          onClick={handleGoogleSignIn}
         >
           <svg className="h-4 w-4" viewBox="0 0 24 24">
             <path
@@ -44,6 +40,7 @@ export function LoginForm({ googleEnabled }: LoginFormProps) {
           </svg>
           {t("withGoogle")}
         </Button>
+        </form>
       ) : (
         <p className="text-xs text-muted-foreground text-center">
           Login com Google indisponível no momento.

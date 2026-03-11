@@ -28,11 +28,15 @@ if (isGoogleOAuthEnabled()) {
       if (token.sub && session.user) {
         session.user.id = token.sub;
       }
+      if (token.picture && session.user) {
+        session.user.image = token.picture as string;
+      }
       return session;
     },
     async jwt({ token, user }) {
       if (user) {
         token.sub = user.id;
+        token.picture = user.image;
       }
       return token;
     },
