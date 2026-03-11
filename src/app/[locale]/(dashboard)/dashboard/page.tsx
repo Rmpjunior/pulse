@@ -40,7 +40,7 @@ export default async function DashboardPage() {
     orderBy: { createdAt: "asc" },
   });
 
-  const pageIds = pages.map((p) => p.id);
+  const pageIds = pages.map((p: (typeof pages)[number]) => p.id);
 
   // Get click count across all pages
   const clickCount = pageIds.length
