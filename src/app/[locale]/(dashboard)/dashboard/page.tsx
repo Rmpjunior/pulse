@@ -177,7 +177,7 @@ export default async function DashboardPage() {
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
-                {pages.map((site) => (
+                {pages.map((site: (typeof pages)[number]) => (
                   <div
                     key={site.id}
                     className="flex items-center justify-between gap-3 rounded-lg border p-3"
