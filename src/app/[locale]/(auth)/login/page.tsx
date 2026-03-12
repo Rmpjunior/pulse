@@ -12,6 +12,8 @@ import { isGoogleOAuthEnabled } from "@/lib/auth/google-config";
 import { BrandLogo } from "@/components/ui/brand-logo";
 import { ThemedImage } from "@/components/ui/themed-image";
 
+export const dynamic = "force-dynamic";
+
 export default async function LoginPage({
   searchParams,
 }: {
