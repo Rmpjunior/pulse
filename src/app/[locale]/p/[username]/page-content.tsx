@@ -534,6 +534,121 @@ function ThemedBlock({
         </div>
       );
 
+    case "CATALOG":
+      const catalogItems = (content.items as Array<{
+        id?: string;
+        name?: string;
+        description?: string;
+        price?: string;
+        image?: string;
+        url?: string;
+      }>) || [];
+
+      if (catalogItems.length === 0) {
+        return (
+          <div
+            className="p-4 text-center"
+            style={{ backgroundColor: `${colors.primary}10`, borderRadius: buttonRadius, color: colors.text, opacity: 0.5 }}
+          >
+            <p className="text-sm">Catálogo vazio</p>
+          </div>
+        );
+      }
+
+      return (
+        <div
+          style={{
+            backgroundColor: `${colors.primary}08`,
+            borderColor: `${colors.primary}25`,
+            borderWidth: "1px",
+            borderStyle: "solid",
+            borderRadius: buttonRadius,
+            padding: "0.875rem",
+          }}
+        >
+          <p
+            className="text-xs font-semibold uppercase tracking-wider mb-3"
+            style={{ color: colors.text, opacity: 0.45 }}
+          >
+            Catálogo
+          </p>
+          <div className="space-y-2">
+            {catalogItems.map((item, i) => {
+              const priceDisplay = item.price
+                ? item.price.startsWith("R$") ? item.price : `R$ ${item.price}`
+                : null;
+
+              const card = (
+                <div
+                  style={{
+                    backgroundColor: colors.background,
+                    borderColor: `${colors.primary}20`,
+                    borderWidth: "1px",
+                    borderStyle: "solid",
+                    borderRadius: `calc(${buttonRadius} * 0.75)`,
+                    padding: "0.75rem",
+                  }}
+                >
+                  <div className="flex gap-3">
+                    {item.image ? (
+                      <Image
+                        src={item.image}
+                        alt={item.name || `Item ${i + 1}`}
+                        width={60}
+                        height={60}
+                        unoptimized
+                        className="object-cover shrink-0"
+                        style={{ width: 60, height: 60, borderRadius: `calc(${buttonRadius} * 0.5)` }}
+                      />
+                    ) : (
+                      <div
+                        className="shrink-0"
+                        style={{
+                          width: 60,
+                          height: 60,
+                          backgroundColor: `${colors.primary}20`,
+                          borderRadius: `calc(${buttonRadius} * 0.5)`,
+                        }}
+                      />
+                    )}
+                    <div className="min-w-0 flex-1">
+                      <p className="font-medium text-sm" style={{ color: colors.text }}>
+                        {item.name || `Item ${i + 1}`}
+                      </p>
+                      {item.description && (
+                        <p className="text-xs mt-0.5" style={{ color: colors.text, opacity: 0.65 }}>
+                          {item.description}
+                        </p>
+                      )}
+                      {priceDisplay && (
+                        <p className="text-sm font-bold mt-1" style={{ color: colors.primary }}>
+                          {priceDisplay}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              );
+
+              if (!item.url) return <div key={item.id || i}>{card}</div>;
+              const absoluteUrl = /^https?:\/\//i.test(item.url) ? item.url : `https://${item.url}`;
+              return (
+                <a
+                  key={item.id || i}
+                  href={absoluteUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={handleClick}
+                  className="block"
+                >
+                  {card}
+                </a>
+              );
+            })}
+          </div>
+        </div>
+      );
+
     default:
       return (
         <div

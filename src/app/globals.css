@@ -123,6 +123,10 @@
 
   --font-sans: var(--font-geist-sans), system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), monospace;
+  --font-poppins: var(--font-poppins-var), system-ui, sans-serif;
+  --font-roboto: var(--font-roboto-var), system-ui, sans-serif;
+  --font-outfit: var(--font-outfit-var), system-ui, sans-serif;
+  --font-playfair: var(--font-playfair-var), Georgia, serif;
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: var(--radius);

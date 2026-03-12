@@ -3,13 +3,7 @@ import { Link } from "@/i18n/navigation";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Eye,
   MousePointerClick,
@@ -18,6 +12,10 @@ import {
   Palette,
   BarChart3,
   Share2,
+  Globe,
+  ArrowUpRight,
+  TrendingUp,
+  Pencil,
 } from "lucide-react";
 
 export const dynamic = "force-dynamic";
@@ -26,15 +24,11 @@ export default async function DashboardPage() {
   const t = await getTranslations("dashboard");
   const session = await auth();
 
-  // Get user's pages if they exist
   const pages = await db.page.findMany({
     where: { userId: session?.user?.id },
     include: {
       _count: {
-        select: {
-          blocks: true,
-          pageViews: true,
-        },
+        select: { blocks: true, pageViews: true },
       },
     },
     orderBy: { createdAt: "asc" },
@@ -42,164 +36,167 @@ export default async function DashboardPage() {
 
   const pageIds = pages.map((p: (typeof pages)[number]) => p.id);
 
-  // Get click count across all pages
   const clickCount = pageIds.length
     ? await db.blockClick.count({
-        where: {
-          block: {
-            pageId: { in: pageIds },
-          },
-        },
+        where: { block: { pageId: { in: pageIds } } },
       })
     : 0;
 
-  const totalViews = pages.reduce((sum: number, p: (typeof pages)[number]) => sum + p._count.pageViews, 0);
+  const totalViews = pages.reduce(
+    (sum: number, p: (typeof pages)[number]) => sum + p._count.pageViews,
+    0,
+  );
   const primaryPage = pages[0] || null;
+  const ctr = totalViews > 0 ? ((clickCount / totalViews) * 100).toFixed(1) : "0.0";
+
+  const stats = [
+    {
+      label: t("stats.views"),
+      value: totalViews.toLocaleString("pt-BR"),
+      description: t("stats.viewsDescription"),
+      icon: Eye,
+      color: "text-blue-500",
+      bg: "bg-blue-500/10",
+    },
+    {
+      label: t("stats.clicks"),
+      value: clickCount.toLocaleString("pt-BR"),
+      description: t("stats.clicksDescription"),
+      icon: MousePointerClick,
+      color: "text-orange-500",
+      bg: "bg-orange-500/10",
+    },
+    {
+      label: t("stats.ctr"),
+      value: `${ctr}%`,
+      description: t("stats.ctrDescription"),
+      icon: TrendingUp,
+      color: "text-purple-500",
+      bg: "bg-purple-500/10",
+    },
+  ];
 
   return (
-    <div className="space-y-8">
-      {/* Welcome section */}
-      <div>
+    <div className="space-y-8 max-w-6xl">
+      {/* Welcome header */}
+      <div className="flex flex-col gap-1">
         <h1 className="text-2xl font-bold tracking-tight">
-          {t("welcome", { name: session?.user?.name || "User" })}
+          {t("welcome", { name: session?.user?.name?.split(" ")[0] || "User" })}
         </h1>
-        <p className="text-muted-foreground">{t("subtitle")}</p>
+        <p className="text-muted-foreground text-sm">{t("subtitle")}</p>
       </div>
 
       {pages.length > 0 ? (
         <>
-          {/* Stats cards */}
-          <div className="grid gap-4 md:grid-cols-3">
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  {t("stats.views")}
-                </CardTitle>
-                <Eye className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">
-                  {totalViews}
-                </div>
-                <p className="text-xs text-muted-foreground">
-                  {t("stats.viewsDescription")}
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  {t("stats.clicks")}
-                </CardTitle>
-                <MousePointerClick className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{clickCount}</div>
-                <p className="text-xs text-muted-foreground">
-                  {t("stats.clicksDescription")}
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  {t("stats.ctr")}
-                </CardTitle>
-                <BarChart3 className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">
-                  {totalViews > 0 ? ((clickCount / totalViews) * 100).toFixed(1) : 0}
-                  %
-                </div>
-                <p className="text-xs text-muted-foreground">
-                  {t("stats.ctrDescription")}
-                </p>
-              </CardContent>
-            </Card>
+          {/* Stats */}
+          <div className="grid gap-4 sm:grid-cols-3">
+            {stats.map(({ label, value, description, icon: Icon, color, bg }) => (
+              <Card key={label} className="relative overflow-hidden">
+                <CardHeader className="pb-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
+                      {label}
+                    </span>
+                    <div className={`h-8 w-8 rounded-lg ${bg} flex items-center justify-center`}>
+                      <Icon className={`h-4 w-4 ${color}`} />
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent className="pt-0">
+                  <p className="text-3xl font-bold tracking-tight">{value}</p>
+                  <p className="text-xs text-muted-foreground mt-1">{description}</p>
+                </CardContent>
+              </Card>
+            ))}
           </div>
 
-          {/* Page preview card */}
-          <Card>
-            <CardHeader>
-              <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                <div className="min-w-0">
-                  <CardTitle>{t("yourPage")}</CardTitle>
-                  <CardDescription className="break-all sm:break-normal">
-                    pulse.vercel.app/{primaryPage?.username}
-                    {primaryPage?.published ? (
-                      <span className="ml-2 inline-flex items-center rounded-full bg-success/10 px-2 py-0.5 text-xs font-medium text-success">
-                        {t("published")}
-                      </span>
-                    ) : (
-                      <span className="ml-2 inline-flex items-center rounded-full bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground">
-                        {t("unpublished")}
-                      </span>
-                    )}
-                  </CardDescription>
+          {/* Primary page card */}
+          <Card className="overflow-hidden border-border/60">
+            <div className="flex flex-col gap-4 p-5 sm:flex-row sm:items-start sm:justify-between">
+              <div className="space-y-2 min-w-0">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <Globe className="h-4 w-4 text-muted-foreground shrink-0" />
+                  <h2 className="font-semibold text-base">{t("yourPage")}</h2>
+                  {primaryPage?.published ? (
+                    <span className="inline-flex items-center rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-xs font-medium text-emerald-500 ring-1 ring-emerald-500/20">
+                      {t("published")}
+                    </span>
+                  ) : (
+                    <span className="inline-flex items-center rounded-full bg-muted px-2.5 py-0.5 text-xs font-medium text-muted-foreground">
+                      {t("unpublished")}
+                    </span>
+                  )}
                 </div>
-                <div className="grid w-full grid-cols-1 gap-2 sm:flex sm:w-auto sm:flex-wrap sm:justify-end">
-                  <Link href={`/p/${primaryPage?.username}`} target="_blank" className="w-full sm:w-auto">
-                    <Button variant="outline" size="sm" className="w-full sm:w-auto">
-                      <ExternalLink className="h-4 w-4 mr-2" />
-                      {t("viewPage")}
-                    </Button>
-                  </Link>
-                  <Link href={`/dashboard/editor?pageId=${primaryPage?.id}`} className="w-full sm:w-auto">
-                    <Button variant="gradient" size="sm" className="w-full sm:w-auto">
-                      {t("editPage")}
-                    </Button>
-                  </Link>
-                </div>
+                <p className="text-sm text-muted-foreground font-mono break-all">
+                  {process.env.NEXT_PUBLIC_APP_URL}/p/{primaryPage?.username}
+                </p>
               </div>
-            </CardHeader>
+              <div className="flex gap-2 shrink-0">
+                <Link href={`/p/${primaryPage?.username}`} target="_blank">
+                  <Button variant="outline" size="sm" className="gap-1.5">
+                    <ExternalLink className="h-3.5 w-3.5" />
+                    {t("viewPage")}
+                  </Button>
+                </Link>
+                <Link href={`/dashboard/editor?pageId=${primaryPage?.id}`}>
+                  <Button variant="gradient" size="sm" className="gap-1.5">
+                    <Pencil className="h-3.5 w-3.5" />
+                    {t("editPage")}
+                  </Button>
+                </Link>
+              </div>
+            </div>
           </Card>
 
-          {/* Multi-site management */}
+          {/* Sites list */}
           <Card>
-            <CardHeader>
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <CardHeader className="pb-3">
+              <div className="flex items-center justify-between gap-3">
                 <div>
-                  <CardTitle>Seus sites</CardTitle>
-                  <CardDescription>
-                    Gerencie múltiplos sites: editar, abrir e ajustar configurações.
-                  </CardDescription>
+                  <CardTitle className="text-base">Seus sites</CardTitle>
+                  <p className="text-sm text-muted-foreground mt-0.5">
+                    Gerencie múltiplos sites
+                  </p>
                 </div>
-                <Link href="/dashboard/editor?create=1" className="w-full sm:w-auto">
-                  <Button size="sm" className="w-full sm:w-auto">
-                    <Plus className="mr-2 h-4 w-4" />
+                <Link href="/dashboard/editor?create=1">
+                  <Button size="sm" className="gap-1.5">
+                    <Plus className="h-3.5 w-3.5" />
                     Novo site
                   </Button>
                 </Link>
               </div>
             </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
+            <CardContent className="pt-0">
+              <div className="divide-y divide-border/60">
                 {pages.map((site: (typeof pages)[number]) => (
                   <div
                     key={site.id}
-                    className="flex items-center justify-between gap-3 rounded-lg border p-3"
+                    className="flex items-center justify-between gap-3 py-3 first:pt-0 last:pb-0"
                   >
-                    <div>
-                      <p className="font-medium">{site.displayName || site.username}</p>
-                      <p className="text-xs text-muted-foreground">@{site.username}</p>
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div className="h-9 w-9 rounded-lg gradient-primary flex items-center justify-center shrink-0">
+                        <span className="text-sm font-bold text-white">
+                          {(site.displayName || site.username)[0].toUpperCase()}
+                        </span>
+                      </div>
+                      <div className="min-w-0">
+                        <p className="font-medium text-sm truncate">
+                          {site.displayName || site.username}
+                        </p>
+                        <p className="text-xs text-muted-foreground truncate">
+                          @{site.username}
+                        </p>
+                      </div>
                     </div>
-                    <div className="flex gap-2">
+                    <div className="flex items-center gap-1.5 shrink-0">
                       <Link href={`/dashboard/editor?pageId=${site.id}`}>
-                        <Button size="sm" variant="outline">
+                        <Button size="sm" variant="outline" className="h-8 text-xs px-3">
                           Editar
                         </Button>
                       </Link>
                       <Link href={`/p/${site.username}`} target="_blank">
-                        <Button size="sm" variant="outline">
-                          Abrir
-                        </Button>
-                      </Link>
-                      <Link href="/dashboard/settings">
-                        <Button size="sm" variant="ghost">
-                          Configurações
+                        <Button size="sm" variant="ghost" className="h-8 w-8 p-0">
+                          <ArrowUpRight className="h-3.5 w-3.5" />
                         </Button>
                       </Link>
                     </div>
@@ -211,79 +208,67 @@ export default async function DashboardPage() {
 
           {/* Quick actions */}
           <div>
-            <h2 className="text-lg font-semibold mb-4">
+            <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wide mb-4">
               {t("quickActions.title")}
             </h2>
-            <div className="grid gap-4 md:grid-cols-4">
-              <Link href={`/dashboard/editor${primaryPage ? `?pageId=${primaryPage.id}` : ""}`}>
-                <Card className="hover:border-primary/50 transition-colors cursor-pointer h-full">
-                  <CardContent className="flex flex-col items-center justify-center p-6 text-center">
-                    <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
-                      <Plus className="h-6 w-6 text-primary" />
-                    </div>
-                    <span className="text-sm font-medium">
-                      {t("quickActions.addBlock")}
-                    </span>
-                  </CardContent>
-                </Card>
-              </Link>
-
-              <Link
-                href={`/dashboard/editor?tab=theme${primaryPage ? `&pageId=${primaryPage.id}` : ""}`}
-              >
-                <Card className="hover:border-primary/50 transition-colors cursor-pointer h-full">
-                  <CardContent className="flex flex-col items-center justify-center p-6 text-center">
-                    <div className="h-12 w-12 rounded-lg bg-secondary/10 flex items-center justify-center mb-3">
-                      <Palette className="h-6 w-6 text-secondary" />
-                    </div>
-                    <span className="text-sm font-medium">
-                      {t("quickActions.editTheme")}
-                    </span>
-                  </CardContent>
-                </Card>
-              </Link>
-
-              <Link href="/dashboard/analytics">
-                <Card className="hover:border-primary/50 transition-colors cursor-pointer h-full">
-                  <CardContent className="flex flex-col items-center justify-center p-6 text-center">
-                    <div className="h-12 w-12 rounded-lg bg-orange-500/10 flex items-center justify-center mb-3">
-                      <BarChart3 className="h-6 w-6 text-orange-500" />
-                    </div>
-                    <span className="text-sm font-medium">
-                      {t("quickActions.viewAnalytics")}
-                    </span>
-                  </CardContent>
-                </Card>
-              </Link>
-
-              <Card className="hover:border-primary/50 transition-colors cursor-pointer h-full">
-                <CardContent className="flex flex-col items-center justify-center p-6 text-center">
-                  <div className="h-12 w-12 rounded-lg bg-purple-500/10 flex items-center justify-center mb-3">
-                    <Share2 className="h-6 w-6 text-purple-500" />
-                  </div>
-                  <span className="text-sm font-medium">
-                    {t("quickActions.share")}
-                  </span>
-                </CardContent>
-              </Card>
+            <div className="grid gap-3 grid-cols-2 sm:grid-cols-4">
+              {[
+                {
+                  href: `/dashboard/editor${primaryPage ? `?pageId=${primaryPage.id}` : ""}`,
+                  icon: Plus,
+                  label: t("quickActions.addBlock"),
+                  iconColor: "text-primary",
+                  iconBg: "bg-primary/10",
+                },
+                {
+                  href: `/dashboard/editor?tab=theme${primaryPage ? `&pageId=${primaryPage.id}` : ""}`,
+                  icon: Palette,
+                  label: t("quickActions.editTheme"),
+                  iconColor: "text-purple-500",
+                  iconBg: "bg-purple-500/10",
+                },
+                {
+                  href: "/dashboard/analytics",
+                  icon: BarChart3,
+                  label: t("quickActions.viewAnalytics"),
+                  iconColor: "text-orange-500",
+                  iconBg: "bg-orange-500/10",
+                },
+                {
+                  href: primaryPage ? `/p/${primaryPage.username}` : "#",
+                  icon: Share2,
+                  label: t("quickActions.share"),
+                  iconColor: "text-blue-500",
+                  iconBg: "bg-blue-500/10",
+                },
+              ].map(({ href, icon: Icon, label, iconColor, iconBg }) => (
+                <Link key={label} href={href} target={href.startsWith("/p/") ? "_blank" : undefined}>
+                  <Card className="hover:border-primary/40 transition-all hover:shadow-sm cursor-pointer h-full group">
+                    <CardContent className="flex flex-col items-center justify-center p-5 text-center gap-3">
+                      <div className={`h-11 w-11 rounded-xl ${iconBg} flex items-center justify-center group-hover:scale-110 transition-transform`}>
+                        <Icon className={`h-5 w-5 ${iconColor}`} />
+                      </div>
+                      <span className="text-xs font-medium leading-tight">{label}</span>
+                    </CardContent>
+                  </Card>
+                </Link>
+              ))}
             </div>
           </div>
         </>
       ) : (
-        /* No page yet - Create page CTA */
         <Card className="border-dashed border-2">
-          <CardContent className="flex flex-col items-center justify-center py-16">
-            <div className="h-16 w-16 rounded-2xl gradient-primary flex items-center justify-center mb-6">
+          <CardContent className="flex flex-col items-center justify-center py-20">
+            <div className="h-16 w-16 rounded-2xl gradient-primary flex items-center justify-center mb-6 shadow-lg">
               <Plus className="h-8 w-8 text-white" />
             </div>
-            <h2 className="text-xl font-semibold mb-2">
-              {t("firstPage.title")}
-            </h2>
-            <p className="text-muted-foreground text-center max-w-md mb-6">
+            <h2 className="text-xl font-semibold mb-2">{t("firstPage.title")}</h2>
+            <p className="text-muted-foreground text-center max-w-md mb-8 text-sm">
               {t("firstPage.description")}
             </p>
             <Link href="/dashboard/editor">
-              <Button variant="gradient" size="lg">
+              <Button variant="gradient" size="lg" className="gap-2">
+                <Plus className="h-4 w-4" />
                 {t("createPage")}
               </Button>
             </Link>

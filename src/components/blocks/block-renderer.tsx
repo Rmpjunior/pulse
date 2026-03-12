@@ -293,10 +293,11 @@ export function BlockRenderer({ block, onBlockClick }: BlockRendererProps) {
               return <div key={item.id || i}>{card}</div>;
             }
 
+            const absUrl = /^https?:\/\//i.test(item.url) ? item.url : `https://${item.url}`;
             return (
               <a
                 key={item.id || i}
-                href={item.url}
+                href={absUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={handleClick}

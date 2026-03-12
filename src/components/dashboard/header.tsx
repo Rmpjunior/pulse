@@ -1,6 +1,5 @@
 "use client";
 
-
 import { useTranslations } from "next-intl";
 import { signOut } from "next-auth/react";
 import { Button } from "@/components/ui/button";
@@ -22,71 +21,62 @@ export function DashboardHeader({ user, onMenuClick }: DashboardHeaderProps) {
   const tCommon = useTranslations("common");
 
   return (
-    <header className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-border bg-background/80 backdrop-blur-md px-4 sm:gap-x-6 sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-40 flex h-14 shrink-0 items-center gap-x-3 border-b border-border/60 bg-background/90 backdrop-blur-md px-4 sm:px-6 lg:px-8">
       {/* Mobile menu button */}
       <button
         type="button"
-        className="p-2.5 text-muted-foreground hover:text-foreground lg:hidden cursor-pointer"
+        className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors lg:hidden cursor-pointer"
         aria-label="Abrir menu"
         onClick={onMenuClick}
       >
-        <Menu className="h-6 w-6" />
+        <Menu className="h-5 w-5" />
       </button>
 
-      {/* Separator */}
-      <div className="h-6 w-px bg-border lg:hidden" />
+      <div className="flex flex-1 items-center justify-end gap-x-3">
+        <ThemeToggle />
 
-      <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
-        <div className="flex flex-1" />
+        <div className="h-5 w-px bg-border" />
 
-        <div className="flex items-center gap-x-4 lg:gap-x-6">
-          <ThemeToggle />
-
-          {/* Separator */}
-          <div className="hidden lg:block lg:h-6 lg:w-px lg:bg-border" />
-
-          {/* Profile dropdown */}
-          <div className="flex items-center gap-3">
-            <div className="hidden md:flex flex-col items-end">
-              <span className="text-sm font-medium">{user.name}</span>
-              <span className="text-xs text-muted-foreground">
-                {user.email}
-              </span>
-            </div>
-
-            <Link href="/dashboard/settings" aria-label="Abrir configurações da conta">
-              {user.image ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  className="h-9 w-9 rounded-full ring-2 ring-border object-cover"
-                  src={user.image}
-                  alt={user.name || "User"}
-                  width={36}
-                  height={36}
-                  referrerPolicy="no-referrer"
-                />
-              ) : (
-                <div className="h-9 w-9 rounded-full bg-primary/10 flex items-center justify-center ring-2 ring-border">
-                  <span className="text-sm font-medium text-primary">
-                    {user.name ? (
-                      getInitials(user.name)
-                    ) : (
-                      <User className="h-4 w-4" />
-                    )}
-                  </span>
-                </div>
-              )}
-            </Link>
-
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => signOut({ callbackUrl: "/" })}
-              aria-label={tCommon("logout")}
-            >
-              <LogOut className="h-4 w-4" />
-            </Button>
+        {/* User info + avatar */}
+        <div className="flex items-center gap-2.5">
+          <div className="hidden sm:flex flex-col items-end leading-none">
+            <span className="text-sm font-medium">{user.name}</span>
+            <span className="text-xs text-muted-foreground mt-0.5">{user.email}</span>
           </div>
+
+          <Link
+            href="/dashboard/settings"
+            aria-label="Configurações da conta"
+            className="transition-opacity hover:opacity-80"
+          >
+            {user.image ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                className="h-8 w-8 rounded-full ring-2 ring-border object-cover"
+                src={user.image}
+                alt={user.name || "User"}
+                width={32}
+                height={32}
+                referrerPolicy="no-referrer"
+              />
+            ) : (
+              <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center ring-2 ring-border">
+                <span className="text-xs font-semibold text-primary">
+                  {user.name ? getInitials(user.name) : <User className="h-3.5 w-3.5" />}
+                </span>
+              </div>
+            )}
+          </Link>
+
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-8 w-8 text-muted-foreground hover:text-foreground"
+            onClick={() => signOut({ callbackUrl: "/" })}
+            aria-label={tCommon("logout")}
+          >
+            <LogOut className="h-4 w-4" />
+          </Button>
         </div>
       </div>
     </header>

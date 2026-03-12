@@ -714,6 +714,7 @@ function BlockEditForm({
         );
 
       case "CATALOG":
+        const MAX_CATALOG_ITEMS = 5;
         const catalogItems =
           (c.items as Array<{
             id: string;
@@ -736,113 +737,131 @@ function BlockEditForm({
         };
 
         const addCatalogItem = () => {
-          const nextItems = [
+          if (catalogItems.length >= MAX_CATALOG_ITEMS) return;
+          updateField("items", [
             ...catalogItems,
-            {
-              id: crypto.randomUUID(),
-              name: "",
-              description: "",
-              price: "",
-              image: "",
-              url: "",
-            },
-          ];
-          updateField("items", nextItems);
+            { id: crypto.randomUUID(), name: "", description: "", price: "", image: "", url: "" },
+          ]);
         };
 
         const removeCatalogItem = (id: string) => {
-          updateField(
-            "items",
-            catalogItems.filter((item) => item.id !== id),
-          );
+          updateField("items", catalogItems.filter((item) => item.id !== id));
         };
 
         return (
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <label className="text-sm font-medium">Itens do catálogo</label>
+              <div>
+                <label className="text-sm font-medium">Itens do catálogo</label>
+                <p className="text-xs text-muted-foreground mt-0.5">
+                  {catalogItems.length}/{MAX_CATALOG_ITEMS} itens
+                </p>
+              </div>
               <Button
                 type="button"
                 variant="outline"
                 size="sm"
                 onClick={addCatalogItem}
+                disabled={catalogItems.length >= MAX_CATALOG_ITEMS}
               >
                 Adicionar item
               </Button>
             </div>
 
             {catalogItems.length === 0 ? (
-              <p className="text-sm text-muted-foreground">
-                Nenhum item ainda. Adicione seu primeiro produto/serviço.
+              <p className="text-sm text-muted-foreground text-center py-6 border border-dashed rounded-lg">
+                Nenhum item ainda. Adicione seu primeiro produto ou serviço.
               </p>
             ) : (
-              <div className="space-y-3">
+              <div className="space-y-4">
                 {catalogItems.map((item, index) => (
-                  <div
-                    key={item.id}
-                    className="rounded-lg border p-3 space-y-2"
-                  >
+                  <div key={item.id} className="rounded-lg border p-4 space-y-3">
                     <div className="flex items-center justify-between">
-                      <p className="text-sm font-medium">Item {index + 1}</p>
+                      <p className="text-sm font-semibold">Item {index + 1}</p>
                       <Button
                         type="button"
                         variant="ghost"
                         size="sm"
-                        className="text-destructive hover:text-destructive"
+                        className="text-destructive hover:text-destructive h-7 px-2 text-xs"
                         onClick={() => removeCatalogItem(item.id)}
                       >
                         Remover
                       </Button>
                     </div>
-                    <Input
-                      value={item.name || ""}
-                      onChange={(e) =>
-                        updateCatalogItem(item.id, "name", e.target.value)
-                      }
-                      placeholder="Nome do item"
-                    />
-                    <Input
-                      value={item.price || ""}
-                      onChange={(e) =>
-                        updateCatalogItem(item.id, "price", e.target.value)
-                      }
-                      placeholder="Preço (ex: R$ 49,90)"
-                    />
-                    <textarea
-                      value={item.description || ""}
-                      onChange={(e) =>
-                        updateCatalogItem(
-                          item.id,
-                          "description",
-                          e.target.value,
-                        )
-                      }
-                      placeholder="Descrição curta"
-                      className="w-full min-h-[60px] rounded-lg border border-input bg-background px-3 py-2 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-ring"
-                    />
+
+                    {/* Name + Price row */}
+                    <div className="grid grid-cols-2 gap-2">
+                      <div className="space-y-1">
+                        <label className="text-xs font-medium text-muted-foreground block">
+                          Nome <span className="text-destructive">*</span>
+                        </label>
+                        <Input
+                          value={item.name || ""}
+                          onChange={(e) => updateCatalogItem(item.id, "name", e.target.value)}
+                          placeholder="Ex: Camiseta"
+                        />
+                        <p className="text-xs text-muted-foreground">Nome do produto</p>
+                      </div>
+                      <div className="space-y-1">
+                        <label className="text-xs font-medium text-muted-foreground block">Preço</label>
+                        <div className="relative">
+                          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-muted-foreground pointer-events-none select-none">
+                            R$
+                          </span>
+                          <Input
+                            value={(item.price || "").replace(/^R\$\s*/, "")}
+                            onChange={(e) => {
+                              const raw = e.target.value.replace(/^R\$\s*/, "");
+                              updateCatalogItem(item.id, "price", raw ? `R$ ${raw}` : "");
+                            }}
+                            placeholder="49,90"
+                            className="pl-8"
+                          />
+                        </div>
+                        <p className="text-xs text-muted-foreground">Valor em reais</p>
+                      </div>
+                    </div>
+
+                    {/* Description */}
                     <div className="space-y-1">
-                      <label className="text-xs text-muted-foreground block">
-                        Imagem
-                      </label>
+                      <label className="text-xs font-medium text-muted-foreground block">Descrição</label>
+                      <textarea
+                        value={item.description || ""}
+                        onChange={(e) => updateCatalogItem(item.id, "description", e.target.value)}
+                        placeholder="Descrição curta do produto ou serviço"
+                        className="w-full min-h-[60px] rounded-lg border border-input bg-background px-3 py-2 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-ring"
+                      />
+                      <p className="text-xs text-muted-foreground">
+                        Breve descrição do que está sendo oferecido
+                      </p>
+                    </div>
+
+                    {/* Image */}
+                    <div className="space-y-1">
+                      <label className="text-xs font-medium text-muted-foreground block">Imagem</label>
                       <ImageUpload
                         value={item.image || ""}
-                        onChange={(url) =>
-                          updateCatalogItem(item.id, "image", url)
-                        }
-                        placeholder="Imagem do item"
+                        onChange={(url) => updateCatalogItem(item.id, "image", url)}
+                        placeholder="Foto do produto"
                       />
+                      <p className="text-xs text-muted-foreground">
+                        Foto do produto ou serviço (opcional)
+                      </p>
                     </div>
+
+                    {/* Destination URL */}
                     <div className="space-y-1">
-                      <label className="text-xs text-muted-foreground block">
+                      <label className="text-xs font-medium text-muted-foreground block">
                         URL de destino
                       </label>
                       <Input
                         value={item.url || ""}
-                        onChange={(e) =>
-                          updateCatalogItem(item.id, "url", e.target.value)
-                        }
+                        onChange={(e) => updateCatalogItem(item.id, "url", e.target.value)}
                         placeholder="https://..."
                       />
+                      <p className="text-xs text-muted-foreground">
+                        Link para compra ou mais informações (opcional)
+                      </p>
                     </div>
                   </div>
                 ))}

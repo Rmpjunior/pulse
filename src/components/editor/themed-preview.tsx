@@ -34,7 +34,10 @@ export function ThemedPreview({
 }: ThemedPreviewProps) {
   const preset =
     themePresets.find((p) => p.id === settings.presetId) || themePresets[0];
-  const colors: ThemeColors = settings.customColors || preset.colors;
+  const baseColors: ThemeColors = settings.customColors || preset.colors;
+  const colors: ThemeColors = settings.darkMode
+    ? { ...baseColors, background: "#0f172a", text: "#f1f5f9" }
+    : baseColors;
   const fontClass =
     fontOptions.find((f) => f.id === settings.font)?.className || "font-sans";
   const buttonRadius =
@@ -185,7 +188,7 @@ function ThemedBlockWrapper({
       if (content.variant === "ABOUT") {
         return (
           <div
-            className="p-5 rounded-xl"
+            className="p-5"
             style={{
               background: `linear-gradient(135deg, ${colors.primary}15, ${colors.secondary}15)`,
               borderColor: `${colors.primary}30`,
@@ -223,7 +226,7 @@ function ThemedBlockWrapper({
       const highlightDesc = content.description as string | undefined;
       return (
         <div
-          className="p-5 rounded-xl"
+          className="p-5"
           style={{
             background: `linear-gradient(135deg, ${colors.primary}15, ${colors.secondary}15)`,
             borderColor: `${colors.primary}30`,
@@ -341,6 +344,111 @@ function ThemedBlockWrapper({
               </a>
             ))
           )}
+        </div>
+      );
+
+    case "CATALOG":
+      const catItems = (content.items as Array<{
+        id?: string;
+        name?: string;
+        description?: string;
+        price?: string;
+        image?: string;
+        url?: string;
+      }>) || [];
+
+      if (catItems.length === 0) {
+        return (
+          <div className="p-4 text-center" style={{ color: colors.text, opacity: 0.5 }}>
+            <p className="text-sm">Catálogo vazio</p>
+          </div>
+        );
+      }
+
+      return (
+        <div
+          style={{
+            backgroundColor: `${colors.primary}08`,
+            borderColor: `${colors.primary}25`,
+            borderWidth: "1px",
+            borderStyle: "solid",
+            borderRadius: buttonRadius,
+            padding: "0.75rem",
+          }}
+        >
+          <p
+            className="text-xs font-semibold uppercase tracking-wider mb-2"
+            style={{ color: colors.text, opacity: 0.45 }}
+          >
+            Catálogo
+          </p>
+          <div className="space-y-2">
+            {catItems.map((item, i) => {
+              const priceDisplay = item.price
+                ? item.price.startsWith("R$") ? item.price : `R$ ${item.price}`
+                : null;
+
+              const itemCard = (
+                <div
+                  style={{
+                    backgroundColor: colors.background,
+                    borderColor: `${colors.primary}20`,
+                    borderWidth: "1px",
+                    borderStyle: "solid",
+                    borderRadius: `calc(${buttonRadius} * 0.75)`,
+                    padding: "0.625rem",
+                  }}
+                >
+                  <div className="flex gap-2.5">
+                    {item.image ? (
+                      <Image
+                        src={item.image}
+                        alt={item.name || `Item ${i + 1}`}
+                        width={52}
+                        height={52}
+                        unoptimized
+                        className="object-cover shrink-0"
+                        style={{ width: 52, height: 52, borderRadius: `calc(${buttonRadius} * 0.5)` }}
+                      />
+                    ) : (
+                      <div
+                        className="shrink-0"
+                        style={{
+                          width: 52,
+                          height: 52,
+                          backgroundColor: `${colors.primary}20`,
+                          borderRadius: `calc(${buttonRadius} * 0.5)`,
+                        }}
+                      />
+                    )}
+                    <div className="min-w-0 flex-1">
+                      <p className="font-medium text-sm" style={{ color: colors.text }}>
+                        {item.name || `Item ${i + 1}`}
+                      </p>
+                      {item.description && (
+                        <p className="text-xs mt-0.5" style={{ color: colors.text, opacity: 0.6 }}>
+                          {item.description}
+                        </p>
+                      )}
+                      {priceDisplay && (
+                        <p className="text-sm font-bold mt-1" style={{ color: colors.primary }}>
+                          {priceDisplay}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              );
+
+              if (!item.url) return <div key={item.id || i}>{itemCard}</div>;
+              const absUrl = /^https?:\/\//i.test(item.url) ? item.url : `https://${item.url}`;
+              return (
+                <a key={item.id || i} href={absUrl} target="_blank" rel="noopener noreferrer" className="block">
+                  {itemCard}
+                </a>
+              );
+            })}
+          </div>
         </div>
       );
 

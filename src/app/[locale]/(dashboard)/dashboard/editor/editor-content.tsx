@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useState, useCallback, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -8,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ImageUpload } from "@/components/ui/image-upload";
 import { BlockEditor } from "@/components/editor/block-editor";
 import { ThemedPreview } from "@/components/editor/themed-preview";
 import { ThemeEditor } from "@/components/editor/theme-editor";
@@ -780,7 +780,7 @@ export function EditorContent({
                   </label>
                   <div className="space-y-1 sm:flex sm:items-center sm:gap-2 sm:space-y-0">
                     <span className="text-xs text-muted-foreground sm:text-sm">
-                      pulse.vercel.app/p/
+                      {process.env.NEXT_PUBLIC_APP_URL}/p/
                     </span>
                     <Input
                       value={username}
@@ -953,10 +953,10 @@ export function EditorContent({
           <div
             key={toast.id}
             className={cn(
-              "rounded-lg border px-3 py-2 text-sm shadow-sm bg-background",
+              "rounded-lg border px-3 py-2 text-sm shadow-sm",
               toast.type === "success"
-                ? "border-emerald-300 text-emerald-700"
-                : "border-red-300 text-red-700",
+                ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                : "border-red-500/40 bg-red-500/10 text-red-600 dark:text-red-400",
             )}
           >
             {toast.text}
@@ -999,8 +999,8 @@ export function EditorContent({
           )}
         >
           {pendingRecoveredDraft && (
-            <div className="mb-4 rounded-lg border border-amber-300 bg-amber-50 px-4 py-3">
-              <p className="text-sm font-medium text-amber-900">
+            <div className="mb-4 rounded-lg border border-amber-500/40 bg-amber-500/10 px-4 py-3">
+              <p className="text-sm font-medium text-amber-700 dark:text-amber-400">
                 Encontramos um rascunho não publicado desta página.
               </p>
               <div className="flex gap-2 mt-2">
@@ -1037,8 +1037,8 @@ export function EditorContent({
           )}
 
           {upgradePromptReason && !isPlusUser && (
-            <div className="mb-4 rounded-lg border border-indigo-300 bg-indigo-50 px-4 py-3">
-              <p className="text-sm text-indigo-900">{upgradePromptReason}</p>
+            <div className="mb-4 rounded-lg border border-indigo-500/40 bg-indigo-500/10 px-4 py-3">
+              <p className="text-sm text-indigo-700 dark:text-indigo-400">{upgradePromptReason}</p>
               <div className="mt-2 flex gap-2">
                 <Button
                   size="sm"
@@ -1101,31 +1101,15 @@ export function EditorContent({
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="flex items-center gap-4">
-                    {avatar ? (
-                      <Image
-                        src={avatar}
-                        alt={displayName || "Avatar"}
-                        width={80}
-                        height={80}
-                        unoptimized
-                        className="h-20 w-20 rounded-full object-cover"
-                      />
-                    ) : (
-                      <div className="h-20 w-20 rounded-full bg-gradient-to-br from-orange-500 to-purple-500 flex items-center justify-center text-white text-2xl font-bold">
-                        {displayName?.[0]?.toUpperCase() || "?"}
-                      </div>
-                    )}
-                    <div className="flex-1">
-                      <label className="text-sm font-medium mb-2 block">
-                        URL da foto
-                      </label>
-                      <Input
-                        value={avatar}
-                        onChange={(e) => setAvatar(e.target.value)}
-                        placeholder="https://..."
-                      />
-                    </div>
+                  <div>
+                    <label className="text-sm font-medium mb-2 block">
+                      Foto de perfil
+                    </label>
+                    <ImageUpload
+                      value={avatar}
+                      onChange={setAvatar}
+                      placeholder="Fazer upload da foto"
+                    />
                   </div>
 
                   <div>
@@ -1289,8 +1273,8 @@ export function EditorContent({
           </div>
 
           {publishSuccessUrl && (
-            <div className="rounded-lg border border-emerald-300 bg-emerald-50 px-4 py-3 mt-2">
-              <p className="text-sm font-medium text-emerald-800">
+            <div className="rounded-lg border border-emerald-500/40 bg-emerald-500/10 px-4 py-3 mt-2">
+              <p className="text-sm font-medium text-emerald-600 dark:text-emerald-400">
                 Publicado com sucesso 🎉
               </p>
               <div className="flex flex-wrap gap-2 mt-2">
@@ -1318,7 +1302,8 @@ export function EditorContent({
         {/* Preview Panel */}
         <div
           className={cn(
-            "w-full lg:w-80 flex flex-col",
+            "w-full flex flex-col transition-all duration-200",
+            previewMode === "mobile" ? "lg:w-80" : "lg:w-[440px]",
             mobileView === "editor" ? "hidden lg:flex" : "",
           )}
         >
@@ -1341,7 +1326,7 @@ export function EditorContent({
           </div>
 
           <div className="flex-1 bg-muted rounded-2xl p-2 overflow-hidden">
-            <div className="h-full rounded-xl overflow-y-auto">
+            <div className={cn("h-full rounded-xl overflow-y-auto mx-auto transition-all duration-200", previewMode === "mobile" ? "max-w-[260px]" : "w-full")}>
               <ThemedPreview
                 settings={themeSettings}
                 displayName={displayName}
@@ -1352,7 +1337,7 @@ export function EditorContent({
             </div>
           </div>
 
-          <div className="mt-4">
+          <div className="border-t pt-3">
             <a
               href={`/p/${username}`}
               target="_blank"

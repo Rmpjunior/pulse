@@ -12,7 +12,7 @@ const updateUserSchema = z.object({
 });
 
 const deleteUserSchema = z.object({
-  confirmation: z.literal('DELETE_MY_ACCOUNT'),
+  confirmation: z.literal('EXCLUIR_MINHA_CONTA'),
   password: z.string().min(6).optional(),
 });
 

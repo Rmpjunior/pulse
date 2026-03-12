@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Poppins, Roboto, Outfit, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/providers";
 
@@ -10,6 +10,28 @@ const geistSans = Geist({
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+const poppins = Poppins({
+  variable: "--font-poppins-var",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
+
+const roboto = Roboto({
+  variable: "--font-roboto-var",
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+});
+
+const outfit = Outfit({
+  variable: "--font-outfit-var",
+  subsets: ["latin"],
+});
+
+const playfair = Playfair_Display({
+  variable: "--font-playfair-var",
   subsets: ["latin"],
 });
 
@@ -72,7 +94,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}
+        className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} ${roboto.variable} ${outfit.variable} ${playfair.variable} antialiased min-h-screen`}
       >
         <Providers>{children}</Providers>
       </body>

@@ -22,9 +22,9 @@ export function DashboardShell({ user, children }: DashboardShellProps) {
         isOpen={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
       />
-      <div className="lg:pl-72">
-<DashboardHeader user={user} onMenuClick={() => setSidebarOpen(true)} />
-        <main className="p-4 sm:p-6">{children}</main>
+      <div className="lg:pl-64">
+        <DashboardHeader user={user} onMenuClick={() => setSidebarOpen(true)} />
+        <main className="p-4 sm:p-6 lg:p-8">{children}</main>
       </div>
     </div>
   );

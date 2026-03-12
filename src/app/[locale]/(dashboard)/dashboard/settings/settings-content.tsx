@@ -77,10 +77,10 @@ export function SettingsContent({ user, subscription }: SettingsContentProps) {
 
   const handleDeleteAccount = async () => {
     const confirmation = window.prompt(
-      "Digite DELETE_MY_ACCOUNT para confirmar a exclusão da conta:",
+      "Digite EXCLUIR_MINHA_CONTA para confirmar a exclusão da conta:",
     );
 
-    if (confirmation !== "DELETE_MY_ACCOUNT") return;
+    if (confirmation !== "EXCLUIR_MINHA_CONTA") return;
 
     let password: string | undefined;
     if (user.hasPassword) {
