@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 import { ImageUpload } from "@/components/ui/image-upload";
@@ -48,7 +47,6 @@ export function SettingsContent({ user, subscription }: SettingsContentProps) {
   const [name, setName] = useState(user.name || "");
   const [imageUrl, setImageUrl] = useState(user.image || "");
   const [isSaving, setIsSaving] = useState(false);
-  const [isSendingReset, setIsSendingReset] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const { theme, setTheme } = useTheme();
 

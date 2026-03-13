@@ -1,18 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { useTheme } from "@/components/providers/theme-provider";
 import { Button } from "@/components/ui/button";
 import { Moon, Sun, Monitor } from "lucide-react";
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
-
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const cycleTheme = () => {
     if (theme === "light") {
@@ -23,14 +16,6 @@ export function ThemeToggle() {
       setTheme("light");
     }
   };
-
-  if (!mounted) {
-    return (
-      <Button variant="ghost" size="icon" aria-label="Carregando tema">
-        <Monitor className="h-5 w-5 opacity-0" />
-      </Button>
-    );
-  }
 
   const icon =
     theme === "dark" ? (

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -52,25 +52,24 @@ const features = [
 
 export default function SubscriptionPage() {
   const { data: session } = useSession();
+  const sessionEmail = session?.user?.email ?? "";
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "already">("idle");
 
-  useEffect(() => {
-    if (session?.user?.email) {
-      setEmail(session.user.email);
-    }
-  }, [session?.user?.email]);
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const submissionEmail = email.trim() || sessionEmail;
+    if (!submissionEmail) return;
+
     setStatus("loading");
     try {
       const res = await fetch("/api/waitlist", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email: submissionEmail }),
       });
       const data = await res.json();
+      setEmail(submissionEmail);
       setStatus(data.message === "already_on_waitlist" ? "already" : "success");
     } catch {
       setStatus("idle");
@@ -140,7 +139,7 @@ export default function SubscriptionPage() {
                 <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2 max-w-sm">
                   <Input
                     type="email"
-                    value={email}
+                    value={email || sessionEmail}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="voce@exemplo.com"
                     required

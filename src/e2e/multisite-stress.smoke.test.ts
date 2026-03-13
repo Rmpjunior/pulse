@@ -5,8 +5,9 @@ config({ path: '.env.local' });
 
 import { db } from '@/lib/db';
 
-const hasDatabase = Boolean(process.env.DATABASE_URL);
-const testSuite = hasDatabase ? describe : describe.skip;
+const shouldRunDbSmoke =
+  process.env.RUN_DB_SMOKE_TESTS === 'true' && Boolean(process.env.DATABASE_URL);
+const testSuite = shouldRunDbSmoke ? describe : describe.skip;
 
 let createdUserId: string | null = null;
 

@@ -13,6 +13,10 @@ interface ImageUploadProps {
   placeholder?: string;
 }
 
+function isErrorWithMessage(error: unknown): error is Error {
+  return error instanceof Error;
+}
+
 export function ImageUpload({
   value,
   onChange,
@@ -59,9 +63,9 @@ export function ImageUpload({
 
       const data = await res.json();
       onChange(data.url);
-    } catch (err: any) {
-      console.error(err);
-      setError(err.message || "Erro inesperado");
+    } catch (error: unknown) {
+      console.error(error);
+      setError(isErrorWithMessage(error) ? error.message : "Erro inesperado");
     } finally {
       setIsUploading(false);
       // Reset input so the same file can be selected again
