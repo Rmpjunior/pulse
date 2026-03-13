@@ -43,15 +43,15 @@
         "description": "YouTube, Spotify, e mais"
       },
       "catalog": {
-        "title": "Catálogo de produtos",
-        "description": "Mostre seus produtos e serviços"
+        "title": "Coleções personalizadas",
+        "description": "Mostre produtos, portfólio ou agenda"
       },
       "analytics": {
         "title": "Análises detalhadas",
         "description": "Acompanhe visitas e cliques"
       },
       "form": {
-        "title": "Formulários de contato",
+        "title": "Captação de contatos",
         "description": "Capture leads facilmente"
       },
       "themes": {
@@ -169,7 +169,7 @@
     },
     "quickActions": {
       "title": "Ações rápidas",
-      "addBlock": "Adicionar bloco",
+      "addBlock": "Adicionar módulo",
       "editTheme": "Editar tema",
       "viewAnalytics": "Ver análises",
       "share": "Compartilhar"
@@ -193,19 +193,19 @@
       "title": "Perfil",
       "avatar": "Foto de perfil",
       "displayName": "Nome de exibição",
-      "bio": "Biografia",
+      "bio": "Apresentação",
       "uploadPhoto": "Enviar foto"
     },
     "blocks": {
-      "title": "Blocos",
-      "add": "Adicionar bloco",
-      "empty": "Nenhum bloco ainda. Clique em + para adicionar.",
+      "title": "Módulos",
+      "add": "Adicionar módulo",
+      "empty": "Nenhum módulo ainda. Clique em + para adicionar.",
       "types": {
         "link": "Link",
         "highlight": "Destaque",
         "media": "Mídia",
-        "catalog": "Catálogo",
-        "form": "Formulário",
+        "catalog": "Coleção",
+        "form": "Módulo legado",
         "socialIcons": "Ícones sociais",
         "text": "Texto",
         "divider": "Divisor"

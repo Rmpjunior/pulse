@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { ExternalLink, Play } from "lucide-react";
 import type { BlockType } from "@/types/blocks";
+import { SocialIcon } from "@/components/ui/social-icon";
+import { ensureUrlProtocol } from "@/lib/url";
 
 interface BlockRendererProps {
   block: {
@@ -17,13 +19,11 @@ export function BlockRenderer({ block, onBlockClick }: BlockRendererProps) {
   const content = block.content as Record<string, unknown>;
 
   const handleClick = () => {
-    if (onBlockClick) {
-      onBlockClick(block.id);
-    }
+    onBlockClick?.(block.id);
   };
 
   switch (block.type) {
-    case "LINK":
+    case "LINK": {
       const linkStyle = (content.style as string) || "default";
       const linkClasses = {
         default: "bg-card border border-border hover:border-primary/50",
@@ -33,7 +33,7 @@ export function BlockRenderer({ block, onBlockClick }: BlockRendererProps) {
 
       return (
         <a
-          href={(content.url as string) || "#"}
+          href={ensureUrlProtocol((content.url as string) || "") || "#"}
           target="_blank"
           rel="noopener noreferrer"
           onClick={handleClick}
@@ -41,9 +41,11 @@ export function BlockRenderer({ block, onBlockClick }: BlockRendererProps) {
         >
           <div className="flex items-center justify-between gap-3">
             <div className="flex items-center gap-2 min-w-0">
-              {(content.thumbnailType as string) === "emoji" && (content.thumbnailValue as string) ? (
+              {(content.thumbnailType as string) === "emoji" &&
+              (content.thumbnailValue as string) ? (
                 <span className="text-lg">{content.thumbnailValue as string}</span>
-              ) : (content.thumbnailType as string) === "image" && (content.thumbnailValue as string) ? (
+              ) : (content.thumbnailType as string) === "image" &&
+                (content.thumbnailValue as string) ? (
                 <Image
                   src={content.thumbnailValue as string}
                   alt="Miniatura"
@@ -61,15 +63,17 @@ export function BlockRenderer({ block, onBlockClick }: BlockRendererProps) {
           </div>
         </a>
       );
+    }
 
-    case "HIGHLIGHT":
+    case "HIGHLIGHT": {
       const highlightImage = content.image as string | undefined;
-      const highlightUrl = content.url as string | undefined;
+      const highlightButtonLabel = content.buttonLabel as string | undefined;
+      const highlightButtonUrl = content.buttonUrl as string | undefined;
       const highlightDescription = content.description as string | undefined;
 
       return (
         <div className="p-5 rounded-xl bg-gradient-to-br from-primary/10 via-secondary/10 to-primary/5 border border-border">
-          {highlightImage && (
+          {highlightImage ? (
             <Image
               src={highlightImage}
               alt={(content.title as string) || ""}
@@ -78,31 +82,32 @@ export function BlockRenderer({ block, onBlockClick }: BlockRendererProps) {
               unoptimized
               className="w-full h-40 object-cover rounded-lg mb-4"
             />
-          )}
+          ) : null}
           <h3 className="font-semibold text-lg">
             {(content.title as string) || "Destaque"}
           </h3>
-          {highlightDescription && (
+          {highlightDescription ? (
             <p className="text-sm text-muted-foreground mt-2">
               {highlightDescription}
             </p>
-          )}
-          {highlightUrl && (
+          ) : null}
+          {highlightButtonLabel && highlightButtonUrl ? (
             <a
-              href={highlightUrl}
+              href={ensureUrlProtocol(highlightButtonUrl)}
               target="_blank"
               rel="noopener noreferrer"
               onClick={handleClick}
-              className="inline-flex items-center gap-1 text-sm text-primary mt-3 hover:underline"
+              className="inline-flex items-center gap-1 rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground mt-4 hover:opacity-90"
             >
-              Saiba mais
+              {highlightButtonLabel}
               <ExternalLink className="h-3 w-3" />
             </a>
-          )}
+          ) : null}
         </div>
       );
+    }
 
-    case "TEXT":
+    case "TEXT": {
       const textAlign = (content.align as string) || "center";
       const alignClasses = {
         left: "text-left",
@@ -119,8 +124,9 @@ export function BlockRenderer({ block, onBlockClick }: BlockRendererProps) {
           </p>
         </div>
       );
+    }
 
-    case "DIVIDER":
+    case "DIVIDER": {
       const dividerStyle = (content.style as string) || "line";
 
       if (dividerStyle === "space") {
@@ -138,8 +144,9 @@ export function BlockRenderer({ block, onBlockClick }: BlockRendererProps) {
       }
 
       return <hr className="border-border my-4" />;
+    }
 
-    case "MEDIA":
+    case "MEDIA": {
       const mediaType = content.mediaType as string;
       const embedUrl = content.embedUrl as string;
 
@@ -147,37 +154,12 @@ export function BlockRenderer({ block, onBlockClick }: BlockRendererProps) {
         return (
           <div className="p-8 rounded-xl bg-muted/50 border border-dashed border-border text-center">
             <Play className="h-8 w-8 mx-auto mb-2 text-muted-foreground" />
-            <p className="text-sm text-muted-foreground">
-              Mídia não configurada
-            </p>
+            <p className="text-sm text-muted-foreground">Mídia não configurada</p>
           </div>
         );
       }
 
-      // Extract embed ID and create proper embed URL
-      const getEmbedSrc = () => {
-        if (mediaType === "youtube") {
-          const videoId = extractYouTubeId(embedUrl);
-          return videoId ? `https://www.youtube.com/embed/${videoId}` : null;
-        }
-        if (mediaType === "spotify") {
-          // Handle Spotify URLs
-          if (embedUrl.includes("open.spotify.com")) {
-            return embedUrl.replace(
-              "open.spotify.com",
-              "open.spotify.com/embed",
-            );
-          }
-          return embedUrl;
-        }
-        if (mediaType === "vimeo") {
-          const vimeoId = embedUrl.match(/vimeo\.com\/(\d+)/)?.[1];
-          return vimeoId ? `https://player.vimeo.com/video/${vimeoId}` : null;
-        }
-        return null;
-      };
-
-      const embedSrc = getEmbedSrc();
+      const embedSrc = getEmbedSrc(mediaType, embedUrl);
 
       if (!embedSrc) {
         return (
@@ -194,13 +176,15 @@ export function BlockRenderer({ block, onBlockClick }: BlockRendererProps) {
           <iframe
             src={embedSrc}
             className="w-full h-full"
+            title={`Embed ${mediaType}`}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
           />
         </div>
       );
+    }
 
-    case "SOCIAL_ICONS":
+    case "SOCIAL_ICONS": {
       const icons =
         (content.icons as Array<{ platform: string; url: string }>) || [];
 
@@ -216,24 +200,26 @@ export function BlockRenderer({ block, onBlockClick }: BlockRendererProps) {
 
       return (
         <div className="flex justify-center gap-4 py-4">
-          {icons.map((icon, i) => (
+          {icons.map((icon, index) => (
             <a
-              key={i}
-              href={icon.url}
+              key={index}
+              href={ensureUrlProtocol(icon.url)}
               target="_blank"
               rel="noopener noreferrer"
               onClick={handleClick}
               className="h-10 w-10 rounded-full bg-card border border-border flex items-center justify-center hover:border-primary transition-colors"
+              aria-label={`Abrir ${icon.platform}`}
             >
-              <span className="text-xs font-medium uppercase">
-                {icon.platform.slice(0, 2)}
-              </span>
+              <SocialIcon platform={icon.platform} className="h-4 w-4" />
             </a>
           ))}
         </div>
       );
+    }
 
-    case "CATALOG":
+    case "CATALOG": {
+      const sectionTitle = (content.title as string) || "Coleção";
+      const sectionDescription = content.description as string | undefined;
       const items =
         (content.items as Array<{
           id?: string;
@@ -247,21 +233,31 @@ export function BlockRenderer({ block, onBlockClick }: BlockRendererProps) {
       if (items.length === 0) {
         return (
           <div className="p-4 rounded-xl bg-muted/50 border border-dashed border-border text-center">
-            <p className="text-sm text-muted-foreground">Catálogo vazio</p>
+            <p className="text-sm text-muted-foreground">{sectionTitle} vazia</p>
           </div>
         );
       }
 
       return (
         <div className="space-y-3">
-          {items.map((item, i) => {
+          <div className="px-1">
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-muted-foreground">
+              {sectionTitle}
+            </p>
+            {sectionDescription ? (
+              <p className="mt-1 text-sm text-muted-foreground">
+                {sectionDescription}
+              </p>
+            ) : null}
+          </div>
+          {items.map((item, index) => {
             const card = (
               <div className="p-4 rounded-xl bg-card border border-border hover:border-primary/40 transition-colors">
                 <div className="flex gap-3">
                   {item.image ? (
                     <Image
                       src={item.image}
-                      alt={item.name || `Item ${i + 1}`}
+                      alt={item.name || `Item ${index + 1}`}
                       width={64}
                       height={64}
                       unoptimized
@@ -272,31 +268,34 @@ export function BlockRenderer({ block, onBlockClick }: BlockRendererProps) {
                   )}
                   <div className="min-w-0 flex-1">
                     <p className="font-medium truncate">
-                      {item.name || `Item ${i + 1}`}
+                      {item.name || `Item ${index + 1}`}
                     </p>
-                    {item.description && (
+                    {item.description ? (
                       <p className="text-sm text-muted-foreground line-clamp-2 mt-1">
                         {item.description}
                       </p>
-                    )}
-                    {item.price && (
+                    ) : null}
+                    {item.price ? (
                       <p className="text-sm font-semibold text-primary mt-2">
                         {item.price}
                       </p>
-                    )}
+                    ) : null}
                   </div>
                 </div>
               </div>
             );
 
             if (!item.url) {
-              return <div key={item.id || i}>{card}</div>;
+              return <div key={item.id || index}>{card}</div>;
             }
 
-            const absUrl = /^https?:\/\//i.test(item.url) ? item.url : `https://${item.url}`;
+            const absUrl = /^https?:\/\//i.test(item.url)
+              ? item.url
+              : `https://${item.url}`;
+
             return (
               <a
-                key={item.id || i}
+                key={item.id || index}
                 href={absUrl}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -309,74 +308,41 @@ export function BlockRenderer({ block, onBlockClick }: BlockRendererProps) {
           })}
         </div>
       );
+    }
 
     case "FORM":
-      const title = (content.title as string) || "Formulário";
-      const submitLabel = (content.submitLabel as string) || "Enviar";
-      const fields =
-        (content.fields as Array<{
-          id?: string;
-          label?: string;
-          type?: "text" | "email" | "textarea";
-          required?: boolean;
-        }>) || [];
-
-      if (fields.length === 0) {
-        return (
-          <div className="p-4 rounded-xl bg-muted/50 border border-dashed border-border text-center">
-            <p className="text-sm text-muted-foreground">Formulário vazio</p>
-          </div>
-        );
-      }
-
-      return (
-        <form className="space-y-3 p-4 rounded-xl bg-card border border-border">
-          <p className="font-semibold">{title}</p>
-          {fields.map((field, index) => {
-            const fieldLabel = field.label || `Campo ${index + 1}`;
-            const commonProps = {
-              placeholder: fieldLabel,
-              required: Boolean(field.required),
-              className:
-                "w-full rounded-lg border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring",
-            };
-
-            return (
-              <div key={field.id || index} className="space-y-1">
-                <label className="text-sm font-medium">
-                  {fieldLabel}
-                  {field.required ? " *" : ""}
-                </label>
-                {field.type === "textarea" ? (
-                  <textarea {...commonProps} rows={3} />
-                ) : (
-                  <input
-                    {...commonProps}
-                    type={field.type === "email" ? "email" : "text"}
-                  />
-                )}
-              </div>
-            );
-          })}
-          <button
-            type="button"
-            className="w-full rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
-          >
-            {submitLabel}
-          </button>
-        </form>
-      );
+      return null;
 
     default:
       return (
         <div className="p-4 rounded-xl bg-muted/50 border border-dashed border-border text-center">
-          <p className="text-sm text-muted-foreground">Bloco {block.type}</p>
+          <p className="text-sm text-muted-foreground">Módulo {block.type}</p>
         </div>
       );
   }
 }
 
-// Helper to extract YouTube video ID
+function getEmbedSrc(mediaType: string, embedUrl: string): string | null {
+  if (mediaType === "youtube") {
+    return extractYouTubeId(embedUrl)
+      ? `https://www.youtube.com/embed/${extractYouTubeId(embedUrl)}`
+      : null;
+  }
+
+  if (mediaType === "spotify") {
+    return embedUrl.includes("open.spotify.com")
+      ? embedUrl.replace("open.spotify.com", "open.spotify.com/embed")
+      : embedUrl;
+  }
+
+  if (mediaType === "vimeo") {
+    const vimeoId = embedUrl.match(/vimeo\.com\/(\d+)/)?.[1];
+    return vimeoId ? `https://player.vimeo.com/video/${vimeoId}` : null;
+  }
+
+  return null;
+}
+
 function extractYouTubeId(url: string): string | null {
   const patterns = [
     /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\s?]+)/,

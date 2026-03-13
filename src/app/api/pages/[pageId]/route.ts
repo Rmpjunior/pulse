@@ -4,7 +4,7 @@ import { z } from 'zod';
 import { auth } from '@/lib/auth';
 import { db } from '@/lib/db';
 import { parseBody, parseParams } from '@/lib/api/validation';
-import { internalServerError, notFound, unauthorized } from '@/lib/api/errors';
+import { conflict, internalServerError, notFound, unauthorized } from '@/lib/api/errors';
 
 interface RouteParams {
   params: Promise<{ pageId: string }>;
@@ -16,6 +16,11 @@ const routeParamsSchema = z.object({
 
 const updatePageSchema = z
   .object({
+    username: z
+      .string()
+      .trim()
+      .regex(/^[a-z0-9_-]{3,20}$/)
+      .optional(),
     displayName: z.string().trim().max(80).optional(),
     bio: z.string().max(500).optional(),
     avatar: z.url().optional(),
@@ -78,7 +83,7 @@ export async function PATCH(request: Request, { params }: RouteParams) {
     if (!parsedBody.success) {
       return parsedBody.response;
     }
-    const { displayName, bio, avatar, theme, published } = parsedBody.data;
+    const { username, displayName, bio, avatar, theme, published } = parsedBody.data;
 
     // Verify ownership
     const existingPage = await db.page.findUnique({
@@ -93,6 +98,7 @@ export async function PATCH(request: Request, { params }: RouteParams) {
     const page = await db.page.update({
       where: { id: pageId },
       data: {
+        ...(username !== undefined && { username }),
         ...(displayName !== undefined && { displayName }),
         ...(bio !== undefined && { bio }),
         ...(avatar !== undefined && { avatar }),
@@ -103,6 +109,13 @@ export async function PATCH(request: Request, { params }: RouteParams) {
 
     return NextResponse.json(page);
   } catch (error) {
+    if (
+      error instanceof Prisma.PrismaClientKnownRequestError &&
+      error.code === 'P2002'
+    ) {
+      return conflict('Esse username ja esta em uso.');
+    }
+
     console.error('Error updating page:', error);
     return internalServerError();
   }

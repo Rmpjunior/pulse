@@ -19,7 +19,6 @@ const blockTypeSchema = z.enum([
   'HIGHLIGHT',
   'MEDIA',
   'CATALOG',
-  'FORM',
   'SOCIAL_ICONS',
   'TEXT',
   'DIVIDER',
@@ -181,7 +180,7 @@ export async function PATCH(request: Request, { params }: RouteParams) {
       ),
     );
 
-    return NextResponse.json({ message: 'Blocos reordenados' });
+    return NextResponse.json({ message: 'Módulos reordenados' });
   } catch (error) {
     console.error('Error reordering blocks:', error);
     return internalServerError();

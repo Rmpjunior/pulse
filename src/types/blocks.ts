@@ -30,7 +30,8 @@ export interface HighlightBlockContent {
   title: string;
   description?: string;
   image?: string;
-  url?: string;
+  buttonLabel?: string;
+  buttonUrl?: string;
 }
 
 export interface MediaBlockContent {
@@ -56,6 +57,8 @@ export interface DividerBlockContent {
 }
 
 export interface CatalogBlockContent {
+  title?: string;
+  description?: string;
   items: Array<{
     id: string;
     name: string;
@@ -103,6 +106,8 @@ export const defaultBlockContent: Record<BlockType, BlockContent> = {
   HIGHLIGHT: {
     title: 'Destaque',
     description: '',
+    buttonLabel: '',
+    buttonUrl: '',
   },
   MEDIA: {
     mediaType: 'youtube',
@@ -119,6 +124,8 @@ export const defaultBlockContent: Record<BlockType, BlockContent> = {
     style: 'line',
   },
   CATALOG: {
+    title: 'Coleção',
+    description: '',
     items: [],
   },
   FORM: {

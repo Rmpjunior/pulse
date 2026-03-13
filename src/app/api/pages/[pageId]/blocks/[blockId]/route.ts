@@ -174,7 +174,7 @@ export async function DELETE(request: Request, { params }: RouteParams) {
       ),
     );
 
-    return NextResponse.json({ message: 'Bloco excluído' });
+    return NextResponse.json({ message: 'Módulo excluído' });
   } catch (error) {
     console.error('Error deleting block:', error);
     return internalServerError();

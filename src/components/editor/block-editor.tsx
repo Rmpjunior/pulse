@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import type { DraggableProvidedDragHandleProps } from "@hello-pangea/dnd";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -17,6 +18,8 @@ import {
 } from "lucide-react";
 import type { BlockType } from "@/types/blocks";
 import { ImageUpload } from "@/components/ui/image-upload";
+import { SocialIcon } from "@/components/ui/social-icon";
+import { ensureUrlProtocol, isValidHttpUrlLike } from "@/lib/url";
 
 interface BlockEditorProps {
   block: {
@@ -33,6 +36,8 @@ interface BlockEditorProps {
   onMoveDown: (id: string) => void;
   isFirst: boolean;
   isLast: boolean;
+  dragHandleProps?: DraggableProvidedDragHandleProps | null;
+  isDragging?: boolean;
 }
 
 export function BlockEditor({
@@ -44,12 +49,14 @@ export function BlockEditor({
   onMoveDown,
   isFirst,
   isLast,
+  dragHandleProps,
+  isDragging = false,
 }: BlockEditorProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [editContent, setEditContent] = useState(block.content);
 
   const handleSave = () => {
-    onUpdate(block.id, editContent);
+    onUpdate(block.id, normalizeBlockContent(block.type, editContent));
     setIsEditing(false);
   };
 
@@ -66,17 +73,26 @@ export function BlockEditor({
       SOCIAL_ICONS: "Redes Sociais",
       TEXT: "Texto",
       DIVIDER: "Divisor",
-      CATALOG: "Catálogo",
-      FORM: "Formulário",
+      CATALOG: "Coleção",
+      FORM: "Módulo legado",
     };
     return labels[type];
   };
 
   return (
-    <div className={`border rounded-lg ${!block.visible ? "opacity-50" : ""}`}>
+    <div
+      className={`border rounded-xl bg-card/80 shadow-sm transition-shadow ${!block.visible ? "opacity-50" : ""} ${isDragging ? "shadow-lg ring-1 ring-primary/30" : ""}`}
+    >
       {/* Header */}
-      <div className="flex items-center gap-2 p-3 bg-muted/50 border-b">
-        <GripVertical className="h-4 w-4 text-muted-foreground cursor-grab" />
+      <div className="flex items-center gap-2 p-3 bg-muted/40 border-b">
+        <button
+          type="button"
+          className="rounded-md p-1 text-muted-foreground cursor-grab active:cursor-grabbing hover:bg-background/80"
+          aria-label="Arrastar módulo"
+          {...dragHandleProps}
+        >
+          <GripVertical className="h-4 w-4" />
+        </button>
 
         <span className="text-sm font-medium flex-1">
           {getBlockLabel(block.type)}
@@ -242,6 +258,11 @@ function BlockPreview({ type, content, onEdit }: BlockPreviewProps) {
             {highlightDesc && (
               <p className="text-sm text-muted-foreground">{highlightDesc}</p>
             )}
+            {(c.buttonLabel as string) && (
+              <p className="text-xs text-primary mt-2">
+                Botão: {c.buttonLabel as string}
+              </p>
+            )}
           </div>
         );
       case "TEXT":
@@ -267,33 +288,35 @@ function BlockPreview({ type, content, onEdit }: BlockPreviewProps) {
       case "SOCIAL_ICONS":
         const icons = (c.icons as Array<{ platform: string }>) || [];
         return (
-          <p className="text-muted-foreground">
-            {icons.length} ícones configurados
-          </p>
+          <div className="flex items-center gap-2">
+            {icons.slice(0, 4).map((icon, index) => (
+              <span
+                key={`${icon.platform}-${index}`}
+                className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-border bg-muted/40"
+              >
+                <SocialIcon platform={icon.platform} className="h-3.5 w-3.5" />
+              </span>
+            ))}
+            <p className="text-muted-foreground text-sm">
+              {icons.length} rede(s) configurada(s)
+            </p>
+          </div>
         );
       case "CATALOG":
         const items =
           (c.items as Array<{ name?: string; price?: string }>) || [];
         return (
           <div>
-            <p className="font-medium">{items.length} item(ns) no catálogo</p>
+            <p className="font-medium">{(c.title as string) || "Coleção"}</p>
+            <p className="text-sm text-muted-foreground">
+              {items.length} item(ns) nesta seção
+            </p>
             {items[0] && (
               <p className="text-sm text-muted-foreground">
                 Primeiro item: {items[0].name || "Sem nome"}
                 {items[0].price ? ` • ${items[0].price}` : ""}
               </p>
             )}
-          </div>
-        );
-      case "FORM":
-        const fields =
-          (c.fields as Array<{ label?: string; required?: boolean }>) || [];
-        return (
-          <div>
-            <p className="font-medium">{(c.title as string) || "Formulário"}</p>
-            <p className="text-sm text-muted-foreground">
-              {fields.length} campo(s) configurado(s)
-            </p>
           </div>
         );
       case "MEDIA":
@@ -303,7 +326,7 @@ function BlockPreview({ type, content, onEdit }: BlockPreviewProps) {
           </p>
         );
       default:
-        return <p className="text-muted-foreground">Bloco {type}</p>;
+        return <p className="text-muted-foreground">Módulo {type}</p>;
     }
   };
 
@@ -503,11 +526,21 @@ function BlockEditForm({
             </div>
             <div>
               <label className="text-sm font-medium mb-1 block">
-                URL (opcional)
+                Label do botão
               </label>
               <Input
-                value={(c.url as string) || ""}
-                onChange={(e) => updateField("url", e.target.value)}
+                value={(c.buttonLabel as string) || ""}
+                onChange={(e) => updateField("buttonLabel", e.target.value)}
+                placeholder="Saiba mais"
+              />
+            </div>
+            <div>
+              <label className="text-sm font-medium mb-1 block">
+                URL do botão
+              </label>
+              <Input
+                value={(c.buttonUrl as string) || ""}
+                onChange={(e) => updateField("buttonUrl", e.target.value)}
                 placeholder="https://..."
               />
             </div>
@@ -715,6 +748,8 @@ function BlockEditForm({
 
       case "CATALOG":
         const MAX_CATALOG_ITEMS = 5;
+        const catalogTitle = (c.title as string) || "";
+        const catalogDescription = (c.description as string) || "";
         const catalogItems =
           (c.items as Array<{
             id: string;
@@ -750,9 +785,31 @@ function BlockEditForm({
 
         return (
           <div className="space-y-4">
+            <div className="grid gap-3 sm:grid-cols-2">
+              <div>
+                <label className="text-sm font-medium mb-1 block">
+                  Nome da seção
+                </label>
+                <Input
+                  value={catalogTitle}
+                  onChange={(e) => updateField("title", e.target.value)}
+                  placeholder="Ex: Portfólio, Agenda, Produtos"
+                />
+              </div>
+              <div>
+                <label className="text-sm font-medium mb-1 block">
+                  Descrição da seção
+                </label>
+                <Input
+                  value={catalogDescription}
+                  onChange={(e) => updateField("description", e.target.value)}
+                  placeholder="Texto curto opcional"
+                />
+              </div>
+            </div>
             <div className="flex items-center justify-between">
               <div>
-                <label className="text-sm font-medium">Itens do catálogo</label>
+                <label className="text-sm font-medium">Itens da seção</label>
                 <p className="text-xs text-muted-foreground mt-0.5">
                   {catalogItems.length}/{MAX_CATALOG_ITEMS} itens
                 </p>
@@ -770,7 +827,7 @@ function BlockEditForm({
 
             {catalogItems.length === 0 ? (
               <p className="text-sm text-muted-foreground text-center py-6 border border-dashed rounded-lg">
-                Nenhum item ainda. Adicione seu primeiro produto ou serviço.
+                Nenhum item ainda. Adicione o primeiro card desta seção.
               </p>
             ) : (
               <div className="space-y-4">
@@ -798,12 +855,12 @@ function BlockEditForm({
                         <Input
                           value={item.name || ""}
                           onChange={(e) => updateCatalogItem(item.id, "name", e.target.value)}
-                          placeholder="Ex: Camiseta"
+                          placeholder="Ex: Projeto A, Sessão 01, Serviço premium"
                         />
-                        <p className="text-xs text-muted-foreground">Nome do produto</p>
+                        <p className="text-xs text-muted-foreground">Título do item</p>
                       </div>
                       <div className="space-y-1">
-                        <label className="text-xs font-medium text-muted-foreground block">Preço</label>
+                        <label className="text-xs font-medium text-muted-foreground block">Preço ou valor</label>
                         <div className="relative">
                           <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-muted-foreground pointer-events-none select-none">
                             R$
@@ -818,7 +875,7 @@ function BlockEditForm({
                             className="pl-8"
                           />
                         </div>
-                        <p className="text-xs text-muted-foreground">Valor em reais</p>
+                        <p className="text-xs text-muted-foreground">Opcional. Use quando fizer sentido.</p>
                       </div>
                     </div>
 
@@ -828,11 +885,11 @@ function BlockEditForm({
                       <textarea
                         value={item.description || ""}
                         onChange={(e) => updateCatalogItem(item.id, "description", e.target.value)}
-                        placeholder="Descrição curta do produto ou serviço"
+                        placeholder="Descrição curta do item"
                         className="w-full min-h-[60px] rounded-lg border border-input bg-background px-3 py-2 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-ring"
                       />
                       <p className="text-xs text-muted-foreground">
-                        Breve descrição do que está sendo oferecido
+                        Texto complementar para contexto
                       </p>
                     </div>
 
@@ -842,10 +899,10 @@ function BlockEditForm({
                       <ImageUpload
                         value={item.image || ""}
                         onChange={(url) => updateCatalogItem(item.id, "image", url)}
-                        placeholder="Foto do produto"
+                        placeholder="Capa do item"
                       />
                       <p className="text-xs text-muted-foreground">
-                        Foto do produto ou serviço (opcional)
+                        Opcional. Pode ser foto, arte, capa ou thumbnail.
                       </p>
                     </div>
 
@@ -860,7 +917,7 @@ function BlockEditForm({
                         placeholder="https://..."
                       />
                       <p className="text-xs text-muted-foreground">
-                        Link para compra ou mais informações (opcional)
+                        Link opcional para abrir detalhes, compra ou agendamento
                       </p>
                     </div>
                   </div>
@@ -896,161 +953,10 @@ function BlockEditForm({
           </div>
         );
 
-      case "FORM":
-        const fields =
-          (c.fields as Array<{
-            id: string;
-            label: string;
-            type: "text" | "email" | "textarea";
-            required: boolean;
-          }>) || [];
-
-        const updateFormField = (
-          id: string,
-          patch: Partial<{
-            label: string;
-            type: "text" | "email" | "textarea";
-            required: boolean;
-          }>,
-        ) => {
-          updateField(
-            "fields",
-            fields.map((field) =>
-              field.id === id ? { ...field, ...patch } : field,
-            ),
-          );
-        };
-
-        const addFormField = () => {
-          updateField("fields", [
-            ...fields,
-            {
-              id: crypto.randomUUID(),
-              label: "",
-              type: "text",
-              required: false,
-            },
-          ]);
-        };
-
-        const removeFormField = (id: string) => {
-          updateField(
-            "fields",
-            fields.filter((field) => field.id !== id),
-          );
-        };
-
-        return (
-          <div className="space-y-4">
-            <div>
-              <label className="text-sm font-medium mb-1 block">
-                Título do formulário
-              </label>
-              <Input
-                value={(c.title as string) || ""}
-                onChange={(e) => updateField("title", e.target.value)}
-                placeholder="Entre em contato"
-              />
-            </div>
-
-            <div>
-              <label className="text-sm font-medium mb-1 block">
-                Texto do botão enviar
-              </label>
-              <Input
-                value={(c.submitLabel as string) || ""}
-                onChange={(e) => updateField("submitLabel", e.target.value)}
-                placeholder="Enviar"
-              />
-            </div>
-
-            <div className="flex items-center justify-between">
-              <label className="text-sm font-medium">Campos</label>
-              <Button
-                type="button"
-                variant="outline"
-                size="sm"
-                onClick={addFormField}
-              >
-                Adicionar campo
-              </Button>
-            </div>
-
-            {fields.length === 0 ? (
-              <p className="text-sm text-muted-foreground">
-                Nenhum campo configurado.
-              </p>
-            ) : (
-              <div className="space-y-3">
-                {fields.map((field, index) => (
-                  <div
-                    key={field.id}
-                    className="rounded-lg border p-3 space-y-2"
-                  >
-                    <div className="flex items-center justify-between">
-                      <p className="text-sm font-medium">Campo {index + 1}</p>
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="sm"
-                        className="text-destructive hover:text-destructive"
-                        onClick={() => removeFormField(field.id)}
-                      >
-                        Remover
-                      </Button>
-                    </div>
-
-                    <Input
-                      value={field.label}
-                      onChange={(e) =>
-                        updateFormField(field.id, { label: e.target.value })
-                      }
-                      placeholder="Rótulo do campo"
-                    />
-
-                    <div className="flex gap-2 flex-wrap">
-                      {(["text", "email", "textarea"] as const).map((type) => (
-                        <button
-                          key={type}
-                          onClick={() => updateFormField(field.id, { type })}
-                          className={`px-3 py-1.5 rounded-md text-sm border ${
-                            field.type === type
-                              ? "border-primary bg-primary/10 text-primary"
-                              : "border-border"
-                          }`}
-                        >
-                          {type === "text"
-                            ? "Texto"
-                            : type === "email"
-                              ? "E-mail"
-                              : "Texto longo"}
-                        </button>
-                      ))}
-                    </div>
-
-                    <label className="flex items-center gap-2 text-sm">
-                      <input
-                        type="checkbox"
-                        checked={field.required}
-                        onChange={(e) =>
-                          updateFormField(field.id, {
-                            required: e.target.checked,
-                          })
-                        }
-                      />
-                      Campo obrigatório
-                    </label>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        );
-
       default:
         return (
           <p className="text-muted-foreground">
-            Editor não disponível para este tipo de bloco.
+            Editor não disponível para este módulo.
           </p>
         );
     }
@@ -1059,42 +965,56 @@ function BlockEditForm({
   const isLink = type === "LINK";
   const isMedia = type === "MEDIA";
   const isSocial = type === "SOCIAL_ICONS";
+  const isHighlight = type === "HIGHLIGHT";
 
   const linkLabel = ((c.label as string) || "").trim();
   const linkUrl = ((c.url as string) || "").trim();
   const linkIsValid = !isLink || Boolean(linkLabel) || false;
-  const linkUrlIsValid = !isLink || /^https?:\/\/.+/.test(linkUrl);
+  const linkUrlIsValid = !isLink || isValidHttpUrlLike(linkUrl);
 
   const mediaUrl = ((c.embedUrl as string) || "").trim();
   const mediaUrlIsValid =
-    !isMedia || mediaUrl.length === 0 || /^https?:\/\/.+/.test(mediaUrl);
+    !isMedia || mediaUrl.length === 0 || isValidHttpUrlLike(mediaUrl);
 
   const socialLinks =
     (c.icons as Array<{ platform: string; url: string }>) || [];
   const socialUrlsAreValid =
-    !isSocial ||
-    socialLinks.every((icon) => /^https?:\/\/.+/.test((icon.url || "").trim()));
+    !isSocial || socialLinks.every((icon) => isValidHttpUrlLike(icon.url || ""));
+  const highlightButtonLabel = ((c.buttonLabel as string) || "").trim();
+  const highlightButtonUrl = ((c.buttonUrl as string) || "").trim();
+  const highlightButtonIsValid =
+    !isHighlight ||
+    ((!highlightButtonLabel && !highlightButtonUrl) ||
+      (Boolean(highlightButtonLabel) && isValidHttpUrlLike(highlightButtonUrl)));
 
   const canSave =
-    linkIsValid && linkUrlIsValid && mediaUrlIsValid && socialUrlsAreValid;
+    linkIsValid &&
+    linkUrlIsValid &&
+    mediaUrlIsValid &&
+    socialUrlsAreValid &&
+    highlightButtonIsValid;
 
   return (
     <div className="space-y-4">
       {renderForm()}
       {isLink && !canSave && (
         <p className="text-xs text-destructive">
-          Preencha título e URL válida (http/https) para salvar o link.
+          Preencha título e uma URL válida para salvar o link.
         </p>
       )}
       {isMedia && !mediaUrlIsValid && (
         <p className="text-xs text-destructive">
-          Use uma URL válida (http/https) para o embed de mídia.
+          Use uma URL válida para o embed de mídia.
         </p>
       )}
       {isSocial && !socialUrlsAreValid && (
         <p className="text-xs text-destructive">
-          Todos os links de redes sociais precisam começar com http:// ou
-          https://.
+          Todos os links de redes sociais precisam ser URLs válidas.
+        </p>
+      )}
+      {isHighlight && !highlightButtonIsValid && (
+        <p className="text-xs text-destructive">
+          Para usar o botão do destaque, preencha um label e uma URL válida.
         </p>
       )}
       <div className="flex justify-end gap-2 pt-2 border-t">
@@ -1114,4 +1034,51 @@ function BlockEditForm({
       </div>
     </div>
   );
+}
+
+function normalizeBlockContent(type: BlockType, content: unknown) {
+  const current = content as Record<string, unknown>;
+
+  switch (type) {
+    case "LINK":
+      return {
+        ...current,
+        url: ensureUrlProtocol((current.url as string) || ""),
+      };
+
+    case "HIGHLIGHT":
+      return {
+        ...current,
+        buttonUrl: ensureUrlProtocol((current.buttonUrl as string) || ""),
+      };
+
+    case "MEDIA":
+      return {
+        ...current,
+        embedUrl: ensureUrlProtocol((current.embedUrl as string) || ""),
+      };
+
+    case "SOCIAL_ICONS":
+      return {
+        ...current,
+        icons: ((current.icons as Array<{ platform: string; url: string }>) || []).map(
+          (icon) => ({
+            ...icon,
+            url: ensureUrlProtocol(icon.url || ""),
+          }),
+        ),
+      };
+
+    case "CATALOG":
+      return {
+        ...current,
+        items: ((current.items as Array<Record<string, unknown>>) || []).map((item) => ({
+          ...item,
+          url: ensureUrlProtocol((item.url as string) || ""),
+        })),
+      };
+
+    default:
+      return current;
+  }
 }

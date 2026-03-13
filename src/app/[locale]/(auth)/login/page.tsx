@@ -1,4 +1,4 @@
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { LoginForm } from "./login-form";
 import {
@@ -19,8 +19,8 @@ export default async function LoginPage({
 }: {
   searchParams: Promise<{ error?: string }>;
 }) {
-  const t = useTranslations("auth.login");
-  const tCommon = useTranslations("common");
+  const t = await getTranslations("auth.login");
+  const tCommon = await getTranslations("common");
   const googleEnabled = isGoogleOAuthEnabled();
   const { error } = await searchParams;
 

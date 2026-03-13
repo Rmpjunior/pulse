@@ -77,7 +77,7 @@ export default async function DashboardPage() {
   ];
 
   return (
-    <div className="space-y-8 max-w-6xl">
+    <div className="space-y-8 w-full">
       {/* Welcome header */}
       <div className="flex flex-col gap-1">
         <h1 className="text-2xl font-bold tracking-tight">

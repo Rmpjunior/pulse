@@ -1,6 +1,12 @@
 "use client";
 
 import { useState, useCallback, useEffect } from "react";
+import {
+  DragDropContext,
+  Draggable,
+  Droppable,
+  type DropResult,
+} from "@hello-pangea/dnd";
 import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
 import { cn } from "@/lib/utils";
@@ -30,7 +36,12 @@ import {
   Palette,
   LayoutGrid,
   ShoppingBag,
-  FileText,
+  Copy,
+  CheckCircle2,
+  AlertCircle,
+  Clock3,
+  Send,
+  X,
 } from "lucide-react";
 
 interface Block {
@@ -68,12 +79,17 @@ const blockTypes = [
   { type: "LINK", icon: LinkIcon, label: "Link" },
   { type: "HIGHLIGHT", icon: Sparkles, label: "Destaque" },
   { type: "MEDIA", icon: Play, label: "Mídia" },
-  { type: "CATALOG", icon: ShoppingBag, label: "Catálogo" },
-  { type: "FORM", icon: FileText, label: "Formulário" },
+  { type: "CATALOG", icon: ShoppingBag, label: "Coleção" },
   { type: "SOCIAL_ICONS", icon: Share2, label: "Redes Sociais" },
   { type: "TEXT", icon: Type, label: "Texto" },
   { type: "DIVIDER", icon: Minus, label: "Divisor" },
 ];
+
+const USERNAME_PATTERN = /^[a-z0-9_-]{3,20}$/;
+
+function normalizeUsernameValue(value: string) {
+  return value.toLowerCase().replace(/[^a-z0-9_-]/g, "");
+}
 
 const sectionLibrary = [
   {
@@ -111,8 +127,8 @@ const sectionLibrary = [
   },
   {
     key: "CATALOG",
-    label: "Catálogo",
-    description: "Produtos e serviços",
+    label: "Coleção",
+    description: "Produtos, portfólio ou agenda",
     icon: ShoppingBag,
     type: "CATALOG" as BlockType,
   },
@@ -279,7 +295,7 @@ export function EditorContent({
   const [onboardingFirstSection, setOnboardingFirstSection] =
     useState<BlockType>("LINK");
   const [publishSuccessUrl, setPublishSuccessUrl] = useState<string | null>(
-    null,
+    page?.published ? `/p/${page.username}` : null,
   );
   const [isCopyingPublishedLink, setIsCopyingPublishedLink] = useState(false);
   const [hasDraftRecoveryChoice, setHasDraftRecoveryChoice] = useState(false);
@@ -293,6 +309,10 @@ export function EditorContent({
   const [upgradePromptReason, setUpgradePromptReason] = useState<string | null>(
     null,
   );
+  const [slugStatus, setSlugStatus] = useState<
+    "idle" | "checking" | "available" | "taken" | "invalid"
+  >("idle");
+  const [shareModalPath, setShareModalPath] = useState<string | null>(null);
 
   const pushToast = useCallback((type: ToastMessage["type"], text: string) => {
     const id = crypto.randomUUID();
@@ -301,6 +321,40 @@ export function EditorContent({
       setToasts((current) => current.filter((toast) => toast.id !== id));
     }, 2800);
   }, []);
+
+  const hasUnsavedMetaChanges =
+    !!page &&
+    (username !== page.username ||
+      displayName !== (page.displayName || "") ||
+      bio !== (page.bio || "") ||
+      avatar !== (page.avatar || "") ||
+      JSON.stringify(themeSettings) !==
+        JSON.stringify((page.theme as ThemeSettings) || defaultThemeSettings));
+  const livePagePath = publishSuccessUrl || (published ? `/p/${page?.username}` : null);
+
+  const validateSlugAvailability = useCallback(
+    async (candidate: string) => {
+      if (!page) return false;
+
+      const normalized = normalizeUsernameValue(candidate.trim());
+
+      if (!USERNAME_PATTERN.test(normalized)) {
+        return false;
+      }
+
+      const slugRes = await fetch(
+        `/api/pages/slug?slug=${encodeURIComponent(normalized)}&pageId=${page.id}`,
+      );
+
+      if (!slugRes.ok) {
+        throw new Error("slug-check-failed");
+      }
+
+      const slugData = (await slugRes.json()) as { available: boolean };
+      return slugData.available;
+    },
+    [page],
+  );
 
   const handleCreatePage = async () => {
     if (!username.trim()) return;
@@ -371,12 +425,37 @@ export function EditorContent({
   const handleSave = async () => {
     if (!page) return;
 
+    const normalizedUsername = normalizeUsernameValue(username.trim());
+
+    if (!USERNAME_PATTERN.test(normalizedUsername)) {
+      setSlugStatus("invalid");
+      pushToast(
+        "error",
+        "Username precisa ter entre 3 e 20 caracteres com letras, numeros, _ ou -.",
+      );
+      return;
+    }
+
+    try {
+      const slugAvailable = await validateSlugAvailability(normalizedUsername);
+
+      if (!slugAvailable) {
+        setSlugStatus("taken");
+        pushToast("error", "Esse username nao esta disponivel.");
+        return;
+      }
+    } catch {
+      pushToast("error", "Nao foi possivel validar o username.");
+      return;
+    }
+
     setIsSaving(true);
     try {
       const res = await fetch(`/api/pages/${page.id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          username: normalizedUsername,
           displayName,
           bio,
           avatar: avatar || undefined,
@@ -385,10 +464,23 @@ export function EditorContent({
       });
 
       if (!res.ok) {
-        pushToast("error", "Falha ao salvar alterações.");
+        const data = (await res.json().catch(() => null)) as
+          | { error?: { message?: string } }
+          | null;
+        pushToast(
+          "error",
+          data?.error?.message || "Falha ao salvar alterações.",
+        );
         return;
       }
 
+      setSlugStatus("available");
+      setUsername(normalizedUsername);
+      if (published) {
+        const sharePath = `/p/${normalizedUsername}`;
+        setPublishSuccessUrl(sharePath);
+        setShareModalPath(sharePath);
+      }
       pushToast("success", "Alterações salvas.");
       router.refresh();
     } catch (error) {
@@ -400,9 +492,9 @@ export function EditorContent({
   };
 
   const copyPublishedLink = useCallback(async () => {
-    if (!publishSuccessUrl) return;
+    if (!livePagePath) return;
 
-    const absoluteUrl = `${window.location.origin}${publishSuccessUrl}`;
+    const absoluteUrl = `${window.location.origin}${livePagePath}`;
     setIsCopyingPublishedLink(true);
 
     try {
@@ -433,28 +525,31 @@ export function EditorContent({
     } finally {
       setIsCopyingPublishedLink(false);
     }
-  }, [publishSuccessUrl, pushToast]);
+  }, [livePagePath, pushToast]);
 
   const handlePublish = async () => {
     if (!page) return;
+
+    const normalizedUsername = normalizeUsernameValue(username.trim());
+
+    if (!USERNAME_PATTERN.test(normalizedUsername)) {
+      setSlugStatus("invalid");
+      pushToast(
+        "error",
+        "Defina um username válido antes de publicar.",
+      );
+      return;
+    }
 
     setIsPublishing(true);
     try {
       const nextPublished = !published;
 
       if (nextPublished) {
-        const slugRes = await fetch(
-          `/api/pages/slug?slug=${encodeURIComponent(username)}&pageId=${page.id}`,
-        );
+        const slugAvailable = await validateSlugAvailability(normalizedUsername);
 
-        if (!slugRes.ok) {
-          pushToast("error", "Falha ao validar slug para publicação.");
-          return;
-        }
-
-        const slugData = (await slugRes.json()) as { available: boolean };
-
-        if (!slugData.available) {
+        if (!slugAvailable) {
+          setSlugStatus("taken");
           pushToast(
             "error",
             "Slug indisponível. Ajuste o username para publicar.",
@@ -466,19 +561,35 @@ export function EditorContent({
       const res = await fetch(`/api/pages/${page.id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ published: nextPublished }),
+        body: JSON.stringify({
+          username: normalizedUsername,
+          displayName,
+          bio,
+          avatar: avatar || undefined,
+          theme: themeSettings,
+          published: nextPublished,
+        }),
       });
 
       if (!res.ok) {
-        pushToast("error", "Falha ao alterar publicação.");
+        const data = (await res.json().catch(() => null)) as
+          | { error?: { message?: string } }
+          | null;
+        pushToast(
+          "error",
+          data?.error?.message || "Falha ao alterar publicação.",
+        );
         return;
       }
 
       setPublished(nextPublished);
+      setUsername(normalizedUsername);
+      setSlugStatus("available");
 
       if (nextPublished) {
-        const liveUrl = `/p/${username}`;
+        const liveUrl = `/p/${normalizedUsername}`;
         setPublishSuccessUrl(liveUrl);
+        setShareModalPath(liveUrl);
         pushToast("success", "Página publicada com sucesso.");
       } else {
         setPublishSuccessUrl(null);
@@ -524,7 +635,7 @@ export function EditorContent({
 
       if (!res.ok) {
         setBlocks((current) => current.filter((b) => b.id !== tempId));
-        pushToast("error", "Falha ao adicionar bloco.");
+        pushToast("error", "Falha ao adicionar módulo.");
         return;
       }
 
@@ -532,11 +643,11 @@ export function EditorContent({
       setBlocks((current) =>
         current.map((b) => (b.id === tempId ? newBlock : b)),
       );
-      pushToast("success", "Bloco adicionado.");
+      pushToast("success", "Módulo adicionado.");
     } catch (error) {
       console.error("Error adding block:", error);
       setBlocks((current) => current.filter((b) => b.id !== tempId));
-      pushToast("error", "Erro ao adicionar bloco.");
+      pushToast("error", "Erro ao adicionar módulo.");
     }
   };
 
@@ -558,15 +669,15 @@ export function EditorContent({
 
         if (!res.ok) {
           setBlocks(previousBlocks);
-          pushToast("error", "Falha ao atualizar bloco.");
+          pushToast("error", "Falha ao atualizar módulo.");
           return;
         }
 
-        pushToast("success", "Bloco atualizado.");
+        pushToast("success", "Módulo atualizado.");
       } catch (error) {
         console.error("Error updating block:", error);
         setBlocks(previousBlocks);
-        pushToast("error", "Erro ao atualizar bloco.");
+        pushToast("error", "Erro ao atualizar módulo.");
       }
     },
     [page, blocks, pushToast],
@@ -586,15 +697,15 @@ export function EditorContent({
 
         if (!res.ok) {
           setBlocks(previousBlocks);
-          pushToast("error", "Falha ao remover bloco.");
+          pushToast("error", "Falha ao remover módulo.");
           return;
         }
 
-        pushToast("success", "Bloco removido.");
+        pushToast("success", "Módulo removido.");
       } catch (error) {
         console.error("Error deleting block:", error);
         setBlocks(previousBlocks);
-        pushToast("error", "Erro ao remover bloco.");
+        pushToast("error", "Erro ao remover módulo.");
       }
     },
     [page, blocks, pushToast],
@@ -637,11 +748,42 @@ export function EditorContent({
     [page, blocks, pushToast],
   );
 
+  const persistModuleOrder = useCallback(
+    async (updatedBlocks: Block[], previousBlocks: Block[]) => {
+      if (!page) return;
+
+      setBlocks(updatedBlocks);
+
+      try {
+        const res = await fetch(`/api/pages/${page.id}/blocks`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            blocks: updatedBlocks.map((block) => ({
+              id: block.id,
+              order: block.order,
+            })),
+          }),
+        });
+
+        if (!res.ok) {
+          setBlocks(previousBlocks);
+          pushToast("error", "Falha ao reordenar módulos.");
+        }
+      } catch (error) {
+        console.error("Error reordering modules:", error);
+        setBlocks(previousBlocks);
+        pushToast("error", "Erro ao reordenar módulos.");
+      }
+    },
+    [page, pushToast],
+  );
+
   const handleMoveBlock = useCallback(
     async (blockId: string, direction: "up" | "down") => {
       if (!page) return;
 
-      const index = blocks.findIndex((b) => b.id === blockId);
+      const index = blocks.findIndex((block) => block.id === blockId);
       if (
         (direction === "up" && index === 0) ||
         (direction === "down" && index === blocks.length - 1)
@@ -657,29 +799,31 @@ export function EditorContent({
         newBlocks[index],
       ];
 
-      const updatedBlocks = newBlocks.map((b, i) => ({ ...b, order: i }));
-      setBlocks(updatedBlocks);
-
-      try {
-        const res = await fetch(`/api/pages/${page.id}/blocks`, {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            blocks: updatedBlocks.map((b) => ({ id: b.id, order: b.order })),
-          }),
-        });
-
-        if (!res.ok) {
-          setBlocks(previousBlocks);
-          pushToast("error", "Falha ao reordenar blocos.");
-        }
-      } catch (error) {
-        console.error("Error reordering blocks:", error);
-        setBlocks(previousBlocks);
-        pushToast("error", "Erro ao reordenar blocos.");
-      }
+      await persistModuleOrder(
+        newBlocks.map((block, order) => ({ ...block, order })),
+        previousBlocks,
+      );
     },
-    [page, blocks, pushToast],
+    [page, blocks, persistModuleOrder],
+  );
+
+  const handleDragEnd = useCallback(
+    async (result: DropResult) => {
+      if (!result.destination || result.destination.index === result.source.index) {
+        return;
+      }
+
+      const previousBlocks = blocks;
+      const reordered = [...blocks];
+      const [movedBlock] = reordered.splice(result.source.index, 1);
+      reordered.splice(result.destination.index, 0, movedBlock);
+
+      await persistModuleOrder(
+        reordered.map((block, order) => ({ ...block, order })),
+        previousBlocks,
+      );
+    },
+    [blocks, persistModuleOrder],
   );
 
   const draftStorageKey = page ? `pulse:draft:${page.id}` : null;
@@ -747,6 +891,41 @@ export function EditorContent({
 
     return () => clearTimeout(timeout);
   }, [page, draftStorageKey, displayName, bio, avatar, blocks, themeSettings]);
+
+  useEffect(() => {
+    if (!page) return;
+
+    const normalized = normalizeUsernameValue(username.trim());
+
+    if (!normalized) {
+      setSlugStatus("idle");
+      return;
+    }
+
+    if (!USERNAME_PATTERN.test(normalized)) {
+      setSlugStatus("invalid");
+      return;
+    }
+
+    let active = true;
+    setSlugStatus("checking");
+
+    const timeout = setTimeout(async () => {
+      try {
+        const available = await validateSlugAvailability(normalized);
+        if (!active) return;
+        setSlugStatus(available ? "available" : "taken");
+      } catch {
+        if (!active) return;
+        setSlugStatus("idle");
+      }
+    }, 250);
+
+    return () => {
+      active = false;
+      clearTimeout(timeout);
+    };
+  }, [page, username, validateSlugAvailability]);
 
   // If no page exists, show creation form
   if (!page) {
@@ -848,7 +1027,7 @@ export function EditorContent({
                       {
                         id: "business",
                         label: "Pacote Negócios",
-                        desc: "Boas-vindas + Catálogo + CTA",
+                        desc: "Boas-vindas + Coleção + CTA",
                       },
                       {
                         id: "personal",
@@ -883,14 +1062,14 @@ export function EditorContent({
 
                 <div>
                   <label className="text-sm font-medium mb-2 block">
-                    Primeira seção
+                    Primeiro módulo
                   </label>
                   <div className="grid grid-cols-2 gap-2">
                     {[
                       { type: "LINK" as BlockType, label: "Links" },
                       { type: "TEXT" as BlockType, label: "Boas-vindas" },
-                      { type: "CATALOG" as BlockType, label: "Catálogo" },
-                      { type: "FORM" as BlockType, label: "Formulário" },
+                      { type: "CATALOG" as BlockType, label: "Coleção" },
+                      { type: "SOCIAL_ICONS" as BlockType, label: "Redes sociais" },
                     ].map((option) => (
                       <button
                         key={option.type}
@@ -909,9 +1088,9 @@ export function EditorContent({
                 </div>
 
                 <div>
-                  <label className="text-sm font-medium mb-2 block">
-                    Bio (opcional)
-                  </label>
+                    <label className="text-sm font-medium mb-2 block">
+                      Apresentação (opcional)
+                    </label>
                   <textarea
                     value={bio}
                     onChange={(e) => setBio(e.target.value)}
@@ -948,12 +1127,12 @@ export function EditorContent({
 
   return (
     <>
-      <div className="fixed right-3 top-3 z-50 space-y-2 max-w-[calc(100vw-1.5rem)] sm:right-4 sm:top-4">
+      <div className="fixed bottom-20 right-3 z-50 flex w-full max-w-[calc(100vw-1.5rem)] flex-col items-end gap-2 sm:bottom-6 sm:right-4 sm:max-w-sm lg:bottom-24">
         {toasts.map((toast) => (
           <div
             key={toast.id}
             className={cn(
-              "rounded-lg border px-3 py-2 text-sm shadow-sm",
+              "w-full rounded-lg border px-3 py-2 text-sm shadow-sm backdrop-blur",
               toast.type === "success"
                 ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
                 : "border-red-500/40 bg-red-500/10 text-red-600 dark:text-red-400",
@@ -1058,6 +1237,116 @@ export function EditorContent({
             </div>
           )}
 
+          <div className="mb-6 rounded-2xl border border-border/70 bg-card/70 px-4 py-4 shadow-sm">
+            <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
+              <div className="flex flex-wrap items-center gap-2">
+                <span
+                  className={cn(
+                    "inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium",
+                    published
+                      ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                      : "bg-amber-500/10 text-amber-700 dark:text-amber-400",
+                  )}
+                >
+                  {published ? "Publicada" : "Rascunho"}
+                </span>
+                <span
+                  className={cn(
+                    "inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs",
+                    hasUnsavedMetaChanges
+                      ? "bg-orange-500/10 text-orange-600 dark:text-orange-300"
+                      : "bg-muted text-muted-foreground",
+                  )}
+                >
+                  {hasUnsavedMetaChanges ? (
+                    <>
+                      <Clock3 className="h-3 w-3" />
+                      Alterações pendentes
+                    </>
+                  ) : (
+                    <>
+                      <CheckCircle2 className="h-3 w-3" />
+                      Tudo sincronizado
+                    </>
+                  )}
+                </span>
+                <span className="inline-flex items-center rounded-full bg-muted px-2.5 py-1 text-xs text-muted-foreground">
+                  {blocks.length} módulos
+                </span>
+                <span className="inline-flex items-center rounded-full bg-muted px-2.5 py-1 text-xs text-muted-foreground">
+                  Plano {isPlusUser ? "Plus" : "Free"}
+                </span>
+              </div>
+
+              <div className="flex flex-wrap gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={copyPublishedLink}
+                  disabled={!livePagePath || isCopyingPublishedLink}
+                >
+                  <Copy className="h-4 w-4" />
+                  {isCopyingPublishedLink ? "Copiando..." : "Copiar link"}
+                </Button>
+              </div>
+            </div>
+
+            <div className="mt-4 space-y-2">
+              <label className="text-[11px] font-semibold uppercase tracking-[0.24em] text-muted-foreground">
+                URL pública
+              </label>
+              <div className="rounded-xl border border-border bg-background/90 px-4 py-3">
+                <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+                  <span className="text-xs text-muted-foreground sm:whitespace-nowrap">
+                    {process.env.NEXT_PUBLIC_APP_URL}/p/
+                  </span>
+                  <Input
+                    value={username}
+                    onChange={(e) =>
+                      setUsername(normalizeUsernameValue(e.target.value))
+                    }
+                    placeholder="seu-username"
+                    className="border-0 bg-transparent px-0 text-base font-medium focus-visible:ring-0"
+                  />
+                </div>
+              </div>
+              <div className="flex items-center gap-2 text-xs">
+                {slugStatus === "checking" ? (
+                  <>
+                    <Loader2 className="h-3.5 w-3.5 animate-spin text-muted-foreground" />
+                    <span className="text-muted-foreground">
+                      Validando disponibilidade...
+                    </span>
+                  </>
+                ) : null}
+                {slugStatus === "available" ? (
+                  <>
+                    <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
+                    <span className="text-emerald-600 dark:text-emerald-400">
+                      URL disponível
+                    </span>
+                  </>
+                ) : null}
+                {slugStatus === "taken" ? (
+                  <>
+                    <AlertCircle className="h-3.5 w-3.5 text-red-500" />
+                    <span className="text-red-600 dark:text-red-400">
+                      URL indisponível
+                    </span>
+                  </>
+                ) : null}
+                {slugStatus === "invalid" ? (
+                  <>
+                    <AlertCircle className="h-3.5 w-3.5 text-amber-500" />
+                    <span className="text-amber-700 dark:text-amber-400">
+                      Use 3-20 caracteres com letras, numeros, _ ou -
+                    </span>
+                  </>
+                ) : null}
+              </div>
+            </div>
+          </div>
+
           {/* Tabs */}
           <div className="flex gap-1 p-1 bg-muted rounded-lg mb-6 w-fit">
             <button
@@ -1125,7 +1414,7 @@ export function EditorContent({
 
                   <div>
                     <label className="text-sm font-medium mb-2 block">
-                      {t("profile.bio")}
+                      Apresentação
                     </label>
                     <textarea
                       value={bio}
@@ -1157,13 +1446,13 @@ export function EditorContent({
                 </CardHeader>
                 <CardContent>
                   {showBlockPicker && (
-                    <div className="mb-4 space-y-3 p-4 bg-muted/50 rounded-lg">
+                    <div className="mb-4 space-y-4 rounded-2xl border border-border bg-muted/40 p-4">
                       <div>
                         <p className="text-sm font-medium">
-                          Biblioteca de seções
+                          Biblioteca de módulos
                         </p>
                         <p className="text-xs text-muted-foreground">
-                          Atalhos inspirados no fluxo Keepo
+                          Estruturas rápidas para montar o minisite sem começar do zero.
                         </p>
                       </div>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -1193,7 +1482,7 @@ export function EditorContent({
 
                       <div className="pt-2 border-t">
                         <p className="text-xs text-muted-foreground mb-2">
-                          Blocos avançados
+                          Módulos adicionais
                         </p>
                         <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                           {blockTypes.map(({ type, icon: Icon, label }) => (
@@ -1217,19 +1506,47 @@ export function EditorContent({
                     </p>
                   ) : (
                     <div className="space-y-3">
-                      {blocks.map((block, index) => (
-                        <BlockEditor
-                          key={block.id}
-                          block={block}
-                          onUpdate={handleUpdateBlock}
-                          onDelete={handleDeleteBlock}
-                          onToggleVisibility={handleToggleVisibility}
-                          onMoveUp={(id) => handleMoveBlock(id, "up")}
-                          onMoveDown={(id) => handleMoveBlock(id, "down")}
-                          isFirst={index === 0}
-                          isLast={index === blocks.length - 1}
-                        />
-                      ))}
+                      <DragDropContext onDragEnd={handleDragEnd}>
+                        <Droppable droppableId="modules">
+                          {(provided) => (
+                            <div
+                              ref={provided.innerRef}
+                              {...provided.droppableProps}
+                              className="space-y-3"
+                            >
+                              {blocks.map((block, index) => (
+                                <Draggable
+                                  key={block.id}
+                                  draggableId={block.id}
+                                  index={index}
+                                >
+                                  {(dragProvided, snapshot) => (
+                                    <div
+                                      ref={dragProvided.innerRef}
+                                      {...dragProvided.draggableProps}
+                                      style={dragProvided.draggableProps.style}
+                                    >
+                                      <BlockEditor
+                                        block={block}
+                                        onUpdate={handleUpdateBlock}
+                                        onDelete={handleDeleteBlock}
+                                        onToggleVisibility={handleToggleVisibility}
+                                        onMoveUp={(id) => handleMoveBlock(id, "up")}
+                                        onMoveDown={(id) => handleMoveBlock(id, "down")}
+                                        isFirst={index === 0}
+                                        isLast={index === blocks.length - 1}
+                                        dragHandleProps={dragProvided.dragHandleProps}
+                                        isDragging={snapshot.isDragging}
+                                      />
+                                    </div>
+                                  )}
+                                </Draggable>
+                              ))}
+                              {provided.placeholder}
+                            </div>
+                          )}
+                        </Droppable>
+                      </DragDropContext>
                     </div>
                   )}
                 </CardContent>
@@ -1272,38 +1589,13 @@ export function EditorContent({
             </Button>
           </div>
 
-          {publishSuccessUrl && (
-            <div className="rounded-lg border border-emerald-500/40 bg-emerald-500/10 px-4 py-3 mt-2">
-              <p className="text-sm font-medium text-emerald-600 dark:text-emerald-400">
-                Publicado com sucesso 🎉
-              </p>
-              <div className="flex flex-wrap gap-2 mt-2">
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={copyPublishedLink}
-                  disabled={isCopyingPublishedLink}
-                >
-                  {isCopyingPublishedLink ? "Copiando..." : "Copiar link"}
-                </Button>
-                <a
-                  href={publishSuccessUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex h-9 items-center justify-center rounded-md bg-emerald-600 px-3 text-sm font-medium text-white"
-                >
-                  Ver website
-                </a>
-              </div>
-            </div>
-          )}
         </div>
 
         {/* Preview Panel */}
         <div
           className={cn(
             "w-full flex flex-col transition-all duration-200",
-            previewMode === "mobile" ? "lg:w-80" : "lg:w-[440px]",
+            previewMode === "mobile" ? "lg:w-[376px]" : "lg:w-[440px]",
             mobileView === "editor" ? "hidden lg:flex" : "",
           )}
         >
@@ -1326,7 +1618,12 @@ export function EditorContent({
           </div>
 
           <div className="flex-1 bg-muted rounded-2xl p-2 overflow-hidden">
-            <div className={cn("h-full rounded-xl overflow-y-auto mx-auto transition-all duration-200", previewMode === "mobile" ? "max-w-[260px]" : "w-full")}>
+            <div
+              className={cn(
+                "h-full rounded-xl overflow-y-auto mx-auto transition-all duration-200",
+                previewMode === "mobile" ? "max-w-[336px]" : "w-full",
+              )}
+            >
               <ThemedPreview
                 settings={themeSettings}
                 displayName={displayName}
@@ -1350,6 +1647,69 @@ export function EditorContent({
           </div>
         </div>
       </div>
+
+      {shareModalPath ? (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/55 px-4 backdrop-blur-sm"
+          onClick={() => setShareModalPath(null)}
+        >
+          <div
+            className="w-full max-w-md overflow-hidden rounded-[28px] border border-border/60 bg-card shadow-2xl"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="relative overflow-hidden border-b border-border/60 bg-gradient-to-br from-orange-500/12 via-background to-emerald-500/12 px-6 py-6">
+              <button
+                type="button"
+                className="absolute right-4 top-4 rounded-full p-2 text-muted-foreground hover:bg-background/70 hover:text-foreground"
+                onClick={() => setShareModalPath(null)}
+                aria-label="Fechar modal de compartilhamento"
+              >
+                <X className="h-4 w-4" />
+              </button>
+              <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/12 text-emerald-500">
+                <Send className="h-5 w-5" />
+              </div>
+              <h3 className="mt-4 text-xl font-semibold">
+                Página pronta para compartilhar
+              </h3>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Abra a página ao vivo ou copie o link para enviar agora.
+              </p>
+            </div>
+            <div className="space-y-4 px-6 py-6">
+              <div className="rounded-2xl border border-border bg-muted/35 px-4 py-3">
+                <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
+                  Link
+                </p>
+                <p className="mt-2 break-all text-sm">
+                  {process.env.NEXT_PUBLIC_APP_URL}
+                  {shareModalPath}
+                </p>
+              </div>
+              <div className="flex flex-col gap-2 sm:flex-row">
+                <Button
+                  variant="gradient"
+                  className="flex-1"
+                  onClick={copyPublishedLink}
+                  disabled={isCopyingPublishedLink}
+                >
+                  <Copy className="h-4 w-4" />
+                  {isCopyingPublishedLink ? "Copiando..." : "Copiar link"}
+                </Button>
+                <a
+                  href={shareModalPath}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex h-10 flex-1 items-center justify-center gap-2 rounded-md border border-input bg-background px-4 text-sm font-medium hover:bg-accent hover:text-accent-foreground"
+                >
+                  <Eye className="h-4 w-4" />
+                  Ver página
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </>
   );
 }

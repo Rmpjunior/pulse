@@ -68,6 +68,7 @@ export const themePresets: ThemePreset[] = [
       text: '#4C1D95',
       accent: '#8B5CF6',
     },
+    isPremium: true,
   },
   {
     id: 'coral',
@@ -79,6 +80,7 @@ export const themePresets: ThemePreset[] = [
       text: '#831843',
       accent: '#EC4899',
     },
+    isPremium: true,
   },
   {
     id: 'midnight',
@@ -101,6 +103,7 @@ export const themePresets: ThemePreset[] = [
       text: '#7F1D1D',
       accent: '#DC2626',
     },
+    isPremium: true,
   },
   {
     id: 'mint',
@@ -112,6 +115,7 @@ export const themePresets: ThemePreset[] = [
       text: '#064E3B',
       accent: '#34D399',
     },
+    isPremium: true,
   },
   {
     id: 'slate',
@@ -123,6 +127,7 @@ export const themePresets: ThemePreset[] = [
       text: '#1E293B',
       accent: '#475569',
     },
+    isPremium: true,
   },
   {
     id: 'neon',

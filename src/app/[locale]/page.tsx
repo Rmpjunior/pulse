@@ -9,7 +9,6 @@ import {
   Play,
   ShoppingBag,
   BarChart3,
-  FileText,
   Palette,
   ArrowRight,
   Check,
@@ -26,7 +25,6 @@ export default function HomePage() {
     { icon: Play, key: "media" },
     { icon: ShoppingBag, key: "catalog" },
     { icon: BarChart3, key: "analytics" },
-    { icon: FileText, key: "form" },
     { icon: Palette, key: "themes" },
   ];
 
